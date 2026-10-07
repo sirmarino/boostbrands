@@ -5,28 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cristian Marino · CV</title>
   <meta name="description" content="Curriculum vitae interactivo de Cristian Marino: 17 años liderando marketing, crecimiento y transformación de negocios. Fundador y CEO de BoostBrands, MBA MIT Sloan.">
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Cristian Marino · CV">
+  <meta property="og:description" content="17 años liderando marketing, crecimiento y transformación de negocios. Fundador y CEO de BoostBrands, MBA MIT Sloan.">
+  <meta property="og:image" content="og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
   <style>
-    /* Layout: editorial CV. Hero with portrait, metric ticker, career Gantt (2008–2026) driving a detail panel,
-       filterable achievements, "who I've worked with" wall, photo gallery with lightbox, education, contact. */
+    /* Layout: editorial CV. Hero with portrait, navy metric band, career Gantt (2008–today) driving a detail panel,
+       filterable achievements, "who I've worked with" wall, gallery of real photos only, education, navy contact block.
+       Palette: orange + navy, same tokens as index.html; blue/green are data colors for the timeline lanes. */
     :root {
       --bg: #f6f5f2;
       --surface: #ffffff;
-      --text: #1b1a1f;
-      --muted: #66636e;
-      --border: #e4e1db;
+      --text: #16181d;
+      --muted: #5b6475;
+      --border: #e3e1dc;
+      --heading: #14213d;
+      --navy: #14213d;
+      --navy-line: #33436a;
+      --on-navy: #f6f5f2;
+      --on-navy-muted: #c9cfdb;
       --accent: #e8551c;
-      --accent-ink: #ffffff;
+      --accent-text: #c2410c;
+      --accent-on-navy: #ff7a45;
+      --accent-ink: #16181d;
       --accent-soft: #fdeee6;
-      --bar-edu: #3b6fd8;
+      --bar-edu: #2f5fc4;
       --bar-edu-soft: #e7eefc;
-      --bar-teach: #1f9d74;
+      --bar-teach: #157a59;
       --bar-teach-soft: #e3f5ee;
-      --invert-bg: #1b1a1f;
-      --invert-text: #f6f5f2;
-      --shade: rgba(20, 18, 24, .82);
+      --on-bar: #ffffff;
+      --shade: rgba(12, 17, 29, .86);
       --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
       --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
       --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
@@ -34,18 +47,23 @@
     }
     @media (prefers-color-scheme: dark) {
       :root:not([data-theme="light"]) {
-        --bg: #121115; --surface: #1c1b21; --text: #f1eff4; --muted: #a29fab;
-        --border: #2d2b33; --accent: #ff7a45; --accent-ink: #1b0d06; --accent-soft: #2e1a10;
-        --bar-edu: #7aa2f7; --bar-edu-soft: #18223a; --bar-teach: #4cc79c; --bar-teach-soft: #12291f;
-        --invert-bg: #f1eff4; --invert-text: #121115; --shade: rgba(0, 0, 0, .86); color-scheme: dark;
+        --bg: #0c111d; --surface: #141b2b; --text: #eef1f6; --muted: #a3abbd; --border: #24304a; --heading: #eef1f6;
+        --navy: #18233d; --navy-line: #34446a; --on-navy: #eef1f6; --on-navy-muted: #b7c0d3;
+        --accent: #ff7a45; --accent-text: #ff8a5c; --accent-on-navy: #ff8a5c; --accent-ink: #16181d; --accent-soft: #2a1a12;
+        --bar-edu: #7aa2f7; --bar-edu-soft: #18223a; --bar-teach: #4cc79c; --bar-teach-soft: #12291f; --on-bar: #0c111d;
+        --shade: rgba(0, 0, 0, .88); color-scheme: dark;
       }
     }
     :root[data-theme="dark"] {
-      --bg: #121115; --surface: #1c1b21; --text: #f1eff4; --muted: #a29fab;
-      --border: #2d2b33; --accent: #ff7a45; --accent-ink: #1b0d06; --accent-soft: #2e1a10;
-      --bar-edu: #7aa2f7; --bar-edu-soft: #18223a; --bar-teach: #4cc79c; --bar-teach-soft: #12291f;
-      --invert-bg: #f1eff4; --invert-text: #121115; --shade: rgba(0, 0, 0, .86); color-scheme: dark;
+      --bg: #0c111d; --surface: #141b2b; --text: #eef1f6; --muted: #a3abbd; --border: #24304a; --heading: #eef1f6;
+      --navy: #18233d; --navy-line: #34446a; --on-navy: #eef1f6; --on-navy-muted: #b7c0d3;
+      --accent: #ff7a45; --accent-text: #ff8a5c; --accent-on-navy: #ff8a5c; --accent-ink: #16181d; --accent-soft: #2a1a12;
+      --bar-edu: #7aa2f7; --bar-edu-soft: #18223a; --bar-teach: #4cc79c; --bar-teach-soft: #12291f; --on-bar: #0c111d;
+      --shade: rgba(0, 0, 0, .88); color-scheme: dark;
     }
+
+    html[lang="es"] [data-l="en"], html[lang="en"] [data-l="es"] { display: none !important; }
+    [hidden] { display: none !important; }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; scroll-padding-top: 80px; }
@@ -57,160 +75,142 @@
     :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
     .wrap { max-width: 1120px; margin: 0 auto; padding-inline: 20px; }
     h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; }
-    .mono { font-family: var(--font-mono); }
 
     .progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); z-index: 30; }
 
     /* Nav */
-    nav {
-      position: sticky; top: 0; z-index: 20;
-      background: color-mix(in srgb, var(--bg) 82%, transparent);
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-    nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
-    .logo { font: 800 1.1rem var(--font-display); text-decoration: none; letter-spacing: -0.02em; white-space: nowrap; }
+    nav { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 16px; }
+    .logo { font: 800 1.15rem var(--font-display); text-decoration: none; letter-spacing: -0.02em; white-space: nowrap; }
     .logo span { color: var(--accent); }
     .nav-links { display: flex; gap: 2px; list-style: none; }
-    .nav-links a { text-decoration: none; color: var(--muted); font-size: .92rem; font-weight: 500; padding: 6px 11px; border-radius: 999px; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: .93rem; font-weight: 500; padding: 8px 11px; border-radius: 999px; }
     .nav-links a:hover { color: var(--text); }
-    .nav-links a.active { color: var(--accent); background: var(--accent-soft); }
+    .nav-links a.active { color: var(--accent-text); background: var(--accent-soft); }
     .nav-tools { display: flex; gap: 8px; }
-    .icon-btn { width: 40px; height: 40px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; display: grid; place-items: center; }
+    .icon-btn { min-width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; display: grid; place-items: center; font: 600 .85rem var(--font-mono); padding-inline: 10px; }
     .menu-btn { display: none; }
 
+    /* Buttons */
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 12px 20px; border-radius: 12px; font-weight: 600; text-decoration: none; border: 1px solid transparent; cursor: pointer; transition: transform .15s, box-shadow .15s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--accent); color: var(--accent-ink); }
+    .btn-primary:hover { box-shadow: 0 10px 24px -10px var(--accent); }
+    .btn-ghost { background: var(--surface); border-color: var(--border); color: var(--text); }
+    .on-navy .btn-ghost { background: transparent; border-color: var(--navy-line); color: var(--on-navy); }
+
     /* Hero */
-    .hero { padding-block: 72px 56px; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .9fr); gap: 56px; align-items: center; }
-    .eyebrow { font: 500 .78rem var(--font-mono); text-transform: uppercase; letter-spacing: .1em; color: var(--accent); display: block; margin-bottom: 18px; }
-    h1 { font-size: clamp(2.5rem, 6.4vw, 4.6rem); line-height: 1; letter-spacing: -0.04em; font-weight: 800; }
+    .hero { padding-block: 72px 72px; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: 64px; align-items: center; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-text); font: 500 .8rem var(--font-mono); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 20px; }
+    .eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    h1 { font-size: clamp(2.5rem, 6.2vw, 4.5rem); line-height: 1; letter-spacing: -0.04em; font-weight: 800; color: var(--heading); }
     h1 .light { font-weight: 500; color: var(--muted); }
     .role-line { margin-top: 22px; font: 600 clamp(1.1rem, 2.4vw, 1.4rem) var(--font-display); min-height: 1.5em; }
     .role-line .label { color: var(--muted); font-weight: 500; }
-    .role-line .role { color: var(--accent); }
+    .role-line .role { color: var(--accent-text); }
     .role-line .role::after { content: ""; display: inline-block; width: 2px; height: 1em; margin-left: 3px; background: var(--accent); vertical-align: -0.12em; animation: blink 1s steps(1) infinite; }
     @keyframes blink { 50% { opacity: 0; } }
     .summary { color: var(--muted); font-size: 1.08rem; max-width: 58ch; margin: 18px 0 30px; }
-    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
-    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 20px; border-radius: 12px; font-weight: 600; text-decoration: none; border: 1px solid transparent; cursor: pointer; transition: transform .15s, box-shadow .15s; }
-    .btn:hover { transform: translateY(-2px); }
-    .btn-primary { background: var(--accent); color: var(--accent-ink); }
-    .btn-primary:hover { box-shadow: 0 8px 24px -8px var(--accent); }
-    .btn-ghost { background: var(--surface); border-color: var(--border); }
 
     .portrait { position: relative; justify-self: center; width: min(100%, 380px); }
-    .portrait .frame { aspect-ratio: 4 / 5; border-radius: 28px; overflow: hidden; background: var(--surface); border: 1px solid var(--border); transform: rotate(2deg); transition: transform .4s ease; }
-    .portrait:hover .frame { transform: rotate(0deg) scale(1.01); }
+    .portrait::before { content: ""; position: absolute; inset: 0; border: 2px solid var(--accent); border-radius: 28px; transform: translate(16px, 16px); }
+    .portrait .frame { position: relative; aspect-ratio: 4 / 5; border-radius: 28px; overflow: hidden; background: var(--surface); box-shadow: 0 30px 60px -30px rgba(20, 33, 61, .45); transition: transform .25s ease; }
     .portrait .frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; }
-    .badge {
-      position: absolute; background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
-      padding: 10px 14px; box-shadow: 0 12px 30px -16px rgba(0,0,0,.35); font-size: .85rem; line-height: 1.3;
-      animation: float 6s ease-in-out infinite;
-    }
-    .badge strong { display: block; font: 800 1.25rem var(--font-display); color: var(--accent); }
-    .badge.b1 { left: -28px; top: 14%; }
-    .badge.b2 { right: -22px; bottom: 12%; animation-delay: -3s; }
+    .badge { position: absolute; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 10px 14px; box-shadow: 0 14px 30px -18px rgba(0,0,0,.4); font-size: .82rem; line-height: 1.3; color: var(--muted); animation: float 6s ease-in-out infinite; }
+    .badge strong { display: block; font: 800 1.3rem var(--font-display); color: var(--accent-text); }
+    .badge.b1 { left: -28px; top: 12%; }
+    .badge.b2 { right: -24px; bottom: 10%; animation-delay: -3s; }
     @keyframes float { 50% { transform: translateY(-8px); } }
 
-    /* Photo placeholder (shown until a real photo exists) */
-    .ph {
-      width: 100%; height: 100%; display: grid; place-items: center; text-align: center; gap: 6px; padding: 16px;
-      background: repeating-linear-gradient(135deg, var(--accent-soft) 0 12px, var(--surface) 12px 24px);
-      color: var(--muted); font-size: .85rem;
-    }
-    .ph .ini { font: 800 3rem var(--font-display); color: var(--accent); letter-spacing: -0.04em; }
-    .ph code { font: 500 .75rem var(--font-mono); background: var(--surface); padding: 2px 6px; border-radius: 6px; border: 1px solid var(--border); }
-
-    /* Ticker */
-    .ticker { border-block: 1px solid var(--border); background: var(--surface); overflow: hidden; }
-    .ticker-track { display: flex; width: max-content; animation: scroll 40s linear infinite; }
-    .ticker:hover .ticker-track { animation-play-state: paused; }
-    .ticker-item { display: flex; align-items: baseline; gap: 10px; padding: 18px 32px; white-space: nowrap; border-right: 1px solid var(--border); }
-    .ticker-item strong { font: 800 1.5rem var(--font-display); color: var(--accent); font-variant-numeric: tabular-nums; }
-    .ticker-item span { color: var(--muted); font-size: .92rem; }
+    /* Metric band */
+    .ticker { background: var(--navy); color: var(--on-navy); display: flex; align-items: center; }
+    .ticker-viewport { flex: 1; overflow: hidden; min-width: 0; }
+    .ticker-track { display: flex; width: max-content; animation: scroll 44s linear infinite; }
+    .ticker.paused .ticker-track { animation-play-state: paused; }
+    .ticker-item { display: flex; align-items: baseline; gap: 10px; padding: 20px 32px; white-space: nowrap; border-right: 1px solid var(--navy-line); }
+    .ticker-item strong { font: 800 1.5rem var(--font-display); color: var(--accent-on-navy); font-variant-numeric: tabular-nums; }
+    .ticker-item span { color: var(--on-navy-muted); font-size: .92rem; }
+    .pause-btn { width: 44px; height: 44px; margin: 0 20px; border-radius: 999px; border: 1px solid var(--navy-line); background: transparent; color: var(--on-navy); cursor: pointer; flex: none; }
     @keyframes scroll { to { transform: translateX(-50%); } }
+    @media (prefers-reduced-motion: reduce) {
+      .ticker-track { width: auto; flex-wrap: wrap; justify-content: center; }
+      .ticker-item[aria-hidden="true"], .pause-btn { display: none !important; }
+    }
 
     /* Sections */
     section { padding-block: 88px; }
     section + section { border-top: 1px solid var(--border); }
-    .kicker { font: 500 .78rem var(--font-mono); text-transform: uppercase; letter-spacing: .1em; color: var(--accent); display: block; margin-bottom: 10px; }
-    h2 { font-size: clamp(1.9rem, 4vw, 2.7rem); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 14px; }
-    .intro { color: var(--muted); max-width: 62ch; margin-bottom: 36px; }
+    .kicker { font: 500 .8rem var(--font-mono); text-transform: uppercase; letter-spacing: .1em; color: var(--accent-text); display: block; margin-bottom: 10px; }
+    h2 { font-size: clamp(1.9rem, 4vw, 2.7rem); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 14px; font-weight: 800; }
+    .intro { color: var(--muted); max-width: 62ch; margin-bottom: 36px; font-size: 1.05rem; }
 
     /* Gantt */
     .gantt-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 18px; background: var(--surface); }
     .gantt { min-width: 900px; padding: 20px 20px 12px; }
-    .g-axis, .g-row { display: grid; grid-template-columns: 120px 1fr; align-items: center; }
+    .g-axis, .g-row { display: grid; grid-template-columns: 130px 1fr; align-items: center; }
     .g-axis .scale { position: relative; height: 22px; }
-    .g-axis .tick { position: absolute; top: 0; transform: translateX(-50%); font: 500 .72rem var(--font-mono); color: var(--muted); }
+    .g-axis .tick { position: absolute; top: 0; transform: translateX(-50%); font: 500 .75rem var(--font-mono); color: var(--muted); }
     .g-row { min-height: 46px; border-top: 1px dashed var(--border); }
-    .g-row .lane-name { font: 500 .72rem var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+    .g-row .lane-name { font: 500 .75rem var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
     .g-row .lane { position: relative; height: 46px; }
     .g-grid { position: absolute; inset: 0; pointer-events: none; }
     .g-grid i { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--border); opacity: .6; }
     .bar {
-      position: absolute; min-width: 34px; top: 8px; height: 30px; border-radius: 8px; border: 1px solid transparent;
-      background: var(--accent-soft); color: var(--accent); cursor: pointer; text-align: left;
-      font: 600 .78rem var(--font-body); padding: 0 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      position: absolute; min-width: 46px; top: 7px; height: 32px; border-radius: 8px; border: 1px solid transparent;
+      background: var(--accent-soft); color: var(--accent-text); cursor: pointer; text-align: left;
+      font: 600 .8rem var(--font-body); padding: 0 6px; white-space: nowrap; overflow: hidden; text-overflow: clip;
       transition: background-color .2s, color .2s, transform .15s;
     }
     .bar:hover { transform: translateY(-2px); }
     .bar.edu { background: var(--bar-edu-soft); color: var(--bar-edu); }
     .bar.teach { background: var(--bar-teach-soft); color: var(--bar-teach); }
     .bar[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
-    .bar.edu[aria-pressed="true"] { background: var(--bar-edu); color: var(--surface); }
-    .bar.teach[aria-pressed="true"] { background: var(--bar-teach); color: var(--surface); }
+    .bar.edu[aria-pressed="true"] { background: var(--bar-edu); color: var(--on-bar); }
+    .bar.teach[aria-pressed="true"] { background: var(--bar-teach); color: var(--on-bar); }
     .now-line { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--accent); }
-    .now-line::before { content: "Hoy"; position: absolute; top: -2px; left: 6px; font: 500 .68rem var(--font-mono); color: var(--accent); }
-    .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 14px; font-size: .85rem; color: var(--muted); }
+    .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 14px; font-size: .88rem; color: var(--muted); }
     .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 4px; margin-right: 6px; vertical-align: -1px; }
-    .hint { font-size: .85rem; color: var(--muted); margin-top: 6px; }
 
-    .detail {
-      margin-top: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
-      display: grid; grid-template-columns: minmax(0, 1fr) 240px; overflow: hidden;
-    }
+    .detail { margin-top: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; display: grid; grid-template-columns: minmax(0, 1fr) 250px; overflow: hidden; }
     .detail-main { padding: 28px 30px; min-width: 0; }
     .detail-top { display: flex; justify-content: space-between; gap: 12px; align-items: start; flex-wrap: wrap; }
-    .detail .period { font: 500 .82rem var(--font-mono); color: var(--accent); }
+    .detail .period { font: 500 .85rem var(--font-mono); color: var(--accent-text); }
     .detail h3 { font-size: 1.5rem; line-height: 1.2; margin-top: 6px; letter-spacing: -0.02em; }
     .detail .org { color: var(--muted); margin-top: 2px; }
     .detail .desc { margin-top: 14px; max-width: 70ch; }
     .detail ul { margin-top: 14px; padding-left: 18px; display: grid; gap: 8px; max-width: 72ch; }
     .detail li::marker { color: var(--accent); }
     .detail-nav { display: flex; gap: 6px; }
-    .detail-nav button { width: 36px; height: 36px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); cursor: pointer; }
-    .detail-side { background: var(--accent); color: var(--accent-ink); padding: 28px 24px; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
-    .detail-side.edu { background: var(--bar-edu); color: var(--surface); }
-    .detail-side.teach { background: var(--bar-teach); color: var(--surface); }
-    .detail-side .big { font: 800 2.6rem/1 var(--font-display); letter-spacing: -0.03em; }
-    .detail-side .cap { font-size: .9rem; opacity: .9; }
+    .detail-nav button { width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); cursor: pointer; }
+    .detail-side { background: var(--navy); color: var(--on-navy-muted); padding: 28px 24px; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+    .detail-side .big { font: 800 2.7rem/1 var(--font-display); letter-spacing: -0.03em; color: var(--accent-on-navy); }
+    .detail-side.edu .big { color: #9bb8f9; }
+    .detail-side.teach .big { color: #6fd8b0; }
+    .detail-side .cap { font-size: .92rem; }
     .detail-main.swap { animation: swap .35s ease; }
     @keyframes swap { from { opacity: .3; transform: translateY(6px); } }
 
     /* Achievements */
     .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
-    .filter { padding: 8px 16px; border-radius: 999px; cursor: pointer; border: 1px solid var(--border); background: var(--surface); font-size: .9rem; font-weight: 500; }
-    .filter[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
-    .filter .n { font: 500 .75rem var(--font-mono); opacity: .6; margin-left: 4px; }
+    .filter { min-height: 44px; padding: 8px 16px; border-radius: 999px; cursor: pointer; border: 1px solid var(--border); background: var(--surface); font-size: .92rem; font-weight: 500; }
+    .filter[aria-pressed="true"] { background: var(--navy); color: var(--on-navy); border-color: var(--navy); }
+    .filter .n { font: 500 .75rem var(--font-mono); opacity: .7; margin-left: 4px; }
     .wins { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
     .win { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px; display: grid; gap: 6px; align-content: start; transition: border-color .2s, transform .2s; }
     .win:hover { border-color: var(--accent); transform: translateY(-3px); }
-    .win[hidden] { display: none; }
-    .win .big { font: 800 1.9rem/1.1 var(--font-display); color: var(--accent); letter-spacing: -0.02em; }
+    .win .big { font: 800 1.9rem/1.1 var(--font-display); color: var(--accent-text); letter-spacing: -0.02em; }
     .win p { font-size: .95rem; }
-    .win .where { font: 500 .72rem var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-top: 4px; }
+    .win .where { font: 500 .75rem var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-top: 4px; }
     @media (prefers-reduced-motion: no-preference) { .win.pop { animation: pop .3s ease both; } @keyframes pop { from { transform: scale(.97); opacity: .4; } } }
 
     /* Worked with */
     .groups { display: grid; gap: 28px; }
-    .group h3 { font: 500 .78rem var(--font-mono); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 12px; }
+    .group h3 { font: 500 .8rem var(--font-mono); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 12px; }
     .wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
-    .mark {
-      position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
-      padding: 18px 16px; min-height: 96px; display: grid; align-content: center; gap: 4px; overflow: hidden;
-    }
-    .mark .name { font: 800 1.15rem/1.15 var(--font-display); letter-spacing: -0.02em; }
-    .mark .rel { font-size: .8rem; color: var(--muted); }
+    .mark { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 16px; min-height: 96px; display: grid; align-content: center; gap: 4px; overflow: hidden; }
+    .mark .name { font: 800 1.15rem/1.15 var(--font-display); letter-spacing: -0.02em; color: var(--heading); }
+    .mark .rel { font-size: .82rem; color: var(--muted); }
     .mark::after { content: ""; position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--accent); transition: width .3s ease; }
     .mark:hover::after { width: 100%; }
     .countries { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -218,66 +218,64 @@
     .country b { font-weight: 600; }
     .country span { color: var(--muted); }
 
-    /* Gallery */
+    /* Gallery: only photos that exist are shown */
     .gallery { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 180px; grid-auto-flow: dense; gap: 12px; }
-    .shot { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: var(--surface); cursor: zoom-in; padding: 0; text-align: left; }
+    .shot { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: var(--surface); cursor: zoom-in; padding: 0; }
     .shot.tall { grid-row: span 2; }
     .shot.wide { grid-column: span 2; }
     .shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
     .shot:hover img { transform: scale(1.05); }
-    .shot figcaption { position: absolute; left: 10px; bottom: 10px; right: 10px; }
-    .shot figcaption span { display: inline-block; background: var(--surface); color: var(--text); font-size: .8rem; font-weight: 500; padding: 4px 10px; border-radius: 999px; }
-    .shot.empty { cursor: default; }
-
+    .shot span { position: absolute; left: 10px; bottom: 10px; background: var(--surface); color: var(--text); font-size: .8rem; font-weight: 500; padding: 4px 10px; border-radius: 999px; }
     .lightbox { position: fixed; inset: 0; background: var(--shade); display: grid; place-items: center; z-index: 50; padding: 24px; }
-    .lightbox[hidden] { display: none; }
     .lightbox img { max-height: 80vh; max-width: min(1000px, 100%); border-radius: 14px; }
     .lightbox p { color: #fff; text-align: center; margin-top: 12px; }
     .lightbox .close { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 16px); right: 16px; background: #fff; color: #111; border: 0; }
 
     /* Education */
     .edu-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-    .edu-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px 24px; display: grid; grid-template-columns: 74px minmax(0, 1fr); gap: 16px; }
-    .edu-card .yr { font: 500 .8rem var(--font-mono); color: var(--bar-edu); padding-top: 4px; }
+    .edu-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px 24px; display: grid; grid-template-columns: 80px minmax(0, 1fr); gap: 16px; }
+    .edu-card .yr { font: 500 .82rem var(--font-mono); color: var(--bar-edu); padding-top: 4px; }
     .edu-card.teach .yr { color: var(--bar-teach); }
     .edu-card h3 { font-size: 1.1rem; line-height: 1.25; }
     .edu-card .deg { color: var(--muted); font-size: .95rem; }
     .edu-card ul { margin-top: 8px; padding-left: 18px; font-size: .92rem; display: grid; gap: 4px; }
 
     /* Contact */
-    .contact-box { background: var(--invert-bg); color: var(--invert-text); border-radius: 24px; padding: 60px 40px; text-align: center; }
-    .contact-box h2 { color: var(--invert-text); }
-    .contact-box p { opacity: .75; max-width: 52ch; margin: 0 auto 26px; }
+    .contact-box { background: var(--navy); color: var(--on-navy); border-radius: 24px; padding: 60px 40px; text-align: center; }
+    .contact-box .kicker { color: var(--accent-on-navy); }
+    .contact-box h2 { color: var(--on-navy); }
+    .contact-box p { color: var(--on-navy-muted); max-width: 54ch; margin: 0 auto 26px; }
     .contact-box .actions { justify-content: center; }
-    .contact-box .btn-ghost { background: transparent; color: var(--invert-text); border-color: color-mix(in srgb, var(--invert-text) 30%, transparent); }
-    .contact-box .mail { margin-top: 18px; font: 500 .9rem var(--font-mono); }
-    .contact-box .mail a { text-decoration: none; }
+    .contact-box .mail { margin: 22px auto 0; font: 500 .95rem var(--font-mono); }
+    .contact-box .mail a { text-decoration: none; color: var(--on-navy); }
 
     footer { padding-block: 36px; color: var(--muted); font-size: .9rem; }
     footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-    footer a { text-decoration: none; } footer a:hover { color: var(--accent); }
+    footer a { text-decoration: none; padding-block: 10px; } footer a:hover { color: var(--accent-text); }
 
-    .toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 120px); background: var(--text); color: var(--bg); padding: 12px 20px; border-radius: 12px; font-weight: 500; transition: transform .3s, visibility .3s; z-index: 60; max-width: calc(100% - 32px); visibility: hidden; }
+    .toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 120px); visibility: hidden; background: var(--text); color: var(--bg); padding: 12px 20px; border-radius: 12px; font-weight: 500; transition: transform .3s, visibility .3s; z-index: 60; max-width: calc(100% - 32px); }
     .toast.show { transform: translate(-50%, 0); visibility: visible; }
 
-    @media (max-width: 920px) {
+    @media (max-width: 980px) {
       .menu-btn { display: grid; }
-      .nav-links { position: absolute; top: 64px; left: 0; right: 0; flex-direction: column; background: var(--bg); border-bottom: 1px solid var(--border); padding: 10px 20px 18px; display: none; }
+      .nav-links { position: absolute; top: 68px; left: 0; right: 0; flex-direction: column; background: var(--bg); border-bottom: 1px solid var(--border); padding: 10px 20px 18px; display: none; }
       .nav-links.open { display: flex; }
       .nav-links a { display: block; padding: 12px 14px; border-radius: 10px; }
     }
-    @media (max-width: 820px) {
-      .hero { grid-template-columns: 1fr; padding-block: 48px 40px; gap: 40px; }
-      .portrait { width: min(100%, 320px); }
-      .badge.b1 { left: -8px; } .badge.b2 { right: -8px; }
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; padding-block: 44px 64px; gap: 48px; }
+      .portrait { width: min(88%, 330px); }
+      .badge.b1 { left: -12px; } .badge.b2 { right: -12px; }
       .detail { grid-template-columns: 1fr; }
-      .detail-side { flex-direction: row; align-items: baseline; gap: 12px; padding: 18px 24px; flex-wrap: wrap; }
+      .detail-side { flex-direction: row; align-items: baseline; gap: 12px; padding: 18px 22px; flex-wrap: wrap; }
       .detail-side .big { font-size: 2rem; }
       .detail-main { padding: 22px; }
       .gallery { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
       .edu-grid { grid-template-columns: 1fr; }
       section { padding-block: 64px; }
       .contact-box { padding: 44px 20px; }
+      .contact-box .btn { width: 100%; justify-content: center; }
+      .pause-btn { margin: 0 12px; }
     }
   </style>
 </head>
@@ -286,18 +284,19 @@
 
   <nav>
     <div class="wrap">
-      <a href="index.html" class="logo" title="Volver al sitio principal">Cristian Marino<span>.</span></a>
+      <a href="index.html" class="logo">Cristian Marino<span>.</span></a>
       <ul class="nav-links" id="nav-links">
-        <li><a href="#trayectoria">Trayectoria</a></li>
-        <li><a href="#logros">Logros</a></li>
-        <li><a href="#con-quien">Con quién</a></li>
-        <li><a href="#fotos">Fotos</a></li>
-        <li><a href="#formacion">Formación</a></li>
-        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="#trayectoria"><span data-l="es">Trayectoria</span><span data-l="en">Career</span></a></li>
+        <li><a href="#logros"><span data-l="es">Logros</span><span data-l="en">Results</span></a></li>
+        <li><a href="#con-quien"><span data-l="es">Con quién</span><span data-l="en">Worked with</span></a></li>
+        <li id="nav-fotos" hidden><a href="#fotos"><span data-l="es">Fotos</span><span data-l="en">Photos</span></a></li>
+        <li><a href="#formacion"><span data-l="es">Formación</span><span data-l="en">Education</span></a></li>
+        <li><a href="#contacto"><span data-l="es">Contacto</span><span data-l="en">Contact</span></a></li>
       </ul>
       <div class="nav-tools">
-        <button class="icon-btn" id="theme-btn" type="button" aria-label="Cambiar tema claro u oscuro"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg></button>
-        <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-links">☰</button>
+        <button class="icon-btn" id="lang-btn" type="button" aria-label="Switch to English / Cambiar a español"><span data-l="es">EN</span><span data-l="en">ES</span></button>
+        <button class="icon-btn" id="theme-btn" type="button" aria-label="Tema claro u oscuro / Light or dark theme"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg></button>
+        <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="Menú / Menu" aria-expanded="false" aria-controls="nav-links">☰</button>
       </div>
     </div>
   </nav>
@@ -306,38 +305,45 @@
     <div>
       <span class="eyebrow">Curriculum vitae · Las Condes, Chile</span>
       <h1>Cristian Andrés<br>Marino <span class="light">Vargas</span></h1>
-      <p class="role-line" aria-live="off"><span class="label">Hoy: </span><span class="role" id="role">Fundador y CEO de BoostBrands</span></p>
-      <p class="summary">
+      <p class="role-line"><span class="label"><span data-l="es">Hoy: </span><span data-l="en">Now: </span></span><span class="role" id="role"></span></p>
+      <p class="summary" data-l="es">
         Ejecutivo senior con 17 años liderando P&amp;L, crecimiento y transformación de negocios en compañías
         globales de consultoría, automotriz, retail y fintech. MBA de MIT Sloan, con trayectoria en Chile y
         mercados internacionales, liderando equipos de alto desempeño y estrategias de expansión.
       </p>
+      <p class="summary" data-l="en">
+        Senior executive with 17 years leading P&amp;L, growth and business transformation at global companies
+        in consulting, automotive, retail and fintech. MIT Sloan MBA, with a track record in Chile and
+        international markets, leading high-performing teams and expansion strategies.
+      </p>
       <div class="actions">
-        <a href="#trayectoria" class="btn btn-primary">Ver mi trayectoria ↓</a>
+        <a href="#trayectoria" class="btn btn-primary"><span data-l="es">Ver mi trayectoria ↓</span><span data-l="en">See my career ↓</span></a>
         <a href="https://www.linkedin.com/in/cristianmarinov" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn ↗</a>
       </div>
     </div>
-    <div class="portrait">
-      <div class="frame" id="portrait-frame" data-photo="fotos/retrato.jpg" data-alt="Retrato de Cristian Marino"></div>
-      <div class="badge b1"><strong>MIT</strong>Sloan MBA 2026</div>
-      <div class="badge b2"><strong>17 años</strong>en marketing y crecimiento</div>
+    <div class="portrait" id="portrait">
+      <div class="frame"><img src="fotos/retrato.jpg" alt="Cristian Marino" width="800" height="800"></div>
+      <div class="badge b1"><strong>MIT Sloan</strong>MBA 2026</div>
+      <div class="badge b2"><strong><span data-l="es">17 años</span><span data-l="en">17 years</span></strong><span data-l="es">en marketing y crecimiento</span><span data-l="en">in marketing and growth</span></div>
     </div>
   </header>
 
-  <div class="ticker" aria-label="Cifras destacadas">
-    <div class="ticker-track" id="ticker"></div>
+  <div class="ticker" id="ticker" aria-label="Cifras destacadas / Key figures">
+    <div class="ticker-viewport"><div class="ticker-track" id="ticker-track"></div></div>
+    <button class="pause-btn" id="pause-btn" type="button" aria-pressed="false" aria-label="Pausar animación / Pause animation">❚❚</button>
   </div>
 
   <section id="trayectoria">
     <div class="wrap">
-      <span class="kicker">Trayectoria</span>
-      <h2>2008 → hoy, en una línea de tiempo</h2>
-      <p class="intro">Cada barra es un cargo, un programa de estudio o una cátedra. Haz clic en una para ver qué hice ahí, o usa las flechas ← → del teclado.</p>
+      <span class="kicker"><span data-l="es">Trayectoria</span><span data-l="en">Career</span></span>
+      <h2><span data-l="es">2008 → hoy, en una línea de tiempo</span><span data-l="en">2008 → today, on one timeline</span></h2>
+      <p class="intro" data-l="es">Cada barra es un cargo, un programa de estudio o una cátedra. Haz clic en una para ver qué hice ahí, o usa las flechas ← → del teclado.</p>
+      <p class="intro" data-l="en">Each bar is a role, a degree or a teaching position. Click one to see what I did there, or use the ← → arrow keys.</p>
       <div class="gantt-wrap"><div class="gantt" id="gantt"></div></div>
       <div class="legend">
-        <span><i style="background:var(--accent)"></i>Experiencia profesional</span>
-        <span><i style="background:var(--bar-edu)"></i>Educación</span>
-        <span><i style="background:var(--bar-teach)"></i>Docencia</span>
+        <span><i style="background:var(--accent)"></i><span data-l="es">Experiencia profesional</span><span data-l="en">Professional experience</span></span>
+        <span><i style="background:var(--bar-edu)"></i><span data-l="es">Educación</span><span data-l="en">Education</span></span>
+        <span><i style="background:var(--bar-teach)"></i><span data-l="es">Docencia</span><span data-l="en">Teaching</span></span>
       </div>
       <div class="detail" id="detail" aria-live="polite"></div>
     </div>
@@ -345,56 +351,62 @@
 
   <section id="logros">
     <div class="wrap">
-      <span class="kicker">Logros</span>
-      <h2>Resultados medibles</h2>
-      <p class="intro">Lo que pasó en cada empresa, en números. Filtra por tipo de impacto.</p>
-      <div class="filters" id="win-filters" role="group" aria-label="Filtrar logros"></div>
+      <span class="kicker"><span data-l="es">Logros</span><span data-l="en">Results</span></span>
+      <h2><span data-l="es">Resultados medibles</span><span data-l="en">Measurable results</span></h2>
+      <p class="intro" data-l="es">Lo que pasó en cada empresa, en números. Filtra por tipo de impacto.</p>
+      <p class="intro" data-l="en">What happened at each company, in numbers. Filter by type of impact.</p>
+      <div class="filters" id="win-filters" role="group" aria-label="Filtrar logros / Filter results"></div>
       <div class="wins" id="wins"></div>
     </div>
   </section>
 
   <section id="con-quien">
     <div class="wrap">
-      <span class="kicker">Con quién he trabajado</span>
-      <h2>Empresas, marcas e instituciones</h2>
-      <p class="intro">Desde multinacionales Fortune 500 hasta PYMES chilenas, en Chile y el extranjero.</p>
+      <span class="kicker"><span data-l="es">Con quién he trabajado</span><span data-l="en">Who I've worked with</span></span>
+      <h2><span data-l="es">Empresas, marcas e instituciones</span><span data-l="en">Companies, brands and institutions</span></h2>
+      <p class="intro" data-l="es">Desde multinacionales Fortune 500 hasta PYMES chilenas, en Chile y el extranjero.</p>
+      <p class="intro" data-l="en">From Fortune 500 multinationals to Chilean SMEs, in Chile and abroad.</p>
       <div class="groups" id="groups"></div>
       <div class="group" style="margin-top:28px">
-        <h3>Países donde he trabajado o estudiado</h3>
+        <h3><span data-l="es">Países donde he trabajado o estudiado</span><span data-l="en">Countries where I've worked or studied</span></h3>
         <div class="countries" id="countries"></div>
       </div>
     </div>
   </section>
 
-  <section id="fotos">
+  <section id="fotos" hidden>
     <div class="wrap">
-      <span class="kicker">Fotos</span>
-      <h2>Momentos</h2>
-      <p class="intro">Haz clic en una foto para verla en grande.</p>
+      <span class="kicker"><span data-l="es">Fotos</span><span data-l="en">Photos</span></span>
+      <h2><span data-l="es">Momentos</span><span data-l="en">Moments</span></h2>
+      <p class="intro"><span data-l="es">Haz clic en una foto para verla en grande.</span><span data-l="en">Click a photo to enlarge it.</span></p>
       <div class="gallery" id="gallery"></div>
     </div>
   </section>
 
   <section id="formacion">
     <div class="wrap">
-      <span class="kicker">Formación y docencia</span>
-      <h2>Educación</h2>
-      <p class="intro">Formación en Chile, Estados Unidos y Canadá. Hoy también enseño en pregrado y MBA.</p>
+      <span class="kicker"><span data-l="es">Formación y docencia</span><span data-l="en">Education &amp; teaching</span></span>
+      <h2><span data-l="es">Educación</span><span data-l="en">Education</span></h2>
+      <p class="intro" data-l="es">Formación en Chile, Estados Unidos y Canadá. Hoy también enseño en pregrado y MBA.</p>
+      <p class="intro" data-l="en">Studies in Chile, the US and Canada. Today I also teach undergraduate and MBA courses.</p>
       <div class="edu-grid" id="edu"></div>
     </div>
   </section>
 
   <section id="contacto">
     <div class="wrap">
-      <div class="contact-box">
-        <span class="kicker">Contacto</span>
-        <h2>Conversemos</h2>
-        <p>Consultoría, proyectos de crecimiento, charlas o docencia. Escríbeme y te respondo.</p>
+      <div class="contact-box on-navy">
+        <span class="kicker"><span data-l="es">Contacto</span><span data-l="en">Contact</span></span>
+        <h2><span data-l="es">Conversemos</span><span data-l="en">Let's talk</span></h2>
+        <p data-l="es">Consultoría para tu empresa, directorios, charlas o docencia. Escríbeme y te respondo.</p>
+        <p data-l="en">Consulting for your business, boards, talks or teaching. Write to me and I'll get back to you.</p>
         <div class="actions">
-          <button type="button" class="btn btn-primary" id="copy-email">Copiar mi email</button>
+          <a href="mailto:cmarino@mit.edu" class="btn btn-primary" data-agenda><span data-l="es">Agenda un diagnóstico de 30 min</span><span data-l="en">Book a 30-min diagnostic</span></a>
+          <a href="#" class="btn btn-ghost" data-whatsapp hidden target="_blank" rel="noopener">WhatsApp</a>
+          <button type="button" class="btn btn-ghost" id="copy-email"><span data-l="es">Copiar email</span><span data-l="en">Copy email</span></button>
           <a href="https://www.linkedin.com/in/cristianmarinov" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn ↗</a>
         </div>
-        <p class="mail"><a href="mailto:cmarino@mit.edu">cmarino@mit.edu</a></p>
+        <p class="mail"><a href="mailto:cmarino@mit.edu" data-email>cmarino@mit.edu</a></p>
       </div>
     </div>
   </section>
@@ -402,141 +414,195 @@
   <footer>
     <div class="wrap">
       <span>© <span id="year">2026</span> Cristian Marino</span>
-      <a href="index.html">← Volver al sitio principal</a>
+      <a href="index.html"><span data-l="es">← Volver al sitio principal</span><span data-l="en">← Back to main site</span></a>
     </div>
   </footer>
 
-  <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Foto ampliada">
-    <button class="icon-btn close" id="lb-close" type="button" aria-label="Cerrar">✕</button>
+  <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Foto ampliada / Enlarged photo">
+    <button class="icon-btn close" id="lb-close" type="button" aria-label="Cerrar / Close">✕</button>
     <figure><img id="lb-img" alt=""><p id="lb-cap"></p></figure>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <script src="config.js"></script>
   <script>
-    /* ---------- Data (from Cristian's CV, 2026) ---------- */
+    /* ---------- Data (from Cristian's CV, 2026). Fields ending in _en are the English versions. ---------- */
     const ROLES = [
       { id: 'cencosud', lane: 'work', start: 2008.6, end: 2011.7, label: 'Cencosud',
-        title: 'Product Marketing Manager, Tarjeta de Crédito', org: 'Cencosud · Santiago', period: 'ago 2008 – sep 2011',
+        title: 'Product Marketing Manager, Tarjeta de Crédito', title_en: 'Product Marketing Manager, Credit Card',
+        org: 'Cencosud · Santiago', period: 'ago 2008 – sep 2011', period_en: 'Aug 2008 – Sep 2011',
         desc: 'Marketing y producto de medios de pago: campañas de captación, activación y uso para 2 millones de tarjetahabientes (tarjeta de crédito, comercios asociados y avance en efectivo). Partí como Product Manager Junior.',
+        desc_en: 'Payments marketing and product: acquisition, activation and usage campaigns for 2 million cardholders (credit card, partner merchants and cash advance). Started as Junior Product Manager.',
         bullets: ['Expandí la red de comercios asociados en 15% anual y aumenté el ticket promedio en 10% con promociones cruzadas.', 'Campañas de email segmentadas por perfil de uso, ciclo de deuda y ticket promedio.', 'Campañas de activación del avance en efectivo, según perfil de riesgo.'],
-        big: '2M', cap: 'tarjetahabientes' },
+        bullets_en: ['Grew the partner merchant network 15% a year and raised the average ticket 10% with cross promotions.', 'Email campaigns segmented by usage profile, debt cycle and average ticket.', 'Cash-advance activation campaigns tailored to risk profile.'],
+        big: '2M', cap: 'tarjetahabientes', cap_en: 'cardholders' },
       { id: 'windsor', lane: 'edu', start: 2011.8, end: 2012.8, label: 'UW',
-        title: 'Máster en Gestión y Administración de la Producción', org: 'University of Windsor, Odette School of Business · Canadá', period: '2012',
-        desc: 'Programa de máster en Canadá.', bullets: ['Ganador del Premio de la Paz 2012, elegido por los estudiantes por representar valores de liderazgo y globalidad.'],
-        big: '🏆', cap: 'Premio de la Paz 2012' },
+        title: 'Máster en Gestión y Administración de la Producción', title_en: "Master's in Production Management",
+        org: 'University of Windsor, Odette School of Business · Canadá', org_en: 'University of Windsor, Odette School of Business · Canada', period: '2012',
+        desc: 'Programa de máster en Canadá.', desc_en: "Master's program in Canada.",
+        bullets: ['Ganador del Premio de la Paz 2012, elegido por los estudiantes por representar valores de liderazgo y globalidad.'],
+        bullets_en: ['Winner of the 2012 Peace Prize, chosen by students for representing leadership and global values.'],
+        big: 'Premio', big_en: 'Award', cap: 'de la Paz 2012', cap_en: '2012 Peace Prize' },
       { id: 'electrolux', lane: 'work', start: 2013.35, end: 2016.7, label: 'Electrolux',
-        title: 'Senior Regional Product Marketing Manager · Clúster Andino', org: 'Electrolux (dueños de Fensa y Mademsa)', period: 'may 2013 – sep 2016',
+        title: 'Senior Regional Product Marketing Manager · Clúster Andino', title_en: 'Senior Regional Product Marketing Manager · Andean Cluster',
+        org: 'Electrolux (dueños de Fensa y Mademsa)', org_en: 'Electrolux (owner of Fensa and Mademsa)', period: 'may 2013 – sep 2016', period_en: 'May 2013 – Sep 2016',
         desc: 'Estrategia de marketing, producto y ventas 360° para la categoría de mayor facturación. Empecé como Senior Product Marketing Manager Chile y pasé a rol regional en 2014.',
+        desc_en: '360° marketing, product and sales strategy for the highest-revenue category. Started as Senior Product Marketing Manager Chile and moved to a regional role in 2014.',
         bullets: ['Aseguré una inversión de USD $20M ante el HQ global con el plan estratégico regional.', '45% de participación en refrigeradores y 75% en freezers: Electrolux, Fensa y Mademsa #1 en Chile.', 'Reposicioné Electrolux en el segmento premium con chefs Michelin ("disfrute culinario"): de 1% a 5% de participación en el primer año.', 'Ganador del Proyecto Global Más Escalable 2015 con el primer laboratorio de Data Analytics de la región.', 'Programa de entrenamiento para 400 vendedores, formando 15 instructores.'],
-        big: '#1', cap: 'en refrigeradores y freezers en Chile' },
+        bullets_en: ['Secured USD $20M in investment from global HQ with the regional strategic plan.', '45% share in refrigerators and 75% in freezers: Electrolux, Fensa and Mademsa #1 in Chile.', 'Repositioned Electrolux as premium with Michelin-starred chefs ("culinary enjoyment"): from 1% to 5% share in year one.', "Winner of the Most Scalable Global Project 2015 with the region's first Data Analytics lab.", 'Sales training program for 400 reps, developing 15 instructors.'],
+        big: '#1', cap: 'en refrigeradores y freezers en Chile', cap_en: 'in refrigerators and freezers in Chile' },
       { id: 'stanford', lane: 'edu', start: 2015.5, end: 2015.75, label: 'GSB',
-        title: 'Diplomado en Marketing Estratégico y Neuromarketing', org: 'Stanford Graduate School of Business · Palo Alto', period: 'ago 2015',
-        desc: 'Programa ejecutivo de gestión de marketing estratégico y neuromarketing.', bullets: [],
-        big: 'GSB', cap: 'Stanford, EEUU' },
+        title: 'Diplomado en Marketing Estratégico y Neuromarketing', title_en: 'Diploma in Strategic Marketing Management and Neuromarketing',
+        org: 'Stanford Graduate School of Business · Palo Alto', period: 'ago 2015', period_en: 'Aug 2015',
+        desc: 'Programa ejecutivo de gestión de marketing estratégico y neuromarketing.', desc_en: 'Executive program in strategic marketing management and neuromarketing.', bullets: [],
+        big: 'GSB', cap: 'Stanford, EEUU', cap_en: 'Stanford, USA' },
       { id: 'accenture', lane: 'work', start: 2016.75, end: 2017.7, label: 'ACN',
-        title: 'Subgerente de Marketing', org: 'Accenture · Santiago', period: 'oct 2016 – sep 2017',
+        title: 'Subgerente de Marketing', title_en: 'Marketing Manager', org: 'Accenture · Santiago', period: 'oct 2016 – sep 2017', period_en: 'Oct 2016 – Sep 2017',
         desc: 'Marketing B2B para las 30 principales empresas de Chile con Salesforce Marketing Cloud. Coordiné 3 colaboradores y 3 agencias.',
+        desc_en: "B2B marketing for Chile's top 30 companies with Salesforce Marketing Cloud. Coordinated 3 staff and 3 agencies.",
         bullets: ['Estrategia y campañas que cerraron acuerdos por USD $6M.', 'Lideré la primera carrera de drones controlados por la mente en LATAM, campaña "más innovadora" 2017 y estrategia de reclutamiento STEM.', 'Reduje costos de agencia en 10% con una negociación regional.'],
-        big: '$6M', cap: 'USD en acuerdos comerciales' },
+        bullets_en: ['Strategy and campaigns that closed USD $6M in deals.', 'Led LATAM\'s first mind-controlled drone race, the "most innovative" campaign of 2017 and a STEM recruiting strategy.', 'Cut agency costs 10% through a regional negotiation.'],
+        big: '$6M', cap: 'USD en acuerdos comerciales', cap_en: 'USD in commercial deals' },
       { id: 'bajaj-auto', lane: 'work', start: 2017.75, end: 2020.2, label: 'Bajaj Auto',
-        title: 'Country Manager Chile y Paraguay · Regional CMO LATAM', org: 'Bajaj Auto Limited (Fortune 500, +100 países)', period: 'oct 2017 – mar 2020',
+        title: 'Country Manager Chile y Paraguay · Regional CMO LATAM', title_en: 'Country Manager Chile & Paraguay · Regional CMO LATAM',
+        org: 'Bajaj Auto Limited (Fortune 500, +100 países)', org_en: 'Bajaj Auto Limited (Fortune 500, 100+ countries)', period: 'oct 2017 – mar 2020', period_en: 'Oct 2017 – Mar 2020',
         desc: 'Estrategia de marca y crecimiento comercial a nivel regional: portafolio, red de distribuidores y agencias. Equipo regional directo de 30 personas y operación conjunta de ~200.',
+        desc_en: 'Regional brand and commercial growth strategy: portfolio, distributor network and agencies. Direct regional team of 30 and a joint operation of ~200.',
         bullets: ['Lideré la entrada de Bajaj a Paraguay desde cero: elegí distribuidor, armé un equipo de 25 personas y abrí 3 tiendas. USD $1M en ventas y 5% de participación el primer año.', 'Campañas integradas en 6 países con USD $6M de presupuesto, incluyendo 2 reality shows digitales con figuras de TV en Perú y Argentina: el mayor crecimiento regional de participación en 10 años (19% LATAM).', 'Frameworks y KPIs que conectan alcance, engagement y conversión con revenue.', 'Renegocié 3 contratos regionales de agencias: -30% en costos.'],
-        big: '6', cap: 'países con campañas integradas' },
-      { id: 'boostbrands', lane: 'work2', start: 2020.2, end: 2026.8, label: 'BoostBrands · Fundador y CEO',
-        title: 'Fundador y CEO', org: 'BoostBrands SpA · Santiago', period: 'mar 2020 – presente',
+        bullets_en: ["Led Bajaj's entry into Paraguay from scratch: chose the distributor, built a 25-person team and opened 3 stores. USD $1M in sales and 5% share in year one.", 'Integrated campaigns in 6 countries with a USD $6M budget, including 2 original digital reality shows with TV personalities in Peru and Argentina: the largest regional share gain in 10 years (19% LATAM).', 'Frameworks and KPIs linking reach, engagement and conversion to revenue.', 'Renegotiated 3 regional agency contracts: -30% in costs.'],
+        big: '6', cap: 'países con campañas integradas', cap_en: 'countries with integrated campaigns' },
+      { id: 'boostbrands', lane: 'work2', start: 2020.2, end: 2026.8, label: 'BoostBrands · Fundador y CEO', label_en: 'BoostBrands · Founder & CEO',
+        title: 'Fundador y CEO', title_en: 'Founder & CEO', org: 'BoostBrands SpA · Santiago', period: 'mar 2020 – presente', period_en: 'Mar 2020 – present',
         desc: 'Consultora de marketing comercial B2B/B2C para PYMES chilenas, con dos unidades de negocio (consultoría y representación retail). Uso IA agéntica para eficiencia de campañas y contenido, con un enfoque radical "low cost". Equipo de 3 colaboradores.',
+        desc_en: 'B2B/B2C commercial marketing consultancy for Chilean SMEs, with two business units (consulting and retail representation). I use agentic AI for campaign and content efficiency, with a radical "low cost" approach. Team of 3.',
         bullets: ['Acuerdos de distribución para 2 marcas internacionales de moda sostenible (incl. Acapella) en 3 grandes cadenas retail chilenas: USD $400K en ventas con 40% de margen.', 'Asesoré a 50 PYMES durante la crisis económica de Chile (USD $150K, 50% de margen, 12 clientes activos), con +15% de crecimiento promedio de ingresos.'],
-        big: '$550K', cap: 'USD en ventas' },
+        bullets_en: ['Distribution deals for 2 international sustainable fashion brands (incl. Acapella) in 3 major Chilean retail chains: USD $400K in sales at a 40% margin.', "Advised 50 SMEs during Chile's economic crisis (USD $150K, 50% margin, 12 active clients), with +15% average revenue growth."],
+        big: '$550K', cap: 'USD en ventas', cap_en: 'USD in sales' },
       { id: 'motochile', lane: 'work', start: 2020.2, end: 2024.55, label: 'Bajaj Motochile',
-        title: 'Director de Marketing y Ventas', org: 'Bajaj Motochile, distribuidor oficial en Chile', period: 'mar 2020 – jul 2024',
+        title: 'Director de Marketing y Ventas', title_en: 'Marketing & Sales Director',
+        org: 'Bajaj Motochile, distribuidor oficial en Chile', org_en: 'Bajaj Motochile, official distributor in Chile', period: 'mar 2020 – jul 2024', period_en: 'Mar 2020 – Jul 2024',
         desc: 'Control total sobre CAC, conversión, revenue por canal, ticket promedio y participación de mercado nacional. Al mando de 33 personas y 3 agencias.',
+        desc_en: 'Full ownership of CAC, conversion, revenue by channel, average ticket and national market share. Led 33 people and 3 agencies.',
         bullets: ['Transformación de B2B a B2C/D2C: reemplacé 20 franquicias por 4 tiendas propias. EBITDA +20%, flujo de caja +50%, cuentas por cobrar de USD $1M a $400K y crédito de 60 a 30 días.', 'Alianza de USD $8M con la fintech Galgo (5.500 motos en 2 años) y lanzamiento de MotoFin, microcrédito propio para riders desbancarizados.', 'Participación de mercado de 9% a 23%: #1 en el segmento Street.', 'Canal e-commerce desde cero: USD $13,5M en ventas durante la pandemia. Implementé HubSpot CRM.', 'Reconocido por Bajaj HQ India como "la tienda con mejor CX de LATAM".'],
-        big: '9→23%', cap: 'participación de mercado' },
+        bullets_en: ['B2B to B2C/D2C transformation: replaced 20 franchises with 4 company stores. EBITDA +20%, cash flow +50%, receivables from USD $1M to $400K and credit terms from 60 to 30 days.', 'USD $8M alliance with fintech Galgo (5,500 motorcycles over 2 years) and launch of MotoFin, an in-house microcredit unit for unbanked riders.', 'Market share from 9% to 23%: #1 in the Street segment.', 'E-commerce channel from zero: USD $13.5M in sales during the pandemic. Implemented HubSpot CRM.', 'Recognized by Bajaj HQ India as "the best-CX store in LATAM".'],
+        big: '9→23%', cap: 'participación de mercado', cap_en: 'market share' },
       { id: 'mit', lane: 'edu', start: 2024.6, end: 2026.5, label: 'MIT MBA',
         title: 'MBA', org: 'MIT Sloan School of Management · Boston', period: '2024 – 2026',
-        desc: 'Magíster en administración de empresas en el Massachusetts Institute of Technology.',
+        desc: 'Magíster en administración de empresas en el Massachusetts Institute of Technology.', desc_en: 'Master of Business Administration at the Massachusetts Institute of Technology.',
         bullets: ['Práctica en Singapur: estrategia de pricing y go-to-market para una startup biotech en Oceanía, Europa y Norteamérica.', 'Dirigí dashboards de datos y planes de marketing con IA agéntica para Commonwealth Kitchen of Boston.', 'Finalista en IDEA WEEK con un parche regulador de dopamina con IA.', 'Ganador del concurso de Change Management.'],
+        bullets_en: ['Practicum in Singapore: pricing and go-to-market strategy for a biotech startup in Oceania, Europe and North America.', 'Led data dashboards and agentic-AI marketing plans for Commonwealth Kitchen of Boston.', 'Finalist at IDEA WEEK with an AI dopamine-regulating patch.', 'Winner of the Change Management competition.'],
         big: 'MIT', cap: 'Sloan School of Management' },
       { id: 'unab-prof', lane: 'teach', start: 2025.2, end: 2026.8, label: 'UNAB',
-        title: 'Profesor, Escuela de Ingeniería', org: 'Universidad Andrés Bello', period: 'mar 2025 – presente',
-        desc: 'Cursos de Seminario de Proyecto de Título, Portafolio de Proyecto de Título y Proyecto de Título.', bullets: [],
-        big: 'UNAB', cap: 'Escuela de Ingeniería' },
+        title: 'Profesor, Escuela de Ingeniería', title_en: 'Professor, School of Engineering', org: 'Universidad Andrés Bello', period: 'mar 2025 – presente', period_en: 'Mar 2025 – present',
+        desc: 'Cursos de Seminario de Proyecto de Título, Portafolio de Proyecto de Título y Proyecto de Título.', desc_en: 'Courses: Capstone Project Seminar, Capstone Project Portfolio and Capstone Project.', bullets: [],
+        big: 'UNAB', cap: 'Escuela de Ingeniería', cap_en: 'School of Engineering' },
       { id: 'udd-prof', lane: 'teach2', start: 2025.6, end: 2026.8, label: 'UDD',
-        title: 'Profesor de Product Management (MBA)', org: 'Universidad del Desarrollo, Facultad de Economía y Negocios', period: 'ago 2025 – presente',
-        desc: 'Curso de Product Management en el programa MBA.', bullets: [],
+        title: 'Profesor de Product Management (MBA)', title_en: 'Professor of Product Management (MBA)',
+        org: 'Universidad del Desarrollo, Facultad de Economía y Negocios', org_en: 'Universidad del Desarrollo, School of Economics and Business', period: 'ago 2025 – presente', period_en: 'Aug 2025 – present',
+        desc: 'Curso de Product Management en el programa MBA.', desc_en: 'Product Management course in the MBA program.', bullets: [],
         big: 'MBA', cap: 'Product Management' },
       { id: 'unab', lane: 'edu', start: 2007, end: 2008.45, label: 'UNAB',
-        title: 'Ingeniería Industrial (con honores)', org: 'Universidad Andrés Bello · Santiago', period: 'hasta jun 2008',
-        desc: 'Ingeniería Industrial y Licenciatura en Ciencias de la Ingeniería, graduado con honores.',
+        title: 'Ingeniería Industrial (con honores)', title_en: 'Industrial Engineering (with honors)', org: 'Universidad Andrés Bello · Santiago', period: 'hasta jun 2008', period_en: 'until Jun 2008',
+        desc: 'Ingeniería Industrial y Licenciatura en Ciencias de la Ingeniería, graduado con honores.', desc_en: 'Industrial Engineering and Bachelor of Engineering Sciences, graduated with honors.',
         bullets: ['Ganador del Mejor Proyecto de Tesis del Año 2007: implementación de RFID para la biblioteca de la UNAB, con USD $35K para implementarlo junto a 3M Chile.'],
-        big: '$35K', cap: 'USD para su tesis con 3M Chile' },
+        bullets_en: ['Winner of Best Thesis Project of the Year 2007: an RFID system for the UNAB library, with USD $35K to implement it together with 3M Chile.'],
+        big: '$35K', cap: 'USD para mi tesis con 3M Chile', cap_en: 'USD for my thesis with 3M Chile' },
     ];
     const LANES = [
-      { key: 'work', name: 'Empresas' },
-      { key: 'work2', name: 'Emprendimiento' },
-      { key: 'edu', name: 'Educación' },
-      { key: 'teach', name: 'Docencia' },
+      { key: 'work', name: 'Empresas', name_en: 'Companies' },
+      { key: 'work2', name: 'Emprendimiento', name_en: 'Founder' },
+      { key: 'edu', name: 'Educación', name_en: 'Education' },
+      { key: 'teach', name: 'Docencia', name_en: 'Teaching' },
       { key: 'teach2', name: '' },
     ];
     const WINS = [
-      { cat: 'crecimiento', big: '9% → 23%', text: 'Participación de mercado, #1 en el segmento Street.', where: 'Bajaj Motochile' },
-      { cat: 'crecimiento', big: 'USD $13,5M', text: 'En ventas con un canal e-commerce construido desde cero.', where: 'Bajaj Motochile' },
-      { cat: 'finanzas', big: '+20% EBITDA', text: 'Y +50% en flujo de caja al pasar de 20 franquicias a 4 tiendas propias.', where: 'Bajaj Motochile' },
-      { cat: 'finanzas', big: 'USD $8M', text: 'Alianza con la fintech Galgo por 5.500 motos en 2 años.', where: 'Bajaj Motochile' },
-      { cat: 'innovacion', big: 'MotoFin', text: 'Unidad propia de microcrédito para riders desbancarizados.', where: 'Bajaj Motochile' },
-      { cat: 'innovacion', big: 'Mejor CX', text: 'Reconocida por Bajaj HQ India como la tienda con mejor experiencia de cliente de LATAM.', where: 'Bajaj Motochile' },
-      { cat: 'liderazgo', big: '33 personas', text: 'Equipo de ventas y marketing, más 3 agencias.', where: 'Bajaj Motochile' },
-      { cat: 'crecimiento', big: 'USD $1M', text: 'Y 5% de participación el primer año, entrando a Paraguay desde cero.', where: 'Bajaj Auto' },
-      { cat: 'crecimiento', big: '19% LATAM', text: 'El mayor crecimiento regional de participación en 10 años.', where: 'Bajaj Auto' },
-      { cat: 'innovacion', big: '2 reality shows', text: 'Digitales y originales, con figuras de TV en Perú y Argentina.', where: 'Bajaj Auto' },
-      { cat: 'finanzas', big: '-30%', text: 'En costos de agencias al renegociar 3 contratos regionales.', where: 'Bajaj Auto' },
-      { cat: 'liderazgo', big: '~200', text: 'Personas en la operación regional, con 30 a cargo directo.', where: 'Bajaj Auto' },
-      { cat: 'finanzas', big: 'USD $6M', text: 'En acuerdos comerciales con las 30 principales empresas de Chile.', where: 'Accenture' },
-      { cat: 'innovacion', big: 'Drones mentales', text: 'Primera carrera de drones controlados por la mente en LATAM, campaña más innovadora 2017.', where: 'Accenture' },
-      { cat: 'finanzas', big: 'USD $20M', text: 'De inversión aprobada por el HQ global.', where: 'Electrolux' },
-      { cat: 'crecimiento', big: '45% / 75%', text: 'Participación en refrigeradores y freezers: marcas #1 de Chile.', where: 'Electrolux' },
-      { cat: 'innovacion', big: '1% → 5%', text: 'En el segmento premium con chefs Michelin como embajadores.', where: 'Electrolux' },
-      { cat: 'innovacion', big: 'Premio global', text: 'Proyecto Más Escalable 2015 con el primer laboratorio de Data Analytics de la región.', where: 'Electrolux' },
-      { cat: 'liderazgo', big: '400', text: 'Vendedores entrenados y 15 instructores formados.', where: 'Electrolux' },
-      { cat: 'crecimiento', big: '+15%', text: 'Crecimiento promedio de ingresos en 50 PYMES asesoradas.', where: 'BoostBrands' },
-      { cat: 'finanzas', big: 'USD $400K', text: 'En ventas retail con 40% de margen para 2 marcas de moda sostenible.', where: 'BoostBrands' },
-      { cat: 'crecimiento', big: '+15% / +10%', text: 'Comercios asociados y ticket promedio con promociones cruzadas.', where: 'Cencosud' },
+      { cat: 'crecimiento', big: '9% → 23%', text: 'Participación de mercado, #1 en el segmento Street.', text_en: 'Market share, #1 in the Street segment.', where: 'Bajaj Motochile' },
+      { cat: 'crecimiento', big: 'USD $13,5M', big_en: 'USD $13.5M', text: 'En ventas con un canal e-commerce construido desde cero.', text_en: 'In sales from an e-commerce channel built from zero.', where: 'Bajaj Motochile' },
+      { cat: 'finanzas', big: '+20% EBITDA', text: 'Y +50% en flujo de caja al pasar de 20 franquicias a 4 tiendas propias.', text_en: 'And +50% cash flow by moving from 20 franchises to 4 company stores.', where: 'Bajaj Motochile' },
+      { cat: 'finanzas', big: 'USD $8M', text: 'Alianza con la fintech Galgo por 5.500 motos en 2 años.', text_en: 'Alliance with fintech Galgo for 5,500 motorcycles over 2 years.', where: 'Bajaj Motochile' },
+      { cat: 'innovacion', big: 'MotoFin', text: 'Unidad propia de microcrédito para riders desbancarizados.', text_en: 'In-house microcredit unit for unbanked riders.', where: 'Bajaj Motochile' },
+      { cat: 'innovacion', big: 'Mejor CX', big_en: 'Best CX', text: 'Reconocida por Bajaj HQ India como la tienda con mejor experiencia de cliente de LATAM.', text_en: 'Recognized by Bajaj HQ India as the store with the best customer experience in LATAM.', where: 'Bajaj Motochile' },
+      { cat: 'liderazgo', big: '33 personas', big_en: '33 people', text: 'Equipo de ventas y marketing, más 3 agencias.', text_en: 'Sales and marketing team, plus 3 agencies.', where: 'Bajaj Motochile' },
+      { cat: 'crecimiento', big: 'USD $1M', text: 'Y 5% de participación el primer año, entrando a Paraguay desde cero.', text_en: 'And 5% share in year one, entering Paraguay from scratch.', where: 'Bajaj Auto' },
+      { cat: 'crecimiento', big: '19% LATAM', text: 'El mayor crecimiento regional de participación en 10 años.', text_en: 'The largest regional share gain in 10 years.', where: 'Bajaj Auto' },
+      { cat: 'innovacion', big: '2 reality shows', text: 'Digitales y originales, con figuras de TV en Perú y Argentina.', text_en: 'Original digital shows with TV personalities in Peru and Argentina.', where: 'Bajaj Auto' },
+      { cat: 'finanzas', big: '-30%', text: 'En costos de agencias al renegociar 3 contratos regionales.', text_en: 'In agency costs by renegotiating 3 regional contracts.', where: 'Bajaj Auto' },
+      { cat: 'liderazgo', big: '~200', text: 'Personas en la operación regional, con 30 a cargo directo.', text_en: 'People in the regional operation, with 30 direct reports.', where: 'Bajaj Auto' },
+      { cat: 'finanzas', big: 'USD $6M', text: 'En acuerdos comerciales con las 30 principales empresas de Chile.', text_en: "In commercial deals with Chile's top 30 companies.", where: 'Accenture' },
+      { cat: 'innovacion', big: 'Drones mentales', big_en: 'Mind-controlled drones', text: 'Primera carrera de drones controlados por la mente en LATAM, campaña más innovadora 2017.', text_en: "LATAM's first mind-controlled drone race, most innovative campaign of 2017.", where: 'Accenture' },
+      { cat: 'finanzas', big: 'USD $20M', text: 'De inversión aprobada por el HQ global.', text_en: 'Investment approved by global HQ.', where: 'Electrolux' },
+      { cat: 'crecimiento', big: '45% / 75%', text: 'Participación en refrigeradores y freezers: marcas #1 de Chile.', text_en: 'Share in refrigerators and freezers: #1 brands in Chile.', where: 'Electrolux' },
+      { cat: 'innovacion', big: '1% → 5%', text: 'En el segmento premium con chefs Michelin como embajadores.', text_en: 'In the premium segment with Michelin-starred chefs as ambassadors.', where: 'Electrolux' },
+      { cat: 'innovacion', big: 'Premio global', big_en: 'Global award', text: 'Proyecto Más Escalable 2015 con el primer laboratorio de Data Analytics de la región.', text_en: "Most Scalable Project 2015 with the region's first Data Analytics lab.", where: 'Electrolux' },
+      { cat: 'liderazgo', big: '400', text: 'Vendedores entrenados y 15 instructores formados.', text_en: 'Sales reps trained and 15 instructors developed.', where: 'Electrolux' },
+      { cat: 'crecimiento', big: '+15%', text: 'Crecimiento promedio de ingresos en 50 PYMES asesoradas.', text_en: 'Average revenue growth across 50 SMEs advised.', where: 'BoostBrands' },
+      { cat: 'finanzas', big: 'USD $400K', text: 'En ventas retail con 40% de margen para 2 marcas de moda sostenible.', text_en: 'In retail sales at a 40% margin for 2 sustainable fashion brands.', where: 'BoostBrands' },
+      { cat: 'crecimiento', big: '+15% / +10%', text: 'Comercios asociados y ticket promedio con promociones cruzadas.', text_en: 'Partner merchants and average ticket through cross promotions.', where: 'Cencosud' },
     ];
-    const CATS = { todos: 'Todos', crecimiento: 'Crecimiento', finanzas: 'Finanzas', innovacion: 'Marca e innovación', liderazgo: 'Liderazgo' };
+    const CATS = {
+      todos: ['Todos', 'All'], crecimiento: ['Crecimiento', 'Growth'], finanzas: ['Finanzas', 'Finance'],
+      innovacion: ['Marca e innovación', 'Brand & innovation'], liderazgo: ['Liderazgo', 'Leadership'],
+    };
     const GROUPS = [
-      { name: 'Empresas donde he trabajado', items: [
-        ['BoostBrands', 'Fundador y CEO'], ['Bajaj Motochile', 'Director de Marketing y Ventas'], ['Bajaj Auto', 'Country Manager y CMO regional'],
-        ['Accenture', 'Subgerente de Marketing'], ['Electrolux', 'Product Marketing regional'], ['Cencosud', 'Product Marketing'] ] },
-      { name: 'Marcas, socios y clientes', items: [
-        ['Fensa', 'Marca #1 en Chile (Electrolux)'], ['Mademsa', 'Marca #1 en Chile (Electrolux)'], ['Acapella', 'Moda sostenible, representación retail'],
-        ['Galgo', 'Fintech, alianza USD $8M'], ['3M Chile', 'Proyecto RFID de tesis'], ['Commonwealth Kitchen', 'Proyecto MIT en Boston'],
-        ['HubSpot', 'CRM implementado'], ['Salesforce', 'Marketing Cloud'] ] },
-      { name: 'Instituciones', items: [
-        ['MIT Sloan', 'MBA 2024–2026'], ['Stanford GSB', 'Diplomado 2015'], ['University of Windsor', 'Máster 2012'],
-        ['Universidad Andrés Bello', 'Ingeniería y docencia'], ['Universidad del Desarrollo', 'Profesor MBA'] ] },
+      { name: 'Empresas donde he trabajado', name_en: "Companies I've worked at", items: [
+        ['BoostBrands', 'Fundador y CEO', 'Founder & CEO'], ['Bajaj Motochile', 'Director de Marketing y Ventas', 'Marketing & Sales Director'],
+        ['Bajaj Auto', 'Country Manager y CMO regional', 'Country Manager & regional CMO'], ['Accenture', 'Subgerente de Marketing', 'Marketing Manager'],
+        ['Electrolux', 'Product Marketing regional', 'Regional product marketing'], ['Cencosud', 'Product Marketing', 'Product marketing'] ] },
+      { name: 'Marcas, socios y clientes', name_en: 'Brands, partners and clients', items: [
+        ['Fensa', 'Marca #1 en Chile (Electrolux)', '#1 brand in Chile (Electrolux)'], ['Mademsa', 'Marca #1 en Chile (Electrolux)', '#1 brand in Chile (Electrolux)'],
+        ['Acapella', 'Moda sostenible, representación retail', 'Sustainable fashion, retail representation'], ['Galgo', 'Fintech, alianza USD $8M', 'Fintech, USD $8M alliance'],
+        ['3M Chile', 'Proyecto RFID de tesis', 'RFID thesis project'], ['Commonwealth Kitchen', 'Proyecto MIT en Boston', 'MIT project in Boston'],
+        ['HubSpot', 'CRM implementado', 'CRM implemented'], ['Salesforce', 'Marketing Cloud', 'Marketing Cloud'] ] },
+      { name: 'Instituciones', name_en: 'Institutions', items: [
+        ['MIT Sloan', 'MBA 2024–2026', 'MBA 2024–2026'], ['Stanford GSB', 'Diplomado 2015', 'Diploma 2015'], ['University of Windsor', 'Máster 2012', "Master's 2012"],
+        ['Universidad Andrés Bello', 'Ingeniería y docencia', 'Engineering and teaching'], ['Universidad del Desarrollo', 'Profesor MBA', 'MBA professor'] ] },
     ];
     const COUNTRIES = [
-      ['Chile', 'base'], ['Paraguay', 'lanzamiento Bajaj'], ['Perú', 'campañas'], ['Argentina', 'campañas'],
-      ['6 países LATAM', 'clúster Bajaj'], ['Clúster Andino', 'Electrolux'], ['EEUU', 'MIT y Stanford'], ['Canadá', 'máster'], ['Singapur', 'práctica MIT'],
+      ['Chile', 'base', 'Chile', 'home base'], ['Paraguay', 'lanzamiento Bajaj', 'Paraguay', 'Bajaj launch'], ['Perú', 'campañas', 'Peru', 'campaigns'],
+      ['Argentina', 'campañas', 'Argentina', 'campaigns'], ['6 países LATAM', 'clúster Bajaj', '6 LATAM countries', 'Bajaj cluster'],
+      ['Clúster Andino', 'Electrolux', 'Andean cluster', 'Electrolux'], ['EEUU', 'MIT y Stanford', 'USA', 'MIT and Stanford'],
+      ['Canadá', 'máster', 'Canada', "master's"], ['Singapur', 'práctica MIT', 'Singapore', 'MIT practicum'],
     ];
-    // Photos: drop image files into the fotos/ folder with these names and they appear automatically.
+    const EDU = [
+      { yr: '2024–26', school: 'MIT Sloan School of Management', deg: 'MBA · Boston, EEUU', deg_en: 'MBA · Boston, USA',
+        notes: ['Práctica en Singapur: pricing y go-to-market para startup biotech.', 'Ganador del concurso de Change Management.'],
+        notes_en: ['Practicum in Singapore: pricing and go-to-market for a biotech startup.', 'Winner of the Change Management competition.'] },
+      { yr: '2015', school: 'Stanford Graduate School of Business', deg: 'Diplomado en Marketing Estratégico y Neuromarketing', deg_en: 'Diploma in Strategic Marketing Management and Neuromarketing', notes: [] },
+      { yr: '2012', school: 'University of Windsor, Odette', deg: 'Máster en Gestión y Administración de la Producción · Canadá', deg_en: "Master's in Production Management · Canada",
+        notes: ['Premio de la Paz 2012.'], notes_en: ['2012 Peace Prize.'] },
+      { yr: '2008', school: 'Universidad Andrés Bello', deg: 'Ingeniería Industrial con honores', deg_en: 'Industrial Engineering with honors',
+        notes: ['Mejor Proyecto de Tesis del Año 2007 (RFID con 3M Chile).'], notes_en: ['Best Thesis Project of the Year 2007 (RFID with 3M Chile).'] },
+      { yr: '2025–hoy', yr_en: '2025–now', school: 'Universidad Andrés Bello', deg: 'Profesor · Escuela de Ingeniería', deg_en: 'Professor · School of Engineering',
+        notes: ['Seminario, Portafolio y Proyecto de Título.'], notes_en: ['Capstone seminar, portfolio and project.'], kind: 'teach' },
+      { yr: '2025–hoy', yr_en: '2025–now', school: 'Universidad del Desarrollo', deg: 'Profesor · MBA', deg_en: 'Professor · MBA',
+        notes: ['Product Management.'], kind: 'teach' },
+    ];
+    const TICKER = [
+      ['17', 'años de experiencia', 'years of experience'], ['9→23%', 'participación de mercado', 'market share'],
+      ['USD $13,5M', 'en e-commerce', 'in e-commerce', 'USD $13.5M'], ['USD $20M', 'de inversión aprobada', 'in approved investment'],
+      ['6', 'países en campañas', 'countries in campaigns'], ['50', 'PYMES asesoradas', 'SMEs advised'],
+      ['#1', 'en refrigeradores y freezers', 'in refrigerators and freezers'], ['+20%', 'EBITDA', 'EBITDA'],
+    ];
+    const ROLE_LINES = {
+      es: ['Fundador y CEO de BoostBrands', 'MBA, MIT Sloan', 'Profesor de Product Management (UDD)', 'Ex Director de Marketing y Ventas, Bajaj', 'Ex Country Manager Chile y Paraguay'],
+      en: ['Founder & CEO of BoostBrands', 'MBA, MIT Sloan', 'Professor of Product Management (UDD)', 'Former Marketing & Sales Director, Bajaj', 'Former Country Manager Chile & Paraguay'],
+    };
+    // Photos: drop image files into the fotos/ folder with these names. Only photos that exist are shown;
+    // the section stays hidden until at least one loads.
     const PHOTOS = [
       { src: 'fotos/foto-1.jpg', caption: 'MIT Sloan', size: 'tall' },
       { src: 'fotos/foto-2.jpg', caption: 'BoostBrands', size: 'wide' },
       { src: 'fotos/foto-3.jpg', caption: 'Bajaj', size: '' },
-      { src: 'fotos/foto-4.jpg', caption: 'Clases', size: '' },
-      { src: 'fotos/foto-5.jpg', caption: 'Charlas y eventos', size: 'wide' },
-      { src: 'fotos/foto-6.jpg', caption: 'Singapur', size: '' },
-      { src: 'fotos/foto-7.jpg', caption: 'Equipo', size: '' },
-    ];
-    const TICKER = [
-      ['17', 'años de experiencia'], ['9→23%', 'participación de mercado'], ['USD $13,5M', 'en e-commerce'], ['USD $20M', 'de inversión aprobada'],
-      ['6', 'países en campañas'], ['50', 'PYMES asesoradas'], ['#1', 'en refrigeradores y freezers'], ['+20%', 'EBITDA'],
+      { src: 'fotos/foto-4.jpg', caption: 'Clases', caption_en: 'Teaching', size: '' },
+      { src: 'fotos/foto-5.jpg', caption: 'Charlas y eventos', caption_en: 'Talks & events', size: 'wide' },
+      { src: 'fotos/foto-6.jpg', caption: 'Singapur', caption_en: 'Singapore', size: '' },
+      { src: 'fotos/foto-7.jpg', caption: 'Equipo', caption_en: 'Team', size: '' },
     ];
 
     /* ---------- Helpers ---------- */
+    const CONFIG = Object.assign({ email: 'cmarino@mit.edu', calendarUrl: '', whatsapp: '' }, window.SITE_CONFIG);
     const $ = id => document.getElementById(id);
+    const root = document.documentElement;
     const el = (tag, attrs = {}, ...kids) => {
       const n = document.createElement(tag);
       for (const [k, v] of Object.entries(attrs)) {
@@ -547,74 +613,80 @@
     const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
     $('year').textContent = new Date().getFullYear();
 
-    function photoInto(container, src, alt, initials) {
-      const img = new Image();
-      img.alt = alt; img.decoding = 'async'; img.src = src;
-      const ph = el('div', { class: 'ph' }, el('div', {},
-        el('div', { class: 'ini', text: initials || 'CM' }),
-        el('div', { text: 'Foto pendiente' }),
-        el('code', { text: src })));
-      container.replaceChildren(ph);
-      img.onload = () => { container.replaceChildren(img); container.dataset.loaded = '1'; };
-    }
+    const browserLang = (navigator.language || 'es').toLowerCase().startsWith('es') ? 'es' : 'en';
+    let lang = browserLang;
+    try { lang = localStorage.getItem('lang') || browserLang; } catch {}
+    const T = (obj, key) => (lang === 'en' && obj[key + '_en'] !== undefined) ? obj[key + '_en'] : obj[key];
 
-    /* ---------- Hero ---------- */
-    photoInto($('portrait-frame'), $('portrait-frame').dataset.photo, $('portrait-frame').dataset.alt, 'CM');
-    const ROLE_LINES = ['Fundador y CEO de BoostBrands', 'MBA, MIT Sloan', 'Profesor de Product Management (UDD)', 'Ex Director de Marketing y Ventas, Bajaj', 'Ex Country Manager Chile y Paraguay'];
+    /* ---------- Ticker ---------- */
+    function renderTicker() {
+      const items = TICKER.map(([b, es, en, bEn]) => el('div', { class: 'ticker-item' },
+        el('strong', { text: lang === 'en' && bEn ? bEn : b }), el('span', { text: lang === 'en' ? en : es })));
+      $('ticker-track').replaceChildren(...items, ...items.map(n => { const c = n.cloneNode(true); c.setAttribute('aria-hidden', 'true'); return c; }));
+    }
+    $('pause-btn').addEventListener('click', e => {
+      const paused = $('ticker').classList.toggle('paused');
+      e.currentTarget.setAttribute('aria-pressed', paused);
+      e.currentTarget.textContent = paused ? '▶' : '❚❚';
+    });
+
+    /* ---------- Role line (typing) ---------- */
+    let roleIdx = 0;
+    function resetRoleLine() { roleIdx = 0; $('role').textContent = ROLE_LINES[lang][0]; }
     if (!reduceMotion) {
-      let r = 0; const roleEl = $('role'); const wait = ms => new Promise(res => setTimeout(res, ms));
+      const roleEl = $('role'); const wait = ms => new Promise(res => setTimeout(res, ms));
       setInterval(async () => {
-        r = (r + 1) % ROLE_LINES.length;
+        const lines = ROLE_LINES[lang]; roleIdx = (roleIdx + 1) % lines.length;
         while (roleEl.textContent.length) { roleEl.textContent = roleEl.textContent.slice(0, -2); await wait(18); }
-        const t = ROLE_LINES[r];
+        const t = ROLE_LINES[lang][roleIdx];
         for (let i = 1; i <= t.length; i++) { roleEl.textContent = t.slice(0, i); await wait(32); }
       }, 3600);
     }
-    const tick = TICKER.map(([b, s]) => el('div', { class: 'ticker-item' }, el('strong', { text: b }), el('span', { text: s })));
-    $('ticker').append(...tick, ...tick.map(n => { const c = n.cloneNode(true); c.setAttribute('aria-hidden', 'true'); return c; }));
 
-    /* ---------- Gantt ---------- */
+    /* ---------- Gantt + detail ---------- */
     const Y0 = 2007, Y1 = 2027;
     const pct = y => ((y - Y0) / (Y1 - Y0)) * 100;
-    const gantt = $('gantt');
-    const axis = el('div', { class: 'g-axis' }, el('span'), el('div', { class: 'scale' }));
-    for (let y = 2008; y <= 2026; y += 2) axis.lastChild.append(el('span', { class: 'tick', style: `left:${pct(y)}%`, text: String(y) }));
-    gantt.append(axis);
     const order = [...ROLES].sort((a, b) => a.start - b.start);
     const bars = new Map();
-    const now = new Date(); const nowY = now.getFullYear() + now.getMonth() / 12;
-    LANES.forEach(l => {
-      const lane = el('div', { class: 'lane' });
-      const grid = el('div', { class: 'g-grid' });
-      for (let y = 2008; y <= 2026; y += 2) grid.append(el('i', { style: `left:${pct(y)}%` }));
-      lane.append(grid);
-      ROLES.filter(r => r.lane === l.key).forEach(r => {
-        const kind = r.lane.startsWith('edu') ? 'edu' : r.lane.startsWith('teach') ? 'teach' : 'work';
-        const b = el('button', { class: `bar ${kind === 'work' ? '' : kind}`, type: 'button', 'aria-pressed': 'false',
-          style: `left:${pct(r.start)}%;width:${pct(r.end) - pct(r.start)}%`, title: `${r.title} · ${r.period}`, text: r.label });
-        b.addEventListener('click', () => select(r.id, true));
-        bars.set(r.id, b); lane.append(b);
+    let current = 'motochile';
+    function renderGantt() {
+      const gantt = $('gantt'); gantt.replaceChildren(); bars.clear();
+      const axis = el('div', { class: 'g-axis' }, el('span'), el('div', { class: 'scale' }));
+      for (let y = 2008; y <= 2026; y += 2) axis.lastChild.append(el('span', { class: 'tick', style: `left:${pct(y)}%`, text: String(y) }));
+      gantt.append(axis);
+      const now = new Date(); const nowY = now.getFullYear() + now.getMonth() / 12;
+      LANES.forEach(l => {
+        const lane = el('div', { class: 'lane' });
+        const grid = el('div', { class: 'g-grid' });
+        for (let y = 2008; y <= 2026; y += 2) grid.append(el('i', { style: `left:${pct(y)}%` }));
+        lane.append(grid);
+        ROLES.filter(r => r.lane === l.key).forEach(r => {
+          const kind = r.lane.startsWith('edu') ? 'edu' : r.lane.startsWith('teach') ? 'teach' : '';
+          const b = el('button', { class: `bar ${kind}`, type: 'button', 'aria-pressed': String(r.id === current),
+            style: `left:${pct(r.start)}%;width:${pct(r.end) - pct(r.start)}%`, title: `${T(r, 'title')} · ${T(r, 'period')}`, text: T(r, 'label') });
+          b.addEventListener('click', () => select(r.id, true));
+          bars.set(r.id, b); lane.append(b);
+        });
+        if (l.key === 'work') lane.append(el('div', { class: 'now-line', style: `left:${pct(Math.min(nowY, Y1))}%` }));
+        gantt.append(el('div', { class: 'g-row' }, el('span', { class: 'lane-name', text: T(l, 'name') }), lane));
       });
-      if (l.key === 'work') lane.append(el('div', { class: 'now-line', style: `left:${pct(Math.min(nowY, Y1))}%` }));
-      gantt.append(el('div', { class: 'g-row' }, el('span', { class: 'lane-name', text: l.name }), lane));
-    });
-
-    let current = null;
+    }
     function select(id, scrollBar) {
       const r = ROLES.find(x => x.id === id); if (!r) return;
       current = id;
       bars.forEach((b, k) => b.setAttribute('aria-pressed', k === id));
       if (scrollBar) bars.get(id).scrollIntoView({ block: 'nearest', inline: 'center', behavior: reduceMotion ? 'auto' : 'smooth' });
       const kind = r.lane.startsWith('edu') ? 'edu' : r.lane.startsWith('teach') ? 'teach' : '';
+      const bullets = T(r, 'bullets');
       const main = el('div', { class: 'detail-main swap' },
         el('div', { class: 'detail-top' },
-          el('div', {}, el('div', { class: 'period', text: r.period }), el('h3', { text: r.title }), el('div', { class: 'org', text: r.org })),
+          el('div', {}, el('div', { class: 'period', text: T(r, 'period') }), el('h3', { text: T(r, 'title') }), el('div', { class: 'org', text: T(r, 'org') })),
           el('div', { class: 'detail-nav' },
-            el('button', { type: 'button', 'aria-label': 'Anterior', 'data-step': '-1', text: '←' }),
-            el('button', { type: 'button', 'aria-label': 'Siguiente', 'data-step': '1', text: '→' }))),
-        el('p', { class: 'desc', text: r.desc }),
-        r.bullets.length ? el('ul', {}, ...r.bullets.map(t => el('li', { text: t }))) : null);
-      const side = el('div', { class: `detail-side ${kind}` }, el('div', { class: 'big', text: r.big }), el('div', { class: 'cap', text: r.cap }));
+            el('button', { type: 'button', 'aria-label': lang === 'es' ? 'Anterior' : 'Previous', 'data-step': '-1', text: '←' }),
+            el('button', { type: 'button', 'aria-label': lang === 'es' ? 'Siguiente' : 'Next', 'data-step': '1', text: '→' }))),
+        el('p', { class: 'desc', text: T(r, 'desc') }),
+        bullets.length ? el('ul', {}, ...bullets.map(t => el('li', { text: t }))) : null);
+      const side = el('div', { class: `detail-side ${kind}` }, el('div', { class: 'big', text: T(r, 'big') }), el('div', { class: 'cap', text: T(r, 'cap') }));
       $('detail').replaceChildren(main, side);
       main.querySelectorAll('[data-step]').forEach(btn => btn.addEventListener('click', () => step(+btn.dataset.step)));
     }
@@ -628,75 +700,103 @@
       if (sec.top > innerHeight * .6 || sec.bottom < innerHeight * .3) return;
       if (e.key === 'ArrowRight') step(1); else if (e.key === 'ArrowLeft') step(-1);
     });
-    select('motochile', false);
 
     /* ---------- Achievements ---------- */
-    const winsEl = $('wins'), filtersEl = $('win-filters');
-    const winCards = WINS.map(w => {
-      const c = el('article', { class: 'win', 'data-cat': w.cat },
-        el('div', { class: 'big', text: w.big }), el('p', { text: w.text }), el('div', { class: 'where', text: `${w.where} · ${CATS[w.cat]}` }));
-      winsEl.append(c); return c;
-    });
-    Object.entries(CATS).forEach(([key, label], i) => {
-      const n = key === 'todos' ? WINS.length : WINS.filter(w => w.cat === key).length;
-      const b = el('button', { class: 'filter', type: 'button', 'aria-pressed': String(i === 0) }, label, el('span', { class: 'n', text: String(n) }));
-      b.addEventListener('click', () => {
-        filtersEl.querySelectorAll('.filter').forEach(x => x.setAttribute('aria-pressed', x === b));
-        winCards.forEach(c => {
-          const show = key === 'todos' || c.dataset.cat === key;
-          c.hidden = !show; c.classList.remove('pop');
-          if (show) { void c.offsetWidth; c.classList.add('pop'); }
+    let activeCat = 'todos';
+    function renderWins() {
+      const cards = WINS.map(w => el('article', { class: 'win', 'data-cat': w.cat },
+        el('div', { class: 'big', text: T(w, 'big') }), el('p', { text: T(w, 'text') }),
+        el('div', { class: 'where', text: `${w.where} · ${CATS[w.cat][lang === 'es' ? 0 : 1]}` })));
+      cards.forEach(c => { c.hidden = activeCat !== 'todos' && c.dataset.cat !== activeCat; });
+      $('wins').replaceChildren(...cards);
+      const buttons = Object.entries(CATS).map(([key, names]) => {
+        const n = key === 'todos' ? WINS.length : WINS.filter(w => w.cat === key).length;
+        const b = el('button', { class: 'filter', type: 'button', 'aria-pressed': String(key === activeCat) }, names[lang === 'es' ? 0 : 1], el('span', { class: 'n', text: String(n) }));
+        b.addEventListener('click', () => {
+          activeCat = key;
+          $('win-filters').querySelectorAll('.filter').forEach(x => x.setAttribute('aria-pressed', x === b));
+          cards.forEach(c => {
+            const show = key === 'todos' || c.dataset.cat === key;
+            c.hidden = !show; c.classList.remove('pop');
+            if (show) { void c.offsetWidth; c.classList.add('pop'); }
+          });
         });
+        return b;
       });
-      filtersEl.append(b);
-    });
+      $('win-filters').replaceChildren(...buttons);
+    }
 
     /* ---------- Worked with ---------- */
-    GROUPS.forEach(g => {
-      $('groups').append(el('div', { class: 'group' }, el('h3', { text: g.name }),
-        el('div', { class: 'wall' }, ...g.items.map(([n, r]) => el('div', { class: 'mark' }, el('div', { class: 'name', text: n }), el('div', { class: 'rel', text: r }))))));
-    });
-    COUNTRIES.forEach(([c, why]) => $('countries').append(el('span', { class: 'country' }, el('b', { text: c }), el('span', { text: ` · ${why}` }))));
+    function renderGroups() {
+      $('groups').replaceChildren(...GROUPS.map(g => el('div', { class: 'group' }, el('h3', { text: T(g, 'name') }),
+        el('div', { class: 'wall' }, ...g.items.map(([n, es, en]) => el('div', { class: 'mark' }, el('div', { class: 'name', text: n }), el('div', { class: 'rel', text: lang === 'es' ? es : en })))))));
+      $('countries').replaceChildren(...COUNTRIES.map(([es, whyEs, en, whyEn]) =>
+        el('span', { class: 'country' }, el('b', { text: lang === 'es' ? es : en }), el('span', { text: ` · ${lang === 'es' ? whyEs : whyEn}` }))));
+    }
 
-    /* ---------- Gallery + lightbox ---------- */
+    /* ---------- Gallery: only photos that load are shown ---------- */
     const lb = $('lightbox');
-    PHOTOS.forEach(p => {
-      const fig = el('figure', { class: `shot ${p.size} empty`, tabindex: '-1' });
-      const holder = el('div', { style: 'width:100%;height:100%' });
-      fig.append(holder, el('figcaption', {}, el('span', { text: p.caption })));
-      photoInto(holder, p.src, p.caption, '');
-      const open = () => {
-        if (!holder.dataset.loaded) return;
-        $('lb-img').src = p.src; $('lb-img').alt = p.caption; $('lb-cap').textContent = p.caption;
-        lb.hidden = false; $('lb-close').focus();
-      };
-      new MutationObserver(() => { if (holder.dataset.loaded) { fig.classList.remove('empty'); fig.tabIndex = 0; fig.setAttribute('role', 'button'); } })
-        .observe(holder, { attributes: true });
-      fig.addEventListener('click', open);
-      fig.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
-      $('gallery').append(fig);
+    const loaded = [];
+    PHOTOS.forEach((p, i) => {
+      const img = new Image();
+      img.onload = () => { loaded.push(i); loaded.sort((a, b) => a - b); renderGallery(); };
+      img.src = p.src;
     });
+    function renderGallery() {
+      const has = loaded.length > 0;
+      $('fotos').hidden = !has; $('nav-fotos').hidden = !has;
+      $('gallery').replaceChildren(...loaded.map(i => {
+        const p = PHOTOS[i], cap = T(p, 'caption');
+        const fig = el('button', { class: `shot ${p.size}`, type: 'button', 'aria-label': cap },
+          el('img', { src: p.src, alt: cap, loading: 'lazy' }), el('span', { text: cap }));
+        fig.addEventListener('click', () => {
+          $('lb-img').src = p.src; $('lb-img').alt = cap; $('lb-cap').textContent = cap;
+          lb.hidden = false; $('lb-close').focus();
+        });
+        return fig;
+      }));
+    }
     const closeLb = () => { lb.hidden = true; };
     $('lb-close').addEventListener('click', closeLb);
     lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && !lb.hidden) closeLb(); });
 
     /* ---------- Education ---------- */
-    const EDU = [
-      ['2024–26', 'MIT Sloan School of Management', 'MBA · Boston, EEUU', ['Práctica en Singapur: pricing y go-to-market para startup biotech.', 'Ganador del concurso de Change Management.'], ''],
-      ['2015', 'Stanford Graduate School of Business', 'Diplomado en Marketing Estratégico y Neuromarketing', [], ''],
-      ['2012', 'University of Windsor, Odette', 'Máster en Gestión y Administración de la Producción · Canadá', ['Premio de la Paz 2012.'], ''],
-      ['2008', 'Universidad Andrés Bello', 'Ingeniería Industrial con honores', ['Mejor Proyecto de Tesis del Año 2007 (RFID con 3M Chile).'], ''],
-      ['2025–hoy', 'Universidad Andrés Bello', 'Profesor · Escuela de Ingeniería', ['Seminario, Portafolio y Proyecto de Título.'], 'teach'],
-      ['2025–hoy', 'Universidad del Desarrollo', 'Profesor · MBA', ['Product Management.'], 'teach'],
-    ];
-    EDU.forEach(([yr, school, deg, notes, kind]) => $('edu').append(
-      el('div', { class: `edu-card ${kind}` }, el('div', { class: 'yr', text: yr }),
-        el('div', {}, el('h3', { text: school }), el('div', { class: 'deg', text: deg }),
-          notes.length ? el('ul', {}, ...notes.map(t => el('li', { text: t }))) : null))));
+    function renderEdu() {
+      $('edu').replaceChildren(...EDU.map(e => {
+        const notes = T(e, 'notes');
+        return el('div', { class: `edu-card ${e.kind || ''}` }, el('div', { class: 'yr', text: T(e, 'yr') }),
+          el('div', {}, el('h3', { text: e.school }), el('div', { class: 'deg', text: T(e, 'deg') }),
+            notes.length ? el('ul', {}, ...notes.map(t => el('li', { text: t }))) : null));
+      }));
+    }
 
-    /* ---------- Chrome: theme, menu, progress, active nav, copy email ---------- */
-    const root = document.documentElement;
+    /* ---------- Contact links from config.js ---------- */
+    function applyConfig() {
+      const subject = lang === 'es' ? 'Diagnóstico de 30 min' : '30-min diagnostic';
+      document.querySelectorAll('[data-agenda]').forEach(a => {
+        if (CONFIG.calendarUrl) { a.href = CONFIG.calendarUrl; a.target = '_blank'; a.rel = 'noopener'; }
+        else a.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}`;
+      });
+      const text = lang === 'es' ? 'Hola Cristian, vi tu CV y me gustaría conversar.' : "Hi Cristian, I saw your CV and I'd like to talk.";
+      document.querySelectorAll('[data-whatsapp]').forEach(a => {
+        a.hidden = !CONFIG.whatsapp;
+        if (CONFIG.whatsapp) a.href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(text)}`;
+      });
+      document.querySelectorAll('[data-email]').forEach(a => { a.href = `mailto:${CONFIG.email}`; a.textContent = CONFIG.email; });
+    }
+
+    /* ---------- Language ---------- */
+    function setLang(l) {
+      lang = l; root.lang = l;
+      document.title = l === 'es' ? 'Cristian Marino · CV' : 'Cristian Marino · Resume';
+      try { localStorage.setItem('lang', l); } catch {}
+      renderTicker(); resetRoleLine(); renderGantt(); select(current, false);
+      renderWins(); renderGroups(); renderGallery(); renderEdu(); applyConfig();
+    }
+    $('lang-btn').addEventListener('click', () => setLang(lang === 'es' ? 'en' : 'es'));
+
+    /* ---------- Chrome: theme, menu, progress, active nav, tilt, copy email ---------- */
     try { const t = localStorage.getItem('theme'); if (t) root.dataset.theme = t; } catch {}
     $('theme-btn').addEventListener('click', () => {
       const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
@@ -715,11 +815,25 @@
       if (en.isIntersecting) navMap.forEach((a, id) => a.classList.toggle('active', id === en.target.id));
     }), { rootMargin: '-45% 0px -50% 0px' });
     document.querySelectorAll('section[id]').forEach(s => io.observe(s));
+    const frame = document.querySelector('.portrait .frame');
+    if (!reduceMotion && matchMedia('(hover: hover)').matches) {
+      $('portrait').addEventListener('mousemove', e => {
+        const r = frame.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+        frame.style.transform = `perspective(900px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg)`;
+      });
+      $('portrait').addEventListener('mouseleave', () => { frame.style.transform = ''; });
+    }
     const toast = $('toast');
     $('copy-email').addEventListener('click', async () => {
-      try { await navigator.clipboard.writeText('cmarino@mit.edu'); toast.textContent = 'Email copiado: cmarino@mit.edu'; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2200); }
-      catch { location.href = 'mailto:cmarino@mit.edu'; }
+      try {
+        await navigator.clipboard.writeText(CONFIG.email);
+        toast.textContent = (lang === 'es' ? 'Email copiado: ' : 'Email copied: ') + CONFIG.email;
+        toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2200);
+      } catch { location.href = `mailto:${CONFIG.email}`; }
     });
+
+    setLang(lang);
   </script>
 </body>
 </html>

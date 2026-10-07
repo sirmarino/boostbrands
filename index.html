@@ -606,13 +606,10 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <script src="config.js"></script>
   <script>
-    /* ---------- Contact settings: edit these three values ---------- */
-    const CONFIG = {
-      email: 'cmarino@mit.edu',
-      calendarUrl: '',   // e.g. 'https://calendly.com/...'. Empty: the "Agenda" buttons open an email instead.
-      whatsapp: '',      // full number, digits only, e.g. '569XXXXXXXX'. Empty: WhatsApp buttons stay hidden.
-    };
+    /* Contact settings live in config.js (shared with cv.html). */
+    const CONFIG = Object.assign({ email: 'cmarino@mit.edu', calendarUrl: '', whatsapp: '' }, window.SITE_CONFIG);
 
     const $ = id => document.getElementById(id);
     const root = document.documentElement;
