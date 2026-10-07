@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cristian Marino</title>
+  <meta name="description" content="Cristian Marino — founder of BoostBrands. Helping brands grow through strategy, digital marketing and creative.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fafaf7;
+      --surface: #ffffff;
+      --text: #15151a;
+      --muted: #5c5c66;
+      --border: #e6e6e1;
+      --accent: #ff5a1f;
+      --accent-soft: #fff0e9;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f0f12;
+        --surface: #18181d;
+        --text: #f3f3f5;
+        --muted: #a0a0ab;
+        --border: #2a2a31;
+        --accent: #ff7a45;
+        --accent-soft: #2a1a12;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+    /* Nav */
+    nav {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo { font-weight: 800; text-decoration: none; letter-spacing: -0.02em; }
+    .logo span { color: var(--accent); }
+    nav ul { display: flex; gap: 28px; list-style: none; }
+    nav ul a { text-decoration: none; color: var(--muted); font-size: 0.95rem; font-weight: 500; }
+    nav ul a:hover { color: var(--text); }
+
+    /* Hero */
+    .hero { padding: 96px 0 80px; }
+    .eyebrow {
+      display: inline-block; padding: 6px 12px; border-radius: 999px;
+      background: var(--accent-soft); color: var(--accent);
+      font-size: 0.85rem; font-weight: 600; margin-bottom: 24px;
+    }
+    h1 {
+      font-size: clamp(2.5rem, 7vw, 4.75rem);
+      line-height: 1.05; letter-spacing: -0.04em; font-weight: 800;
+      max-width: 14ch;
+    }
+    h1 em { font-style: normal; color: var(--accent); }
+    .lead { font-size: 1.2rem; color: var(--muted); max-width: 56ch; margin: 24px 0 36px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 24px; border-radius: 12px;
+      font-weight: 600; text-decoration: none; transition: transform .15s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-ghost { border: 1px solid var(--border); background: var(--surface); }
+
+    /* Sections */
+    section { padding: 80px 0; border-top: 1px solid var(--border); }
+    h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); letter-spacing: -0.03em; font-weight: 800; margin-bottom: 16px; }
+    .section-intro { color: var(--muted); max-width: 60ch; margin-bottom: 40px; }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .about-grid p + p { margin-top: 16px; }
+    .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .stat {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 24px;
+    }
+    .stat strong { display: block; font-size: 2rem; letter-spacing: -0.03em; color: var(--accent); }
+    .stat span { color: var(--muted); font-size: 0.95rem; }
+
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px;
+    }
+    .card .icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      display: grid; place-items: center;
+      background: var(--accent-soft); color: var(--accent);
+      font-size: 1.3rem; margin-bottom: 18px;
+    }
+    .card h3 { font-size: 1.15rem; margin-bottom: 8px; }
+    .card p { color: var(--muted); font-size: 0.97rem; }
+
+    .contact-box {
+      background: var(--text); color: var(--bg);
+      border-radius: 24px; padding: 56px 40px; text-align: center;
+    }
+    .contact-box h2 { color: var(--bg); }
+    .contact-box p { opacity: .75; max-width: 50ch; margin: 0 auto 32px; }
+    .contact-box .actions { justify-content: center; }
+    .contact-box .btn-ghost { background: transparent; color: var(--bg); border-color: color-mix(in srgb, var(--bg) 30%, transparent); }
+
+    footer { padding: 40px 0; color: var(--muted); font-size: 0.9rem; text-align: center; }
+
+    @media (max-width: 760px) {
+      nav ul { gap: 18px; }
+      nav ul li:nth-child(n+3) { display: none; }
+      .hero { padding: 64px 0 56px; }
+      .about-grid, .cards { grid-template-columns: 1fr; }
+      section { padding: 56px 0; }
+      .contact-box { padding: 40px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="wrap">
+      <a href="#" class="logo">Cristian Marino<span>.</span></a>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Founder · BoostBrands</span>
+      <h1>I help brands <em>grow</em> faster.</h1>
+      <p class="lead">
+        I'm Cristian Marino, founder of BoostBrands. I work with businesses to sharpen
+        their brand, reach the right audience and turn attention into revenue.
+      </p>
+      <div class="actions">
+        <a href="#contact" class="btn btn-primary">Let's work together →</a>
+        <a href="https://boostbrands.cl" class="btn btn-ghost">Visit BoostBrands</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="wrap about-grid">
+      <div>
+        <h2>About me</h2>
+        <!-- TODO: replace with your own story -->
+        <p>
+          I started BoostBrands to give growing companies the kind of marketing
+          partner usually reserved for big budgets: clear strategy, creative that
+          stands out, and campaigns measured by real results.
+        </p>
+        <p>
+          I care about simple ideas, fast execution and long-term relationships
+          with the brands I work with.
+        </p>
+      </div>
+      <!-- TODO: replace these placeholder numbers with your real figures -->
+      <div class="stats">
+        <div class="stat"><strong>10+</strong><span>Years in marketing</span></div>
+        <div class="stat"><strong>50+</strong><span>Brands supported</span></div>
+        <div class="stat"><strong>🇨🇱</strong><span>Based in Chile</span></div>
+        <div class="stat"><strong>24h</strong><span>Typical reply time</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <h2>What I do</h2>
+      <p class="section-intro">End-to-end support, from defining who your brand is to getting it in front of the people who matter.</p>
+      <div class="cards">
+        <div class="card">
+          <div class="icon">◎</div>
+          <h3>Brand strategy</h3>
+          <p>Positioning, messaging and visual identity that make your brand easy to remember and easy to choose.</p>
+        </div>
+        <div class="card">
+          <div class="icon">↗</div>
+          <h3>Digital growth</h3>
+          <p>Paid ads, SEO and social campaigns built around measurable goals, not vanity metrics.</p>
+        </div>
+        <div class="card">
+          <div class="icon">✦</div>
+          <h3>Content &amp; creative</h3>
+          <p>Content that tells your story and converts, across web, social and email.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-box">
+        <h2>Got a brand to boost?</h2>
+        <p>Tell me about your project and I'll get back to you with ideas on how to move it forward.</p>
+        <div class="actions">
+          <!-- TODO: put your public contact email and LinkedIn URL here -->
+          <a href="mailto:hello@example.com" class="btn btn-primary">Email me</a>
+          <a href="https://www.linkedin.com/" class="btn btn-ghost">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">© <span id="year"></span> Cristian Marino · BoostBrands</div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
