@@ -17,7 +17,7 @@ Personal website for Cristian Marino, founder of BoostBrands (boostbrands.cl): `
 
 - Self-contained like `index.html`. All CV content lives in JS data arrays at the top of its `<script>` (`ROLES`, `WINS`, `GROUPS`, `COUNTRIES`, `EDU`, `TICKER`, `PHOTOS`); the page renders from them. Edit content there, not in the markup.
 - `ROLES` drives both the career Gantt chart (`start`/`end` as decimal years, `lane` picks the row) and the detail panel shown when a bar is clicked.
-- Photos live in `fotos/`. The hero portrait is `fotos/retrato.jpg`; gallery slots are listed in `PHOTOS`. A missing file shows a striped "Foto pendiente" placeholder, so adding a photo only needs the file at the expected path (or a new `PHOTOS` entry).
+- Photos live in `fotos/`. The hero portrait is `fotos/retrato.jpg` (also used in the profile card on `index.html`); gallery slots are listed in `PHOTOS`. A missing file shows a striped "Foto pendiente" placeholder, so adding a photo only needs the file at the expected path (or a new `PHOTOS` entry).
 
 ## Running locally
 
