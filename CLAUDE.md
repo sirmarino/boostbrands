@@ -4,24 +4,33 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Personal website for Cristian Marino, founder of BoostBrands (boostbrands.cl): `index.html` (English landing page) and `cv.html` (interactive CV in Spanish).
+Personal website for Cristian Marino, founder of BoostBrands (boostbrands.cl). Two static pages:
 
-## Structure
+- `index.html`: main page aimed at winning SME clients (hero, company band, stats, services, case studies, condensed track record, contact).
+- `cv.html`: interactive CV aimed at executive/academic audiences (career timeline, achievements, network, gallery, education).
 
-- `index.html` is the entire site: markup, CSS (in a `<style>` block) and vanilla JS (in a `<script>` at the end of `<body>`). There is no build step, package manager, framework or test suite.
-- The script drives the interactive parts: theme toggle (sets `data-theme` on `<html>`, saved in localStorage), mobile menu, scroll progress bar, active nav link via IntersectionObserver, rotating hero word, count-up stats (`data-count` / `data-decimals` / `data-suffix`; final values stay in the HTML), experience filters (`data-tags` on each timeline `<li>`, matched by `data-filter` buttons), profile card tilt, and copy-email toast. Animations are skipped under `prefers-reduced-motion`.
-- Experience entries are native `<details>` elements, so they expand without JS.
-- Fonts (Bricolage Grotesque, IBM Plex Sans, IBM Plex Mono) load from Google Fonts.
+There is no build step, package manager, framework or test suite. Each page is self-contained HTML with its CSS in a `<style>` block and vanilla JS in a `<script>` at the end of `<body>`.
 
-## cv.html
+## Shared pieces
 
-- Self-contained like `index.html`. All CV content lives in JS data arrays at the top of its `<script>` (`ROLES`, `WINS`, `GROUPS`, `COUNTRIES`, `EDU`, `TICKER`, `PHOTOS`); the page renders from them. Edit content there, not in the markup.
+- `config.js` sets `window.SITE_CONFIG` (contact email, booking link, WhatsApp number). Both pages load it and fill every `[data-agenda]`, `[data-whatsapp]` and `[data-email]` element from it. Empty `calendarUrl` makes "Agenda" buttons fall back to a `mailto:`; empty `whatsapp` keeps WhatsApp buttons hidden.
+- `fotos/retrato.jpg` is the portrait used in both heroes. `og.jpg` (1200×630) and `favicon.svg` are referenced from both `<head>`s.
+- Language and theme preferences are shared through localStorage keys `lang` and `theme`.
+
+## Languages (ES default, EN toggle)
+
+- Static text is written twice as sibling elements with `data-l="es"` / `data-l="en"`; CSS hides the one not matching `html[lang]`. Add both versions whenever you add copy.
+- In `cv.html`, dynamic content comes from JS data arrays (`ROLES`, `WINS`, `CATS`, `GROUPS`, `COUNTRIES`, `EDU`, `TICKER`, `ROLE_LINES`, `PHOTOS`). English values live in sibling fields with an `_en` suffix and are read through `T(obj, key)`; `setLang()` re-renders every section. Edit content in those arrays, not in the markup.
+- Default language is the saved preference, else Spanish for Spanish-language browsers and English otherwise.
+
+## cv.html specifics
+
 - `ROLES` drives both the career Gantt chart (`start`/`end` as decimal years, `lane` picks the row) and the detail panel shown when a bar is clicked.
-- Photos live in `fotos/`. The hero portrait is `fotos/retrato.jpg` (also used in the profile card on `index.html`); gallery slots are listed in `PHOTOS`. A missing file shows a striped "Foto pendiente" placeholder, so adding a photo only needs the file at the expected path (or a new `PHOTOS` entry).
+- The gallery only shows photos that actually load; the `#fotos` section and its nav link stay hidden until at least one `PHOTOS` entry exists in `fotos/`.
 
 ## Running locally
 
-Open `index.html` directly in a browser, or serve the folder:
+Open either HTML file directly in a browser, or serve the folder:
 
 ```bash
 python3 -m http.server 8000   # then visit http://localhost:8000
@@ -29,6 +38,7 @@ python3 -m http.server 8000   # then visit http://localhost:8000
 
 ## Conventions
 
-- Colors are CSS custom properties on `:root`, redefined for dark mode both under `@media (prefers-color-scheme: dark)` (guarded by `:root:not([data-theme="light"])`) and under `:root[data-theme="dark"]`; keep the two dark blocks in sync. Add new colors as tokens there rather than hard-coding them, so dark mode keeps working.
-- The layout must work at phone width (the `@media (max-width: 760px)` block). Check both desktop and mobile widths after visual changes.
-- Site copy (stats, experience, education) comes from Cristian's CV. Keep figures consistent with it and don't invent achievements or numbers.
+- Palette is orange + navy, defined as CSS custom properties on `:root` and redefined for dark mode both under `@media (prefers-color-scheme: dark)` (guarded by `:root:not([data-theme="light"])`) and under `:root[data-theme="dark"]`; keep the two dark blocks in sync and keep both pages' tokens aligned.
+- Contrast rules: `--accent` (#E8551C) is for fills and large numbers only; small accent text uses `--accent-text` (#C2410C, 4.75:1); text on orange buttons uses `--accent-ink` (dark), never white.
+- Layout must work at phone width (≈390px) with no horizontal overflow; check desktop and mobile after visual changes. Tap targets are at least 44px.
+- Site copy comes from Cristian's CV. Keep figures consistent with it and never invent achievements, numbers, clients or testimonials.
