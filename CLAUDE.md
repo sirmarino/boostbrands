@@ -23,4 +23,4 @@ python3 -m http.server 8000   # then visit http://localhost:8000
 
 - Colors are CSS custom properties on `:root`, redefined under `@media (prefers-color-scheme: dark)`. Add new colors as tokens there rather than hard-coding them, so dark mode keeps working.
 - The layout must work at phone width (the `@media (max-width: 760px)` block). Check both desktop and mobile widths after visual changes.
-- Content marked with `<!-- TODO -->` comments (about text, stats, contact email, LinkedIn URL) is placeholder copy. Don't present it as real until the owner provides the actual details.
+- Site copy (stats, experience, education) comes from Cristian's CV. Keep figures consistent with it and don't invent achievements or numbers.
