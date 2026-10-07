@@ -8,8 +8,10 @@ Personal one-page website for Cristian Marino, founder of BoostBrands (boostbran
 
 ## Structure
 
-- `index.html` is the entire site: markup, CSS (in a `<style>` block) and a one-line script. There is no build step, package manager, framework or test suite.
-- The only external dependency is the Inter font from Google Fonts.
+- `index.html` is the entire site: markup, CSS (in a `<style>` block) and vanilla JS (in a `<script>` at the end of `<body>`). There is no build step, package manager, framework or test suite.
+- The script drives the interactive parts: theme toggle (sets `data-theme` on `<html>`, saved in localStorage), mobile menu, scroll progress bar, active nav link via IntersectionObserver, rotating hero word, count-up stats (`data-count` / `data-decimals` / `data-suffix`; final values stay in the HTML), experience filters (`data-tags` on each timeline `<li>`, matched by `data-filter` buttons), profile card tilt, and copy-email toast. Animations are skipped under `prefers-reduced-motion`.
+- Experience entries are native `<details>` elements, so they expand without JS.
+- Fonts (Bricolage Grotesque, IBM Plex Sans, IBM Plex Mono) load from Google Fonts.
 
 ## Running locally
 
@@ -21,6 +23,6 @@ python3 -m http.server 8000   # then visit http://localhost:8000
 
 ## Conventions
 
-- Colors are CSS custom properties on `:root`, redefined under `@media (prefers-color-scheme: dark)`. Add new colors as tokens there rather than hard-coding them, so dark mode keeps working.
+- Colors are CSS custom properties on `:root`, redefined for dark mode both under `@media (prefers-color-scheme: dark)` (guarded by `:root:not([data-theme="light"])`) and under `:root[data-theme="dark"]`; keep the two dark blocks in sync. Add new colors as tokens there rather than hard-coding them, so dark mode keeps working.
 - The layout must work at phone width (the `@media (max-width: 760px)` block). Check both desktop and mobile widths after visual changes.
 - Site copy (stats, experience, education) comes from Cristian's CV. Keep figures consistent with it and don't invent achievements or numbers.
