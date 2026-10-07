@@ -1,0 +1,725 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cristian Marino · CV</title>
+  <meta name="description" content="Curriculum vitae interactivo de Cristian Marino: 17 años liderando marketing, crecimiento y transformación de negocios. Fundador y CEO de BoostBrands, MBA MIT Sloan.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    /* Layout: editorial CV. Hero with portrait, metric ticker, career Gantt (2008–2026) driving a detail panel,
+       filterable achievements, "who I've worked with" wall, photo gallery with lightbox, education, contact. */
+    :root {
+      --bg: #f6f5f2;
+      --surface: #ffffff;
+      --text: #1b1a1f;
+      --muted: #66636e;
+      --border: #e4e1db;
+      --accent: #e8551c;
+      --accent-ink: #ffffff;
+      --accent-soft: #fdeee6;
+      --bar-edu: #3b6fd8;
+      --bar-edu-soft: #e7eefc;
+      --bar-teach: #1f9d74;
+      --bar-teach-soft: #e3f5ee;
+      --invert-bg: #1b1a1f;
+      --invert-text: #f6f5f2;
+      --shade: rgba(20, 18, 24, .82);
+      --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+      --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #121115; --surface: #1c1b21; --text: #f1eff4; --muted: #a29fab;
+        --border: #2d2b33; --accent: #ff7a45; --accent-ink: #1b0d06; --accent-soft: #2e1a10;
+        --bar-edu: #7aa2f7; --bar-edu-soft: #18223a; --bar-teach: #4cc79c; --bar-teach-soft: #12291f;
+        --invert-bg: #f1eff4; --invert-text: #121115; --shade: rgba(0, 0, 0, .86); color-scheme: dark;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #121115; --surface: #1c1b21; --text: #f1eff4; --muted: #a29fab;
+      --border: #2d2b33; --accent: #ff7a45; --accent-ink: #1b0d06; --accent-soft: #2e1a10;
+      --bar-edu: #7aa2f7; --bar-edu-soft: #18223a; --bar-teach: #4cc79c; --bar-teach-soft: #12291f;
+      --invert-bg: #f1eff4; --invert-text: #121115; --shade: rgba(0, 0, 0, .86); color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+    body { font: 16px/1.6 var(--font-body); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+    button { font: inherit; color: inherit; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding-inline: 20px; }
+    h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; }
+    .mono { font-family: var(--font-mono); }
+
+    .progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); z-index: 30; }
+
+    /* Nav */
+    nav {
+      position: sticky; top: 0; z-index: 20;
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+    .logo { font: 800 1.1rem var(--font-display); text-decoration: none; letter-spacing: -0.02em; white-space: nowrap; }
+    .logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: .92rem; font-weight: 500; padding: 6px 11px; border-radius: 999px; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--accent); background: var(--accent-soft); }
+    .nav-tools { display: flex; gap: 8px; }
+    .icon-btn { width: 40px; height: 40px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; display: grid; place-items: center; }
+    .menu-btn { display: none; }
+
+    /* Hero */
+    .hero { padding-block: 72px 56px; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .9fr); gap: 56px; align-items: center; }
+    .eyebrow { font: 500 .78rem var(--font-mono); text-transform: uppercase; letter-spacing: .1em; color: var(--accent); display: block; margin-bottom: 18px; }
+    h1 { font-size: clamp(2.5rem, 6.4vw, 4.6rem); line-height: 1; letter-spacing: -0.04em; font-weight: 800; }
+    h1 .light { font-weight: 500; color: var(--muted); }
+    .role-line { margin-top: 22px; font: 600 clamp(1.1rem, 2.4vw, 1.4rem) var(--font-display); min-height: 1.5em; }
+    .role-line .label { color: var(--muted); font-weight: 500; }
+    .role-line .role { color: var(--accent); }
+    .role-line .role::after { content: ""; display: inline-block; width: 2px; height: 1em; margin-left: 3px; background: var(--accent); vertical-align: -0.12em; animation: blink 1s steps(1) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .summary { color: var(--muted); font-size: 1.08rem; max-width: 58ch; margin: 18px 0 30px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 20px; border-radius: 12px; font-weight: 600; text-decoration: none; border: 1px solid transparent; cursor: pointer; transition: transform .15s, box-shadow .15s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--accent); color: var(--accent-ink); }
+    .btn-primary:hover { box-shadow: 0 8px 24px -8px var(--accent); }
+    .btn-ghost { background: var(--surface); border-color: var(--border); }
+
+    .portrait { position: relative; justify-self: center; width: min(100%, 380px); }
+    .portrait .frame { aspect-ratio: 4 / 5; border-radius: 28px; overflow: hidden; background: var(--surface); border: 1px solid var(--border); transform: rotate(2deg); transition: transform .4s ease; }
+    .portrait:hover .frame { transform: rotate(0deg) scale(1.01); }
+    .portrait .frame img { width: 100%; height: 100%; object-fit: cover; }
+    .badge {
+      position: absolute; background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+      padding: 10px 14px; box-shadow: 0 12px 30px -16px rgba(0,0,0,.35); font-size: .85rem; line-height: 1.3;
+      animation: float 6s ease-in-out infinite;
+    }
+    .badge strong { display: block; font: 800 1.25rem var(--font-display); color: var(--accent); }
+    .badge.b1 { left: -28px; top: 14%; }
+    .badge.b2 { right: -22px; bottom: 12%; animation-delay: -3s; }
+    @keyframes float { 50% { transform: translateY(-8px); } }
+
+    /* Photo placeholder (shown until a real photo exists) */
+    .ph {
+      width: 100%; height: 100%; display: grid; place-items: center; text-align: center; gap: 6px; padding: 16px;
+      background: repeating-linear-gradient(135deg, var(--accent-soft) 0 12px, var(--surface) 12px 24px);
+      color: var(--muted); font-size: .85rem;
+    }
+    .ph .ini { font: 800 3rem var(--font-display); color: var(--accent); letter-spacing: -0.04em; }
+    .ph code { font: 500 .75rem var(--font-mono); background: var(--surface); padding: 2px 6px; border-radius: 6px; border: 1px solid var(--border); }
+
+    /* Ticker */
+    .ticker { border-block: 1px solid var(--border); background: var(--surface); overflow: hidden; }
+    .ticker-track { display: flex; width: max-content; animation: scroll 40s linear infinite; }
+    .ticker:hover .ticker-track { animation-play-state: paused; }
+    .ticker-item { display: flex; align-items: baseline; gap: 10px; padding: 18px 32px; white-space: nowrap; border-right: 1px solid var(--border); }
+    .ticker-item strong { font: 800 1.5rem var(--font-display); color: var(--accent); font-variant-numeric: tabular-nums; }
+    .ticker-item span { color: var(--muted); font-size: .92rem; }
+    @keyframes scroll { to { transform: translateX(-50%); } }
+
+    /* Sections */
+    section { padding-block: 88px; }
+    section + section { border-top: 1px solid var(--border); }
+    .kicker { font: 500 .78rem var(--font-mono); text-transform: uppercase; letter-spacing: .1em; color: var(--accent); display: block; margin-bottom: 10px; }
+    h2 { font-size: clamp(1.9rem, 4vw, 2.7rem); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 14px; }
+    .intro { color: var(--muted); max-width: 62ch; margin-bottom: 36px; }
+
+    /* Gantt */
+    .gantt-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 18px; background: var(--surface); }
+    .gantt { min-width: 900px; padding: 20px 20px 12px; }
+    .g-axis, .g-row { display: grid; grid-template-columns: 120px 1fr; align-items: center; }
+    .g-axis .scale { position: relative; height: 22px; }
+    .g-axis .tick { position: absolute; top: 0; transform: translateX(-50%); font: 500 .72rem var(--font-mono); color: var(--muted); }
+    .g-row { min-height: 46px; border-top: 1px dashed var(--border); }
+    .g-row .lane-name { font: 500 .72rem var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+    .g-row .lane { position: relative; height: 46px; }
+    .g-grid { position: absolute; inset: 0; pointer-events: none; }
+    .g-grid i { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--border); opacity: .6; }
+    .bar {
+      position: absolute; min-width: 34px; top: 8px; height: 30px; border-radius: 8px; border: 1px solid transparent;
+      background: var(--accent-soft); color: var(--accent); cursor: pointer; text-align: left;
+      font: 600 .78rem var(--font-body); padding: 0 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      transition: background-color .2s, color .2s, transform .15s;
+    }
+    .bar:hover { transform: translateY(-2px); }
+    .bar.edu { background: var(--bar-edu-soft); color: var(--bar-edu); }
+    .bar.teach { background: var(--bar-teach-soft); color: var(--bar-teach); }
+    .bar[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+    .bar.edu[aria-pressed="true"] { background: var(--bar-edu); color: var(--surface); }
+    .bar.teach[aria-pressed="true"] { background: var(--bar-teach); color: var(--surface); }
+    .now-line { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--accent); }
+    .now-line::before { content: "Hoy"; position: absolute; top: -2px; left: 6px; font: 500 .68rem var(--font-mono); color: var(--accent); }
+    .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 14px; font-size: .85rem; color: var(--muted); }
+    .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 4px; margin-right: 6px; vertical-align: -1px; }
+    .hint { font-size: .85rem; color: var(--muted); margin-top: 6px; }
+
+    .detail {
+      margin-top: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+      display: grid; grid-template-columns: minmax(0, 1fr) 240px; overflow: hidden;
+    }
+    .detail-main { padding: 28px 30px; min-width: 0; }
+    .detail-top { display: flex; justify-content: space-between; gap: 12px; align-items: start; flex-wrap: wrap; }
+    .detail .period { font: 500 .82rem var(--font-mono); color: var(--accent); }
+    .detail h3 { font-size: 1.5rem; line-height: 1.2; margin-top: 6px; letter-spacing: -0.02em; }
+    .detail .org { color: var(--muted); margin-top: 2px; }
+    .detail .desc { margin-top: 14px; max-width: 70ch; }
+    .detail ul { margin-top: 14px; padding-left: 18px; display: grid; gap: 8px; max-width: 72ch; }
+    .detail li::marker { color: var(--accent); }
+    .detail-nav { display: flex; gap: 6px; }
+    .detail-nav button { width: 36px; height: 36px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); cursor: pointer; }
+    .detail-side { background: var(--accent); color: var(--accent-ink); padding: 28px 24px; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+    .detail-side.edu { background: var(--bar-edu); color: var(--surface); }
+    .detail-side.teach { background: var(--bar-teach); color: var(--surface); }
+    .detail-side .big { font: 800 2.6rem/1 var(--font-display); letter-spacing: -0.03em; }
+    .detail-side .cap { font-size: .9rem; opacity: .9; }
+    .detail-main.swap { animation: swap .35s ease; }
+    @keyframes swap { from { opacity: .3; transform: translateY(6px); } }
+
+    /* Achievements */
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .filter { padding: 8px 16px; border-radius: 999px; cursor: pointer; border: 1px solid var(--border); background: var(--surface); font-size: .9rem; font-weight: 500; }
+    .filter[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+    .filter .n { font: 500 .75rem var(--font-mono); opacity: .6; margin-left: 4px; }
+    .wins { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+    .win { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px; display: grid; gap: 6px; align-content: start; transition: border-color .2s, transform .2s; }
+    .win:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .win[hidden] { display: none; }
+    .win .big { font: 800 1.9rem/1.1 var(--font-display); color: var(--accent); letter-spacing: -0.02em; }
+    .win p { font-size: .95rem; }
+    .win .where { font: 500 .72rem var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-top: 4px; }
+    @media (prefers-reduced-motion: no-preference) { .win.pop { animation: pop .3s ease both; } @keyframes pop { from { transform: scale(.97); opacity: .4; } } }
+
+    /* Worked with */
+    .groups { display: grid; gap: 28px; }
+    .group h3 { font: 500 .78rem var(--font-mono); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 12px; }
+    .wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+    .mark {
+      position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+      padding: 18px 16px; min-height: 96px; display: grid; align-content: center; gap: 4px; overflow: hidden;
+    }
+    .mark .name { font: 800 1.15rem/1.15 var(--font-display); letter-spacing: -0.02em; }
+    .mark .rel { font-size: .8rem; color: var(--muted); }
+    .mark::after { content: ""; position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--accent); transition: width .3s ease; }
+    .mark:hover::after { width: 100%; }
+    .countries { display: flex; flex-wrap: wrap; gap: 8px; }
+    .country { padding: 8px 14px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); font-size: .92rem; }
+    .country b { font-weight: 600; }
+    .country span { color: var(--muted); }
+
+    /* Gallery */
+    .gallery { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 180px; grid-auto-flow: dense; gap: 12px; }
+    .shot { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: var(--surface); cursor: zoom-in; padding: 0; text-align: left; }
+    .shot.tall { grid-row: span 2; }
+    .shot.wide { grid-column: span 2; }
+    .shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .shot:hover img { transform: scale(1.05); }
+    .shot figcaption { position: absolute; left: 10px; bottom: 10px; right: 10px; }
+    .shot figcaption span { display: inline-block; background: var(--surface); color: var(--text); font-size: .8rem; font-weight: 500; padding: 4px 10px; border-radius: 999px; }
+    .shot.empty { cursor: default; }
+
+    .lightbox { position: fixed; inset: 0; background: var(--shade); display: grid; place-items: center; z-index: 50; padding: 24px; }
+    .lightbox[hidden] { display: none; }
+    .lightbox img { max-height: 80vh; max-width: min(1000px, 100%); border-radius: 14px; }
+    .lightbox p { color: #fff; text-align: center; margin-top: 12px; }
+    .lightbox .close { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 16px); right: 16px; background: #fff; color: #111; border: 0; }
+
+    /* Education */
+    .edu-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .edu-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px 24px; display: grid; grid-template-columns: 74px minmax(0, 1fr); gap: 16px; }
+    .edu-card .yr { font: 500 .8rem var(--font-mono); color: var(--bar-edu); padding-top: 4px; }
+    .edu-card.teach .yr { color: var(--bar-teach); }
+    .edu-card h3 { font-size: 1.1rem; line-height: 1.25; }
+    .edu-card .deg { color: var(--muted); font-size: .95rem; }
+    .edu-card ul { margin-top: 8px; padding-left: 18px; font-size: .92rem; display: grid; gap: 4px; }
+
+    /* Contact */
+    .contact-box { background: var(--invert-bg); color: var(--invert-text); border-radius: 24px; padding: 60px 40px; text-align: center; }
+    .contact-box h2 { color: var(--invert-text); }
+    .contact-box p { opacity: .75; max-width: 52ch; margin: 0 auto 26px; }
+    .contact-box .actions { justify-content: center; }
+    .contact-box .btn-ghost { background: transparent; color: var(--invert-text); border-color: color-mix(in srgb, var(--invert-text) 30%, transparent); }
+    .contact-box .mail { margin-top: 18px; font: 500 .9rem var(--font-mono); }
+    .contact-box .mail a { text-decoration: none; }
+
+    footer { padding-block: 36px; color: var(--muted); font-size: .9rem; }
+    footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    footer a { text-decoration: none; } footer a:hover { color: var(--accent); }
+
+    .toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 120px); background: var(--text); color: var(--bg); padding: 12px 20px; border-radius: 12px; font-weight: 500; transition: transform .3s, visibility .3s; z-index: 60; max-width: calc(100% - 32px); visibility: hidden; }
+    .toast.show { transform: translate(-50%, 0); visibility: visible; }
+
+    @media (max-width: 920px) {
+      .menu-btn { display: grid; }
+      .nav-links { position: absolute; top: 64px; left: 0; right: 0; flex-direction: column; background: var(--bg); border-bottom: 1px solid var(--border); padding: 10px 20px 18px; display: none; }
+      .nav-links.open { display: flex; }
+      .nav-links a { display: block; padding: 12px 14px; border-radius: 10px; }
+    }
+    @media (max-width: 820px) {
+      .hero { grid-template-columns: 1fr; padding-block: 48px 40px; gap: 40px; }
+      .portrait { width: min(100%, 320px); }
+      .badge.b1 { left: -8px; } .badge.b2 { right: -8px; }
+      .detail { grid-template-columns: 1fr; }
+      .detail-side { flex-direction: row; align-items: baseline; gap: 12px; padding: 18px 24px; flex-wrap: wrap; }
+      .detail-side .big { font-size: 2rem; }
+      .detail-main { padding: 22px; }
+      .gallery { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
+      .edu-grid { grid-template-columns: 1fr; }
+      section { padding-block: 64px; }
+      .contact-box { padding: 44px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <nav>
+    <div class="wrap">
+      <a href="index.html" class="logo" title="Volver al sitio principal">Cristian Marino<span>.</span></a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#trayectoria">Trayectoria</a></li>
+        <li><a href="#logros">Logros</a></li>
+        <li><a href="#con-quien">Con quién</a></li>
+        <li><a href="#fotos">Fotos</a></li>
+        <li><a href="#formacion">Formación</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <div class="nav-tools">
+        <button class="icon-btn" id="theme-btn" type="button" aria-label="Cambiar tema claro u oscuro"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg></button>
+        <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-links">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="wrap hero" id="inicio">
+    <div>
+      <span class="eyebrow">Curriculum vitae · Las Condes, Chile</span>
+      <h1>Cristian Andrés<br>Marino <span class="light">Vargas</span></h1>
+      <p class="role-line" aria-live="off"><span class="label">Hoy: </span><span class="role" id="role">Fundador y CEO de BoostBrands</span></p>
+      <p class="summary">
+        Ejecutivo senior con 17 años liderando P&amp;L, crecimiento y transformación de negocios en compañías
+        globales de consultoría, automotriz, retail y fintech. MBA de MIT Sloan, con trayectoria en Chile y
+        mercados internacionales, liderando equipos de alto desempeño y estrategias de expansión.
+      </p>
+      <div class="actions">
+        <a href="#trayectoria" class="btn btn-primary">Ver mi trayectoria ↓</a>
+        <a href="https://www.linkedin.com/in/cristianmarinov" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+    <div class="portrait">
+      <div class="frame" id="portrait-frame" data-photo="fotos/retrato.jpg" data-alt="Retrato de Cristian Marino"></div>
+      <div class="badge b1"><strong>MIT</strong>Sloan MBA 2026</div>
+      <div class="badge b2"><strong>17 años</strong>en marketing y crecimiento</div>
+    </div>
+  </header>
+
+  <div class="ticker" aria-label="Cifras destacadas">
+    <div class="ticker-track" id="ticker"></div>
+  </div>
+
+  <section id="trayectoria">
+    <div class="wrap">
+      <span class="kicker">Trayectoria</span>
+      <h2>2008 → hoy, en una línea de tiempo</h2>
+      <p class="intro">Cada barra es un cargo, un programa de estudio o una cátedra. Haz clic en una para ver qué hice ahí, o usa las flechas ← → del teclado.</p>
+      <div class="gantt-wrap"><div class="gantt" id="gantt"></div></div>
+      <div class="legend">
+        <span><i style="background:var(--accent)"></i>Experiencia profesional</span>
+        <span><i style="background:var(--bar-edu)"></i>Educación</span>
+        <span><i style="background:var(--bar-teach)"></i>Docencia</span>
+      </div>
+      <div class="detail" id="detail" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section id="logros">
+    <div class="wrap">
+      <span class="kicker">Logros</span>
+      <h2>Resultados medibles</h2>
+      <p class="intro">Lo que pasó en cada empresa, en números. Filtra por tipo de impacto.</p>
+      <div class="filters" id="win-filters" role="group" aria-label="Filtrar logros"></div>
+      <div class="wins" id="wins"></div>
+    </div>
+  </section>
+
+  <section id="con-quien">
+    <div class="wrap">
+      <span class="kicker">Con quién he trabajado</span>
+      <h2>Empresas, marcas e instituciones</h2>
+      <p class="intro">Desde multinacionales Fortune 500 hasta PYMES chilenas, en Chile y el extranjero.</p>
+      <div class="groups" id="groups"></div>
+      <div class="group" style="margin-top:28px">
+        <h3>Países donde he trabajado o estudiado</h3>
+        <div class="countries" id="countries"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="fotos">
+    <div class="wrap">
+      <span class="kicker">Fotos</span>
+      <h2>Momentos</h2>
+      <p class="intro">Haz clic en una foto para verla en grande.</p>
+      <div class="gallery" id="gallery"></div>
+    </div>
+  </section>
+
+  <section id="formacion">
+    <div class="wrap">
+      <span class="kicker">Formación y docencia</span>
+      <h2>Educación</h2>
+      <p class="intro">Formación en Chile, Estados Unidos y Canadá. Hoy también enseño en pregrado y MBA.</p>
+      <div class="edu-grid" id="edu"></div>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <div class="wrap">
+      <div class="contact-box">
+        <span class="kicker">Contacto</span>
+        <h2>Conversemos</h2>
+        <p>Consultoría, proyectos de crecimiento, charlas o docencia. Escríbeme y te respondo.</p>
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="copy-email">Copiar mi email</button>
+          <a href="https://www.linkedin.com/in/cristianmarinov" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
+        <p class="mail"><a href="mailto:cmarino@mit.edu">cmarino@mit.edu</a></p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>© <span id="year">2026</span> Cristian Marino</span>
+      <a href="index.html">← Volver al sitio principal</a>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Foto ampliada">
+    <button class="icon-btn close" id="lb-close" type="button" aria-label="Cerrar">✕</button>
+    <figure><img id="lb-img" alt=""><p id="lb-cap"></p></figure>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    /* ---------- Data (from Cristian's CV, 2026) ---------- */
+    const ROLES = [
+      { id: 'cencosud', lane: 'work', start: 2008.6, end: 2011.7, label: 'Cencosud',
+        title: 'Product Marketing Manager, Tarjeta de Crédito', org: 'Cencosud · Santiago', period: 'ago 2008 – sep 2011',
+        desc: 'Marketing y producto de medios de pago: campañas de captación, activación y uso para 2 millones de tarjetahabientes (tarjeta de crédito, comercios asociados y avance en efectivo). Partí como Product Manager Junior.',
+        bullets: ['Expandí la red de comercios asociados en 15% anual y aumenté el ticket promedio en 10% con promociones cruzadas.', 'Campañas de email segmentadas por perfil de uso, ciclo de deuda y ticket promedio.', 'Campañas de activación del avance en efectivo, según perfil de riesgo.'],
+        big: '2M', cap: 'tarjetahabientes' },
+      { id: 'windsor', lane: 'edu', start: 2011.8, end: 2012.8, label: 'UW',
+        title: 'Máster en Gestión y Administración de la Producción', org: 'University of Windsor, Odette School of Business · Canadá', period: '2012',
+        desc: 'Programa de máster en Canadá.', bullets: ['Ganador del Premio de la Paz 2012, elegido por los estudiantes por representar valores de liderazgo y globalidad.'],
+        big: '🏆', cap: 'Premio de la Paz 2012' },
+      { id: 'electrolux', lane: 'work', start: 2013.35, end: 2016.7, label: 'Electrolux',
+        title: 'Senior Regional Product Marketing Manager · Clúster Andino', org: 'Electrolux (dueños de Fensa y Mademsa)', period: 'may 2013 – sep 2016',
+        desc: 'Estrategia de marketing, producto y ventas 360° para la categoría de mayor facturación. Empecé como Senior Product Marketing Manager Chile y pasé a rol regional en 2014.',
+        bullets: ['Aseguré una inversión de USD $20M ante el HQ global con el plan estratégico regional.', '45% de participación en refrigeradores y 75% en freezers: Electrolux, Fensa y Mademsa #1 en Chile.', 'Reposicioné Electrolux en el segmento premium con chefs Michelin ("disfrute culinario"): de 1% a 5% de participación en el primer año.', 'Ganador del Proyecto Global Más Escalable 2015 con el primer laboratorio de Data Analytics de la región.', 'Programa de entrenamiento para 400 vendedores, formando 15 instructores.'],
+        big: '#1', cap: 'en refrigeradores y freezers en Chile' },
+      { id: 'stanford', lane: 'edu', start: 2015.5, end: 2015.75, label: 'GSB',
+        title: 'Diplomado en Marketing Estratégico y Neuromarketing', org: 'Stanford Graduate School of Business · Palo Alto', period: 'ago 2015',
+        desc: 'Programa ejecutivo de gestión de marketing estratégico y neuromarketing.', bullets: [],
+        big: 'GSB', cap: 'Stanford, EEUU' },
+      { id: 'accenture', lane: 'work', start: 2016.75, end: 2017.7, label: 'ACN',
+        title: 'Subgerente de Marketing', org: 'Accenture · Santiago', period: 'oct 2016 – sep 2017',
+        desc: 'Marketing B2B para las 30 principales empresas de Chile con Salesforce Marketing Cloud. Coordiné 3 colaboradores y 3 agencias.',
+        bullets: ['Estrategia y campañas que cerraron acuerdos por USD $6M.', 'Lideré la primera carrera de drones controlados por la mente en LATAM, campaña "más innovadora" 2017 y estrategia de reclutamiento STEM.', 'Reduje costos de agencia en 10% con una negociación regional.'],
+        big: '$6M', cap: 'USD en acuerdos comerciales' },
+      { id: 'bajaj-auto', lane: 'work', start: 2017.75, end: 2020.2, label: 'Bajaj Auto',
+        title: 'Country Manager Chile y Paraguay · Regional CMO LATAM', org: 'Bajaj Auto Limited (Fortune 500, +100 países)', period: 'oct 2017 – mar 2020',
+        desc: 'Estrategia de marca y crecimiento comercial a nivel regional: portafolio, red de distribuidores y agencias. Equipo regional directo de 30 personas y operación conjunta de ~200.',
+        bullets: ['Lideré la entrada de Bajaj a Paraguay desde cero: elegí distribuidor, armé un equipo de 25 personas y abrí 3 tiendas. USD $1M en ventas y 5% de participación el primer año.', 'Campañas integradas en 6 países con USD $6M de presupuesto, incluyendo 2 reality shows digitales con figuras de TV en Perú y Argentina: el mayor crecimiento regional de participación en 10 años (19% LATAM).', 'Frameworks y KPIs que conectan alcance, engagement y conversión con revenue.', 'Renegocié 3 contratos regionales de agencias: -30% en costos.'],
+        big: '6', cap: 'países con campañas integradas' },
+      { id: 'boostbrands', lane: 'work2', start: 2020.2, end: 2026.8, label: 'BoostBrands · Fundador y CEO',
+        title: 'Fundador y CEO', org: 'BoostBrands SpA · Santiago', period: 'mar 2020 – presente',
+        desc: 'Consultora de marketing comercial B2B/B2C para PYMES chilenas, con dos unidades de negocio (consultoría y representación retail). Uso IA agéntica para eficiencia de campañas y contenido, con un enfoque radical "low cost". Equipo de 3 colaboradores.',
+        bullets: ['Acuerdos de distribución para 2 marcas internacionales de moda sostenible (incl. Acapella) en 3 grandes cadenas retail chilenas: USD $400K en ventas con 40% de margen.', 'Asesoré a 50 PYMES durante la crisis económica de Chile (USD $150K, 50% de margen, 12 clientes activos), con +15% de crecimiento promedio de ingresos.'],
+        big: '$550K', cap: 'USD en ventas' },
+      { id: 'motochile', lane: 'work', start: 2020.2, end: 2024.55, label: 'Bajaj Motochile',
+        title: 'Director de Marketing y Ventas', org: 'Bajaj Motochile, distribuidor oficial en Chile', period: 'mar 2020 – jul 2024',
+        desc: 'Control total sobre CAC, conversión, revenue por canal, ticket promedio y participación de mercado nacional. Al mando de 33 personas y 3 agencias.',
+        bullets: ['Transformación de B2B a B2C/D2C: reemplacé 20 franquicias por 4 tiendas propias. EBITDA +20%, flujo de caja +50%, cuentas por cobrar de USD $1M a $400K y crédito de 60 a 30 días.', 'Alianza de USD $8M con la fintech Galgo (5.500 motos en 2 años) y lanzamiento de MotoFin, microcrédito propio para riders desbancarizados.', 'Participación de mercado de 9% a 23%: #1 en el segmento Street.', 'Canal e-commerce desde cero: USD $13,5M en ventas durante la pandemia. Implementé HubSpot CRM.', 'Reconocido por Bajaj HQ India como "la tienda con mejor CX de LATAM".'],
+        big: '9→23%', cap: 'participación de mercado' },
+      { id: 'mit', lane: 'edu', start: 2024.6, end: 2026.5, label: 'MIT MBA',
+        title: 'MBA', org: 'MIT Sloan School of Management · Boston', period: '2024 – 2026',
+        desc: 'Magíster en administración de empresas en el Massachusetts Institute of Technology.',
+        bullets: ['Práctica en Singapur: estrategia de pricing y go-to-market para una startup biotech en Oceanía, Europa y Norteamérica.', 'Dirigí dashboards de datos y planes de marketing con IA agéntica para Commonwealth Kitchen of Boston.', 'Finalista en IDEA WEEK con un parche regulador de dopamina con IA.', 'Ganador del concurso de Change Management.'],
+        big: 'MIT', cap: 'Sloan School of Management' },
+      { id: 'unab-prof', lane: 'teach', start: 2025.2, end: 2026.8, label: 'UNAB',
+        title: 'Profesor, Escuela de Ingeniería', org: 'Universidad Andrés Bello', period: 'mar 2025 – presente',
+        desc: 'Cursos de Seminario de Proyecto de Título, Portafolio de Proyecto de Título y Proyecto de Título.', bullets: [],
+        big: 'UNAB', cap: 'Escuela de Ingeniería' },
+      { id: 'udd-prof', lane: 'teach2', start: 2025.6, end: 2026.8, label: 'UDD',
+        title: 'Profesor de Product Management (MBA)', org: 'Universidad del Desarrollo, Facultad de Economía y Negocios', period: 'ago 2025 – presente',
+        desc: 'Curso de Product Management en el programa MBA.', bullets: [],
+        big: 'MBA', cap: 'Product Management' },
+      { id: 'unab', lane: 'edu', start: 2007, end: 2008.45, label: 'UNAB',
+        title: 'Ingeniería Industrial (con honores)', org: 'Universidad Andrés Bello · Santiago', period: 'hasta jun 2008',
+        desc: 'Ingeniería Industrial y Licenciatura en Ciencias de la Ingeniería, graduado con honores.',
+        bullets: ['Ganador del Mejor Proyecto de Tesis del Año 2007: implementación de RFID para la biblioteca de la UNAB, con USD $35K para implementarlo junto a 3M Chile.'],
+        big: '$35K', cap: 'USD para su tesis con 3M Chile' },
+    ];
+    const LANES = [
+      { key: 'work', name: 'Empresas' },
+      { key: 'work2', name: 'Emprendimiento' },
+      { key: 'edu', name: 'Educación' },
+      { key: 'teach', name: 'Docencia' },
+      { key: 'teach2', name: '' },
+    ];
+    const WINS = [
+      { cat: 'crecimiento', big: '9% → 23%', text: 'Participación de mercado, #1 en el segmento Street.', where: 'Bajaj Motochile' },
+      { cat: 'crecimiento', big: 'USD $13,5M', text: 'En ventas con un canal e-commerce construido desde cero.', where: 'Bajaj Motochile' },
+      { cat: 'finanzas', big: '+20% EBITDA', text: 'Y +50% en flujo de caja al pasar de 20 franquicias a 4 tiendas propias.', where: 'Bajaj Motochile' },
+      { cat: 'finanzas', big: 'USD $8M', text: 'Alianza con la fintech Galgo por 5.500 motos en 2 años.', where: 'Bajaj Motochile' },
+      { cat: 'innovacion', big: 'MotoFin', text: 'Unidad propia de microcrédito para riders desbancarizados.', where: 'Bajaj Motochile' },
+      { cat: 'innovacion', big: 'Mejor CX', text: 'Reconocida por Bajaj HQ India como la tienda con mejor experiencia de cliente de LATAM.', where: 'Bajaj Motochile' },
+      { cat: 'liderazgo', big: '33 personas', text: 'Equipo de ventas y marketing, más 3 agencias.', where: 'Bajaj Motochile' },
+      { cat: 'crecimiento', big: 'USD $1M', text: 'Y 5% de participación el primer año, entrando a Paraguay desde cero.', where: 'Bajaj Auto' },
+      { cat: 'crecimiento', big: '19% LATAM', text: 'El mayor crecimiento regional de participación en 10 años.', where: 'Bajaj Auto' },
+      { cat: 'innovacion', big: '2 reality shows', text: 'Digitales y originales, con figuras de TV en Perú y Argentina.', where: 'Bajaj Auto' },
+      { cat: 'finanzas', big: '-30%', text: 'En costos de agencias al renegociar 3 contratos regionales.', where: 'Bajaj Auto' },
+      { cat: 'liderazgo', big: '~200', text: 'Personas en la operación regional, con 30 a cargo directo.', where: 'Bajaj Auto' },
+      { cat: 'finanzas', big: 'USD $6M', text: 'En acuerdos comerciales con las 30 principales empresas de Chile.', where: 'Accenture' },
+      { cat: 'innovacion', big: 'Drones mentales', text: 'Primera carrera de drones controlados por la mente en LATAM, campaña más innovadora 2017.', where: 'Accenture' },
+      { cat: 'finanzas', big: 'USD $20M', text: 'De inversión aprobada por el HQ global.', where: 'Electrolux' },
+      { cat: 'crecimiento', big: '45% / 75%', text: 'Participación en refrigeradores y freezers: marcas #1 de Chile.', where: 'Electrolux' },
+      { cat: 'innovacion', big: '1% → 5%', text: 'En el segmento premium con chefs Michelin como embajadores.', where: 'Electrolux' },
+      { cat: 'innovacion', big: 'Premio global', text: 'Proyecto Más Escalable 2015 con el primer laboratorio de Data Analytics de la región.', where: 'Electrolux' },
+      { cat: 'liderazgo', big: '400', text: 'Vendedores entrenados y 15 instructores formados.', where: 'Electrolux' },
+      { cat: 'crecimiento', big: '+15%', text: 'Crecimiento promedio de ingresos en 50 PYMES asesoradas.', where: 'BoostBrands' },
+      { cat: 'finanzas', big: 'USD $400K', text: 'En ventas retail con 40% de margen para 2 marcas de moda sostenible.', where: 'BoostBrands' },
+      { cat: 'crecimiento', big: '+15% / +10%', text: 'Comercios asociados y ticket promedio con promociones cruzadas.', where: 'Cencosud' },
+    ];
+    const CATS = { todos: 'Todos', crecimiento: 'Crecimiento', finanzas: 'Finanzas', innovacion: 'Marca e innovación', liderazgo: 'Liderazgo' };
+    const GROUPS = [
+      { name: 'Empresas donde he trabajado', items: [
+        ['BoostBrands', 'Fundador y CEO'], ['Bajaj Motochile', 'Director de Marketing y Ventas'], ['Bajaj Auto', 'Country Manager y CMO regional'],
+        ['Accenture', 'Subgerente de Marketing'], ['Electrolux', 'Product Marketing regional'], ['Cencosud', 'Product Marketing'] ] },
+      { name: 'Marcas, socios y clientes', items: [
+        ['Fensa', 'Marca #1 en Chile (Electrolux)'], ['Mademsa', 'Marca #1 en Chile (Electrolux)'], ['Acapella', 'Moda sostenible, representación retail'],
+        ['Galgo', 'Fintech, alianza USD $8M'], ['3M Chile', 'Proyecto RFID de tesis'], ['Commonwealth Kitchen', 'Proyecto MIT en Boston'],
+        ['HubSpot', 'CRM implementado'], ['Salesforce', 'Marketing Cloud'] ] },
+      { name: 'Instituciones', items: [
+        ['MIT Sloan', 'MBA 2024–2026'], ['Stanford GSB', 'Diplomado 2015'], ['University of Windsor', 'Máster 2012'],
+        ['Universidad Andrés Bello', 'Ingeniería y docencia'], ['Universidad del Desarrollo', 'Profesor MBA'] ] },
+    ];
+    const COUNTRIES = [
+      ['Chile', 'base'], ['Paraguay', 'lanzamiento Bajaj'], ['Perú', 'campañas'], ['Argentina', 'campañas'],
+      ['6 países LATAM', 'clúster Bajaj'], ['Clúster Andino', 'Electrolux'], ['EEUU', 'MIT y Stanford'], ['Canadá', 'máster'], ['Singapur', 'práctica MIT'],
+    ];
+    // Photos: drop image files into the fotos/ folder with these names and they appear automatically.
+    const PHOTOS = [
+      { src: 'fotos/foto-1.jpg', caption: 'MIT Sloan', size: 'tall' },
+      { src: 'fotos/foto-2.jpg', caption: 'BoostBrands', size: 'wide' },
+      { src: 'fotos/foto-3.jpg', caption: 'Bajaj', size: '' },
+      { src: 'fotos/foto-4.jpg', caption: 'Clases', size: '' },
+      { src: 'fotos/foto-5.jpg', caption: 'Charlas y eventos', size: 'wide' },
+      { src: 'fotos/foto-6.jpg', caption: 'Singapur', size: '' },
+      { src: 'fotos/foto-7.jpg', caption: 'Equipo', size: '' },
+    ];
+    const TICKER = [
+      ['17', 'años de experiencia'], ['9→23%', 'participación de mercado'], ['USD $13,5M', 'en e-commerce'], ['USD $20M', 'de inversión aprobada'],
+      ['6', 'países en campañas'], ['50', 'PYMES asesoradas'], ['#1', 'en refrigeradores y freezers'], ['+20%', 'EBITDA'],
+    ];
+
+    /* ---------- Helpers ---------- */
+    const $ = id => document.getElementById(id);
+    const el = (tag, attrs = {}, ...kids) => {
+      const n = document.createElement(tag);
+      for (const [k, v] of Object.entries(attrs)) {
+        if (k === 'class') n.className = v; else if (k === 'text') n.textContent = v; else n.setAttribute(k, v);
+      }
+      n.append(...kids.filter(Boolean)); return n;
+    };
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    $('year').textContent = new Date().getFullYear();
+
+    function photoInto(container, src, alt, initials) {
+      const img = new Image();
+      img.alt = alt; img.src = src; img.loading = 'lazy';
+      const ph = el('div', { class: 'ph' }, el('div', {},
+        el('div', { class: 'ini', text: initials || 'CM' }),
+        el('div', { text: 'Foto pendiente' }),
+        el('code', { text: src })));
+      container.replaceChildren(ph);
+      img.onload = () => { container.replaceChildren(img); container.dataset.loaded = '1'; };
+    }
+
+    /* ---------- Hero ---------- */
+    photoInto($('portrait-frame'), $('portrait-frame').dataset.photo, $('portrait-frame').dataset.alt, 'CM');
+    const ROLE_LINES = ['Fundador y CEO de BoostBrands', 'MBA, MIT Sloan', 'Profesor de Product Management (UDD)', 'Ex Director de Marketing y Ventas, Bajaj', 'Ex Country Manager Chile y Paraguay'];
+    if (!reduceMotion) {
+      let r = 0; const roleEl = $('role'); const wait = ms => new Promise(res => setTimeout(res, ms));
+      setInterval(async () => {
+        r = (r + 1) % ROLE_LINES.length;
+        while (roleEl.textContent.length) { roleEl.textContent = roleEl.textContent.slice(0, -2); await wait(18); }
+        const t = ROLE_LINES[r];
+        for (let i = 1; i <= t.length; i++) { roleEl.textContent = t.slice(0, i); await wait(32); }
+      }, 3600);
+    }
+    const tick = TICKER.map(([b, s]) => el('div', { class: 'ticker-item' }, el('strong', { text: b }), el('span', { text: s })));
+    $('ticker').append(...tick, ...tick.map(n => { const c = n.cloneNode(true); c.setAttribute('aria-hidden', 'true'); return c; }));
+
+    /* ---------- Gantt ---------- */
+    const Y0 = 2007, Y1 = 2027;
+    const pct = y => ((y - Y0) / (Y1 - Y0)) * 100;
+    const gantt = $('gantt');
+    const axis = el('div', { class: 'g-axis' }, el('span'), el('div', { class: 'scale' }));
+    for (let y = 2008; y <= 2026; y += 2) axis.lastChild.append(el('span', { class: 'tick', style: `left:${pct(y)}%`, text: String(y) }));
+    gantt.append(axis);
+    const order = [...ROLES].sort((a, b) => a.start - b.start);
+    const bars = new Map();
+    const now = new Date(); const nowY = now.getFullYear() + now.getMonth() / 12;
+    LANES.forEach(l => {
+      const lane = el('div', { class: 'lane' });
+      const grid = el('div', { class: 'g-grid' });
+      for (let y = 2008; y <= 2026; y += 2) grid.append(el('i', { style: `left:${pct(y)}%` }));
+      lane.append(grid);
+      ROLES.filter(r => r.lane === l.key).forEach(r => {
+        const kind = r.lane.startsWith('edu') ? 'edu' : r.lane.startsWith('teach') ? 'teach' : 'work';
+        const b = el('button', { class: `bar ${kind === 'work' ? '' : kind}`, type: 'button', 'aria-pressed': 'false',
+          style: `left:${pct(r.start)}%;width:${pct(r.end) - pct(r.start)}%`, title: `${r.title} · ${r.period}`, text: r.label });
+        b.addEventListener('click', () => select(r.id, true));
+        bars.set(r.id, b); lane.append(b);
+      });
+      if (l.key === 'work') lane.append(el('div', { class: 'now-line', style: `left:${pct(Math.min(nowY, Y1))}%` }));
+      gantt.append(el('div', { class: 'g-row' }, el('span', { class: 'lane-name', text: l.name }), lane));
+    });
+
+    let current = null;
+    function select(id, scrollBar) {
+      const r = ROLES.find(x => x.id === id); if (!r) return;
+      current = id;
+      bars.forEach((b, k) => b.setAttribute('aria-pressed', k === id));
+      if (scrollBar) bars.get(id).scrollIntoView({ block: 'nearest', inline: 'center', behavior: reduceMotion ? 'auto' : 'smooth' });
+      const kind = r.lane.startsWith('edu') ? 'edu' : r.lane.startsWith('teach') ? 'teach' : '';
+      const main = el('div', { class: 'detail-main swap' },
+        el('div', { class: 'detail-top' },
+          el('div', {}, el('div', { class: 'period', text: r.period }), el('h3', { text: r.title }), el('div', { class: 'org', text: r.org })),
+          el('div', { class: 'detail-nav' },
+            el('button', { type: 'button', 'aria-label': 'Anterior', 'data-step': '-1', text: '←' }),
+            el('button', { type: 'button', 'aria-label': 'Siguiente', 'data-step': '1', text: '→' }))),
+        el('p', { class: 'desc', text: r.desc }),
+        r.bullets.length ? el('ul', {}, ...r.bullets.map(t => el('li', { text: t }))) : null);
+      const side = el('div', { class: `detail-side ${kind}` }, el('div', { class: 'big', text: r.big }), el('div', { class: 'cap', text: r.cap }));
+      $('detail').replaceChildren(main, side);
+      main.querySelectorAll('[data-step]').forEach(btn => btn.addEventListener('click', () => step(+btn.dataset.step)));
+    }
+    function step(d) {
+      const i = order.findIndex(r => r.id === current);
+      select(order[(i + d + order.length) % order.length].id, true);
+    }
+    document.addEventListener('keydown', e => {
+      if (!$('lightbox').hidden) return;
+      const sec = $('trayectoria').getBoundingClientRect();
+      if (sec.top > innerHeight * .6 || sec.bottom < innerHeight * .3) return;
+      if (e.key === 'ArrowRight') step(1); else if (e.key === 'ArrowLeft') step(-1);
+    });
+    select('motochile', false);
+
+    /* ---------- Achievements ---------- */
+    const winsEl = $('wins'), filtersEl = $('win-filters');
+    const winCards = WINS.map(w => {
+      const c = el('article', { class: 'win', 'data-cat': w.cat },
+        el('div', { class: 'big', text: w.big }), el('p', { text: w.text }), el('div', { class: 'where', text: `${w.where} · ${CATS[w.cat]}` }));
+      winsEl.append(c); return c;
+    });
+    Object.entries(CATS).forEach(([key, label], i) => {
+      const n = key === 'todos' ? WINS.length : WINS.filter(w => w.cat === key).length;
+      const b = el('button', { class: 'filter', type: 'button', 'aria-pressed': String(i === 0) }, label, el('span', { class: 'n', text: String(n) }));
+      b.addEventListener('click', () => {
+        filtersEl.querySelectorAll('.filter').forEach(x => x.setAttribute('aria-pressed', x === b));
+        winCards.forEach(c => {
+          const show = key === 'todos' || c.dataset.cat === key;
+          c.hidden = !show; c.classList.remove('pop');
+          if (show) { void c.offsetWidth; c.classList.add('pop'); }
+        });
+      });
+      filtersEl.append(b);
+    });
+
+    /* ---------- Worked with ---------- */
+    GROUPS.forEach(g => {
+      $('groups').append(el('div', { class: 'group' }, el('h3', { text: g.name }),
+        el('div', { class: 'wall' }, ...g.items.map(([n, r]) => el('div', { class: 'mark' }, el('div', { class: 'name', text: n }), el('div', { class: 'rel', text: r }))))));
+    });
+    COUNTRIES.forEach(([c, why]) => $('countries').append(el('span', { class: 'country' }, el('b', { text: c }), el('span', { text: ` · ${why}` }))));
+
+    /* ---------- Gallery + lightbox ---------- */
+    const lb = $('lightbox');
+    PHOTOS.forEach(p => {
+      const fig = el('figure', { class: `shot ${p.size} empty`, tabindex: '-1' });
+      const holder = el('div', { style: 'width:100%;height:100%' });
+      fig.append(holder, el('figcaption', {}, el('span', { text: p.caption })));
+      photoInto(holder, p.src, p.caption, '');
+      const open = () => {
+        if (!holder.dataset.loaded) return;
+        $('lb-img').src = p.src; $('lb-img').alt = p.caption; $('lb-cap').textContent = p.caption;
+        lb.hidden = false; $('lb-close').focus();
+      };
+      new MutationObserver(() => { if (holder.dataset.loaded) { fig.classList.remove('empty'); fig.tabIndex = 0; fig.setAttribute('role', 'button'); } })
+        .observe(holder, { attributes: true });
+      fig.addEventListener('click', open);
+      fig.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+      $('gallery').append(fig);
+    });
+    const closeLb = () => { lb.hidden = true; };
+    $('lb-close').addEventListener('click', closeLb);
+    lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !lb.hidden) closeLb(); });
+
+    /* ---------- Education ---------- */
+    const EDU = [
+      ['2024–26', 'MIT Sloan School of Management', 'MBA · Boston, EEUU', ['Práctica en Singapur: pricing y go-to-market para startup biotech.', 'Ganador del concurso de Change Management.'], ''],
+      ['2015', 'Stanford Graduate School of Business', 'Diplomado en Marketing Estratégico y Neuromarketing', [], ''],
+      ['2012', 'University of Windsor, Odette', 'Máster en Gestión y Administración de la Producción · Canadá', ['Premio de la Paz 2012.'], ''],
+      ['2008', 'Universidad Andrés Bello', 'Ingeniería Industrial con honores', ['Mejor Proyecto de Tesis del Año 2007 (RFID con 3M Chile).'], ''],
+      ['2025–hoy', 'Universidad Andrés Bello', 'Profesor · Escuela de Ingeniería', ['Seminario, Portafolio y Proyecto de Título.'], 'teach'],
+      ['2025–hoy', 'Universidad del Desarrollo', 'Profesor · MBA', ['Product Management.'], 'teach'],
+    ];
+    EDU.forEach(([yr, school, deg, notes, kind]) => $('edu').append(
+      el('div', { class: `edu-card ${kind}` }, el('div', { class: 'yr', text: yr }),
+        el('div', {}, el('h3', { text: school }), el('div', { class: 'deg', text: deg }),
+          notes.length ? el('ul', {}, ...notes.map(t => el('li', { text: t }))) : null))));
+
+    /* ---------- Chrome: theme, menu, progress, active nav, copy email ---------- */
+    const root = document.documentElement;
+    try { const t = localStorage.getItem('theme'); if (t) root.dataset.theme = t; } catch {}
+    $('theme-btn').addEventListener('click', () => {
+      const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+      root.dataset.theme = dark ? 'light' : 'dark';
+      try { localStorage.setItem('theme', root.dataset.theme); } catch {}
+    });
+    const links = $('nav-links'), menuBtn = $('menu-btn');
+    const setMenu = open => { links.classList.toggle('open', open); menuBtn.setAttribute('aria-expanded', open); menuBtn.textContent = open ? '✕' : '☰'; };
+    menuBtn.addEventListener('click', () => setMenu(!links.classList.contains('open')));
+    links.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+    const progress = $('progress');
+    const onScroll = () => { const max = document.documentElement.scrollHeight - innerHeight; progress.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`; };
+    addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    const navMap = new Map([...links.querySelectorAll('a')].map(a => [a.getAttribute('href').slice(1), a]));
+    const io = new IntersectionObserver(es => es.forEach(en => {
+      if (en.isIntersecting) navMap.forEach((a, id) => a.classList.toggle('active', id === en.target.id));
+    }), { rootMargin: '-45% 0px -50% 0px' });
+    document.querySelectorAll('section[id]').forEach(s => io.observe(s));
+    const toast = $('toast');
+    $('copy-email').addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText('cmarino@mit.edu'); toast.textContent = 'Email copiado: cmarino@mit.edu'; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2200); }
+      catch { location.href = 'mailto:cmarino@mit.edu'; }
+    });
+  </script>
+</body>
+</html>
