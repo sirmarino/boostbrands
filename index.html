@@ -1,26 +1,39 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cristian Marino</title>
-  <meta name="description" content="Cristian Marino — Founder &amp; CEO of BoostBrands and MIT Sloan MBA. 17 years leading marketing, growth and business transformation.">
+  <title>Cristian Marino · Estrategia de crecimiento para PYMES</title>
+  <meta name="description" content="Cristian Marino, Fundador y CEO de BoostBrands y MBA de MIT Sloan. 17 años liderando crecimiento en Bajaj, Electrolux, Accenture y Cencosud, hoy al servicio de PYMES chilenas.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Cristian Marino · Fundador y CEO de BoostBrands">
+  <meta property="og:description" content="Estrategia de multinacional para hacer crecer tu empresa. 17 años en Bajaj, Electrolux, Accenture y Cencosud. MBA MIT Sloan.">
+  <meta property="og:image" content="og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
   <style>
-    /* Layout: single column, wide hero with profile card, sections separated by hairlines; experience as an expandable timeline. */
+    /* Layout: single column. Hero (copy + large portrait), navy company band, stats, services + how we start,
+       case studies, condensed track record, education strip, navy contact block. Palette: orange + navy. */
     :root {
       --bg: #f6f5f2;
       --surface: #ffffff;
-      --text: #1b1a1f;
-      --muted: #66636e;
-      --border: #e4e1db;
-      --accent: #e8551c;
-      --accent-ink: #ffffff;
+      --text: #16181d;
+      --muted: #5b6475;
+      --border: #e3e1dc;
+      --heading: #14213d;
+      --navy: #14213d;
+      --navy-2: #1d2d50;
+      --navy-line: #33436a;
+      --on-navy: #f6f5f2;
+      --on-navy-muted: #c9cfdb;
+      --accent: #e8551c;          /* fills: buttons, frames, big numbers on navy */
+      --accent-text: #c2410c;     /* small accent text on light surfaces (4.75:1) */
+      --accent-on-navy: #ff7a45;
+      --accent-ink: #16181d;      /* text on orange fills (4.86:1) */
       --accent-soft: #fdeee6;
-      --invert-bg: #1b1a1f;
-      --invert-text: #f6f5f2;
       --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
       --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
       --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
@@ -28,208 +41,242 @@
     }
     @media (prefers-color-scheme: dark) {
       :root:not([data-theme="light"]) {
-        --bg: #121115; --surface: #1c1b21; --text: #f1eff4; --muted: #a29fab;
-        --border: #2d2b33; --accent: #ff7a45; --accent-ink: #1b0d06; --accent-soft: #2e1a10;
-        --invert-bg: #f1eff4; --invert-text: #121115; color-scheme: dark;
+        --bg: #0c111d; --surface: #141b2b; --text: #eef1f6; --muted: #a3abbd; --border: #24304a; --heading: #eef1f6;
+        --navy: #18233d; --navy-2: #22304f; --navy-line: #34446a; --on-navy: #eef1f6; --on-navy-muted: #b7c0d3;
+        --accent: #ff7a45; --accent-text: #ff8a5c; --accent-on-navy: #ff8a5c; --accent-ink: #16181d; --accent-soft: #2a1a12;
+        color-scheme: dark;
       }
     }
     :root[data-theme="dark"] {
-      --bg: #121115; --surface: #1c1b21; --text: #f1eff4; --muted: #a29fab;
-      --border: #2d2b33; --accent: #ff7a45; --accent-ink: #1b0d06; --accent-soft: #2e1a10;
-      --invert-bg: #f1eff4; --invert-text: #121115; color-scheme: dark;
+      --bg: #0c111d; --surface: #141b2b; --text: #eef1f6; --muted: #a3abbd; --border: #24304a; --heading: #eef1f6;
+      --navy: #18233d; --navy-2: #22304f; --navy-line: #34446a; --on-navy: #eef1f6; --on-navy-muted: #b7c0d3;
+      --accent: #ff7a45; --accent-text: #ff8a5c; --accent-on-navy: #ff8a5c; --accent-ink: #16181d; --accent-soft: #2a1a12;
+      color-scheme: dark;
     }
+
+    /* Language: Spanish markup is the default; English twins are hidden until the toggle switches. */
+    html[lang="es"] [data-l="en"], html[lang="en"] [data-l="es"] { display: none !important; }
+    [hidden] { display: none !important; }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; scroll-padding-top: 80px; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-    body {
-      font: 16px/1.6 var(--font-body);
-      background: var(--bg); color: var(--text);
-      -webkit-font-smoothing: antialiased;
-      transition: background-color .3s, color .3s;
-    }
+    body { font: 16px/1.6 var(--font-body); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
     a { color: inherit; }
+    img { max-width: 100%; display: block; }
     :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
-    .wrap { max-width: 1080px; margin: 0 auto; padding-inline: 20px; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding-inline: 20px; }
     h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; }
 
-    /* Scroll progress */
     .progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); z-index: 30; }
 
     /* Nav */
     nav {
       position: sticky; top: 0; z-index: 20;
-      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
       backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid transparent; transition: border-color .2s;
     }
     nav.scrolled { border-bottom-color: var(--border); }
     nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 16px; }
-    .logo { font: 800 1.15rem var(--font-display); text-decoration: none; letter-spacing: -0.02em; }
+    .logo { font: 800 1.15rem var(--font-display); text-decoration: none; letter-spacing: -0.02em; white-space: nowrap; }
     .logo span { color: var(--accent); }
-    .nav-links { display: flex; gap: 6px; list-style: none; align-items: center; }
-    .nav-links a {
-      text-decoration: none; color: var(--muted); font-size: 0.95rem; font-weight: 500;
-      padding: 6px 12px; border-radius: 999px; transition: color .2s, background-color .2s;
-    }
+    .nav-links { display: flex; gap: 4px; list-style: none; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: .95rem; font-weight: 500; padding: 8px 12px; border-radius: 999px; }
     .nav-links a:hover { color: var(--text); }
-    .nav-links a.active { color: var(--accent); background: var(--accent-soft); }
+    .nav-links a.active { color: var(--accent-text); background: var(--accent-soft); }
+    .nav-links .cv-link { color: var(--text); border: 1px solid var(--border); }
     .nav-tools { display: flex; gap: 8px; align-items: center; }
     .icon-btn {
-      width: 40px; height: 40px; border-radius: 999px; border: 1px solid var(--border);
-      background: var(--surface); color: var(--text); cursor: pointer;
-      display: grid; place-items: center; font-size: 1rem;
+      min-width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--border);
+      background: var(--surface); color: var(--text); cursor: pointer; display: grid; place-items: center;
+      font: 600 .85rem var(--font-mono); padding-inline: 10px;
     }
     .menu-btn { display: none; }
 
-    /* Hero */
-    .hero { padding-block: 88px 72px; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 48px; align-items: center; }
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px;
-      background: var(--accent-soft); color: var(--accent);
-      font: 500 0.78rem var(--font-mono); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 24px;
-    }
-    .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
-    @media (prefers-reduced-motion: no-preference) { .eyebrow .dot { animation: pulse 2s infinite; } }
-    @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 50%, transparent); } 50% { box-shadow: 0 0 0 6px transparent; } }
-    h1 { font-size: clamp(2.6rem, 7vw, 5rem); line-height: 1.02; letter-spacing: -0.04em; font-weight: 800; }
-    .rotator { color: var(--accent); }
-    .rotator::after { content: ""; display: inline-block; width: 3px; height: .85em; margin-left: 4px; background: var(--accent); vertical-align: -0.05em; }
-    @media (prefers-reduced-motion: no-preference) { .rotator::after { animation: blink 1s steps(1) infinite; } }
-    @keyframes blink { 50% { opacity: 0; } }
-    .lead { font-size: 1.15rem; color: var(--muted); max-width: 56ch; margin: 24px 0 32px; }
+    /* Buttons */
     .actions { display: flex; flex-wrap: wrap; gap: 12px; }
     .btn {
-      display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
-      padding: 14px 22px; border-radius: 12px; font: 600 1rem var(--font-body);
-      text-decoration: none; transition: transform .15s ease, box-shadow .15s ease; border: 1px solid transparent;
+      display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 12px 20px;
+      border-radius: 12px; font: 600 1rem var(--font-body); text-decoration: none; cursor: pointer;
+      border: 1px solid transparent; transition: transform .15s ease, box-shadow .15s ease;
     }
     .btn:hover { transform: translateY(-2px); }
+    .btn svg { flex: none; }
     .btn-primary { background: var(--accent); color: var(--accent-ink); }
-    .btn-primary:hover { box-shadow: 0 8px 24px -8px var(--accent); }
-    .btn-ghost { border-color: var(--border); background: var(--surface); color: var(--text); }
+    .btn-primary:hover { box-shadow: 0 10px 24px -10px var(--accent); }
+    .btn-ghost { background: var(--surface); border-color: var(--border); color: var(--text); }
+    .on-navy .btn-ghost { background: transparent; border-color: var(--navy-line); color: var(--on-navy); }
 
-    /* Hero profile card */
-    .id-card {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 28px;
-      display: grid; gap: 18px; transition: transform .2s ease;
+    /* Hero */
+    .hero { padding-block: 72px 80px; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: 64px; align-items: center; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px;
+      background: var(--accent-soft); color: var(--accent-text);
+      font: 500 .8rem var(--font-mono); letter-spacing: .05em; text-transform: uppercase; margin-bottom: 22px;
     }
-    .monogram {
-      width: 96px; height: 96px; border-radius: 22px; background: var(--accent-soft);
-      object-fit: cover; border: 3px solid var(--accent);
+    .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    h1 { font-size: clamp(2.4rem, 5.6vw, 4.2rem); line-height: 1.04; letter-spacing: -0.035em; font-weight: 800; color: var(--heading); }
+    h1 em { font-style: normal; color: var(--accent-text); }
+    .lead { font-size: 1.15rem; color: var(--muted); max-width: 56ch; margin: 22px 0 30px; }
+    .proof { margin-top: 22px; font: 500 .85rem var(--font-mono); color: var(--muted); letter-spacing: .02em; }
+
+    .portrait { position: relative; justify-self: center; width: min(100%, 400px); }
+    .portrait::before {
+      content: ""; position: absolute; inset: 0; border: 2px solid var(--accent); border-radius: 28px;
+      transform: translate(16px, 16px);
     }
-    .id-card dl { display: grid; gap: 12px; }
-    .id-card dt { font: 500 0.72rem var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
-    .id-card dd { font-weight: 500; }
-    .logos { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
-    .logos span { font-size: .8rem; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); }
+    .portrait .frame {
+      position: relative; aspect-ratio: 4 / 5; border-radius: 28px; overflow: hidden; background: var(--surface);
+      box-shadow: 0 30px 60px -30px rgba(20, 33, 61, .45); transition: transform .25s ease;
+    }
+    .portrait .frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; }
+    .badge {
+      position: absolute; background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+      padding: 10px 14px; box-shadow: 0 14px 30px -18px rgba(0,0,0,.4); font-size: .82rem; line-height: 1.3; color: var(--muted);
+    }
+    .badge strong { display: block; font: 800 1.3rem var(--font-display); color: var(--accent-text); }
+    .badge.b1 { left: -28px; top: 10%; }
+    .badge.b2 { right: -24px; bottom: 9%; }
+    @media (prefers-reduced-motion: no-preference) {
+      .badge { animation: float 6s ease-in-out infinite; }
+      .badge.b2 { animation-delay: -3s; }
+    }
+    @keyframes float { 50% { transform: translateY(-8px); } }
+
+    /* Company band */
+    .band { background: var(--navy); color: var(--on-navy); }
+    .band .wrap { display: flex; align-items: center; gap: 20px; padding-block: 22px; }
+    .band-label { font: 500 .8rem var(--font-mono); text-transform: uppercase; letter-spacing: .1em; color: var(--on-navy-muted); white-space: nowrap; }
+    .marquee { flex: 1; overflow: hidden; min-width: 0; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+    .marquee-track { display: flex; width: max-content; }
+    .marquee-track span { font: 700 1.35rem var(--font-display); letter-spacing: -0.01em; padding-inline: 26px; white-space: nowrap; }
+    .marquee-track span::after { content: "·"; color: var(--accent-on-navy); margin-left: 52px; margin-right: -26px; }
+    @media (prefers-reduced-motion: no-preference) {
+      .marquee-track { animation: scroll 36s linear infinite; }
+      .band.paused .marquee-track { animation-play-state: paused; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .marquee { -webkit-mask-image: none; mask-image: none; }
+      .marquee-track { width: auto; flex-wrap: wrap; row-gap: 8px; }
+      .marquee-track [aria-hidden="true"], .pause-btn { display: none !important; }
+    }
+    @keyframes scroll { to { transform: translateX(-50%); } }
+    .pause-btn { width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--navy-line); background: transparent; color: var(--on-navy); cursor: pointer; flex: none; }
 
     /* Sections */
-    section { padding-block: 88px; border-top: 1px solid var(--border); }
-    .kicker { font: 500 0.78rem var(--font-mono); text-transform: uppercase; letter-spacing: .1em; color: var(--accent); margin-bottom: 10px; display: block; }
-    h2 { font-size: clamp(1.9rem, 4vw, 2.7rem); letter-spacing: -0.03em; font-weight: 800; line-height: 1.1; margin-bottom: 16px; }
-    .section-intro { color: var(--muted); max-width: 60ch; margin-bottom: 40px; }
+    section { padding-block: 96px; }
+    section + section { border-top: 1px solid var(--border); }
+    .kicker { font: 500 .8rem var(--font-mono); text-transform: uppercase; letter-spacing: .1em; color: var(--accent-text); display: block; margin-bottom: 10px; }
+    h2 { font-size: clamp(1.9rem, 4vw, 2.7rem); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 14px; font-weight: 800; }
+    .intro { color: var(--muted); max-width: 62ch; margin-bottom: 40px; font-size: 1.05rem; }
 
     /* About + stats */
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-    .about-grid p + p { margin-top: 16px; }
+    .about-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; }
     .about-grid p { max-width: 62ch; }
-    .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .stat {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px;
-      transition: border-color .2s, transform .2s;
-    }
-    .stat:hover { border-color: var(--accent); transform: translateY(-3px); }
-    .stat strong { display: block; font: 800 2.2rem/1.1 var(--font-display); letter-spacing: -0.03em; color: var(--accent); font-variant-numeric: tabular-nums; }
-    .stat > span { color: var(--muted); font-size: 0.93rem; }
+    .about-grid p + p { margin-top: 16px; }
+    .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px; display: grid; gap: 6px; align-content: start; }
+    .stat strong { font: 800 2.3rem/1.05 var(--font-display); letter-spacing: -0.03em; color: var(--accent-text); font-variant-numeric: tabular-nums; }
+    .stat > span { color: var(--muted); font-size: .93rem; }
 
     /* Services */
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .card {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px;
-      transition: border-color .2s, transform .2s;
-    }
+    .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; transition: border-color .2s, transform .2s; }
     .card:hover { border-color: var(--accent); transform: translateY(-4px); }
-    .card .icon {
-      width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
-      background: var(--accent-soft); color: var(--accent); font-size: 1.3rem; margin-bottom: 18px;
-    }
+    .card .icon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-text); margin-bottom: 18px; }
     .card h3 { font-size: 1.2rem; margin-bottom: 8px; }
-    .card p { color: var(--muted); font-size: 0.97rem; }
+    .card p { color: var(--muted); font-size: .97rem; }
+    .steps { margin-top: 28px; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 28px; display: grid; grid-template-columns: 220px repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; }
+    .steps h3 { font-size: 1.25rem; }
+    .steps h3 + p { color: var(--muted); font-size: .92rem; margin-top: 6px; }
+    .step { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 12px; }
+    .step b { width: 36px; height: 36px; border-radius: 50%; background: var(--navy); color: var(--on-navy); display: grid; place-items: center; font: 700 .95rem var(--font-display); }
+    .step p { font-size: .97rem; }
 
-    /* Experience timeline */
-    .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
-    .filter {
-      font: 500 .9rem var(--font-body); padding: 8px 16px; border-radius: 999px; cursor: pointer;
-      border: 1px solid var(--border); background: var(--surface); color: var(--text);
-    }
-    .filter[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
-    .timeline { list-style: none; display: grid; gap: 12px; }
-    .timeline li[hidden] { display: none; }
+    /* Cases */
+    .cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .case { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; display: grid; grid-template-rows: auto 1fr auto; }
+    .case-top { padding: 24px 24px 0; }
+    .case .tag { font: 500 .78rem var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+    .case h3 { font-size: 1.3rem; line-height: 1.2; margin-top: 8px; }
+    .case dl { padding: 16px 24px 22px; display: grid; gap: 12px; }
+    .case dt { font: 500 .75rem var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--accent-text); }
+    .case dd { font-size: .95rem; color: var(--text); }
+    .case .result { background: var(--navy); color: var(--on-navy); padding: 20px 24px; }
+    .case .result strong { display: block; font: 800 2.1rem/1.05 var(--font-display); letter-spacing: -0.03em; color: var(--accent-on-navy); }
+    .case .result span { color: var(--on-navy-muted); font-size: .92rem; }
+
+    /* Track record */
+    .timeline { list-style: none; display: grid; gap: 10px; }
     .job { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; transition: border-color .2s; }
-    .job:hover, .job[open] { border-color: color-mix(in srgb, var(--accent) 60%, var(--border)); }
+    .job:hover, .job[open] { border-color: color-mix(in srgb, var(--accent) 55%, var(--border)); }
     .job summary {
-      list-style: none; cursor: pointer; padding: 22px 26px;
-      display: grid; grid-template-columns: 130px minmax(0, 1fr) auto; gap: 20px; align-items: start;
+      list-style: none; cursor: pointer; padding: 20px 24px; min-height: 44px;
+      display: grid; grid-template-columns: 120px minmax(0, 1fr) auto auto; gap: 20px; align-items: center;
     }
     .job summary::-webkit-details-marker { display: none; }
-    .when { color: var(--accent); font: 500 0.85rem var(--font-mono); padding-top: 3px; font-variant-numeric: tabular-nums; }
-    .job h3 { font-size: 1.12rem; line-height: 1.3; }
-    .company { color: var(--muted); font-size: .95rem; }
-    .chev { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--border); display: grid; place-items: center; transition: transform .25s; color: var(--muted); }
-    .job[open] .chev { transform: rotate(45deg); color: var(--accent); border-color: var(--accent); }
-    .job-body { padding: 0 26px 24px calc(130px + 20px + 26px); }
-    .job-body p { color: var(--muted); margin-bottom: 12px; max-width: 70ch; }
-    .job-body ul { display: grid; gap: 8px; padding-left: 18px; max-width: 72ch; }
+    .when { color: var(--accent-text); font: 500 .85rem var(--font-mono); font-variant-numeric: tabular-nums; }
+    .job h3 { font-size: 1.08rem; line-height: 1.3; }
+    .company { color: var(--muted); font-size: .93rem; }
+    .metric { font: 600 .82rem var(--font-body); background: var(--accent-soft); color: var(--accent-text); padding: 5px 12px; border-radius: 999px; white-space: nowrap; }
+    .chev { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--border); display: grid; place-items: center; transition: transform .25s; color: var(--muted); }
+    .job[open] .chev { transform: rotate(45deg); color: var(--accent-text); border-color: var(--accent); }
+    .job-body { padding: 0 24px 22px calc(120px + 20px + 24px); }
+    .job-body ul { display: grid; gap: 8px; padding-left: 18px; max-width: 74ch; color: var(--muted); }
     .job-body li::marker { color: var(--accent); }
+    .more { margin-top: 24px; }
 
-    /* Education */
-    .edu { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .edu .card { padding: 24px; }
-    .edu .card h3 { font-size: 1.05rem; margin-bottom: 4px; }
-    .edu .yr { font: 500 .8rem var(--font-mono); color: var(--accent); display: block; margin-bottom: 8px; }
+    /* Education strip */
+    .edu { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .edu div { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; }
+    .edu .yr { font: 500 .78rem var(--font-mono); color: var(--accent-text); display: block; margin-bottom: 4px; }
+    .edu h3 { font-size: 1.02rem; }
+    .edu p { color: var(--muted); font-size: .9rem; }
 
     /* Contact */
-    .contact-box {
-      background: var(--invert-bg); color: var(--invert-text);
-      border-radius: 24px; padding: 64px 40px; text-align: center;
-    }
-    .contact-box h2 { color: var(--invert-text); }
-    .contact-box p { opacity: .75; max-width: 50ch; margin: 0 auto 28px; }
+    .contact-box { background: var(--navy); color: var(--on-navy); border-radius: 24px; padding: 64px 40px; text-align: center; }
+    .contact-box .kicker { color: var(--accent-on-navy); }
+    .contact-box h2 { color: var(--on-navy); }
+    .contact-box p { color: var(--on-navy-muted); max-width: 56ch; margin: 0 auto 28px; }
     .contact-box .actions { justify-content: center; }
-    .contact-box .btn-ghost { background: transparent; color: var(--invert-text); border-color: color-mix(in srgb, var(--invert-text) 30%, transparent); }
-    .contact-box .email-line { margin: 20px 0 0; font: 500 .9rem var(--font-mono); }
-    .email-line a { text-decoration: none; }
+    .contact-box .mail { margin: 22px auto 0; font: 500 .95rem var(--font-mono); }
+    .contact-box .mail a { text-decoration: none; color: var(--on-navy); }
 
-    footer { padding-block: 40px; color: var(--muted); font-size: 0.9rem; }
+    footer { padding-block: 36px; color: var(--muted); font-size: .9rem; }
     footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-    footer a { text-decoration: none; }
-    footer a:hover { color: var(--accent); }
+    footer a { text-decoration: none; padding-block: 10px; } footer a:hover { color: var(--accent-text); }
 
-    .toast {
-      position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 120px);
-      background: var(--text); color: var(--bg); padding: 12px 20px; border-radius: 12px; font-weight: 500;
-      transition: transform .3s ease; z-index: 40; max-width: calc(100% - 32px);
-    }
-    .toast.show { transform: translate(-50%, 0); }
+    .toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 120px); visibility: hidden; background: var(--text); color: var(--bg); padding: 12px 20px; border-radius: 12px; font-weight: 500; transition: transform .3s, visibility .3s; z-index: 40; max-width: calc(100% - 32px); }
+    .toast.show { transform: translate(-50%, 0); visibility: visible; }
 
-    @media (max-width: 860px) {
-      .hero { grid-template-columns: 1fr; padding-block: 56px 48px; gap: 32px; }
-      .about-grid, .cards, .edu { grid-template-columns: 1fr; }
-      section { padding-block: 64px; }
+    @media (max-width: 980px) {
       .menu-btn { display: grid; }
       .nav-links {
         position: absolute; top: 68px; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 4px;
-        background: var(--bg); border-bottom: 1px solid var(--border); padding: 12px 20px 20px;
-        display: none;
+        background: var(--bg); border-bottom: 1px solid var(--border); padding: 12px 20px 20px; display: none;
       }
       .nav-links.open { display: flex; }
       .nav-links a { display: block; padding: 12px 14px; border-radius: 10px; }
-      .job summary { grid-template-columns: minmax(0, 1fr) auto; gap: 6px 16px; padding: 20px; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .steps > div:first-child { grid-column: 1 / -1; }
+    }
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; padding-block: 44px 64px; gap: 48px; }
+      .portrait { width: min(88%, 340px); }
+      .badge.b1 { left: -12px; } .badge.b2 { right: -12px; }
+      .about-grid, .cards, .cases, .edu { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      section { padding-block: 64px; }
+      .band .wrap { flex-wrap: wrap; gap: 10px; }
+      .band-label { width: 100%; }
+      .job summary { grid-template-columns: minmax(0, 1fr) auto; gap: 6px 14px; padding: 18px; }
       .when { grid-column: 1 / -1; }
+      .metric { grid-column: 1; grid-row: 3; justify-self: start; }
       .chev { grid-column: 2; grid-row: 2; }
-      .job-body { padding: 0 20px 20px; }
+      .job-body { padding: 0 18px 18px; }
       .contact-box { padding: 44px 20px; }
+      .contact-box .btn { width: 100%; justify-content: center; }
     }
   </style>
 </head>
@@ -240,246 +287,312 @@
     <div class="wrap">
       <a href="#top" class="logo">Cristian Marino<span>.</span></a>
       <ul class="nav-links" id="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">BoostBrands</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#education">Education</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="cv.html">Full CV ↗</a></li>
+        <li><a href="#sobre-mi"><span data-l="es">Sobre mí</span><span data-l="en">About</span></a></li>
+        <li><a href="#boostbrands">BoostBrands</a></li>
+        <li><a href="#casos"><span data-l="es">Casos</span><span data-l="en">Cases</span></a></li>
+        <li><a href="#trayectoria"><span data-l="es">Trayectoria</span><span data-l="en">Track record</span></a></li>
+        <li><a href="#contacto"><span data-l="es">Contacto</span><span data-l="en">Contact</span></a></li>
+        <li><a href="cv.html" class="cv-link"><span data-l="es">CV completo ↗</span><span data-l="en">Full CV ↗</span></a></li>
       </ul>
       <div class="nav-tools">
-        <button class="icon-btn" id="theme-btn" type="button" aria-label="Switch light or dark theme"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg></button>
-        <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">☰</button>
+        <button class="icon-btn" id="lang-btn" type="button" aria-label="Switch to English / Cambiar a español"><span data-l="es">EN</span><span data-l="en">ES</span></button>
+        <button class="icon-btn" id="theme-btn" type="button" aria-label="Tema claro u oscuro / Light or dark theme"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg></button>
+        <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="Menú / Menu" aria-expanded="false" aria-controls="nav-links">☰</button>
       </div>
     </div>
   </nav>
 
   <header class="wrap hero" id="top">
     <div>
-      <span class="eyebrow"><span class="dot"></span>Founder &amp; CEO · BoostBrands</span>
-      <h1>I help brands<br><span class="rotator" id="rotator">grow</span> faster.</h1>
-      <p class="lead">
-        Marketing and commercial executive with 17 years leading P&amp;L, growth and business
-        transformation at global companies in consulting, automotive, retail and fintech.
-        Today I help Chilean SMEs grow through BoostBrands.
+      <span class="eyebrow"><span class="dot"></span><span data-l="es">Fundador y CEO · BoostBrands</span><span data-l="en">Founder &amp; CEO · BoostBrands</span></span>
+      <h1>
+        <span data-l="es">Estrategia de multinacional para hacer <em>crecer</em> tu empresa.</span>
+        <span data-l="en">Multinational-grade strategy to <em>grow</em> your business.</span>
+      </h1>
+      <p class="lead" data-l="es">
+        Llevo 17 años liderando crecimiento, P&amp;L y transformación de negocios en Bajaj, Electrolux,
+        Accenture y Cencosud. Hoy pongo esa experiencia al servicio de las PYMES chilenas a través de BoostBrands.
+      </p>
+      <p class="lead" data-l="en">
+        17 years leading growth, P&amp;L and business transformation at Bajaj, Electrolux, Accenture and
+        Cencosud. Today I bring that experience to Chilean SMEs through BoostBrands.
       </p>
       <div class="actions">
-        <a href="#contact" class="btn btn-primary">Let's work together →</a>
-        <a href="cv.html" class="btn btn-ghost">See my full CV</a>
+        <a href="mailto:cmarino@mit.edu?subject=Diagn%C3%B3stico%2030%20min" class="btn btn-primary" data-agenda>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+          <span data-l="es">Agenda un diagnóstico de 30 min</span><span data-l="en">Book a 30-min diagnostic</span>
+        </a>
+        <a href="#" class="btn btn-ghost" data-whatsapp hidden target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>
+          WhatsApp
+        </a>
+        <a href="cv.html" class="btn btn-ghost"><span data-l="es">Ver CV completo</span><span data-l="en">See full CV</span></a>
       </div>
+      <p class="proof">
+        <span data-l="es">MBA MIT Sloan · Profesor en UDD y UNAB · Las Condes, Chile</span>
+        <span data-l="en">MIT Sloan MBA · Professor at UDD and UNAB · Las Condes, Chile</span>
+      </p>
     </div>
-    <aside class="id-card" id="id-card" aria-label="Profile summary">
-      <img class="monogram" src="fotos/retrato.jpg" alt="Cristian Marino" width="96" height="96">
-      <dl>
-        <div><dt>Based in</dt><dd>Las Condes, Santiago, Chile</dd></div>
-        <div><dt>Education</dt><dd>MBA, MIT Sloan School of Management</dd></div>
-        <div><dt>Teaching</dt><dd>Professor at UNAB and UDD (MBA)</dd></div>
-        <div>
-          <dt>Worked with</dt>
-          <dd class="logos"><span>Bajaj</span><span>Accenture</span><span>Electrolux</span><span>Cencosud</span></dd>
-        </div>
-      </dl>
-    </aside>
+    <div class="portrait" id="portrait">
+      <div class="frame"><img src="fotos/retrato.jpg" alt="Cristian Marino" width="800" height="800"></div>
+      <div class="badge b1"><strong>MIT Sloan</strong>MBA 2026</div>
+      <div class="badge b2"><strong><span data-l="es">17 años</span><span data-l="en">17 years</span></strong><span data-l="es">en marketing y crecimiento</span><span data-l="en">in marketing and growth</span></div>
+    </div>
   </header>
 
-  <section id="about">
+  <div class="band on-navy" id="band">
+    <div class="wrap">
+      <span class="band-label"><span data-l="es">Experiencia en</span><span data-l="en">Experience at</span></span>
+      <div class="marquee">
+        <div class="marquee-track">
+          <span>Bajaj Auto</span><span>Electrolux</span><span>Fensa</span><span>Mademsa</span><span>Accenture</span><span>Cencosud</span><span>MIT Sloan</span><span>Stanford GSB</span>
+          <span aria-hidden="true">Bajaj Auto</span><span aria-hidden="true">Electrolux</span><span aria-hidden="true">Fensa</span><span aria-hidden="true">Mademsa</span><span aria-hidden="true">Accenture</span><span aria-hidden="true">Cencosud</span><span aria-hidden="true">MIT Sloan</span><span aria-hidden="true">Stanford GSB</span>
+        </div>
+      </div>
+      <button class="pause-btn" id="pause-btn" type="button" aria-pressed="false" aria-label="Pausar animación / Pause animation">❚❚</button>
+    </div>
+  </div>
+
+  <section id="sobre-mi">
     <div class="wrap about-grid">
       <div>
-        <span class="kicker">About</span>
-        <h2>Strategy that turns into results</h2>
-        <p>
-          I've built and scaled businesses across Chile and Latin America: from launching a
-          brand in a new country from scratch to taking a national distributor to #1 in its
-          segment. I've led teams of up to 30 people directly and operations of around 200.
+        <span class="kicker"><span data-l="es">Sobre mí</span><span data-l="en">About</span></span>
+        <h2><span data-l="es">Resultados, no adjetivos</span><span data-l="en">Results, not adjectives</span></h2>
+        <p data-l="es">
+          He construido y escalado negocios en Chile y Latinoamérica: desde lanzar una marca en un país nuevo
+          desde cero hasta llevar a un distribuidor nacional al #1 de su segmento. He liderado equipos de hasta
+          30 personas directas y operaciones de cerca de 200.
         </p>
-        <p>
-          My focus is clear positioning, channels measured against revenue, and teams that execute.
-          At BoostBrands I combine that experience with agentic AI to run campaigns and produce
-          content efficiently for growing companies.
+        <p data-l="en">
+          I've built and scaled businesses across Chile and Latin America: from launching a brand in a new
+          country from scratch to taking a national distributor to #1 in its segment. I've led teams of up to
+          30 people directly and operations of around 200.
+        </p>
+        <p data-l="es">
+          Mi foco: posicionamiento claro, canales medidos contra ventas y equipos que ejecutan. En BoostBrands
+          combino esa experiencia con IA agéntica para ejecutar campañas y producir contenido de forma eficiente.
+        </p>
+        <p data-l="en">
+          My focus is clear positioning, channels measured against revenue, and teams that execute. At
+          BoostBrands I combine that experience with agentic AI to run campaigns and produce content efficiently.
         </p>
       </div>
       <div class="stats">
-        <div class="stat"><strong data-count="17">17</strong><span>Years of experience</span></div>
-        <div class="stat"><strong><span data-count="9">9</span>→<span data-count="23">23</span>%</strong><span>Market share grown at Bajaj Motochile</span></div>
-        <div class="stat"><strong>$<span data-count="13.5" data-decimals="1">13.5</span>M</strong><span>USD in e-commerce sales built from zero</span></div>
-        <div class="stat"><strong data-count="50" data-suffix="+">50+</strong><span>SMEs advised through BoostBrands</span></div>
+        <div class="stat"><strong data-count="17">17</strong><span><span data-l="es">años de experiencia</span><span data-l="en">years of experience</span></span></div>
+        <div class="stat"><strong><span data-count="9">9</span>→<span data-count="23">23</span>%</strong><span><span data-l="es">participación de mercado en Bajaj Motochile, #1 del segmento Street</span><span data-l="en">market share at Bajaj Motochile, #1 in the Street segment</span></span></div>
+        <div class="stat"><strong>$<span data-count="13.5" data-decimals="1">13,5</span>M</strong><span><span data-l="es">USD en ventas e-commerce construidas desde cero</span><span data-l="en">USD in e-commerce sales built from zero</span></span></div>
+        <div class="stat"><strong data-count="50">50</strong><span><span data-l="es">PYMES asesoradas, con +15% de crecimiento promedio en ingresos</span><span data-l="en">SMEs advised, with +15% average revenue growth</span></span></div>
       </div>
     </div>
   </section>
 
-  <section id="services">
+  <section id="boostbrands">
     <div class="wrap">
       <span class="kicker">BoostBrands</span>
-      <h2>What I do today</h2>
-      <p class="section-intro">BoostBrands is a B2B/B2C commercial marketing consultancy for Chilean SMEs, with two business units: consulting and retail representation.</p>
+      <h2><span data-l="es">Qué hago hoy</span><span data-l="en">What I do today</span></h2>
+      <p class="intro" data-l="es">BoostBrands es una consultora de marketing comercial B2B/B2C para PYMES chilenas, con dos unidades de negocio: consultoría y representación retail.</p>
+      <p class="intro" data-l="en">BoostBrands is a B2B/B2C commercial marketing consultancy for Chilean SMEs, with two business units: consulting and retail representation.</p>
       <div class="cards">
         <div class="card">
-          <div class="icon" aria-hidden="true">◎</div>
-          <h3>Growth consulting</h3>
-          <p>I've advised 50 SMEs through Chile's economic downturn, delivering an average +15% revenue growth.</p>
+          <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
+          <h3><span data-l="es">Consultoría de crecimiento</span><span data-l="en">Growth consulting</span></h3>
+          <p data-l="es">He asesorado a 50 PYMES durante la crisis económica de Chile, con +15% de crecimiento promedio en ingresos.</p>
+          <p data-l="en">I've advised 50 SMEs through Chile's economic downturn, delivering +15% average revenue growth.</p>
         </div>
         <div class="card">
-          <div class="icon" aria-hidden="true">↗</div>
-          <h3>Retail representation</h3>
-          <p>Distribution for 2 international sustainable fashion brands, including Acapella, in 3 major Chilean retail chains.</p>
+          <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M3 9h18M10 20v-6h4v6"/></svg></div>
+          <h3><span data-l="es">Representación retail</span><span data-l="en">Retail representation</span></h3>
+          <p data-l="es">Llevo marcas a las grandes cadenas: 2 marcas internacionales de moda sostenible, incluida Acapella, en 3 cadenas retail chilenas.</p>
+          <p data-l="en">I bring brands into major chains: 2 international sustainable fashion brands, including Acapella, in 3 Chilean retail chains.</p>
         </div>
         <div class="card">
-          <div class="icon" aria-hidden="true">✦</div>
-          <h3>AI-powered marketing</h3>
-          <p>Agentic AI built into campaigns and content production for a radically low-cost, high-output approach.</p>
+          <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></div>
+          <h3><span data-l="es">Marketing con IA</span><span data-l="en">AI-powered marketing</span></h3>
+          <p data-l="es">IA agéntica integrada en campañas y producción de contenido, con un enfoque radical de bajo costo y alto rendimiento.</p>
+          <p data-l="en">Agentic AI built into campaigns and content production, for a radically low-cost, high-output approach.</p>
         </div>
+      </div>
+      <div class="steps">
+        <div>
+          <h3><span data-l="es">Cómo empezamos</span><span data-l="en">How we start</span></h3>
+          <p data-l="es">Sin compromiso.</p><p data-l="en">No commitment.</p>
+        </div>
+        <div class="step"><b>1</b><p><span data-l="es">Conversamos 30 minutos sobre tu negocio y tus metas.</span><span data-l="en">We talk for 30 minutes about your business and your goals.</span></p></div>
+        <div class="step"><b>2</b><p><span data-l="es">Te propongo prioridades concretas para crecer.</span><span data-l="en">I propose concrete priorities to grow.</span></p></div>
+        <div class="step"><b>3</b><p><span data-l="es">Si tiene sentido para ambos, armamos un plan y lo ejecutamos juntos.</span><span data-l="en">If it makes sense for both of us, we build a plan and execute it together.</span></p></div>
       </div>
     </div>
   </section>
 
-  <section id="experience">
+  <section id="casos">
     <div class="wrap">
-      <span class="kicker">Experience</span>
-      <h2>Track record</h2>
-      <p class="section-intro">Marketing, sales and general management roles at Fortune 500 companies and fast-moving businesses. Open a role to see the results.</p>
-
-      <div class="filters" role="group" aria-label="Filter roles">
-        <button class="filter" type="button" data-filter="all" aria-pressed="true">All roles</button>
-        <button class="filter" type="button" data-filter="leadership" aria-pressed="false">General management</button>
-        <button class="filter" type="button" data-filter="marketing" aria-pressed="false">Marketing</button>
+      <span class="kicker"><span data-l="es">Casos</span><span data-l="en">Cases</span></span>
+      <h2><span data-l="es">Resultados reales</span><span data-l="en">Real results</span></h2>
+      <p class="intro" data-l="es">Tres ejemplos de lo que hago, en PYMES y en una gran compañía.</p>
+      <p class="intro" data-l="en">Three examples of my work, with SMEs and at a large company.</p>
+      <div class="cases">
+        <article class="case">
+          <div class="case-top">
+            <span class="tag"><span data-l="es">BoostBrands · Consultoría</span><span data-l="en">BoostBrands · Consulting</span></span>
+            <h3><span data-l="es">50 PYMES en plena crisis</span><span data-l="en">50 SMEs through a downturn</span></h3>
+          </div>
+          <dl>
+            <div><dt><span data-l="es">Desafío</span><span data-l="en">Challenge</span></dt><dd><span data-l="es">Pequeñas y medianas empresas enfrentando la crisis económica de Chile.</span><span data-l="en">Small and mid-sized companies facing Chile's economic crisis.</span></dd></div>
+            <div><dt><span data-l="es">Qué hice</span><span data-l="en">What I did</span></dt><dd><span data-l="es">Asesoría de marketing comercial y crecimiento a 50 empresas; hoy 12 son clientes activos.</span><span data-l="en">Commercial marketing and growth advice for 50 companies; 12 are active clients today.</span></dd></div>
+          </dl>
+          <div class="result"><strong>+15%</strong><span><span data-l="es">crecimiento promedio de ingresos</span><span data-l="en">average revenue growth</span></span></div>
+        </article>
+        <article class="case">
+          <div class="case-top">
+            <span class="tag"><span data-l="es">BoostBrands · Retail</span><span data-l="en">BoostBrands · Retail</span></span>
+            <h3><span data-l="es">Moda sostenible en el retail chileno</span><span data-l="en">Sustainable fashion in Chilean retail</span></h3>
+          </div>
+          <dl>
+            <div><dt><span data-l="es">Desafío</span><span data-l="en">Challenge</span></dt><dd><span data-l="es">Llevar 2 marcas internacionales de moda sostenible, incluida Acapella, a las grandes cadenas chilenas.</span><span data-l="en">Bringing 2 international sustainable fashion brands, including Acapella, into Chile's major chains.</span></dd></div>
+            <div><dt><span data-l="es">Qué hice</span><span data-l="en">What I did</span></dt><dd><span data-l="es">Negocié acuerdos de distribución con 3 grandes cadenas retail.</span><span data-l="en">Negotiated distribution deals with 3 major retail chains.</span></dd></div>
+          </dl>
+          <div class="result"><strong>USD $400K</strong><span><span data-l="es">en ventas, con 40% de margen</span><span data-l="en">in sales, at a 40% margin</span></span></div>
+        </article>
+        <article class="case">
+          <div class="case-top">
+            <span class="tag"><span data-l="es">Bajaj Motochile · Transformación</span><span data-l="en">Bajaj Motochile · Transformation</span></span>
+            <h3><span data-l="es">De franquicias a venta directa</span><span data-l="en">From franchises to direct sales</span></h3>
+          </div>
+          <dl>
+            <div><dt><span data-l="es">Desafío</span><span data-l="en">Challenge</span></dt><dd><span data-l="es">Un distribuidor con 20 franquicias, USD $1M en cuentas por cobrar y crédito a 60 días.</span><span data-l="en">A distributor with 20 franchises, USD $1M in receivables and 60-day credit terms.</span></dd></div>
+            <div><dt><span data-l="es">Qué hice</span><span data-l="en">What I did</span></dt><dd><span data-l="es">Pasé el modelo de B2B a B2C/D2C con 4 tiendas propias, e-commerce desde cero y una alianza fintech de USD $8M.</span><span data-l="en">Moved the model from B2B to B2C/D2C with 4 company stores, e-commerce from zero and a USD $8M fintech alliance.</span></dd></div>
+          </dl>
+          <div class="result"><strong>+20% EBITDA</strong><span><span data-l="es">+50% de flujo de caja y participación de 9% a 23%</span><span data-l="en">+50% cash flow and market share from 9% to 23%</span></span></div>
+        </article>
       </div>
+    </div>
+  </section>
 
+  <section id="trayectoria">
+    <div class="wrap">
+      <span class="kicker"><span data-l="es">Trayectoria</span><span data-l="en">Track record</span></span>
+      <h2><span data-l="es">17 años en compañías líderes</span><span data-l="en">17 years at leading companies</span></h2>
+      <p class="intro" data-l="es">Un resumen. Abre un cargo para ver el detalle, o revisa la versión completa e interactiva en mi CV.</p>
+      <p class="intro" data-l="en">A summary. Open a role for details, or see the full interactive version in my CV.</p>
       <ol class="timeline">
-        <li data-tags="leadership">
-          <details class="job" open>
-            <summary>
-              <span class="when">2020 – Now</span>
-              <span><h3>Founder &amp; CEO</h3><span class="company">BoostBrands SpA · Santiago</span></span>
-              <span class="chev" aria-hidden="true">+</span>
-            </summary>
-            <div class="job-body">
-              <p>Commercial marketing consultancy for Chilean SMEs. USD $550K in sales across two business units, with a team of 3.</p>
-              <ul>
-                <li>Secured distribution for 2 international sustainable fashion brands in 3 major Chilean retail chains: USD $400K in sales at a 40% margin.</li>
-                <li>Advised 50 SMEs during Chile's economic crisis (USD $150K, 50% margin, 12 active clients), with +15% average revenue growth.</li>
-              </ul>
-            </div>
-          </details>
-        </li>
-        <li data-tags="leadership marketing">
-          <details class="job">
-            <summary>
-              <span class="when">2020 – 2024</span>
-              <span><h3>Marketing &amp; Sales Director</h3><span class="company">Bajaj Motochile · Santiago</span></span>
-              <span class="chev" aria-hidden="true">+</span>
-            </summary>
-            <div class="job-body">
-              <p>Full ownership of CAC, conversion, revenue by channel and national market share. Led 33 people and 3 agencies.</p>
-              <ul>
-                <li>Moved the business from B2B to B2C/D2C: replaced 20 franchises with 4 company stores. EBITDA +20%, cash flow +50%, receivables from USD $1M to $400K.</li>
-                <li>Negotiated a USD $8M alliance with fintech Galgo (5,500 motorcycles over 2 years) and launched MotoFin, an in-house microcredit unit for delivery riders.</li>
-                <li>Grew market share from 9% to 23%, reaching #1 in the Street segment.</li>
-                <li>Built e-commerce from zero to USD $13.5M in sales during the pandemic; implemented HubSpot CRM.</li>
-                <li>Recognized by Bajaj HQ India for the best customer-experience store in LATAM.</li>
-              </ul>
-            </div>
-          </details>
-        </li>
-        <li data-tags="leadership marketing">
-          <details class="job">
-            <summary>
-              <span class="when">2017 – 2020</span>
-              <span><h3>Country Manager Chile &amp; Paraguay · Regional CMO LATAM</h3><span class="company">Bajaj Auto Limited</span></span>
-              <span class="chev" aria-hidden="true">+</span>
-            </summary>
-            <div class="job-body">
-              <p>Brand and commercial growth strategy for a Fortune 500 automaker present in 100+ countries. Regional team of 30, joint operation of ~200.</p>
-              <ul>
-                <li>Launched Bajaj in Paraguay from scratch: chose the distributor, built a 25-person team and opened 3 stores. USD $1M in sales and 5% share in year one.</li>
-                <li>Ran integrated campaigns in 6 countries (USD $6M budget), including 2 original digital reality shows, delivering the largest regional share gain in 10 years.</li>
-                <li>Built KPI frameworks linking reach and engagement directly to revenue across all markets.</li>
-                <li>Renegotiated 3 regional agency contracts, cutting costs 30%.</li>
-              </ul>
-            </div>
-          </details>
-        </li>
-        <li data-tags="marketing">
-          <details class="job">
-            <summary>
-              <span class="when">2016 – 2017</span>
-              <span><h3>Marketing Manager</h3><span class="company">Accenture · Santiago</span></span>
-              <span class="chev" aria-hidden="true">+</span>
-            </summary>
-            <div class="job-body">
-              <p>B2B marketing for Chile's top 30 companies using Salesforce Marketing Cloud.</p>
-              <ul>
-                <li>Designed strategy and campaigns that closed USD $6M in deals.</li>
-                <li>Led LATAM's first mind-controlled drone race, named the most innovative campaign of 2017 and used for STEM recruiting.</li>
-                <li>Cut agency costs 10% through a regional negotiation.</li>
-              </ul>
-            </div>
-          </details>
-        </li>
-        <li data-tags="marketing">
-          <details class="job">
-            <summary>
-              <span class="when">2013 – 2016</span>
-              <span><h3>Senior Regional Product Marketing Manager</h3><span class="company">Electrolux · Andean cluster</span></span>
-              <span class="chev" aria-hidden="true">+</span>
-            </summary>
-            <div class="job-body">
-              <p>360° marketing, product and sales strategy for the highest-revenue category.</p>
-              <ul>
-                <li>Secured USD $20M in investment from global HQ.</li>
-                <li>Took Electrolux, Fensa and Mademsa to #1 in Chile: 45% share in refrigerators, 75% in freezers.</li>
-                <li>Repositioned Electrolux as premium with Michelin-starred chefs, growing share from 1% to 5% in year one.</li>
-                <li>Winner of the Most Scalable Global Project (2015) for the company's first data analytics lab in the region.</li>
-              </ul>
-            </div>
-          </details>
-        </li>
-        <li data-tags="marketing">
-          <details class="job">
-            <summary>
-              <span class="when">2008 – 2011</span>
-              <span><h3>Product Marketing Manager</h3><span class="company">Cencosud · Credit card</span></span>
-              <span class="chev" aria-hidden="true">+</span>
-            </summary>
-            <div class="job-body">
-              <p>Acquisition, activation and usage campaigns for 2M cardholders.</p>
-              <ul>
-                <li>Grew the partner merchant network 15% YoY and average ticket 10% through cross promotions.</li>
-                <li>Built segmented email campaigns by usage profile, debt cycle and average ticket.</li>
-              </ul>
-            </div>
-          </details>
-        </li>
+        <li><details class="job">
+          <summary>
+            <span class="when"><span data-l="es">2020 – hoy</span><span data-l="en">2020 – now</span></span>
+            <span><h3><span data-l="es">Fundador y CEO</span><span data-l="en">Founder &amp; CEO</span></h3><span class="company">BoostBrands SpA · Santiago</span></span>
+            <span class="metric"><span data-l="es">USD $550K en ventas</span><span data-l="en">USD $550K in sales</span></span>
+            <span class="chev" aria-hidden="true">+</span>
+          </summary>
+          <div class="job-body"><ul>
+            <li data-l="es">Acuerdos de distribución para 2 marcas internacionales de moda sostenible en 3 grandes cadenas retail: USD $400K en ventas con 40% de margen.</li>
+            <li data-l="en">Distribution deals for 2 international sustainable fashion brands in 3 major retail chains: USD $400K in sales at a 40% margin.</li>
+            <li data-l="es">Asesoré a 50 PYMES durante la crisis económica de Chile (12 clientes activos), con +15% de crecimiento promedio de ingresos.</li>
+            <li data-l="en">Advised 50 SMEs during Chile's economic crisis (12 active clients), with +15% average revenue growth.</li>
+          </ul></div>
+        </details></li>
+        <li><details class="job">
+          <summary>
+            <span class="when">2020 – 2024</span>
+            <span><h3><span data-l="es">Director de Marketing y Ventas</span><span data-l="en">Marketing &amp; Sales Director</span></h3><span class="company">Bajaj Motochile · Santiago</span></span>
+            <span class="metric"><span data-l="es">9% → 23% participación</span><span data-l="en">9% → 23% market share</span></span>
+            <span class="chev" aria-hidden="true">+</span>
+          </summary>
+          <div class="job-body"><ul>
+            <li data-l="es">Transformación de B2B a B2C/D2C: 20 franquicias reemplazadas por 4 tiendas propias. EBITDA +20%, flujo de caja +50%.</li>
+            <li data-l="en">Moved from B2B to B2C/D2C: replaced 20 franchises with 4 company stores. EBITDA +20%, cash flow +50%.</li>
+            <li data-l="es">Alianza de USD $8M con la fintech Galgo y lanzamiento de MotoFin, microcrédito propio.</li>
+            <li data-l="en">USD $8M alliance with fintech Galgo and launch of MotoFin, an in-house microcredit unit.</li>
+            <li data-l="es">E-commerce desde cero: USD $13,5M en ventas durante la pandemia. Equipo de 33 personas y 3 agencias.</li>
+            <li data-l="en">E-commerce from zero: USD $13.5M in sales during the pandemic. Team of 33 people and 3 agencies.</li>
+          </ul></div>
+        </details></li>
+        <li><details class="job">
+          <summary>
+            <span class="when">2017 – 2020</span>
+            <span><h3><span data-l="es">Country Manager Chile y Paraguay · Regional CMO LATAM</span><span data-l="en">Country Manager Chile &amp; Paraguay · Regional CMO LATAM</span></h3><span class="company">Bajaj Auto Limited</span></span>
+            <span class="metric"><span data-l="es">6 países</span><span data-l="en">6 countries</span></span>
+            <span class="chev" aria-hidden="true">+</span>
+          </summary>
+          <div class="job-body"><ul>
+            <li data-l="es">Entrada a Paraguay desde cero: USD $1M en ventas y 5% de participación el primer año.</li>
+            <li data-l="en">Launched in Paraguay from scratch: USD $1M in sales and 5% share in year one.</li>
+            <li data-l="es">Campañas integradas en 6 países (USD $6M): el mayor crecimiento regional de participación en 10 años.</li>
+            <li data-l="en">Integrated campaigns in 6 countries (USD $6M): the largest regional share gain in 10 years.</li>
+          </ul></div>
+        </details></li>
+        <li><details class="job">
+          <summary>
+            <span class="when">2016 – 2017</span>
+            <span><h3><span data-l="es">Subgerente de Marketing</span><span data-l="en">Marketing Manager</span></h3><span class="company">Accenture · Santiago</span></span>
+            <span class="metric"><span data-l="es">USD $6M en acuerdos</span><span data-l="en">USD $6M in deals</span></span>
+            <span class="chev" aria-hidden="true">+</span>
+          </summary>
+          <div class="job-body"><ul>
+            <li data-l="es">Marketing B2B para las 30 principales empresas de Chile.</li>
+            <li data-l="en">B2B marketing for Chile's top 30 companies.</li>
+            <li data-l="es">Primera carrera de drones controlados por la mente en LATAM, campaña más innovadora 2017.</li>
+            <li data-l="en">LATAM's first mind-controlled drone race, most innovative campaign of 2017.</li>
+          </ul></div>
+        </details></li>
+        <li><details class="job">
+          <summary>
+            <span class="when">2013 – 2016</span>
+            <span><h3>Senior Regional Product Marketing Manager</h3><span class="company"><span data-l="es">Electrolux · Clúster Andino</span><span data-l="en">Electrolux · Andean cluster</span></span></span>
+            <span class="metric"><span data-l="es">#1 en Chile</span><span data-l="en">#1 in Chile</span></span>
+            <span class="chev" aria-hidden="true">+</span>
+          </summary>
+          <div class="job-body"><ul>
+            <li data-l="es">Inversión de USD $20M aprobada por el HQ global.</li>
+            <li data-l="en">USD $20M investment approved by global HQ.</li>
+            <li data-l="es">Electrolux, Fensa y Mademsa #1 en Chile: 45% en refrigeradores y 75% en freezers.</li>
+            <li data-l="en">Electrolux, Fensa and Mademsa #1 in Chile: 45% share in refrigerators, 75% in freezers.</li>
+          </ul></div>
+        </details></li>
+        <li><details class="job">
+          <summary>
+            <span class="when">2008 – 2011</span>
+            <span><h3>Product Marketing Manager</h3><span class="company"><span data-l="es">Cencosud · Tarjeta de crédito</span><span data-l="en">Cencosud · Credit card</span></span></span>
+            <span class="metric"><span data-l="es">2M tarjetahabientes</span><span data-l="en">2M cardholders</span></span>
+            <span class="chev" aria-hidden="true">+</span>
+          </summary>
+          <div class="job-body"><ul>
+            <li data-l="es">Red de comercios asociados +15% anual y ticket promedio +10% con promociones cruzadas.</li>
+            <li data-l="en">Partner merchant network +15% YoY and average ticket +10% through cross promotions.</li>
+          </ul></div>
+        </details></li>
       </ol>
+      <div class="more"><a href="cv.html" class="btn btn-ghost"><span data-l="es">Ver trayectoria completa →</span><span data-l="en">See full track record →</span></a></div>
     </div>
   </section>
 
-  <section id="education">
+  <section id="formacion">
     <div class="wrap">
-      <span class="kicker">Education &amp; teaching</span>
-      <h2>Always learning, now teaching</h2>
-      <p class="section-intro">Business education in Chile, the US and Canada.</p>
+      <span class="kicker"><span data-l="es">Formación y docencia</span><span data-l="en">Education &amp; teaching</span></span>
+      <h2><span data-l="es">Aprender y enseñar</span><span data-l="en">Learning and teaching</span></h2>
       <div class="edu">
-        <div class="card"><span class="yr">2024 – 2026</span><h3>MIT Sloan School of Management</h3><p>MBA. Pricing and go-to-market practicum in Singapore; Change Management competition winner.</p></div>
-        <div class="card"><span class="yr">2015</span><h3>Stanford GSB</h3><p>Diploma in Strategic Marketing Management and Neuromarketing.</p></div>
-        <div class="card"><span class="yr">2012</span><h3>University of Windsor, Odette</h3><p>Master's in Production Management. Peace Prize winner.</p></div>
-        <div class="card"><span class="yr">2008</span><h3>Universidad Andrés Bello</h3><p>Industrial Engineering with honors. Best Thesis Project of the Year.</p></div>
-        <div class="card"><span class="yr">2025 – Now</span><h3>Professor · UNAB</h3><p>School of Engineering, capstone project courses.</p></div>
-        <div class="card"><span class="yr">2025 – Now</span><h3>Professor · UDD</h3><p>Product Management in the MBA program.</p></div>
+        <div><span class="yr">2024 – 2026</span><h3>MIT Sloan School of Management</h3><p>MBA</p></div>
+        <div><span class="yr">2015</span><h3>Stanford GSB</h3><p><span data-l="es">Marketing estratégico y neuromarketing</span><span data-l="en">Strategic marketing and neuromarketing</span></p></div>
+        <div><span class="yr">2012</span><h3>University of Windsor, Odette</h3><p><span data-l="es">Máster en Gestión de la Producción</span><span data-l="en">Master's in Production Management</span></p></div>
+        <div><span class="yr">2008</span><h3>Universidad Andrés Bello</h3><p><span data-l="es">Ingeniería Industrial con honores</span><span data-l="en">Industrial Engineering with honors</span></p></div>
+        <div><span class="yr"><span data-l="es">2025 – hoy</span><span data-l="en">2025 – now</span></span><h3><span data-l="es">Profesor · UDD</span><span data-l="en">Professor · UDD</span></h3><p><span data-l="es">Product Management, programa MBA</span><span data-l="en">Product Management, MBA program</span></p></div>
+        <div><span class="yr"><span data-l="es">2025 – hoy</span><span data-l="en">2025 – now</span></span><h3><span data-l="es">Profesor · UNAB</span><span data-l="en">Professor · UNAB</span></h3><p><span data-l="es">Escuela de Ingeniería, proyecto de título</span><span data-l="en">School of Engineering, capstone projects</span></p></div>
       </div>
     </div>
   </section>
 
-  <section id="contact">
+  <section id="contacto">
     <div class="wrap">
-      <div class="contact-box">
-        <span class="kicker">Contact</span>
-        <h2>Got a brand to boost?</h2>
-        <p>Tell me about your project and I'll get back to you with ideas on how to move it forward.</p>
+      <div class="contact-box on-navy">
+        <span class="kicker"><span data-l="es">Contacto</span><span data-l="en">Contact</span></span>
+        <h2><span data-l="es">¿Conversamos sobre tu negocio?</span><span data-l="en">Let's talk about your business</span></h2>
+        <p data-l="es">Cuéntame en qué está tu empresa y te propongo ideas concretas para avanzar. También estoy disponible para directorios, charlas y docencia.</p>
+        <p data-l="en">Tell me where your business is and I'll suggest concrete ways to move it forward. I'm also available for boards, talks and teaching.</p>
         <div class="actions">
-          <button type="button" class="btn btn-primary" id="copy-email">Copy my email</button>
+          <a href="mailto:cmarino@mit.edu?subject=Diagn%C3%B3stico%2030%20min" class="btn btn-primary" data-agenda><span data-l="es">Agenda un diagnóstico de 30 min</span><span data-l="en">Book a 30-min diagnostic</span></a>
+          <a href="#" class="btn btn-ghost" data-whatsapp hidden target="_blank" rel="noopener">WhatsApp</a>
+          <button type="button" class="btn btn-ghost" id="copy-email"><span data-l="es">Copiar email</span><span data-l="en">Copy email</span></button>
           <a href="https://www.linkedin.com/in/cristianmarinov" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn ↗</a>
         </div>
-        <p class="email-line"><a href="mailto:cmarino@mit.edu">cmarino@mit.edu</a></p>
+        <p class="mail"><a href="mailto:cmarino@mit.edu" data-email>cmarino@mit.edu</a></p>
       </div>
     </div>
   </section>
@@ -487,114 +600,135 @@
   <footer>
     <div class="wrap">
       <span>© <span id="year">2026</span> Cristian Marino · BoostBrands</span>
-      <a href="#top">Back to top ↑</a>
+      <a href="#top"><span data-l="es">Volver arriba ↑</span><span data-l="en">Back to top ↑</span></a>
     </div>
   </footer>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
-    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    /* ---------- Contact settings: edit these three values ---------- */
+    const CONFIG = {
+      email: 'cmarino@mit.edu',
+      calendarUrl: '',   // e.g. 'https://calendly.com/...'. Empty: the "Agenda" buttons open an email instead.
+      whatsapp: '',      // full number, digits only, e.g. '569XXXXXXXX'. Empty: WhatsApp buttons stay hidden.
+    };
+
     const $ = id => document.getElementById(id);
+    const root = document.documentElement;
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
     $('year').textContent = new Date().getFullYear();
 
-    // Theme toggle (remembers the choice)
-    const root = document.documentElement;
+    /* Language */
+    const TITLES = {
+      es: 'Cristian Marino · Estrategia de crecimiento para PYMES',
+      en: 'Cristian Marino · Growth strategy for SMEs',
+    };
+    let lang = 'es';
+    const browserLang = (navigator.language || 'es').toLowerCase().startsWith('es') ? 'es' : 'en';
+    lang = browserLang;
+    try { lang = localStorage.getItem('lang') || browserLang; } catch {}
+    function setLang(l) {
+      lang = l; root.lang = l; document.title = TITLES[l];
+      try { localStorage.setItem('lang', l); } catch {}
+      paintStats();
+      applyConfig();
+    }
+    $('lang-btn').addEventListener('click', () => setLang(lang === 'es' ? 'en' : 'es'));
+
+    /* Contact links from CONFIG */
+    function applyConfig() {
+      const subject = lang === 'es' ? 'Diagnóstico de 30 min' : '30-min diagnostic';
+      document.querySelectorAll('[data-agenda]').forEach(a => {
+        if (CONFIG.calendarUrl) { a.href = CONFIG.calendarUrl; a.target = '_blank'; a.rel = 'noopener'; }
+        else a.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}`;
+      });
+      const text = lang === 'es' ? 'Hola Cristian, vi tu sitio y me gustaría conversar sobre mi empresa.' : "Hi Cristian, I saw your website and I'd like to talk about my business.";
+      document.querySelectorAll('[data-whatsapp]').forEach(a => {
+        a.hidden = !CONFIG.whatsapp;
+        if (CONFIG.whatsapp) a.href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(text)}`;
+      });
+      document.querySelectorAll('[data-email]').forEach(a => { a.href = `mailto:${CONFIG.email}`; a.textContent = CONFIG.email; });
+    }
+
+    /* Theme */
     try { const t = localStorage.getItem('theme'); if (t) root.dataset.theme = t; } catch {}
     $('theme-btn').addEventListener('click', () => {
-      const isDark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-      root.dataset.theme = isDark ? 'light' : 'dark';
+      const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+      root.dataset.theme = dark ? 'light' : 'dark';
       try { localStorage.setItem('theme', root.dataset.theme); } catch {}
     });
 
-    // Mobile menu
+    /* Mobile menu */
     const links = $('nav-links'), menuBtn = $('menu-btn');
-    const setMenu = open => {
-      links.classList.toggle('open', open);
-      menuBtn.setAttribute('aria-expanded', open);
-      menuBtn.textContent = open ? '✕' : '☰';
-    };
+    const setMenu = open => { links.classList.toggle('open', open); menuBtn.setAttribute('aria-expanded', open); menuBtn.textContent = open ? '✕' : '☰'; };
     menuBtn.addEventListener('click', () => setMenu(!links.classList.contains('open')));
     links.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
 
-    // Scroll progress bar + nav border
+    /* Scroll progress + nav border */
     const progress = $('progress'), nav = $('nav');
     const onScroll = () => {
       const max = document.documentElement.scrollHeight - innerHeight;
       progress.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
       nav.classList.toggle('scrolled', scrollY > 8);
     };
-    addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
-    // Highlight the nav link for the section in view
-    const navMap = new Map([...links.querySelectorAll('a')].map(a => [a.getAttribute('href').slice(1), a]));
-    const sectionObserver = new IntersectionObserver(entries => {
-      entries.forEach(en => {
-        if (en.isIntersecting) navMap.forEach((a, id) => a.classList.toggle('active', id === en.target.id));
-      });
-    }, { rootMargin: '-45% 0px -50% 0px' });
-    document.querySelectorAll('section[id]').forEach(s => sectionObserver.observe(s));
+    /* Active nav link */
+    const navMap = new Map([...links.querySelectorAll('a[href^="#"]')].map(a => [a.getAttribute('href').slice(1), a]));
+    const io = new IntersectionObserver(es => es.forEach(en => {
+      if (en.isIntersecting) navMap.forEach((a, id) => a.classList.toggle('active', id === en.target.id));
+    }), { rootMargin: '-45% 0px -50% 0px' });
+    document.querySelectorAll('section[id]').forEach(s => io.observe(s));
 
-    // Rotating hero word
-    const words = ['grow', 'scale', 'sell', 'lead'];
-    const rot = $('rotator');
-    if (!reduceMotion) {
-      let i = 0;
-      const wait = ms => new Promise(r => setTimeout(r, ms));
-      const swap = async word => {
-        while (rot.textContent.length) { rot.textContent = rot.textContent.slice(0, -1); await wait(50); }
-        for (let n = 1; n <= word.length; n++) { rot.textContent = word.slice(0, n); await wait(90); }
-      };
-      setInterval(() => { i = (i + 1) % words.length; swap(words[i]); }, 2800);
-    }
-
-    // Count-up stats when they scroll into view (final values are already in the HTML)
-    const countUp = el => {
-      const end = parseFloat(el.dataset.count), dec = +(el.dataset.decimals || 0), suffix = el.dataset.suffix || '';
-      const t0 = performance.now(), dur = 1200;
+    /* Stats: final values are in the HTML; they count up when scrolled into view */
+    const counters = [...document.querySelectorAll('[data-count]')];
+    const fmt = (n, dec) => n.toLocaleString(lang === 'es' ? 'es-CL' : 'en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+    function paintStats() { counters.forEach(el => { if (!el.dataset.running) el.textContent = fmt(parseFloat(el.dataset.count), +(el.dataset.decimals || 0)); }); }
+    function countUp(el) {
+      const end = parseFloat(el.dataset.count), dec = +(el.dataset.decimals || 0), t0 = performance.now(), dur = 1200;
+      el.dataset.running = '1';
       const step = now => {
-        const k = Math.min(1, (now - t0) / dur), eased = 1 - Math.pow(1 - k, 3);
-        el.textContent = (end * eased).toFixed(dec) + suffix;
-        if (k < 1) requestAnimationFrame(step);
+        const k = Math.min(1, (now - t0) / dur);
+        el.textContent = fmt(end * (1 - Math.pow(1 - k, 3)), dec);
+        if (k < 1) requestAnimationFrame(step); else delete el.dataset.running;
       };
       requestAnimationFrame(step);
-    };
+    }
     if (!reduceMotion) {
-      const statObserver = new IntersectionObserver(entries => {
-        entries.forEach(en => { if (en.isIntersecting) { countUp(en.target); statObserver.unobserve(en.target); } });
-      }, { threshold: 0.6 });
-      document.querySelectorAll('[data-count]').forEach(c => statObserver.observe(c));
+      const so = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { countUp(en.target); so.unobserve(en.target); } }), { threshold: 0.6 });
+      counters.forEach(c => so.observe(c));
     }
 
-    // Experience filters
-    const filters = document.querySelectorAll('.filter');
-    filters.forEach(btn => btn.addEventListener('click', () => {
-      filters.forEach(b => b.setAttribute('aria-pressed', b === btn));
-      const f = btn.dataset.filter;
-      document.querySelectorAll('.timeline > li').forEach(li => {
-        li.hidden = f !== 'all' && !li.dataset.tags.split(' ').includes(f);
-      });
-    }));
-
-    // Gentle tilt on the profile card
-    const card = $('id-card');
-    if (!reduceMotion && matchMedia('(hover: hover)').matches) {
-      card.addEventListener('mousemove', e => {
-        const r = card.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-        card.style.transform = `perspective(800px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg)`;
-      });
-      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
-    }
-
-    // Copy email with a confirmation toast
-    const toast = $('toast');
-    const showToast = msg => { toast.textContent = msg; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2200); };
-    $('copy-email').addEventListener('click', async () => {
-      try { await navigator.clipboard.writeText('cmarino@mit.edu'); showToast('Email copied: cmarino@mit.edu'); }
-      catch { location.href = 'mailto:cmarino@mit.edu'; }
+    /* Marquee pause */
+    $('pause-btn').addEventListener('click', e => {
+      const paused = $('band').classList.toggle('paused');
+      e.currentTarget.setAttribute('aria-pressed', paused);
+      e.currentTarget.textContent = paused ? '▶' : '❚❚';
     });
+
+    /* Portrait tilt */
+    const frame = document.querySelector('.portrait .frame');
+    if (!reduceMotion && matchMedia('(hover: hover)').matches) {
+      $('portrait').addEventListener('mousemove', e => {
+        const r = frame.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+        frame.style.transform = `perspective(900px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg)`;
+      });
+      $('portrait').addEventListener('mouseleave', () => { frame.style.transform = ''; });
+    }
+
+    /* Copy email */
+    const toast = $('toast');
+    $('copy-email').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(CONFIG.email);
+        toast.textContent = (lang === 'es' ? 'Email copiado: ' : 'Email copied: ') + CONFIG.email;
+        toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2200);
+      } catch { location.href = `mailto:${CONFIG.email}`; }
+    });
+
+    setLang(lang);
   </script>
 </body>
 </html>
