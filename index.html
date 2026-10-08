@@ -145,13 +145,25 @@
     @media (prefers-reduced-motion: no-preference) { h1 em { animation: mark .9s .5s cubic-bezier(.3, .7, .2, 1) both; } }
     @keyframes mark { from { background-size: 0 100%; } }
     .lead { font-size: 1.15rem; color: var(--muted); max-width: 56ch; margin: 22px 0 30px; }
-    .proof { margin-top: 22px; font: 500 .85rem var(--font-mono); color: var(--muted); letter-spacing: .02em; }
+    .lead-s { display: none; }
+    /* Trust line under the buttons */
+    .proof { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 20px; font: 500 .92rem var(--font-body); color: var(--muted); }
+    .proof > span { display: inline-flex; align-items: center; gap: 6px; }
+    .proof svg { flex: none; color: var(--accent-text); }
+    /* Light in the hero: an orange glow behind the portrait and a blue one below it, faded out at the sides so the
+       hero's box never shows */
+    .hero.art::after { z-index: -1; background: radial-gradient(34% 50% at 78% 42%, rgba(232, 85, 28, .16), transparent 70%), radial-gradient(28% 36% at 86% 92%, rgba(84, 116, 210, .14), transparent 70%);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
 
     .portrait { position: relative; justify-self: center; width: min(100%, 400px); }
     .portrait::before {
       content: ""; position: absolute; inset: 0; border: 2px solid var(--accent); border-radius: 28px;
       transform: translate(16px, 16px);
     }
+    /* A dot pad behind the portrait's top right corner */
+    .portrait::after { content: ""; position: absolute; z-index: -1; right: -16px; top: -36px; width: 180px; height: 180px; pointer-events: none;
+      background-image: radial-gradient(color-mix(in srgb, var(--accent) 50%, transparent) 1.5px, transparent 2px); background-size: 15px 15px;
+      -webkit-mask-image: radial-gradient(circle, #000 35%, transparent 70%); mask-image: radial-gradient(circle, #000 35%, transparent 70%); }
     .portrait .frame {
       position: relative; aspect-ratio: 4 / 5; border-radius: 28px; overflow: hidden; background: var(--surface);
       box-shadow: 0 30px 60px -30px rgba(20, 33, 61, .5), 0 0 120px 14px rgba(232, 85, 28, .26), 60px 70px 130px -30px rgba(84, 116, 210, .3); transition: transform .25s ease;
@@ -163,11 +175,29 @@
       padding: 10px 14px; box-shadow: 0 20px 40px -20px rgba(20, 33, 61, .5), inset 0 1px 0 rgba(255, 255, 255, .35); font-size: .82rem; line-height: 1.3; color: var(--muted);
     }
     .badge strong { display: block; font: 800 1.3rem var(--font-display); color: var(--accent-text); }
-    .badge.b1 { left: -28px; top: 10%; }
+    /* Three credential cards at different depths: they drift with the mouse (--px/--py from JS, scaled by --k) */
+    .badge { z-index: 2; translate: calc(var(--px, 0) * var(--k, 16px)) calc(var(--py, 0) * var(--k, 16px)); }
+    .badge.b1 { left: -28px; top: 30%; --k: 26px; }
+    .badge.b2 { right: -6px; top: -4%; --k: 24px; }
+    .badge.b3 { left: -40px; bottom: 8%; --k: 18px; }
     @media (prefers-reduced-motion: no-preference) {
-      .badge { animation: float 6s ease-in-out infinite; }
+      .badge { transition: translate .5s cubic-bezier(.2, .7, .2, 1); animation: badgeIn .6s cubic-bezier(.3, 1.4, .5, 1) var(--in, 1s) both, float 6s ease-in-out calc(var(--in, 1s) + .6s) infinite; }
+      .badge.b2 { --in: 1.15s; animation-duration: .6s, 7s; }
+      .badge.b3 { --in: 1.3s; animation-duration: .6s, 5.5s; }
+      /* Entrance: the headline rises word by word (words wrapped in .w by JS), then the rest follows */
+      .hero h1 .w { display: inline-block; animation: heroW .8s cubic-bezier(.2, .8, .2, 1) calc(150ms + var(--i) * 70ms) both; }
+      .hero h1 em { animation-delay: 1.05s; }
+      .hero .eyebrow { animation: heroIn .6s ease both; }
+      .hero .lead { animation: heroIn .7s ease .7s both; }
+      .hero .actions { animation: heroIn .7s ease .85s both; }
+      .hero .proof { animation: heroIn .7s ease 1s both; }
+      .portrait { animation: heroPhoto 1s cubic-bezier(.2, .8, .2, 1) .2s both; }
     }
     @keyframes float { 50% { transform: translateY(-8px); } }
+    @keyframes badgeIn { from { opacity: 0; transform: scale(.8) translateY(10px); } }
+    @keyframes heroW { from { opacity: 0; transform: translateY(.5em) rotate(3deg); filter: blur(6px); } }
+    @keyframes heroIn { from { opacity: 0; transform: translateY(14px); } }
+    @keyframes heroPhoto { from { opacity: 0; transform: translateY(28px) scale(.96); } }
 
     /* Company band */
     .band { background: var(--navy); color: var(--on-navy); }
@@ -677,6 +707,8 @@
       .pains { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 560px) {
+      .lead-l { display: none; }
+      .lead-s { display: inline; }
       .p-bullets { grid-template-columns: 1fr; }
       .stat { padding: 20px 16px; }
       .stat strong { font-size: clamp(1.7rem, 8.6vw, 2.3rem); }
@@ -696,9 +728,14 @@
       .steps > div:first-child { grid-column: 1 / -1; }
     }
     @media (max-width: 860px) {
-      .hero { grid-template-columns: 1fr; padding-block: 44px 64px; gap: 48px; }
-      .portrait { width: min(88%, 340px); }
-      .badge.b1 { left: -12px; }
+      .hero { grid-template-columns: 1fr; padding-block: 26px 60px; gap: 26px; }
+      /* Phones: the portrait comes first, small, with the three cards stacked beside it */
+      .portrait { order: -1; justify-self: stretch; width: 100%; display: grid; grid-template-columns: 124px minmax(0, 1fr); column-gap: 20px; row-gap: 8px; align-items: center; align-content: center; }
+      .portrait .frame { grid-row: 1 / 4; border-radius: 20px; box-shadow: 0 20px 40px -24px rgba(20, 33, 61, .5), 0 0 60px 6px rgba(232, 85, 28, .25); }
+      .portrait::before { inset: auto; top: 0; left: 0; width: 124px; aspect-ratio: 4 / 5; border-radius: 20px; transform: translate(8px, 8px); }
+      .portrait::after { right: auto; left: 64px; top: -24px; width: 120px; height: 120px; }
+      .badge, .badge.b1, .badge.b2, .badge.b3 { position: static; translate: none; justify-self: start; padding: 7px 12px; font-size: .78rem; }
+      .badge strong { font-size: 1.02rem; }
       .about-grid, .cards, .pains, .edu, .edu-wrap, .edu-wrap .edu { grid-template-columns: 1fr; }
       .pains-cta .btn { width: 100%; justify-content: center; }
       /* Booking button that follows on phones between the hero and the contact section */
@@ -777,14 +814,10 @@
         <span data-l="es">Estrategia de multinacional para hacer <em>crecer</em> tu empresa.</span>
         <span data-l="en">Multinational-grade strategy to <em>grow</em> your business.</span>
       </h1>
-      <p class="lead" data-l="es">
-        Llevo 17 años liderando crecimiento, P&amp;L y transformación de negocios en Bajaj, Electrolux,
-        Accenture y Cencosud. Hoy pongo esa experiencia al servicio de las empresas chilenas a través de BoostBrands.
-      </p>
-      <p class="lead" data-l="en">
-        17 years leading growth, P&amp;L and business transformation at Bajaj, Electrolux, Accenture and
-        Cencosud. Today I bring that experience to Chilean companies through BoostBrands.
-      </p>
+      <p class="lead" data-l="es"><span class="lead-l">Llevo 17 años liderando crecimiento, P&amp;L y transformación de negocios en Bajaj, Electrolux,
+        Accenture y Cencosud. Hoy pongo esa experiencia al servicio de las empresas chilenas a través de BoostBrands.</span><span class="lead-s">17 años liderando crecimiento en Bajaj, Electrolux, Accenture y Cencosud, hoy al servicio de tu empresa.</span></p>
+      <p class="lead" data-l="en"><span class="lead-l">17 years leading growth, P&amp;L and business transformation at Bajaj, Electrolux, Accenture and
+        Cencosud. Today I bring that experience to Chilean companies through BoostBrands.</span><span class="lead-s">17 years leading growth at Bajaj, Electrolux, Accenture and Cencosud, now working for your business.</span></p>
       <div class="actions">
         <a href="mailto:cristian@boostbrands.cl?subject=Diagn%C3%B3stico%2030%20min" class="btn btn-primary" data-agenda>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
@@ -796,13 +829,15 @@
         </a>
       </div>
       <p class="proof">
-        <span data-l="es">Las Condes, Chile · Diagnóstico por videollamada</span>
-        <span data-l="en">Las Condes, Chile · Diagnostic by video call</span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-l="es">Por videollamada</span><span data-l="en">By video call</span></span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-l="es">Sin compromiso</span><span data-l="en">No commitment</span></span>
       </p>
     </div>
     <div class="portrait" id="portrait">
       <div class="frame"><img src="fotos/retrato.jpg" alt="Cristian Marino" width="800" height="800"></div>
       <div class="badge b1"><strong>MIT Sloan</strong>MBA 2026</div>
+      <div class="badge b2"><strong>Country Manager</strong><span data-l="es">Bajaj · Chile y Paraguay</span><span data-l="en">Bajaj · Chile &amp; Paraguay</span></div>
+      <div class="badge b3"><strong><span data-l="es">CMO regional</span><span data-l="en">Regional CMO</span></strong><span data-l="es">Bajaj · Latinoamérica</span><span data-l="en">Bajaj · Latin America</span></div>
     </div>
   </header>
 
@@ -1783,9 +1818,28 @@
     }), { rootMargin: '100% 0px' }) : null;
     document.querySelectorAll('[data-photo]').forEach(el => photoIO ? photoIO.observe(el) : el.style.setProperty('--photo', `url("${el.dataset.photo}")`));
 
-    /* Portrait tilt */
+    /* Hero entrance: wrap each headline word in .w so the words can rise one by one (CSS) */
+    if (!reduceMotion) document.querySelectorAll('.hero h1 > [data-l]').forEach(line => {
+      let i = 0;
+      const word = node => { const w = document.createElement('span'); w.className = 'w'; w.style.setProperty('--i', i++); w.append(node); return w; };
+      [...line.childNodes].forEach(nd => {
+        if (nd.nodeType !== 3) { nd.replaceWith(word(nd.cloneNode(true))); return; }
+        const frag = document.createDocumentFragment();
+        nd.textContent.split(/(\s+)/).forEach(part => { if (part) frag.append(/^\s+$/.test(part) ? part : word(part)); });
+        nd.replaceWith(frag);
+      });
+    });
+
+    /* Portrait tilt, and the credential cards drifting with the mouse over the hero */
     const frame = document.querySelector('.portrait .frame');
     if (!reduceMotion && matchMedia('(hover: hover)').matches) {
+      const hero = document.querySelector('.hero'), portrait = $('portrait');
+      hero.addEventListener('mousemove', e => {
+        const h = hero.getBoundingClientRect();
+        portrait.style.setProperty('--px', ((e.clientX - h.left) / h.width - .5).toFixed(3));
+        portrait.style.setProperty('--py', ((e.clientY - h.top) / h.height - .5).toFixed(3));
+      });
+      hero.addEventListener('mouseleave', () => { portrait.style.setProperty('--px', 0); portrait.style.setProperty('--py', 0); });
       $('portrait').addEventListener('mousemove', e => {
         const r = frame.getBoundingClientRect();
         const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
