@@ -251,6 +251,12 @@
     .p-bullets { list-style: none; display: grid; grid-template-columns: 1fr 1fr; column-gap: 22px; margin: 20px 0; }
     .p-bullets li { border-top: 1px solid var(--border); padding: 10px 0 10px 16px; position: relative; font-size: .92rem; line-height: 1.45; }
     .p-bullets li::before { content: ""; position: absolute; left: 0; top: 18px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    /* Big figures in place of bullets (projects with `stats`); they count up when shown */
+    .p-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 18px 22px; margin: 24px 0; }
+    .p-stats > div { padding-top: 12px; border-top: 2px solid var(--accent); container-type: inline-size; }
+    .p-stats strong { display: block; font: 800 min(2.3rem, 23cqi)/1 var(--font-display); letter-spacing: -0.03em; color: var(--accent-text); white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .p-stats p { margin-top: 8px; font-size: .9rem; line-height: 1.4; color: var(--muted); }
+    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
     .p-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
     .p-link { display: inline-flex; align-items: center; min-height: 44px; margin-left: 6px; font: 500 .85rem var(--font-mono); color: var(--accent-text); text-decoration: none; }
     .p-link:hover { text-decoration: underline; }
@@ -358,6 +364,43 @@
       .proj[open] .dg.in > *, .proj[open] .dg.in .dg-hbar i, .proj[open] .dg.in .dg-col i, .proj[open] .dg.in .dg-donut .val { animation-play-state: running; }
     }
     @keyframes dgUp { from { opacity: 0; transform: translateY(10px); } }
+    /* Before/after panel (project 02): the tabs set data-state; it plays before → after when it comes
+       on screen or its card opens, and the visitor can switch back and forth. */
+    .dg-flip { gap: 16px; --ic-store: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3.5 3h17l1.5 5.5a2.5 2.5 0 0 1-5 0 2.5 2.5 0 0 1-5 0 2.5 2.5 0 0 1-5 0 2.5 2.5 0 0 1-5 0z'/%3E%3Cpath d='M4 12.5h16V21h-6v-5h-4v5H4z'/%3E%3C/svg%3E"); }
+    .flip-tabs { position: relative; display: grid; grid-template-columns: 1fr 1fr; padding: 3px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); }
+    .flip-tabs::before { content: ""; position: absolute; top: 3px; bottom: 3px; left: 3px; width: calc(50% - 3px); border-radius: 999px; background: var(--accent); }
+    .dg-flip[data-state="after"] .flip-tabs::before { transform: translateX(100%); }
+    .flip-tabs button { position: relative; min-height: 44px; padding: 0 8px; border: 0; border-radius: 999px; background: none; font: 600 .86rem var(--font-body); color: var(--muted); cursor: pointer; }
+    .flip-tabs button[aria-pressed="true"] { color: var(--accent-ink); }
+    .flip-grid { display: grid; grid-template-columns: repeat(5, 34px); gap: 12px 16px; justify-content: center; padding-block: 4px; }
+    .flip-grid i { width: 34px; height: 34px; background: color-mix(in srgb, var(--muted) 70%, var(--bg)); -webkit-mask: var(--ic-store) center / contain no-repeat; mask: var(--ic-store) center / contain no-repeat; }
+    .dg-flip[data-state="after"] .flip-grid i { opacity: .14; transform: scale(.72); }
+    .dg-flip[data-state="after"] .flip-grid i.keep { opacity: 1; transform: scale(1.22); background: var(--accent); }
+    .flip-cap, .flip-m b { display: grid; }
+    .flip-cap > span, .flip-m b > span { grid-area: 1 / 1; }
+    .dg-flip[data-state="after"] .b, .dg-flip[data-state="before"] .a { opacity: 0; visibility: hidden; transform: translateY(6px); }
+    .flip-cap { justify-items: center; text-align: center; font: 800 1.3rem/1.2 var(--font-display); letter-spacing: -0.02em; color: var(--heading); }
+    .flip-new { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; min-height: 40px; }
+    .flip-new span { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px 8px 10px; border-radius: 999px; border: 1px solid var(--accent); background: var(--accent-soft); font-size: .86rem; font-weight: 600; color: var(--heading); }
+    .flip-new span::before { content: ""; width: 18px; height: 18px; flex: none; background: var(--accent-text); -webkit-mask: var(--ic) center / contain no-repeat; mask: var(--ic) center / contain no-repeat; }
+    .flip-new .ic-cart { --ic: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 3.5h2.2l2.4 11a1.6 1.6 0 0 0 1.6 1.3h8.8a1.6 1.6 0 0 0 1.6-1.2L21 7.5H6'/%3E%3Ccircle cx='9.5' cy='20' r='1.2'/%3E%3Ccircle cx='17.5' cy='20' r='1.2'/%3E%3C/svg%3E"); }
+    .flip-new .ic-card { --ic: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linejoin='round'%3E%3Crect x='2.5' y='5' width='19' height='14' rx='2.5'/%3E%3Cpath d='M2.5 10h19M6.5 15h4'/%3E%3C/svg%3E"); }
+    .dg-flip[data-state="before"] .flip-new span { opacity: 0; visibility: hidden; transform: scale(.8); }
+    .flip-m { display: grid; gap: 6px; }
+    .flip-m > span { font: 500 .72rem var(--font-mono); text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
+    .flip-m > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px; }
+    .flip-m i { width: 100%; height: 14px; border-radius: 7px; background: color-mix(in srgb, var(--muted) 45%, var(--bg)); transform-origin: left; }
+    .dg-flip[data-state="after"] .flip-m i { width: var(--w); background: var(--accent); }
+    .flip-m b { justify-items: end; min-width: 96px; font: 800 1.25rem var(--font-display); letter-spacing: -0.02em; color: var(--heading); white-space: nowrap; }
+    @container (min-width: 480px) { .flip-grid { grid-template-columns: repeat(10, 34px); } }
+    @media (prefers-reduced-motion: no-preference) {
+      .flip-tabs::before { transition: transform .45s cubic-bezier(.3, .7, .2, 1); }
+      .flip-grid i { transition: opacity .5s ease, transform .6s cubic-bezier(.3, 1.3, .5, 1), background-color .5s; transition-delay: calc(var(--i) * 22ms); }
+      .flip-cap > span, .flip-m b > span { transition: opacity .35s, transform .35s, visibility .35s; }
+      .flip-new span { transition: opacity .4s .35s, transform .5s .35s cubic-bezier(.3, 1.5, .5, 1), visibility .4s .35s; }
+      .flip-new span + span { transition-delay: .5s; }
+      .flip-m i { transition: width .9s cubic-bezier(.3, .7, .2, 1), background-color .5s; }
+    }
     @keyframes dgY { from { transform: scaleY(0); } }
     @keyframes dgX { from { transform: scaleX(0); } }
     @keyframes dgArc { from { stroke-dasharray: 0 100; } }
@@ -443,6 +486,8 @@
     }
     @media (max-width: 560px) {
       .p-bullets { grid-template-columns: 1fr; }
+      .stat { padding: 18px 16px; }
+      .stat strong { font-size: clamp(1.7rem, 8.6vw, 2.3rem); }
       .p-gal { grid-template-columns: 1fr 1fr; }
       .p-shot:first-child { grid-column: 1 / -1; height: 190px; }
       .dg { padding: 16px; }
@@ -925,16 +970,18 @@
         desc_en: 'I moved the business from B2B to B2C/D2C: replaced 20 franchises with 4 company stores and fixed the cash position.',
         pyme: 'Revisar qué canales te dejan margen y caja, y concentrar tus recursos en los que de verdad rinden.',
         pyme_en: 'Review which channels bring you margin and cash, and focus your resources on the ones that really pay off.',
-        bullets: ['20 franquicias → 4 tiendas propias', 'EBITDA +20%', 'Flujo de caja +50%', 'Cuentas por cobrar de USD $1M a $400K', 'Crédito de 60 a 30 días', 'Alianza fintech Galgo de USD $8M y MotoFin'],
-        bullets_en: ['20 franchises → 4 company stores', 'EBITDA +20%', 'Cash flow +50%', 'Receivables from USD $1M to $400K', 'Credit terms from 60 to 30 days', 'USD $8M Galgo fintech alliance and MotoFin'],
+        stats: [['+20%', 'EBITDA'], ['+50%', 'Flujo de caja'], ['USD $8M', 'Alianza con la fintech Galgo: 5.500 motos en 2 años']],
+        stats_en: [['+20%', 'EBITDA'], ['+50%', 'Cash flow'], ['USD $8M', 'Alliance with fintech Galgo: 5,500 motorcycles over 2 years']],
         chips: ['Transformación D2C', 'P&L', 'Retail', 'Fintech'], chips_en: ['D2C transformation', 'P&L', 'Retail', 'Fintech'],
-        sketch: t => diagram(t('Esquema: de 20 franquicias (B2B) a 4 tiendas propias, e-commerce y MotoFin (B2C/D2C). Cuentas por cobrar de USD $1M a $400K, crédito de 60 a 30 días, EBITDA +20% y flujo de caja +50%.',
-            'Diagram: from 20 franchises (B2B) to 4 company stores, e-commerce and MotoFin (B2C/D2C). Receivables from USD $1M to $400K, credit terms from 60 to 30 days, EBITDA +20% and cash flow +50%.'),
-          dCap(t('Cómo cambió el modelo', 'How the model changed')),
-          `<div class="dg-shift">${dTier(dNode(t('20 franquicias', '20 franchises')), t('Antes · B2B', 'Before · B2B'))}<div class="dg-right"></div>${dTier(dNode(t('4 tiendas propias', '4 company stores'), '', true) + dNode('E-commerce', '', true) + dNode('MotoFin', '', true), t('Después · B2C/D2C', 'After · B2C/D2C'))}</div>`,
-          dPair(t('Cuentas por cobrar', 'Receivables'), [[t('Antes', 'Before'), 100, 'USD $1M'], [t('Después', 'After'), 40, 'USD $400K', true]]),
-          dPair(t('Plazo de crédito', 'Credit terms'), [[t('Antes', 'Before'), 100, t('60 días', '60 days')], [t('Después', 'After'), 50, t('30 días', '30 days'), true]]),
-          dKpis([['EBITDA', '+20%'], [t('Flujo de caja', 'Cash flow'), '+50%']])) },
+        sketch: t => dShift({
+          aria: t('Antes y después: de 20 franquicias (B2B) a 4 tiendas propias, e-commerce y MotoFin (B2C/D2C). Cuentas por cobrar de USD $1M a $400K y crédito de 60 a 30 días.',
+            'Before and after: from 20 franchises (B2B) to 4 company stores, e-commerce and MotoFin (B2C/D2C). Receivables from USD $1M to $400K and credit terms from 60 to 30 days.'),
+          tabs: [t('Antes · B2B', 'Before · B2B'), t('Después · D2C', 'After · D2C')],
+          count: 20, keep: [1, 8, 10, 17],
+          cap: [t('20 franquicias', '20 franchises'), t('4 tiendas propias', '4 company stores')],
+          extras: [['cart', 'E-commerce'], ['card', 'MotoFin']],
+          metrics: [[t('Cuentas por cobrar', 'Receivables'), 'USD $1M', 'USD $400K', 40], [t('Plazo de crédito', 'Credit terms'), t('60 días', '60 days'), t('30 días', '30 days'), 50]],
+        }) },
       { org: 'Bajaj Motochile', area: 'Canal digital', area_en: 'Digital channel', year: '2020 – 2024',
         logos: ['bajaj', 'shopify', 'hubspot'],
         title: 'E-commerce desde cero', title_en: 'E-commerce from zero', short: 'E-commerce desde cero', short_en: 'E-commerce from zero',
@@ -1032,9 +1079,35 @@
     const dCols = list => `<div><div class="dg-cols">${list.map(([, h, v, hot]) => `<div class="dg-col${hot ? ' hot' : ''}"><b>${esc(v)}</b><i style="--h:${h}%"></i></div>`).join('')}</div>
       <div class="dg-axis dg-lbl">${list.map(([k]) => `<span>${esc(k)}</span>`).join('')}</div></div>`;
     const dDonut = (pct, label) => `<div class="dg-donut"><div><svg viewBox="0 0 42 42"><circle class="trk" cx="21" cy="21" r="15.9155"/><circle class="val" cx="21" cy="21" r="15.9155" stroke-dasharray="${pct} 100"/></svg><b>${pct}%</b></div><span>${esc(label)}</span></div>`;
-    /* Reveal each diagram the first time it is on screen (CSS replays it whenever its card opens). */
+    /* Before/after panel: { aria, tabs: [before, after], count, keep: [indexes], cap: [before, after],
+       extras: [[icon, label]] (appear after), metrics: [[label, before, after, after width %]] } */
+    const dShift = o => `<div class="dg dg-flip" role="group" aria-label="${esc(o.aria)}" data-state="after">
+      <div class="flip-tabs">${o.tabs.map((x, n) => `<button type="button" data-state="${n ? 'after' : 'before'}" aria-pressed="${n ? 'true' : 'false'}">${esc(x)}</button>`).join('')}</div>
+      <div class="flip-grid" aria-hidden="true">${Array.from({ length: o.count }, (_, n) => `<i${o.keep.includes(n) ? ' class="keep"' : ''} style="--i:${n}"></i>`).join('')}</div>
+      <p class="flip-cap"><span class="b">${esc(o.cap[0])}</span><span class="a">${esc(o.cap[1])}</span></p>
+      <div class="flip-new">${o.extras.map(([ic, x]) => `<span class="ic-${ic}">${esc(x)}</span>`).join('')}</div>
+      ${o.metrics.map(([k, b, a, w]) => `<div class="flip-m"><span>${esc(k)}</span><div><i style="--w:${w}%"></i><b><span class="b">${esc(b)}</span><span class="a">${esc(a)}</span></b></div></div>`).join('')}
+    </div>`;
+    const calm = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const setFlip = (g, state) => { g.dataset.state = state; g.querySelectorAll('.flip-tabs button').forEach(b => b.setAttribute('aria-pressed', b.dataset.state === state)); };
+    /* Play a before/after panel (show "before", then switch) and count stats up from zero. */
+    function playCard(root) {
+      if (calm()) return;
+      root.querySelectorAll('.dg-flip.in').forEach(g => { clearTimeout(g._t); setFlip(g, 'before'); g._t = setTimeout(() => setFlip(g, 'after'), 1600); });
+      root.querySelectorAll('.p-stats.in [data-to]').forEach(el => {
+        const m = el.dataset.to.match(/^(\D*)(\d+(?:[.,]\d+)?)(.*)$/); if (!m) return;
+        const [, pre, num, suf] = m, sep = num.includes(',') ? ',' : '.', dec = (num.split(/[.,]/)[1] || '').length, end = parseFloat(num.replace(',', '.'));
+        const t0 = performance.now(), step = now => {
+          const k = Math.min(1, (now - t0) / 1100);
+          el.textContent = pre + (end * (1 - (1 - k) ** 3)).toFixed(dec).replace('.', sep) + suf;
+          if (k < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      });
+    }
+    /* Reveal diagrams and stats the first time they are on screen (CSS replays the reveal whenever a card opens). */
     const dgSeen = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('in'); dgSeen.unobserve(e.target); }
+      if (e.isIntersecting) { e.target.classList.add('in'); dgSeen.unobserve(e.target); playCard(e.target.parentElement); }
     }), { threshold: .25 }) : null;
 
     const projPhotos = new Set();
@@ -1055,6 +1128,8 @@
     }
     /* Swap a thumbnail for the YouTube player (privacy-enhanced domain) only when clicked. */
     $('projects')?.addEventListener('click', e => {
+      const tab = e.target.closest('.flip-tabs button');
+      if (tab) { const g = tab.closest('.dg-flip'); clearTimeout(g._t); setFlip(g, tab.dataset.state); return; }
       const shot = e.target.closest('button.p-shot');
       if (shot && $('lb').showModal) { $('lb-img').src = shot.dataset.src; $('lb-img').alt = shot.dataset.cap; $('lb-cap').textContent = shot.dataset.cap; $('lb').showModal(); return; }
       const b = e.target.closest('button.yt'); if (!b) return;
@@ -1092,24 +1167,37 @@
               <h3>${esc(L(p, 'title'))}</h3>
               <p class="p-desc">${esc(L(p, 'desc'))}</p>
               <p class="p-pyme"><b>${t('Para tu PYME', 'For your SME')}</b>${esc(L(p, 'pyme'))}</p>
-              <ul class="p-bullets">${L(p, 'bullets').map(b => `<li>${esc(b)}</li>`).join('')}</ul>
+              ${p.stats ? `<div class="p-stats">${L(p, 'stats').map(([v, k]) => `<div><strong><span aria-hidden="true" data-to="${esc(v)}">${esc(v)}</span><span class="sr">${esc(v)}</span></strong><p>${esc(k)}</p></div>`).join('')}</div>`
+                : `<ul class="p-bullets">${L(p, 'bullets').map(b => `<li>${esc(b)}</li>`).join('')}</ul>`}
               <div class="p-chips">${L(p, 'chips').map(c => `<span>${esc(c)}</span>`).join('')}${p.link ? `<a class="p-link" href="${esc(p.link.href)}" target="_blank" rel="noopener">${esc(L(p.link, 'label'))} ↗</a>` : ''}</div>
               ${p.gallery ? `<div class="p-gallery"><span class="p-gal-t">${esc(L(p.gallery, 'title'))}</span><div class="p-gal">${p.gallery.items.map(g =>
                 `<button type="button" class="p-shot" data-src="${esc(g.src)}" data-cap="${esc(L(g, 'alt'))}" aria-label="${esc(t('Ampliar foto: ', 'Enlarge photo: ') + L(g, 'alt'))}"><img src="${esc(g.src)}" alt="" loading="lazy"${g.pos ? ` style="object-position:${g.pos}"` : ''}></button>`).join('')}</div></div>` : ''}
             </div>
             <div class="p-visual">${sideLogos}${visual}</div>
           </div>`;
+        /* Opening a card closes the open one; when that one sits above (stacked layout) the page would
+           jump down. Remember where the clicked tab was and put the opened card back there. */
+        const sum = d.querySelector('summary');
+        sum.addEventListener('click', () => { d._y = sum.getBoundingClientRect().top; });
         d.addEventListener('toggle', () => {
           const all = [...box.querySelectorAll('details.proj')];
-          if (d.open) { openProject = i; all.forEach(o => { if (o !== d) o.open = false; }); }
+          if (d.open) {
+            openProject = i; all.forEach(o => { if (o !== d) o.open = false; });
+            if (d._y !== undefined) {
+              const y0 = Math.max(d._y, 80); d._y = undefined;
+              requestAnimationFrame(() => requestAnimationFrame(() => {
+                const dy = d.getBoundingClientRect().top - y0;
+                if (Math.abs(dy) > 1) scrollBy({ top: dy, behavior: 'instant' });
+                playCard(d);
+              }));
+            }
+          }
           else if (!all.some(o => o.open)) d.open = true;
         });
         return d;
       }));
-      box.querySelectorAll('.dg').forEach(g => {
-        [...g.children].forEach((c, n) => c.style.setProperty('--d', `${n * 110}ms`));
-        dgSeen ? dgSeen.observe(g) : g.classList.add('in');
-      });
+      box.querySelectorAll('.dg').forEach(g => [...g.children].forEach((c, n) => c.style.setProperty('--d', `${n * 110}ms`)));
+      box.querySelectorAll('.dg, .p-stats').forEach(g => { dgSeen ? dgSeen.observe(g) : g.classList.add('in'); });
     }
 
     /* Contact links from CONFIG */
