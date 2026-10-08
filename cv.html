@@ -16,7 +16,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Serif:ital@1&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
   <style>
     /* Layout: editorial CV. Hero with portrait, navy metric band, career Gantt (2008–today) driving a detail panel,
        filterable achievements, "who I've worked with" wall, gallery of real photos only, education, navy contact block.
@@ -116,14 +116,14 @@
     @keyframes blink { 50% { opacity: 0; } }
     .summary { color: var(--muted); font-size: 1.08rem; max-width: 58ch; margin: 18px 0 30px; }
 
-    .portrait { position: relative; justify-self: center; width: min(100%, 380px); }
+    .portrait { position: relative; justify-self: center; width: min(100%, 460px); }
     .portrait::before { content: ""; position: absolute; inset: 0; border: 2px solid var(--accent); border-radius: 28px; transform: translate(16px, 16px); }
-    .portrait .frame { position: relative; aspect-ratio: 4 / 5; border-radius: 28px; overflow: hidden; background: var(--surface); box-shadow: 0 30px 60px -30px rgba(20, 33, 61, .45); transition: transform .25s ease; }
-    .portrait .frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; }
+    .portrait .frame { position: relative; aspect-ratio: 4 / 3; border-radius: 28px; overflow: hidden; background: var(--surface); box-shadow: 0 30px 60px -30px rgba(20, 33, 61, .45); transition: transform .25s ease; }
+    .portrait .frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
     .badge { position: absolute; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 10px 14px; box-shadow: 0 14px 30px -18px rgba(0,0,0,.4); font-size: .82rem; line-height: 1.3; color: var(--muted); animation: float 6s ease-in-out infinite; }
     .badge strong { display: block; font: 800 1.3rem var(--font-display); color: var(--accent-text); }
-    .badge.b1 { left: -28px; top: 12%; }
-    .badge.b2 { right: -24px; bottom: 10%; animation-delay: -3s; }
+    .badge.b1 { left: -28px; bottom: -18px; }
+    .badge.b2 { right: -24px; top: -18px; animation-delay: -3s; }
     @keyframes float { 50% { transform: translateY(-8px); } }
 
     /* Metric band */
@@ -137,7 +137,8 @@
     .pause-btn { width: 44px; height: 44px; margin: 0 20px; border-radius: 999px; border: 1px solid var(--navy-line); background: transparent; color: var(--on-navy); cursor: pointer; flex: none; }
     @keyframes scroll { to { transform: translateX(-50%); } }
     @media (prefers-reduced-motion: reduce) {
-      .ticker-track { width: auto; flex-wrap: wrap; justify-content: center; }
+      .ticker-track { width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+      .ticker-item { flex-direction: column; align-items: center; gap: 2px; white-space: normal; text-align: center; border-bottom: 1px solid var(--navy-line); }
       .ticker-item[aria-hidden="true"], .pause-btn { display: none !important; }
     }
 
@@ -146,6 +147,9 @@
     section + section { border-top: 1px solid var(--border); }
     .kicker { font: 500 .8rem var(--font-mono); text-transform: uppercase; letter-spacing: .1em; color: var(--accent-text); display: block; margin-bottom: 10px; }
     h2 { font-size: clamp(1.9rem, 4vw, 2.7rem); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 14px; font-weight: 800; }
+    /* One word per section title in the editorial serif (same system as index.html) */
+    h2 em { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; font-size: 1.06em; letter-spacing: -0.01em; color: var(--accent-text); }
+    .contact-box h2 em { color: var(--accent-on-navy); }
     .intro { color: var(--muted); max-width: 62ch; margin-bottom: 36px; font-size: 1.05rem; }
 
     /* Gantt */
@@ -205,6 +209,11 @@
     .win .big { font: 800 1.9rem/1.1 var(--font-display); color: var(--accent-text); letter-spacing: -0.02em; }
     .win p { font-size: .95rem; }
     .win .where { font: 500 .75rem var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-top: 4px; }
+    /* Bento: with "All" selected, the headline results lead as large navy tiles */
+    .wins.all .win.top { background: var(--navy); border-color: var(--navy); color: var(--on-navy); padding: 28px; }
+    .wins.all .win.top .big { color: var(--accent-on-navy); font-size: clamp(2.2rem, 4vw, 3rem); }
+    .wins.all .win.top .where { color: var(--on-navy-muted); }
+    @media (min-width: 700px) { .wins.all .win.top { grid-column: span 2; } }
     @media (prefers-reduced-motion: no-preference) { .win.pop { animation: pop .3s ease both; } @keyframes pop { from { transform: scale(.97); opacity: .4; } } }
 
     /* Worked with */
@@ -252,14 +261,17 @@
     .contact-box .mail { margin: 22px auto 0; font: 500 .95rem var(--font-mono); }
     .contact-box .mail a { text-decoration: none; color: var(--on-navy); }
 
-    footer { padding-block: 36px; color: var(--muted); font-size: .9rem; }
-    footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    footer { padding-block: 28px; color: var(--muted); font-size: .9rem; }
+    footer .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px 24px; }
+    .foot-links { display: flex; flex-wrap: wrap; column-gap: 20px; }
+    .foot-links a { color: var(--muted); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
+    .foot-links a:hover { color: var(--text); }
     footer a { text-decoration: none; padding-block: 10px; } footer a:hover { color: var(--accent-text); }
 
     .toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 120px); visibility: hidden; background: var(--text); color: var(--bg); padding: 12px 20px; border-radius: 12px; font-weight: 500; transition: transform .3s, visibility .3s; z-index: 60; max-width: calc(100% - 32px); }
     .toast.show { transform: translate(-50%, 0); visibility: visible; }
 
-    @media (max-width: 1100px) { .badge.b2 { right: -10px; } }
+    @media (max-width: 1180px) { .badge.b2 { right: -10px; } }
     @media (max-width: 980px) {
       .menu-btn { display: grid; }
       .nav-links { position: absolute; top: 68px; left: 0; right: 0; flex-direction: column; background: var(--bg); border-bottom: 1px solid var(--border); padding: 10px 20px 18px; display: none; }
@@ -326,9 +338,9 @@
       </div>
     </div>
     <div class="portrait" id="portrait">
-      <div class="frame"><img src="fotos/retrato.jpg" alt="Cristian Marino" width="800" height="800"></div>
-      <div class="badge b1"><strong>MIT Sloan</strong>MBA 2026</div>
-      <div class="badge b2"><strong><span data-l="es">17 años</span><span data-l="en">17 years</span></strong><span data-l="es">en marketing y crecimiento</span><span data-l="en">in marketing and growth</span></div>
+      <div class="frame"><img src="fotos/mit-sloan.jpg" alt="Cristian Marino en MIT Sloan" width="1400" height="1050"></div>
+      <div class="badge b1"><strong>Stanford GSB</strong><span data-l="es">Marketing estratégico · 2015</span><span data-l="en">Strategic marketing · 2015</span></div>
+      <div class="badge b2"><strong><span data-l="es">Profesor</span><span data-l="en">Professor</span></strong><span data-l="es">UDD y UNAB</span><span data-l="en">UDD and UNAB</span></div>
     </div>
   </header>
 
@@ -340,7 +352,7 @@
   <section id="trayectoria">
     <div class="wrap">
       <span class="kicker"><span data-l="es">Trayectoria</span><span data-l="en">Career</span></span>
-      <h2><span data-l="es">2008 → hoy, en una línea de tiempo</span><span data-l="en">2008 → today, on one timeline</span></h2>
+      <h2><span data-l="es">2008 → hoy, en una línea de <em>tiempo</em></span><span data-l="en">2008 → today, on one <em>timeline</em></span></h2>
       <p class="intro" data-l="es">Cada barra es un cargo, un programa de estudio o una cátedra. Haz clic en una para ver qué hice ahí, o usa las flechas ← → del teclado.</p>
       <p class="intro" data-l="en">Each bar is a role, a degree or a teaching position. Click one to see what I did there, or use the ← → arrow keys.</p>
       <div class="gantt-wrap"><div class="gantt" id="gantt"></div></div>
@@ -356,7 +368,7 @@
   <section id="logros">
     <div class="wrap">
       <span class="kicker"><span data-l="es">Logros</span><span data-l="en">Results</span></span>
-      <h2><span data-l="es">Resultados medibles</span><span data-l="en">Measurable results</span></h2>
+      <h2><span data-l="es">Resultados <em>medibles</em></span><span data-l="en">Measurable <em>results</em></span></h2>
       <p class="intro" data-l="es">Lo que pasó en cada empresa, en números. Filtra por tipo de impacto.</p>
       <p class="intro" data-l="en">What happened at each company, in numbers. Filter by type of impact.</p>
       <div class="filters" id="win-filters" role="group" aria-label="Filtrar logros / Filter results"></div>
@@ -367,7 +379,7 @@
   <section id="con-quien">
     <div class="wrap">
       <span class="kicker"><span data-l="es">Con quién he trabajado</span><span data-l="en">Who I've worked with</span></span>
-      <h2><span data-l="es">Empresas, marcas e instituciones</span><span data-l="en">Companies, brands and institutions</span></h2>
+      <h2><span data-l="es">Empresas, marcas e <em>instituciones</em></span><span data-l="en">Companies, brands and <em>institutions</em></span></h2>
       <p class="intro" data-l="es">Desde multinacionales Fortune 500 hasta PYMES chilenas, en Chile y el extranjero.</p>
       <p class="intro" data-l="en">From Fortune 500 multinationals to Chilean SMEs, in Chile and abroad.</p>
       <div class="groups" id="groups"></div>
@@ -381,7 +393,7 @@
   <section id="fotos" hidden>
     <div class="wrap">
       <span class="kicker"><span data-l="es">Fotos</span><span data-l="en">Photos</span></span>
-      <h2><span data-l="es">Momentos</span><span data-l="en">Moments</span></h2>
+      <h2><span data-l="es"><em>Momentos</em></span><span data-l="en"><em>Moments</em></span></h2>
       <p class="intro"><span data-l="es">Haz clic en una foto para verla en grande.</span><span data-l="en">Click a photo to enlarge it.</span></p>
       <div class="gallery" id="gallery"></div>
     </div>
@@ -390,7 +402,7 @@
   <section id="formacion">
     <div class="wrap">
       <span class="kicker"><span data-l="es">Formación y docencia</span><span data-l="en">Education &amp; teaching</span></span>
-      <h2><span data-l="es">Educación</span><span data-l="en">Education</span></h2>
+      <h2><span data-l="es"><em>Educación</em></span><span data-l="en"><em>Education</em></span></h2>
       <p class="intro" data-l="es">Formación en Chile, Estados Unidos y Canadá. Hoy también enseño en pregrado y MBA.</p>
       <p class="intro" data-l="en">Studies in Chile, the US and Canada. Today I also teach undergraduate and MBA courses.</p>
       <div class="edu-grid" id="edu"></div>
@@ -401,7 +413,7 @@
     <div class="wrap">
       <div class="contact-box on-navy">
         <span class="kicker"><span data-l="es">Contacto</span><span data-l="en">Contact</span></span>
-        <h2><span data-l="es">Conversemos</span><span data-l="en">Let's talk</span></h2>
+        <h2><span data-l="es"><em>Conversemos</em></span><span data-l="en">Let's <em>talk</em></span></h2>
         <p data-l="es">Consultoría para tu empresa, directorios, charlas o docencia. Escríbeme y te respondo.</p>
         <p data-l="en">Consulting for your business, boards, talks or teaching. Write to me and I'll get back to you.</p>
         <div class="actions">
@@ -418,7 +430,12 @@
   <footer>
     <div class="wrap">
       <span>© <span id="year">2026</span> Cristian Marino</span>
-      <a href="index.html"><span data-l="es">← Volver al sitio principal</span><span data-l="en">← Back to main site</span></a>
+      <nav class="foot-links" aria-label="Enlaces / Links">
+        <a href="https://www.linkedin.com/in/cristianmarinov" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:cristian@boostbrands.cl" data-email>cristian@boostbrands.cl</a>
+        <a href="#" data-whatsapp hidden target="_blank" rel="noopener">WhatsApp</a>
+        <a href="index.html"><span data-l="es">← Volver al sitio principal</span><span data-l="en">← Back to main site</span></a>
+      </nav>
     </div>
   </footer>
 
@@ -520,9 +537,9 @@
       { key: 'teach2', name: '' },
     ];
     const WINS = [
-      { cat: 'crecimiento', big: '9% → 23%', text: 'Participación de mercado, #1 en el segmento Street.', text_en: 'Market share, #1 in the Street segment.', where: 'Bajaj Motochile' },
-      { cat: 'crecimiento', big: 'USD $13,5M', big_en: 'USD $13.5M', text: 'En ventas con un canal e-commerce construido desde cero.', text_en: 'In sales from an e-commerce channel built from zero.', where: 'Bajaj Motochile' },
-      { cat: 'finanzas', big: '+20% EBITDA', text: 'Y +50% en flujo de caja al pasar de 20 franquicias a 4 tiendas propias.', text_en: 'And +50% cash flow by moving from 20 franchises to 4 company stores.', where: 'Bajaj Motochile' },
+      { top: true, cat: 'crecimiento', big: '9% → 23%', text: 'Participación de mercado, #1 en el segmento Street.', text_en: 'Market share, #1 in the Street segment.', where: 'Bajaj Motochile' },
+      { top: true, cat: 'crecimiento', big: 'USD $13,5M', big_en: 'USD $13.5M', text: 'En ventas con un canal e-commerce construido desde cero.', text_en: 'In sales from an e-commerce channel built from zero.', where: 'Bajaj Motochile' },
+      { top: true, cat: 'finanzas', big: '+20% EBITDA', text: 'Y +50% en flujo de caja al pasar de 20 franquicias a 4 tiendas propias.', text_en: 'And +50% cash flow by moving from 20 franchises to 4 company stores.', where: 'Bajaj Motochile' },
       { cat: 'finanzas', big: 'USD $8M', text: 'Alianza con la fintech Galgo por 5.500 motos en 2 años.', text_en: 'Alliance with fintech Galgo for 5,500 motorcycles over 2 years.', where: 'Bajaj Motochile' },
       { cat: 'innovacion', big: 'MotoFin', text: 'Unidad propia de microcrédito para riders desbancarizados.', text_en: 'In-house microcredit unit for unbanked riders.', where: 'Bajaj Motochile' },
       { cat: 'innovacion', big: 'Mejor CX', big_en: 'Best CX', text: 'Reconocida por Bajaj HQ India como la tienda con mejor experiencia de cliente de LATAM.', text_en: 'Recognized by Bajaj HQ India as the store with the best customer experience in LATAM.', where: 'Bajaj Motochile' },
@@ -534,7 +551,7 @@
       { cat: 'liderazgo', big: '~200', text: 'Personas en la operación regional, con 30 a cargo directo.', text_en: 'People in the regional operation, with 30 direct reports.', where: 'Bajaj Auto' },
       { cat: 'finanzas', big: 'USD $6M', text: 'En acuerdos comerciales con las 30 principales empresas de Chile.', text_en: "In commercial deals with Chile's top 30 companies.", where: 'Accenture' },
       { cat: 'innovacion', big: 'Drones mentales', big_en: 'Mind-controlled drones', text: 'Primera carrera de drones controlados por la mente en LATAM, campaña más innovadora 2017.', text_en: "LATAM's first mind-controlled drone race, most innovative campaign of 2017.", where: 'Accenture' },
-      { cat: 'finanzas', big: 'USD $20M', text: 'De inversión aprobada por el HQ global para el desarrollo de producto y el line-up completo de LATAM.', text_en: 'Investment approved by global HQ for product development and the full LATAM line-up.', where: 'Electrolux' },
+      { top: true, cat: 'finanzas', big: 'USD $20M', text: 'De inversión aprobada por el HQ global para el desarrollo de producto y el line-up completo de LATAM.', text_en: 'Investment approved by global HQ for product development and the full LATAM line-up.', where: 'Electrolux' },
       { cat: 'crecimiento', big: '45% / 75%', text: 'Participación en refrigeradores y freezers: marcas #1 de Chile.', text_en: 'Share in refrigerators and freezers: #1 brands in Chile.', where: 'Electrolux' },
       { cat: 'innovacion', big: '1% → 5%', text: 'En el segmento premium con chefs Michelin como embajadores.', text_en: 'In the premium segment with Michelin-starred chefs as ambassadors.', where: 'Electrolux' },
       { cat: 'innovacion', big: 'Premio global', big_en: 'Global award', text: 'Proyecto Más Escalable 2015 con el primer laboratorio de Data Analytics de la región.', text_en: "Most Scalable Project 2015 with the region's first Data Analytics lab.", where: 'Electrolux' },
@@ -555,7 +572,8 @@
       { name: 'Marcas, socios y clientes', name_en: 'Brands, partners and clients', items: [
         ['Fensa', 'Marca #1 en Chile (Electrolux)', '#1 brand in Chile (Electrolux)'], ['Mademsa', 'Marca #1 en Chile (Electrolux)', '#1 brand in Chile (Electrolux)'],
         ['Acapella', 'Moda sostenible, representación retail', 'Sustainable fashion, retail representation'], ['Bench', 'Moda, representación retail', 'Fashion, retail representation'], ['Galgo', 'Fintech, alianza USD $8M', 'Fintech, USD $8M alliance'],
-        ['3M Chile', 'Proyecto RFID de tesis', 'RFID thesis project'], ['Commonwealth Kitchen', 'Proyecto MIT en Boston', 'MIT project in Boston'],
+        ['3M Chile', 'Proyecto RFID de tesis', 'RFID thesis project'], ['Commonwealth Kitchen', 'Proyecto MIT en Boston', 'MIT project in Boston'] ] },
+      { name: 'Herramientas', name_en: 'Tools', items: [
         ['Shopify', 'E-commerce y pasarelas de pago', 'E-commerce and payment gateways'], ['HubSpot', 'CRM implementado', 'CRM implemented'], ['Salesforce', 'Marketing Cloud', 'Marketing Cloud'] ] },
       { name: 'Instituciones', name_en: 'Institutions', items: [
         ['MIT Sloan', 'MBA 2024–2026', 'MBA 2024–2026'], ['Stanford GSB', 'Diplomado 2015', 'Diploma 2015'], ['University of Windsor', 'Máster 2012', "Master's 2012"],
@@ -582,10 +600,9 @@
         notes: ['Product Management.'], kind: 'teach' },
     ];
     const TICKER = [
-      ['17', 'años de experiencia', 'years of experience'], ['9→23%', 'participación de mercado', 'market share'],
-      ['USD $13,5M', 'en e-commerce', 'in e-commerce', 'USD $13.5M'], ['USD $20M', 'de inversión aprobada', 'in approved investment'],
+      ['9→23%', 'participación de mercado', 'market share'], ['USD $13,5M', 'en e-commerce', 'in e-commerce', 'USD $13.5M'],
+      ['+20%', 'EBITDA', 'EBITDA'], ['USD $20M', 'de inversión aprobada', 'in approved investment'],
       ['6', 'países en campañas', 'countries in campaigns'], ['50', 'PYMES asesoradas', 'SMEs advised'],
-      ['#1', 'en refrigeradores y freezers', 'in refrigerators and freezers'], ['+20%', 'EBITDA', 'EBITDA'],
     ];
     const ROLE_LINES = {
       es: ['Fundador y CEO de BoostBrands', 'MBA, MIT Sloan', 'Profesor de Product Management (UDD)', 'Ex Director de Marketing y Ventas, Bajaj', 'Ex Country Manager Chile y Paraguay'],
@@ -598,8 +615,7 @@
       { src: 'fotos/mit-graduacion.jpg', caption: 'Graduación, MIT Sloan', caption_en: 'Graduation, MIT Sloan', size: 'tall' },
       { src: 'fotos/stanford-gsb.jpg', caption: 'Stanford GSB, 2015', size: 'wide', pos: '50% 80%' },
       { src: 'fotos/stanford-clase.jpg', caption: 'Clase en Stanford GSB', caption_en: 'Class at Stanford GSB', size: 'tall' },
-      { src: 'fotos/mit-sloan.jpg', caption: 'MIT Sloan', size: '', pos: '30% 50%' },
-      { src: 'fotos/mit-ganadores.jpg', caption: 'Ganadores, Operations Management · MIT', caption_en: 'Winners, Operations Management · MIT', size: '' },
+      { src: 'fotos/mit-ganadores.jpg', caption: 'Ganadores, Operations Management · MIT', caption_en: 'Winners, Operations Management · MIT', size: 'wide', pos: '50% 30%' },
     ];
 
     /* ---------- Helpers ---------- */
@@ -707,16 +723,17 @@
     /* ---------- Achievements ---------- */
     let activeCat = 'todos';
     function renderWins() {
-      const cards = WINS.map(w => el('article', { class: 'win', 'data-cat': w.cat },
+      const ordered = [...WINS].sort((a, b) => (b.top ? 1 : 0) - (a.top ? 1 : 0));
+      const cards = ordered.map(w => el('article', { class: w.top ? 'win top' : 'win', 'data-cat': w.cat },
         el('div', { class: 'big', text: T(w, 'big') }), el('p', { text: T(w, 'text') }),
         el('div', { class: 'where', text: `${w.where} · ${CATS[w.cat][lang === 'es' ? 0 : 1]}` })));
       cards.forEach(c => { c.hidden = activeCat !== 'todos' && c.dataset.cat !== activeCat; });
-      $('wins').replaceChildren(...cards);
+      $('wins').replaceChildren(...cards); $('wins').classList.toggle('all', activeCat === 'todos');
       const buttons = Object.entries(CATS).map(([key, names]) => {
         const n = key === 'todos' ? WINS.length : WINS.filter(w => w.cat === key).length;
         const b = el('button', { class: 'filter', type: 'button', 'aria-pressed': String(key === activeCat) }, names[lang === 'es' ? 0 : 1], el('span', { class: 'n', text: String(n) }));
         b.addEventListener('click', () => {
-          activeCat = key;
+          activeCat = key; $('wins').classList.toggle('all', key === 'todos');
           $('win-filters').querySelectorAll('.filter').forEach(x => x.setAttribute('aria-pressed', x === b));
           cards.forEach(c => {
             const show = key === 'todos' || c.dataset.cat === key;
@@ -817,7 +834,7 @@
     const io = new IntersectionObserver(es => es.forEach(en => {
       if (en.isIntersecting) navMap.forEach((a, id) => a.classList.toggle('active', id === en.target.id));
     }), { rootMargin: '-45% 0px -50% 0px' });
-    document.querySelectorAll('section[id]').forEach(s => io.observe(s));
+    document.querySelectorAll('section[id], header[id]').forEach(s => io.observe(s)); // the hero has no nav link, so reaching it clears the highlight
     const frame = document.querySelector('.portrait .frame');
     if (!reduceMotion && matchMedia('(hover: hover)').matches) {
       $('portrait').addEventListener('mousemove', e => {

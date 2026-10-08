@@ -162,7 +162,9 @@
     }
     @media (prefers-reduced-motion: reduce) {
       .marquee { -webkit-mask-image: none; mask-image: none; }
-      .marquee-track { width: auto; flex-wrap: wrap; row-gap: 8px; }
+      .marquee-track { width: auto; flex-wrap: wrap; gap: 6px 28px; }
+      .marquee-track span { padding-inline: 0; }
+      .marquee-track span::after { display: none; }
       .marquee-track [aria-hidden="true"], .pause-btn { display: none !important; }
     }
     @keyframes scroll { to { transform: translateX(-50%); } }
@@ -173,6 +175,9 @@
     section + section { border-top: 1px solid var(--border); }
     .kicker { font: 500 .8rem var(--font-mono); text-transform: uppercase; letter-spacing: .1em; color: var(--accent-text); display: block; margin-bottom: 10px; }
     h2 { font-size: clamp(1.9rem, 4vw, 2.7rem); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 14px; font-weight: 800; }
+    /* One word per section title in the editorial serif */
+    h2 em { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; font-size: 1.06em; letter-spacing: -0.01em; color: var(--accent-text); }
+    .on-navy h2 em { color: var(--accent-on-navy); }
     .intro { color: var(--muted); max-width: 62ch; margin-bottom: 40px; font-size: 1.05rem; }
 
     /* About + stats */
@@ -185,6 +190,12 @@
     .stat > span { color: var(--muted); font-size: .93rem; }
 
     /* Services */
+    .pains { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
+    .pain { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 10px; }
+    .pain q { font: 700 1.3rem/1.2 var(--font-display); letter-spacing: -0.01em; color: var(--heading); quotes: "“" "”"; }
+    .pain p { color: var(--muted); font-size: .97rem; flex: 1; }
+    .pain a { font-weight: 600; color: var(--accent-text); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
+    .pain a:hover { text-decoration: underline; }
     .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
     .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; transition: border-color .2s, transform .2s; }
     .card:hover { border-color: var(--accent); transform: translateY(-4px); }
@@ -203,8 +214,12 @@
     .wide { max-width: 1400px; margin: 0 auto; padding-inline: 20px; }
     .projects-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
     .projects-head h2 { font-size: clamp(2.5rem, 6vw, 4.6rem); line-height: 1; letter-spacing: -0.04em; margin: 0; color: var(--heading); }
-    .projects-head h2 em { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -0.01em; color: var(--accent-text); }
     .projects-head p { color: var(--muted); max-width: 46ch; }
+    #proyectos { background: var(--navy); color: var(--on-navy); }
+    #proyectos .kicker { color: var(--accent-on-navy); }
+    #proyectos .projects-head h2 { color: var(--on-navy); }
+    #proyectos .projects-head p { color: var(--on-navy-muted); }
+    #proyectos + section { border-top: 0; }
     .projects { display: flex; gap: 10px; height: 660px; }
     .proj { flex: 0 0 70px; min-width: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 28px; overflow: hidden; transition: flex-grow .45s ease, flex-basis .45s ease, border-color .2s; }
     .proj:not([open]):hover { border-color: var(--accent); }
@@ -223,6 +238,8 @@
     .p-meta b { color: var(--text); font-weight: 500; margin-right: 10px; }
     .p-body h3 { font-size: clamp(1.8rem, 2.6vw, 2.4rem); line-height: 1.04; letter-spacing: -0.035em; margin: 14px 0 12px; color: var(--heading); }
     .p-desc { color: var(--muted); font-size: 1rem; max-width: 56ch; }
+    .p-pyme { margin-top: 16px; padding: 12px 14px; border-radius: 12px; background: var(--accent-soft); border-left: 3px solid var(--accent); font-size: .93rem; line-height: 1.45; color: var(--text); max-width: 60ch; }
+    .p-pyme b { display: block; font: 500 .72rem var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--accent-text); margin-bottom: 2px; }
     .p-bullets { list-style: none; display: grid; grid-template-columns: 1fr 1fr; column-gap: 22px; margin: 20px 0; }
     .p-bullets li { border-top: 1px solid var(--border); padding: 10px 0 10px 16px; position: relative; font-size: .92rem; line-height: 1.45; }
     .p-bullets li::before { content: ""; position: absolute; left: 0; top: 18px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
@@ -321,8 +338,12 @@
     .contact-box .mail { margin: 22px auto 0; font: 500 .95rem var(--font-mono); }
     .contact-box .mail a { text-decoration: none; color: var(--on-navy); }
 
-    footer { padding-block: 36px; color: var(--muted); font-size: .9rem; }
-    footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    footer { padding-block: 28px; color: var(--muted); font-size: .9rem; }
+    footer .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px 24px; }
+    .foot-links { display: flex; flex-wrap: wrap; column-gap: 20px; }
+    .foot-links a { color: var(--muted); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
+    .foot-links a:hover { color: var(--text); }
+    .sticky-cta { display: none; }
     footer a { text-decoration: none; padding-block: 10px; } footer a:hover { color: var(--accent-text); }
 
     .toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 120px); visibility: hidden; background: var(--text); color: var(--bg); padding: 12px 20px; border-radius: 12px; font-weight: 500; transition: transform .3s, visibility .3s; z-index: 40; max-width: calc(100% - 32px); }
@@ -355,7 +376,12 @@
       .hero { grid-template-columns: 1fr; padding-block: 44px 64px; gap: 48px; }
       .portrait { width: min(88%, 340px); }
       .badge.b1 { left: -12px; } .badge.b2 { right: -12px; }
-      .about-grid, .cards, .edu, .edu-wrap, .edu-wrap .edu { grid-template-columns: 1fr; }
+      .about-grid, .cards, .pains, .edu, .edu-wrap, .edu-wrap .edu { grid-template-columns: 1fr; }
+      /* Booking button that follows on phones between the hero and the contact section */
+      .sticky-cta { display: flex; gap: 8px; position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 35; padding: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 18px 40px -16px rgba(0,0,0,.45); transform: translateY(150%); visibility: hidden; transition: transform .3s ease, visibility .3s; }
+      .sticky-cta.show { transform: none; visibility: visible; }
+      .sticky-cta .btn-primary { flex: 1; justify-content: center; }
+      .sticky-cta .btn-ghost { width: 48px; padding: 0; justify-content: center; flex: none; }
       .edu-photo { aspect-ratio: 1; min-height: 0; max-width: 420px; }
       .steps { grid-template-columns: 1fr; }
       section { padding-block: 64px; }
@@ -420,14 +446,14 @@
         <a href="cv.html" class="btn btn-ghost"><span data-l="es">Ver CV completo</span><span data-l="en">See full CV</span></a>
       </div>
       <p class="proof">
-        <span data-l="es">MBA MIT Sloan · Profesor en UDD y UNAB · Las Condes, Chile</span>
-        <span data-l="en">MIT Sloan MBA · Professor at UDD and UNAB · Las Condes, Chile</span>
+        <span data-l="es">Las Condes, Chile · Diagnóstico por videollamada</span>
+        <span data-l="en">Las Condes, Chile · Diagnostic by video call</span>
       </p>
     </div>
     <div class="portrait" id="portrait">
       <div class="frame"><img src="fotos/retrato.jpg" alt="Cristian Marino" width="800" height="800"></div>
       <div class="badge b1"><strong>MIT Sloan</strong>MBA 2026</div>
-      <div class="badge b2"><strong><span data-l="es">17 años</span><span data-l="en">17 years</span></strong><span data-l="es">en marketing y crecimiento</span><span data-l="en">in marketing and growth</span></div>
+      <div class="badge b2"><strong><span data-l="es">Profesor</span><span data-l="en">Professor</span></strong><span data-l="es">UDD y UNAB</span><span data-l="en">UDD and UNAB</span></div>
     </div>
   </header>
 
@@ -436,19 +462,46 @@
       <span class="band-label"><span data-l="es">Experiencia en</span><span data-l="en">Experience at</span></span>
       <div class="marquee">
         <div class="marquee-track">
-          <span>Bajaj Auto</span><span>Electrolux</span><span>Fensa</span><span>Mademsa</span><span>Accenture</span><span>Cencosud</span><span>MIT Sloan</span><span>Stanford GSB</span>
-          <span aria-hidden="true">Bajaj Auto</span><span aria-hidden="true">Electrolux</span><span aria-hidden="true">Fensa</span><span aria-hidden="true">Mademsa</span><span aria-hidden="true">Accenture</span><span aria-hidden="true">Cencosud</span><span aria-hidden="true">MIT Sloan</span><span aria-hidden="true">Stanford GSB</span>
+          <span>Bajaj Auto</span><span>Electrolux</span><span>Fensa</span><span>Mademsa</span><span>Accenture</span><span>Cencosud</span>
+          <span aria-hidden="true">Bajaj Auto</span><span aria-hidden="true">Electrolux</span><span aria-hidden="true">Fensa</span><span aria-hidden="true">Mademsa</span><span aria-hidden="true">Accenture</span><span aria-hidden="true">Cencosud</span>
         </div>
       </div>
       <button class="pause-btn" id="pause-btn" type="button" aria-pressed="false" aria-label="Pausar animación / Pause animation">❚❚</button>
     </div>
   </div>
 
+  <section id="situaciones">
+    <div class="wrap">
+      <span class="kicker"><span data-l="es">¿Te suena?</span><span data-l="en">Sound familiar?</span></span>
+      <h2><span data-l="es">¿Tu empresa está en alguna de estas <em>situaciones?</em></span><span data-l="en">Is your business in one of these <em>situations?</em></span></h2>
+      <div class="pains">
+        <div class="pain">
+          <q><span data-l="es">Vendemos, pero no crecemos.</span><span data-l="en">We sell, but we don't grow.</span></q>
+          <p data-l="es">Las ventas se estancaron y no está claro qué canal, cliente o producto deja margen.</p>
+          <p data-l="en">Sales have stalled and it isn't clear which channel, customer or product actually makes money.</p>
+          <a href="#srv-crecimiento"><span data-l="es">Consultoría de crecimiento →</span><span data-l="en">Growth consulting →</span></a>
+        </div>
+        <div class="pain">
+          <q><span data-l="es">Queremos llegar a las grandes cadenas.</span><span data-l="en">We want to get into the big chains.</span></q>
+          <p data-l="es">Tienes un buen producto, pero negociar con el retail grande es otro idioma.</p>
+          <p data-l="en">You have a good product, but negotiating with major retailers is a different language.</p>
+          <a href="#srv-retail"><span data-l="es">Representación retail →</span><span data-l="en">Retail representation →</span></a>
+        </div>
+        <div class="pain">
+          <q><span data-l="es">Hacemos marketing, pero no sabemos qué funciona.</span><span data-l="en">We do marketing, but don't know what works.</span></q>
+          <p data-l="es">Publicaciones, campañas y agencias sin una medición que las conecte con ventas, y sin presupuesto de multinacional.</p>
+          <p data-l="en">Posts, campaigns and agencies with no measurement tying them to sales, and no multinational budget.</p>
+          <a href="#srv-ia"><span data-l="es">Marketing con IA →</span><span data-l="en">AI-powered marketing →</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="sobre-mi">
     <div class="wrap about-grid">
       <div>
         <span class="kicker"><span data-l="es">Sobre mí</span><span data-l="en">About</span></span>
-        <h2><span data-l="es">Resultados, no adjetivos</span><span data-l="en">Results, not adjectives</span></h2>
+        <h2><span data-l="es">Resultados, no <em>adjetivos</em></span><span data-l="en">Results, not <em>adjectives</em></span></h2>
         <p data-l="es">
           He construido y escalado negocios en Chile y Latinoamérica: desde lanzar una marca en un país nuevo
           desde cero hasta llevar a un distribuidor nacional al #1 de su segmento. He liderado equipos de hasta
@@ -469,7 +522,7 @@
         </p>
       </div>
       <div class="stats">
-        <div class="stat"><strong data-count="17">17</strong><span><span data-l="es">años de experiencia</span><span data-l="en">years of experience</span></span></div>
+        <div class="stat"><strong>+<span data-count="20">20</span>%</strong><span><span data-l="es">EBITDA al pasar de 20 franquicias a 4 tiendas propias</span><span data-l="en">EBITDA after moving from 20 franchises to 4 company stores</span></span></div>
         <div class="stat"><strong><span data-count="9">9</span>→<span data-count="23">23</span>%</strong><span><span data-l="es">participación de mercado en Bajaj Motochile, #1 del segmento Street</span><span data-l="en">market share at Bajaj Motochile, #1 in the Street segment</span></span></div>
         <div class="stat"><strong>$<span data-count="13.5" data-decimals="1">13,5</span>M</strong><span><span data-l="es">USD en ventas e-commerce construidas desde cero</span><span data-l="en">USD in e-commerce sales built from zero</span></span></div>
         <div class="stat"><strong data-count="50">50</strong><span><span data-l="es">PYMES asesoradas, con +15% de crecimiento promedio en ingresos</span><span data-l="en">SMEs advised, with +15% average revenue growth</span></span></div>
@@ -480,23 +533,23 @@
   <section id="boostbrands">
     <div class="wrap">
       <span class="kicker">BoostBrands</span>
-      <h2><span data-l="es">Qué hago hoy</span><span data-l="en">What I do today</span></h2>
+      <h2><span data-l="es">Qué hago <em>hoy</em></span><span data-l="en">What I do <em>today</em></span></h2>
       <p class="intro" data-l="es">BoostBrands es una consultora de marketing comercial B2B/B2C para PYMES chilenas, con dos unidades de negocio: consultoría y representación retail.</p>
       <p class="intro" data-l="en">BoostBrands is a B2B/B2C commercial marketing consultancy for Chilean SMEs, with two business units: consulting and retail representation.</p>
       <div class="cards">
-        <div class="card">
+        <div class="card" id="srv-crecimiento">
           <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
           <h3><span data-l="es">Consultoría de crecimiento</span><span data-l="en">Growth consulting</span></h3>
           <p data-l="es">He asesorado a 50 PYMES durante la crisis económica de Chile, con +15% de crecimiento promedio en ingresos.</p>
           <p data-l="en">I've advised 50 SMEs through Chile's economic downturn, delivering +15% average revenue growth.</p>
         </div>
-        <div class="card">
+        <div class="card" id="srv-retail">
           <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M3 9h18M10 20v-6h4v6"/></svg></div>
           <h3><span data-l="es">Representación retail</span><span data-l="en">Retail representation</span></h3>
           <p data-l="es">Llevo marcas a las grandes cadenas: 2 marcas internacionales de moda sostenible, Acapella y Bench, en 3 cadenas retail chilenas.</p>
           <p data-l="en">I bring brands into major chains: 2 international sustainable fashion brands, Acapella and Bench, in 3 Chilean retail chains.</p>
         </div>
-        <div class="card">
+        <div class="card" id="srv-ia">
           <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></div>
           <h3><span data-l="es">Marketing con IA</span><span data-l="en">AI-powered marketing</span></h3>
           <p data-l="es">IA agéntica integrada en campañas y producción de contenido, con un enfoque radical de bajo costo y alto rendimiento.</p>
@@ -515,7 +568,7 @@
     </div>
   </section>
 
-  <section id="proyectos">
+  <section id="proyectos" class="on-navy">
     <div class="wide">
       <div class="projects-head">
         <div>
@@ -532,7 +585,7 @@
   <section id="trayectoria">
     <div class="wrap">
       <span class="kicker"><span data-l="es">Trayectoria</span><span data-l="en">Track record</span></span>
-      <h2><span data-l="es">17 años en compañías líderes</span><span data-l="en">17 years at leading companies</span></h2>
+      <h2><span data-l="es">Dónde <em>aprendí</em> lo que aplico</span><span data-l="en">Where I <em>learned</em> what I apply</span></h2>
       <p class="intro" data-l="es">Un resumen. Abre un cargo para ver el detalle, o revisa la versión completa e interactiva en mi CV.</p>
       <p class="intro" data-l="en">A summary. Open a role for details, or see the full interactive version in my CV.</p>
       <ol class="timeline">
@@ -628,7 +681,7 @@
   <section id="formacion">
     <div class="wrap">
       <span class="kicker"><span data-l="es">Formación y docencia</span><span data-l="en">Education &amp; teaching</span></span>
-      <h2><span data-l="es">Aprender y enseñar</span><span data-l="en">Learning and teaching</span></h2>
+      <h2><span data-l="es">Aprender y <em>enseñar</em></span><span data-l="en">Learning and <em>teaching</em></span></h2>
       <div class="edu-wrap">
         <figure class="edu-photo">
           <img src="fotos/mit-graduacion.jpg" alt="Cristian Marino, MIT Sloan" width="960" height="1280" loading="lazy">
@@ -650,7 +703,7 @@
     <div class="wrap">
       <div class="contact-box on-navy">
         <span class="kicker"><span data-l="es">Contacto</span><span data-l="en">Contact</span></span>
-        <h2><span data-l="es">¿Conversamos sobre tu negocio?</span><span data-l="en">Let's talk about your business</span></h2>
+        <h2><span data-l="es">¿Conversamos sobre tu <em>negocio?</em></span><span data-l="en">Let's talk about your <em>business</em></span></h2>
         <p data-l="es">Cuéntame en qué está tu empresa y te propongo ideas concretas para avanzar. También estoy disponible para directorios, charlas y docencia.</p>
         <p data-l="en">Tell me where your business is and I'll suggest concrete ways to move it forward. I'm also available for boards, talks and teaching.</p>
         <div class="actions">
@@ -667,9 +720,20 @@
   <footer>
     <div class="wrap">
       <span>© <span id="year">2026</span> Cristian Marino · BoostBrands</span>
-      <a href="#top"><span data-l="es">Volver arriba ↑</span><span data-l="en">Back to top ↑</span></a>
+      <nav class="foot-links" aria-label="Enlaces / Links">
+        <a href="https://www.linkedin.com/in/cristianmarinov" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:cristian@boostbrands.cl" data-email>cristian@boostbrands.cl</a>
+        <a href="#" data-whatsapp hidden target="_blank" rel="noopener">WhatsApp</a>
+        <a href="cv.html"><span data-l="es">CV completo</span><span data-l="en">Full CV</span></a>
+        <a href="#top"><span data-l="es">Volver arriba ↑</span><span data-l="en">Back to top ↑</span></a>
+      </nav>
     </div>
   </footer>
+
+  <div class="sticky-cta" id="sticky-cta">
+    <a href="mailto:cristian@boostbrands.cl?subject=Diagn%C3%B3stico%2030%20min" class="btn btn-primary" data-agenda><span data-l="es">Agenda un diagnóstico de 30 min</span><span data-l="en">Book a 30-min diagnostic</span></a>
+    <a href="#" class="btn btn-ghost" data-whatsapp hidden target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg></a>
+  </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -709,6 +773,8 @@
         title: 'Moda sostenible en el retail chileno', title_en: 'Sustainable fashion in Chilean retail', short: 'Moda sostenible en retail', short_en: 'Sustainable fashion in retail',
         desc: 'Llevé dos marcas internacionales de moda sostenible, Acapella y Bench, a tres de las grandes cadenas retail de Chile.',
         desc_en: 'I brought two international sustainable fashion brands, Acapella and Bench, into three of Chile’s major retail chains.',
+        pyme: 'Si tu marca está lista para el retail, te ayudo a negociar la entrada a las grandes cadenas cuidando el margen.',
+        pyme_en: 'If your brand is ready for retail, I help you negotiate your way into the big chains while protecting your margin.',
         bullets: ['Acuerdos de distribución con 3 grandes cadenas', '2 marcas internacionales: Acapella y Bench', 'USD $400K en ventas', '40% de margen'],
         bullets_en: ['Distribution deals with 3 major chains', '2 international brands: Acapella and Bench', 'USD $400K in sales', '40% margin'],
         chips: ['Negociación retail', 'Distribución', 'Desarrollo de marcas'], chips_en: ['Retail negotiation', 'Distribution', 'Brand development'],
@@ -719,6 +785,8 @@
         title: 'De franquicias a venta directa', title_en: 'From franchises to direct sales', short: 'De franquicias a venta directa', short_en: 'Franchises to direct sales',
         desc: 'Transformé el modelo de B2B a B2C/D2C: reemplacé 20 franquicias por 4 tiendas propias y ordené la caja del negocio.',
         desc_en: 'I moved the business from B2B to B2C/D2C: replaced 20 franchises with 4 company stores and fixed the cash position.',
+        pyme: 'Revisar qué canales te dejan margen y caja, y concentrar tus recursos en los que de verdad rinden.',
+        pyme_en: 'Review which channels bring you margin and cash, and focus your resources on the ones that really pay off.',
         bullets: ['20 franquicias → 4 tiendas propias', 'EBITDA +20%', 'Flujo de caja +50%', 'Cuentas por cobrar de USD $1M a $400K', 'Crédito de 60 a 30 días', 'Alianza fintech Galgo de USD $8M y MotoFin'],
         bullets_en: ['20 franchises → 4 company stores', 'EBITDA +20%', 'Cash flow +50%', 'Receivables from USD $1M to $400K', 'Credit terms from 60 to 30 days', 'USD $8M Galgo fintech alliance and MotoFin'],
         chips: ['Transformación D2C', 'P&L', 'Retail', 'Fintech'], chips_en: ['D2C transformation', 'P&L', 'Retail', 'Fintech'],
@@ -729,6 +797,8 @@
         title: 'E-commerce desde cero', title_en: 'E-commerce from zero', short: 'E-commerce desde cero', short_en: 'E-commerce from zero',
         desc: 'Construí el canal de venta online desde cero en plena pandemia, con tienda y pasarelas de pago en Shopify, y lo conecté con un CRM para medir cada etapa de la venta.',
         desc_en: 'I built the online sales channel from scratch during the pandemic, with the store and payment gateways on Shopify, and connected it to a CRM to measure every stage of the sale.',
+        pyme: 'Una tienda online en Shopify, con pagos y un CRM, para vender en línea y medir cada etapa de la venta.',
+        pyme_en: 'An online store on Shopify, with payments and a CRM, so you can sell online and measure every stage of the sale.',
         bullets: ['USD $13,5M en ventas online', 'Tienda y pasarelas de pago en Shopify', 'HubSpot CRM implementado', 'Parte de la estrategia que llevó la participación de 9% a 23%'],
         bullets_en: ['USD $13.5M in online sales', 'Store and payment gateways on Shopify', 'HubSpot CRM implemented', 'Part of the strategy that took market share from 9% to 23%'],
         chips: ['Shopify', 'HubSpot', 'CAC y conversión'], chips_en: ['Shopify', 'HubSpot', 'CAC & conversion'],
@@ -738,6 +808,8 @@
         title: 'Bajaj llega a Paraguay', title_en: 'Bajaj enters Paraguay', short: 'Bajaj llega a Paraguay', short_en: 'Bajaj enters Paraguay',
         desc: 'Lideré la entrada de Bajaj a Paraguay desde cero: elegí al distribuidor, armé el equipo y abrí las primeras tiendas.',
         desc_en: 'I led Bajaj’s entry into Paraguay from scratch: chose the distributor, built the team and opened the first stores.',
+        pyme: 'Antes de abrir una nueva ciudad, país o canal: elegir bien al socio, armar el equipo y medir desde el primer mes.',
+        pyme_en: 'Before opening a new city, country or channel: choose the right partner, build the team and measure from month one.',
         bullets: ['Selección del distribuidor', 'Equipo de 25 personas', '3 tiendas abiertas', 'USD $1M en ventas el primer año', '5% de participación en el año 1'],
         bullets_en: ['Distributor selection', 'Team of 25 people', '3 stores opened', 'USD $1M in sales in year one', '5% market share in year one'],
         chips: ['Expansión internacional', 'Go-to-market', 'Liderazgo de equipos'], chips_en: ['International expansion', 'Go-to-market', 'Team leadership'],
@@ -747,6 +819,8 @@
         title: 'Reality shows y campañas en 6 países', title_en: 'Reality shows and campaigns in 6 countries', short: 'Reality shows en 6 países', short_en: 'Reality shows in 6 countries',
         desc: 'Diseñé campañas integradas para 6 países, incluidos 2 reality shows digitales originales con figuras de TV: Rouser ProAm en Argentina y Pulsar Aventura en dos ruedas en Perú.',
         desc_en: 'I designed integrated campaigns for 6 countries, including 2 original digital reality shows with TV personalities: Rouser ProAm in Argentina and Pulsar Aventura en dos ruedas in Peru.',
+        pyme: 'Contenido que la gente quiere ver, con métricas que conectan el alcance con las ventas y no solo con los likes.',
+        pyme_en: 'Content people want to watch, with metrics that tie reach to sales, not just to likes.',
         bullets: ['Presupuesto de USD $6M en 6 países', 'Reality shows Rouser ProAm (Argentina) y Pulsar Aventura en dos ruedas (Perú)', 'Mayor alza regional de participación en 10 años', '19% de participación LATAM', 'KPIs que conectan alcance con ventas', '-30% en costos de agencias'],
         bullets_en: ['USD $6M budget across 6 countries', 'Reality shows Rouser ProAm (Argentina) and Pulsar Aventura en dos ruedas (Peru)', 'Largest regional share gain in 10 years', '19% LATAM market share', 'KPIs linking reach to sales', '-30% in agency costs'],
         chips: ['Marketing integrado', 'Contenido', 'Gestión de agencias'], chips_en: ['Integrated marketing', 'Content', 'Agency management'],
@@ -759,6 +833,8 @@
         title: 'Electrolux premium con chefs Michelin', title_en: 'Electrolux goes premium with Michelin chefs', short: 'Premium con chefs Michelin', short_en: 'Premium with Michelin chefs',
         desc: 'Lideré el desarrollo de producto y el line-up completo de Electrolux para Latinoamérica, con USD $20M de inversión, y reposicioné la marca en el segmento premium con chefs Michelin como embajadores.',
         desc_en: 'I led product development and the full Electrolux line-up for Latin America, backed by a USD $20M investment, and repositioned the brand as premium with Michelin-starred chefs as ambassadors.',
+        pyme: 'Subir el valor percibido de tu marca con un posicionamiento claro y aliados que le den credibilidad.',
+        pyme_en: 'Raise your brand’s perceived value with clear positioning and partners who lend it credibility.',
         bullets: ['Desarrollo de producto y line-up completo para LATAM', 'USD $20M de inversión aprobada por el HQ global', 'De 1% a 5% de participación premium en el año 1', 'Concepto "disfrute culinario" con chefs Michelin', 'Electrolux, Fensa y Mademsa #1 en Chile'],
         bullets_en: ['Product development and full line-up for LATAM', 'USD $20M investment approved by global HQ', 'From 1% to 5% premium share in year one', '"Culinary enjoyment" concept with Michelin chefs', 'Electrolux, Fensa and Mademsa #1 in Chile'],
         chips: ['Desarrollo de producto', 'Posicionamiento de marca', 'Retail'], chips_en: ['Product development', 'Brand positioning', 'Retail'],
@@ -768,6 +844,8 @@
         title: 'Carrera de drones controlados por la mente', title_en: 'Mind-controlled drone race', short: 'Drones controlados por la mente', short_en: 'Mind-controlled drones',
         desc: 'Lideré la primera carrera de drones controlados por la mente en Latinoamérica, usada como estrategia de reclutamiento de talento STEM.',
         desc_en: 'I led Latin America’s first mind-controlled drone race, used as a recruiting strategy for STEM talent.',
+        pyme: 'Ideas que llaman la atención y a la vez sirven a un objetivo concreto del negocio; en este caso, atraer talento.',
+        pyme_en: 'Ideas that grab attention while serving a concrete business goal; in this case, attracting talent.',
         bullets: ['Campaña más innovadora de 2017', 'Primera en Latinoamérica', 'Reclutamiento de talento STEM', 'Marketing B2B para las 30 principales empresas de Chile', 'USD $6M en acuerdos comerciales'],
         bullets_en: ['Most innovative campaign of 2017', 'First in Latin America', 'STEM talent recruiting', 'B2B marketing for Chile’s top 30 companies', 'USD $6M in commercial deals'],
         chips: ['Innovación', 'Eventos', 'Employer branding'], chips_en: ['Innovation', 'Events', 'Employer branding'],
@@ -841,6 +919,7 @@
               <div class="p-meta"><b>${num}</b>${esc(p.org)} — ${esc(L(p, 'area'))} · ${esc(L(p, 'year'))}</div>
               <h3>${esc(L(p, 'title'))}</h3>
               <p class="p-desc">${esc(L(p, 'desc'))}</p>
+              <p class="p-pyme"><b>${t('Para tu PYME', 'For your SME')}</b>${esc(L(p, 'pyme'))}</p>
               <ul class="p-bullets">${L(p, 'bullets').map(b => `<li>${esc(b)}</li>`).join('')}</ul>
               <div class="p-chips">${L(p, 'chips').map(c => `<span>${esc(c)}</span>`).join('')}</div>
             </div>
@@ -898,7 +977,16 @@
     const io = new IntersectionObserver(es => es.forEach(en => {
       if (en.isIntersecting) navMap.forEach((a, id) => a.classList.toggle('active', id === en.target.id));
     }), { rootMargin: '-45% 0px -50% 0px' });
-    document.querySelectorAll('section[id]').forEach(s => io.observe(s));
+    document.querySelectorAll('section[id], header[id]').forEach(s => io.observe(s)); // the hero has no nav link, so reaching it clears the highlight
+
+    /* Phones: keep the booking button in reach between the hero buttons and the contact section */
+    const sticky = $('sticky-cta'), seen = { hero: true, end: false };
+    const showSticky = () => sticky.classList.toggle('show', !seen.hero && !seen.end);
+    new IntersectionObserver(([e]) => { seen.hero = e.isIntersecting || e.boundingClientRect.top > 0; showSticky(); })
+      .observe(document.querySelector('.hero .actions'));
+    const endIo = new IntersectionObserver(es => { es.forEach(e => { e.target.dataset.in = e.isIntersecting ? '1' : ''; });
+      seen.end = !!document.querySelector('#contacto[data-in="1"], footer[data-in="1"]'); showSticky(); });
+    endIo.observe($('contacto')); endIo.observe(document.querySelector('footer'));
 
     /* Stats: final values are in the HTML; they count up when scrolled into view */
     const counters = [...document.querySelectorAll('[data-count]')];
