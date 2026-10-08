@@ -190,18 +190,20 @@
     .stat > span { color: var(--muted); font-size: .93rem; }
 
     /* Services */
-    .pains { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
-    .pain { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 10px; }
-    .pain q { font: 700 1.3rem/1.2 var(--font-display); letter-spacing: -0.01em; color: var(--heading); quotes: "“" "”"; }
-    .pain p { color: var(--muted); font-size: .97rem; flex: 1; }
-    .pain a { font-weight: 600; color: var(--accent-text); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
-    .pain a:hover { text-decoration: underline; }
+    .pains { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
+    .pain { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 14px; }
+    .pain q { font: 700 1.2rem/1.25 var(--font-display); letter-spacing: -0.01em; color: var(--heading); quotes: "“" "”"; }
+    .pain p { color: var(--muted); font-size: .95rem; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); }
+    .pain p b { display: block; font: 500 .72rem var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--accent-text); margin-bottom: 4px; }
+    .pains-cta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px 24px; margin-top: 16px; padding: 20px 24px; border-radius: 16px; background: var(--accent-soft); }
+    .pains-cta p { font-weight: 600; color: var(--heading); }
     .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
     .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; transition: border-color .2s, transform .2s; }
     .card:hover { border-color: var(--accent); transform: translateY(-4px); }
     .card .icon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-text); margin-bottom: 18px; }
     .card h3 { font-size: 1.2rem; margin-bottom: 8px; }
     .card p { color: var(--muted); font-size: .97rem; }
+    .card .topics { margin-top: 10px; color: var(--text); font-size: .92rem; }
     .steps { margin-top: 28px; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 28px; display: grid; grid-template-columns: 220px repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; }
     .steps h3 { font-size: 1.25rem; }
     .steps h3 + p { color: var(--muted); font-size: .92rem; margin-top: 6px; }
@@ -350,6 +352,7 @@
     .toast.show { transform: translate(-50%, 0); visibility: visible; }
 
     @media (max-width: 1100px) {
+      .pains { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .projects { flex-direction: column; height: auto; }
       .proj, .proj[open] { flex: none; border-radius: 20px; }
       .proj summary { flex-direction: row; justify-content: flex-start; gap: 16px; padding: 14px 16px 14px 20px; height: auto; min-height: 64px; }
@@ -377,6 +380,7 @@
       .portrait { width: min(88%, 340px); }
       .badge.b1 { left: -12px; } .badge.b2 { right: -12px; }
       .about-grid, .cards, .pains, .edu, .edu-wrap, .edu-wrap .edu { grid-template-columns: 1fr; }
+      .pains-cta .btn { width: 100%; justify-content: center; }
       /* Booking button that follows on phones between the hero and the contact section */
       .sticky-cta { display: flex; gap: 8px; position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 35; padding: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 18px 40px -16px rgba(0,0,0,.45); transform: translateY(150%); visibility: hidden; transition: transform .3s ease, visibility .3s; }
       .sticky-cta.show { transform: none; visibility: visible; }
@@ -476,23 +480,40 @@
       <h2><span data-l="es">¿Tu empresa está en alguna de estas <em>situaciones?</em></span><span data-l="en">Is your business in one of these <em>situations?</em></span></h2>
       <div class="pains">
         <div class="pain">
-          <q><span data-l="es">Vendemos, pero no crecemos.</span><span data-l="en">We sell, but we don't grow.</span></q>
-          <p data-l="es">Las ventas se estancaron y no está claro qué canal, cliente o producto deja margen.</p>
-          <p data-l="en">Sales have stalled and it isn't clear which channel, customer or product actually makes money.</p>
-          <a href="#srv-crecimiento"><span data-l="es">Consultoría de crecimiento →</span><span data-l="en">Growth consulting →</span></a>
+          <q><span data-l="es">No tengo idea de cómo medir la performance de mis campañas digitales.</span><span data-l="en">I have no idea how to measure the performance of my digital campaigns.</span></q>
+          <p data-l="es"><b>Cómo lo abordo</b>Defino KPIs que conectan alcance y conversión con ventas, y un tablero simple para seguirlos.</p>
+          <p data-l="en"><b>How I tackle it</b>I define KPIs that tie reach and conversion to sales, plus a simple dashboard to track them.</p>
         </div>
         <div class="pain">
-          <q><span data-l="es">Queremos llegar a las grandes cadenas.</span><span data-l="en">We want to get into the big chains.</span></q>
-          <p data-l="es">Tienes un buen producto, pero negociar con el retail grande es otro idioma.</p>
-          <p data-l="en">You have a good product, but negotiating with major retailers is a different language.</p>
-          <a href="#srv-retail"><span data-l="es">Representación retail →</span><span data-l="en">Retail representation →</span></a>
+          <q><span data-l="es">Mis procesos son lentos.</span><span data-l="en">My processes are slow.</span></q>
+          <p data-l="es"><b>Cómo lo abordo</b>Ordeno el proceso comercial, lo llevo a un CRM y automatizo las tareas repetitivas con IA.</p>
+          <p data-l="en"><b>How I tackle it</b>I streamline the sales process, move it into a CRM and automate repetitive tasks with AI.</p>
         </div>
         <div class="pain">
-          <q><span data-l="es">Hacemos marketing, pero no sabemos qué funciona.</span><span data-l="en">We do marketing, but don't know what works.</span></q>
-          <p data-l="es">Publicaciones, campañas y agencias sin una medición que las conecte con ventas, y sin presupuesto de multinacional.</p>
-          <p data-l="en">Posts, campaigns and agencies with no measurement tying them to sales, and no multinational budget.</p>
-          <a href="#srv-ia"><span data-l="es">Marketing con IA →</span><span data-l="en">AI-powered marketing →</span></a>
+          <q><span data-l="es">No sé cómo poner los precios para maximizar mi rentabilidad.</span><span data-l="en">I don't know how to set prices to maximize profitability.</span></q>
+          <p data-l="es"><b>Cómo lo abordo</b>Reviso precios y márgenes por producto, canal y cliente para ver dónde ganas y dónde pierdes.</p>
+          <p data-l="en"><b>How I tackle it</b>I review prices and margins by product, channel and customer to see where you win and where you lose.</p>
         </div>
+        <div class="pain">
+          <q><span data-l="es">Me gustaría alinear marketing y comercial en una sola unidad.</span><span data-l="en">I'd like marketing and sales to work as a single unit.</span></q>
+          <p data-l="es"><b>Cómo lo abordo</b>Un solo embudo, un solo tablero y metas compartidas para marketing y ventas.</p>
+          <p data-l="en"><b>How I tackle it</b>One funnel, one dashboard and shared goals for marketing and sales.</p>
+        </div>
+        <div class="pain">
+          <q><span data-l="es">No me ha ido bien fijando metas e incentivos.</span><span data-l="en">Setting goals and incentives hasn't gone well for me.</span></q>
+          <p data-l="es"><b>Cómo lo abordo</b>Metas medibles y alcanzables, con incentivos ligados a margen y no solo a volumen.</p>
+          <p data-l="en"><b>How I tackle it</b>Measurable, reachable goals, with incentives tied to margin and not just volume.</p>
+        </div>
+        <div class="pain">
+          <q><span data-l="es">Quiero escalar. ¿Cuál es la estrategia adecuada?</span><span data-l="en">I want to scale. What's the right strategy?</span></q>
+          <p data-l="es"><b>Cómo lo abordo</b>Elegimos el camino que te sirve: nuevos canales, tiendas propias, e-commerce o nuevos mercados.</p>
+          <p data-l="en"><b>How I tackle it</b>We choose the path that fits you: new channels, own stores, e-commerce or new markets.</p>
+        </div>
+      </div>
+      <div class="pains-cta">
+        <p data-l="es">¿Te identificas con alguna? Conversemos 30 minutos y vemos por dónde partir.</p>
+        <p data-l="en">Recognize any of these? Let's talk for 30 minutes and find where to start.</p>
+        <a href="mailto:cristian@boostbrands.cl?subject=Diagn%C3%B3stico%2030%20min" class="btn btn-primary" data-agenda><span data-l="es">Agenda un diagnóstico de 30 min</span><span data-l="en">Book a 30-min diagnostic</span></a>
       </div>
     </div>
   </section>
@@ -537,19 +558,21 @@
       <p class="intro" data-l="es">BoostBrands es una consultora de marketing comercial B2B/B2C para PYMES chilenas, con dos unidades de negocio: consultoría y representación retail.</p>
       <p class="intro" data-l="en">BoostBrands is a B2B/B2C commercial marketing consultancy for Chilean SMEs, with two business units: consulting and retail representation.</p>
       <div class="cards">
-        <div class="card" id="srv-crecimiento">
+        <div class="card">
           <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
           <h3><span data-l="es">Consultoría de crecimiento</span><span data-l="en">Growth consulting</span></h3>
           <p data-l="es">He asesorado a 50 PYMES durante la crisis económica de Chile, con +15% de crecimiento promedio en ingresos.</p>
           <p data-l="en">I've advised 50 SMEs through Chile's economic downturn, delivering +15% average revenue growth.</p>
+          <p class="topics" data-l="es">Medición de campañas, precios, procesos, metas e incentivos, alineación de marketing y ventas, y estrategia para escalar.</p>
+          <p class="topics" data-l="en">Campaign measurement, pricing, processes, goals and incentives, marketing–sales alignment and a strategy to scale.</p>
         </div>
-        <div class="card" id="srv-retail">
+        <div class="card">
           <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M3 9h18M10 20v-6h4v6"/></svg></div>
           <h3><span data-l="es">Representación retail</span><span data-l="en">Retail representation</span></h3>
           <p data-l="es">Llevo marcas a las grandes cadenas: 2 marcas internacionales de moda sostenible, Acapella y Bench, en 3 cadenas retail chilenas.</p>
           <p data-l="en">I bring brands into major chains: 2 international sustainable fashion brands, Acapella and Bench, in 3 Chilean retail chains.</p>
         </div>
-        <div class="card" id="srv-ia">
+        <div class="card">
           <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></div>
           <h3><span data-l="es">Marketing con IA</span><span data-l="en">AI-powered marketing</span></h3>
           <p data-l="es">IA agéntica integrada en campañas y producción de contenido, con un enfoque radical de bajo costo y alto rendimiento.</p>

@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Personal website for Cristian Marino, founder of BoostBrands (boostbrands.cl). Two static pages:
 
-- `index.html`: main page aimed at winning SME clients, ordered as the client's story: hero, company band, "¿Te suena?" client situations (each links to the matching service card), about + stats, services and how we start, projects accordion, condensed track record, education, contact. On phones a booking bar (`#sticky-cta`) shows between the hero buttons and the contact section.
+- `index.html`: main page aimed at winning SME clients, ordered as the client's story: hero, company band, "¿Te suena?" with six client situations in Cristian's words, each with how he tackles it, and one booking button, about + stats, services and how we start, projects accordion, condensed track record, education, contact. On phones a booking bar (`#sticky-cta`) shows between the hero buttons and the contact section.
 - `cv.html`: interactive CV aimed at executive/academic audiences (career timeline, achievements, network, gallery, education).
 
 There is no build step, package manager, framework or test suite. Each page is self-contained HTML with its CSS in a `<style>` block and vanilla JS in a `<script>` at the end of `<body>`.
