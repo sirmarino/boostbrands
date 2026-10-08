@@ -52,6 +52,7 @@ python3 -m http.server 8000   # then visit http://localhost:8000
 
 - Palette is orange + navy, defined as CSS custom properties on `:root` and redefined for dark mode both under `@media (prefers-color-scheme: dark)` (guarded by `:root:not([data-theme="light"])`) and under `:root[data-theme="dark"]`; keep the two dark blocks in sync and keep both pages' tokens aligned.
 - Section titles (`h2`) put one word in `<em>`, rendered in Instrument Serif italic in the accent color on both pages. Each figure should appear once per page; avoid repeating the same number in hero, badges and stats.
+- Depth over flat fills: key surfaces use soft layered shadows and light (orange/blue radial glows, a faint dot grid) rather than plain boxes. The hero highlights its accent word with a marker stroke and lights the portrait; "¿Te suena?" cards carry a large serif quote mark and a tinted "Cómo lo abordo" footer, with a navy CTA bar; the about stats sit on one glowing navy panel (`.stats`). Keep new sections in that language.
 - Contrast rules: `--accent` (#E8551C) is for fills and large numbers only; small accent text uses `--accent-text` (#C2410C, 4.75:1); text on orange buttons uses `--accent-ink` (dark), never white.
 - Layout must work at phone width (≈390px) with no horizontal overflow; check desktop and mobile after visual changes. Tap targets are at least 44px.
 - Site copy comes from Cristian's CV. Keep figures consistent with it and never invent achievements, numbers, clients or testimonials.
