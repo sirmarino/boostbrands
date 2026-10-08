@@ -593,14 +593,13 @@
     };
     // Photos: drop image files into the fotos/ folder with these names. Only photos that exist are shown;
     // the section stays hidden until at least one loads.
+    /* Gallery: size '' (1×1), 'tall' (1×2) or 'wide' (2×1); pos is an optional object-position for the tile crop. */
     const PHOTOS = [
-      { src: 'fotos/foto-1.jpg', caption: 'MIT Sloan', size: 'tall' },
-      { src: 'fotos/foto-2.jpg', caption: 'BoostBrands', size: 'wide' },
-      { src: 'fotos/foto-3.jpg', caption: 'Bajaj', size: '' },
-      { src: 'fotos/foto-4.jpg', caption: 'Clases', caption_en: 'Teaching', size: '' },
-      { src: 'fotos/foto-5.jpg', caption: 'Charlas y eventos', caption_en: 'Talks & events', size: 'wide' },
-      { src: 'fotos/foto-6.jpg', caption: 'Singapur', caption_en: 'Singapore', size: '' },
-      { src: 'fotos/foto-7.jpg', caption: 'Equipo', caption_en: 'Team', size: '' },
+      { src: 'fotos/mit-graduacion.jpg', caption: 'Graduación, MIT Sloan', caption_en: 'Graduation, MIT Sloan', size: 'tall' },
+      { src: 'fotos/stanford-gsb.jpg', caption: 'Stanford GSB, 2015', size: 'wide', pos: '50% 80%' },
+      { src: 'fotos/stanford-clase.jpg', caption: 'Clase en Stanford GSB', caption_en: 'Class at Stanford GSB', size: 'tall' },
+      { src: 'fotos/mit-sloan.jpg', caption: 'MIT Sloan', size: '', pos: '30% 50%' },
+      { src: 'fotos/mit-ganadores.jpg', caption: 'Equipo ganador, MIT Sloan', caption_en: 'Winning team, MIT Sloan', size: '' },
     ];
 
     /* ---------- Helpers ---------- */
@@ -752,7 +751,7 @@
       $('gallery').replaceChildren(...loaded.map(i => {
         const p = PHOTOS[i], cap = T(p, 'caption');
         const fig = el('button', { class: `shot ${p.size}`, type: 'button', 'aria-label': cap },
-          el('img', { src: p.src, alt: cap, loading: 'lazy' }), el('span', { text: cap }));
+          el('img', { src: p.src, alt: cap, loading: 'lazy', ...(p.pos ? { style: `object-position: ${p.pos}` } : {}) }), el('span', { text: cap }));
         fig.addEventListener('click', () => {
           $('lb-img').src = p.src; $('lb-img').alt = cap; $('lb-cap').textContent = cap;
           lb.hidden = false; $('lb-close').focus();
