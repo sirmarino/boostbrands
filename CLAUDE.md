@@ -26,7 +26,7 @@ There is no build step, package manager, framework or test suite. Each page is s
 ## index.html projects section
 
 - "Cosas que he construido" is a horizontal accordion of `<details class="proj" name="proyectos">` rendered by `renderProjects()` from the `PROJECTS` array in the page script (same `_en` field convention as cv.html). One card is always open; below 1100px it becomes a vertical accordion.
-- Each project's visual is an illustrative sketch built by small helpers (`flow`, `dashboard`, `store`, `steps`, `video`, `bars`, `wave`) and labelled "Ilustrativo". If `fotos/proyecto-NN.jpg` exists (NN = 01…08, the project's position), the real photo replaces the sketch automatically.
+- Each project's visual is an illustrative sketch built by small helpers (`flow`, `store`, `steps`, `video`, `bars`, `wave`) and labelled "Ilustrativo". If `fotos/proyecto-NN.jpg` exists (NN = 01…07, the project's position), the real photo replaces the sketch automatically.
 
 ## cv.html specifics
 

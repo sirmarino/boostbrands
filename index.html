@@ -255,10 +255,6 @@
     .sk-fill.hot { background: var(--accent); }
     .sk-axis { display: flex; gap: 20px; padding: 0 10px; font: 500 .7rem var(--font-mono); color: var(--muted); text-transform: uppercase; }
     .sk-axis span { flex: 1; text-align: center; }
-    .sk-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-    .sk-kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px; font: 500 .66rem var(--font-mono); text-transform: uppercase; color: var(--muted); }
-    .sk-kpi strong { display: block; font: 800 1.35rem var(--font-display); color: var(--text); text-transform: none; margin-top: 4px; }
-    .sk-kpi.hot strong { color: var(--accent-text); }
     .sk-chart { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px; color: var(--accent); }
     .sk-chart svg { width: 100%; height: 120px; display: block; }
     .sk-store { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
@@ -487,8 +483,8 @@
         <div class="card">
           <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M3 9h18M10 20v-6h4v6"/></svg></div>
           <h3><span data-l="es">Representación retail</span><span data-l="en">Retail representation</span></h3>
-          <p data-l="es">Llevo marcas a las grandes cadenas: 2 marcas internacionales de moda sostenible, incluida Acapella, en 3 cadenas retail chilenas.</p>
-          <p data-l="en">I bring brands into major chains: 2 international sustainable fashion brands, including Acapella, in 3 Chilean retail chains.</p>
+          <p data-l="es">Llevo marcas a las grandes cadenas: 2 marcas internacionales de moda sostenible, Acapella y Bench, en 3 cadenas retail chilenas.</p>
+          <p data-l="en">I bring brands into major chains: 2 international sustainable fashion brands, Acapella and Bench, in 3 Chilean retail chains.</p>
         </div>
         <div class="card">
           <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></div>
@@ -556,8 +552,8 @@
             <li data-l="en">Moved from B2B to B2C/D2C: replaced 20 franchises with 4 company stores. EBITDA +20%, cash flow +50%.</li>
             <li data-l="es">Alianza de USD $8M con la fintech Galgo y lanzamiento de MotoFin, microcrédito propio.</li>
             <li data-l="en">USD $8M alliance with fintech Galgo and launch of MotoFin, an in-house microcredit unit.</li>
-            <li data-l="es">E-commerce desde cero: USD $13,5M en ventas durante la pandemia. Equipo de 33 personas y 3 agencias.</li>
-            <li data-l="en">E-commerce from zero: USD $13.5M in sales during the pandemic. Team of 33 people and 3 agencies.</li>
+            <li data-l="es">E-commerce desde cero en Shopify: USD $13,5M en ventas durante la pandemia. Equipo de 33 personas y 3 agencias.</li>
+            <li data-l="en">E-commerce from zero on Shopify: USD $13.5M in sales during the pandemic. Team of 33 people and 3 agencies.</li>
           </ul></div>
         </details></li>
         <li><details class="job">
@@ -596,8 +592,8 @@
             <span class="chev" aria-hidden="true">+</span>
           </summary>
           <div class="job-body"><ul>
-            <li data-l="es">Inversión de USD $20M aprobada por el HQ global.</li>
-            <li data-l="en">USD $20M investment approved by global HQ.</li>
+            <li data-l="es">Desarrollo de producto y line-up completo para Electrolux LATAM: inversión de USD $20M aprobada por el HQ global.</li>
+            <li data-l="en">Product development and full line-up for Electrolux LATAM: USD $20M investment approved by global HQ.</li>
             <li data-l="es">Electrolux, Fensa y Mademsa #1 en Chile: 45% en refrigeradores y 75% en freezers.</li>
             <li data-l="en">Electrolux, Fensa and Mademsa #1 in Chile: 45% share in refrigerators, 75% in freezers.</li>
           </ul></div>
@@ -690,27 +686,18 @@
     $('lang-btn').addEventListener('click', () => setLang(lang === 'es' ? 'en' : 'es'));
 
     /* ---------- Projects (content from the CV). Fields ending in _en are the English versions.
-       Real photos: put fotos/proyecto-01.jpg … proyecto-08.jpg and they replace the sketch. ---------- */
+       Real photos: put fotos/proyecto-01.jpg … proyecto-07.jpg and they replace the sketch. ---------- */
     const PROJECTS = [
       { org: 'BoostBrands', area: 'Representación retail', area_en: 'Retail representation', year: '2020 – hoy', year_en: '2020 – now',
         title: 'Moda sostenible en el retail chileno', title_en: 'Sustainable fashion in Chilean retail', short: 'Moda sostenible en retail', short_en: 'Sustainable fashion in retail',
-        desc: 'Llevé dos marcas internacionales de moda sostenible, incluida Acapella, a tres de las grandes cadenas retail de Chile.',
-        desc_en: 'I brought two international sustainable fashion brands, including Acapella, into three of Chile’s major retail chains.',
-        bullets: ['Acuerdos de distribución con 3 grandes cadenas', '2 marcas internacionales, incluida Acapella', 'USD $400K en ventas', '40% de margen'],
-        bullets_en: ['Distribution deals with 3 major chains', '2 international brands, including Acapella', 'USD $400K in sales', '40% margin'],
+        desc: 'Llevé dos marcas internacionales de moda sostenible, Acapella y Bench, a tres de las grandes cadenas retail de Chile.',
+        desc_en: 'I brought two international sustainable fashion brands, Acapella and Bench, into three of Chile’s major retail chains.',
+        bullets: ['Acuerdos de distribución con 3 grandes cadenas', '2 marcas internacionales: Acapella y Bench', 'USD $400K en ventas', '40% de margen'],
+        bullets_en: ['Distribution deals with 3 major chains', '2 international brands: Acapella and Bench', 'USD $400K in sales', '40% margin'],
         chips: ['Negociación retail', 'Distribución', 'Desarrollo de marcas'], chips_en: ['Retail negotiation', 'Distribution', 'Brand development'],
         path: 'boostbrands / retail',
-        sketch: t => flow([t('ACAPELLA', 'ACAPELLA'), t('MARCA 2', 'BRAND 2')], 'BOOSTBRANDS', [t('CADENA 1', 'CHAIN 1'), t('CADENA 2', 'CHAIN 2'), t('CADENA 3', 'CHAIN 3')],
+        sketch: t => flow([t('ACAPELLA', 'ACAPELLA'), 'BENCH'], 'BOOSTBRANDS', [t('CADENA 1', 'CHAIN 1'), t('CADENA 2', 'CHAIN 2'), t('CADENA 3', 'CHAIN 3')],
           [[t('Ventas', 'Sales'), 'USD $400K'], [t('Margen', 'Margin'), '40%']]) },
-      { org: 'BoostBrands', area: 'Consultoría', area_en: 'Consulting', year: '2020 – hoy', year_en: '2020 – now',
-        title: '50 PYMES en plena crisis', title_en: '50 SMEs through a downturn', short: '50 PYMES en crisis', short_en: '50 SMEs in a downturn',
-        desc: 'Asesoría de marketing comercial a PYMES chilenas durante la crisis económica, combinando estrategia con IA agéntica para ejecutar a bajo costo.',
-        desc_en: 'Commercial marketing advice for Chilean SMEs during the economic crisis, combining strategy with agentic AI to execute at low cost.',
-        bullets: ['50 PYMES asesoradas', '+15% de crecimiento promedio en ingresos', '12 clientes activos', 'Campañas y contenido con IA agéntica'],
-        bullets_en: ['50 SMEs advised', '+15% average revenue growth', '12 active clients', 'Campaigns and content with agentic AI'],
-        chips: ['Estrategia comercial', 'Marketing B2B/B2C', 'IA agéntica'], chips_en: ['Commercial strategy', 'B2B/B2C marketing', 'Agentic AI'],
-        path: 'boostbrands / clientes', path_en: 'boostbrands / clients',
-        sketch: t => dashboard([[t('PYMES', 'SMEs'), '50'], [t('Activos', 'Active'), '12'], [t('Ingresos', 'Revenue'), '+15%', true]], t('INGRESOS PROMEDIO DE CLIENTES', 'AVERAGE CLIENT REVENUE')) },
       { org: 'Bajaj Motochile', area: 'Transformación comercial', area_en: 'Commercial transformation', year: '2020 – 2024',
         title: 'De franquicias a venta directa', title_en: 'From franchises to direct sales', short: 'De franquicias a venta directa', short_en: 'Franchises to direct sales',
         desc: 'Transformé el modelo de B2B a B2C/D2C: reemplacé 20 franquicias por 4 tiendas propias y ordené la caja del negocio.',
@@ -723,11 +710,11 @@
           [['EBITDA', '+20%'], [t('Flujo de caja', 'Cash flow'), '+50%']]) },
       { org: 'Bajaj Motochile', area: 'Canal digital', area_en: 'Digital channel', year: '2020 – 2024',
         title: 'E-commerce desde cero', title_en: 'E-commerce from zero', short: 'E-commerce desde cero', short_en: 'E-commerce from zero',
-        desc: 'Construí el canal de venta online desde cero en plena pandemia y lo conecté con un CRM para medir cada etapa de la venta.',
-        desc_en: 'I built the online sales channel from scratch during the pandemic and connected it to a CRM to measure every stage of the sale.',
-        bullets: ['USD $13,5M en ventas online', 'Canal construido desde cero', 'HubSpot CRM implementado', 'Parte de la estrategia que llevó la participación de 9% a 23%'],
-        bullets_en: ['USD $13.5M in online sales', 'Channel built from zero', 'HubSpot CRM implemented', 'Part of the strategy that took market share from 9% to 23%'],
-        chips: ['E-commerce', 'HubSpot', 'CAC y conversión'], chips_en: ['E-commerce', 'HubSpot', 'CAC & conversion'],
+        desc: 'Construí el canal de venta online desde cero en plena pandemia, con tienda y pasarelas de pago en Shopify, y lo conecté con un CRM para medir cada etapa de la venta.',
+        desc_en: 'I built the online sales channel from scratch during the pandemic, with the store and payment gateways on Shopify, and connected it to a CRM to measure every stage of the sale.',
+        bullets: ['USD $13,5M en ventas online', 'Tienda y pasarelas de pago en Shopify', 'HubSpot CRM implementado', 'Parte de la estrategia que llevó la participación de 9% a 23%'],
+        bullets_en: ['USD $13.5M in online sales', 'Store and payment gateways on Shopify', 'HubSpot CRM implemented', 'Part of the strategy that took market share from 9% to 23%'],
+        chips: ['Shopify', 'HubSpot', 'CAC y conversión'], chips_en: ['Shopify', 'HubSpot', 'CAC & conversion'],
         path: 'tienda online', path_en: 'online store',
         sketch: t => store([[t('Ventas online', 'Online sales'), t('USD $13,5M', 'USD $13.5M')], [t('Participación', 'Market share'), '9% → 23%']]) },
       { org: 'Bajaj Auto', area: 'Country Manager', area_en: 'Country Manager', year: '2017 – 2020',
@@ -741,20 +728,20 @@
         sketch: t => steps([t('Distribuidor elegido', 'Distributor chosen'), t('Equipo de 25 personas', 'Team of 25'), t('3 tiendas abiertas', '3 stores opened'), t('USD $1M · 5% de participación', 'USD $1M · 5% share')]) },
       { org: 'Bajaj Auto', area: 'CMO regional LATAM', area_en: 'Regional CMO LATAM', year: '2017 – 2020',
         title: 'Reality shows y campañas en 6 países', title_en: 'Reality shows and campaigns in 6 countries', short: 'Reality shows en 6 países', short_en: 'Reality shows in 6 countries',
-        desc: 'Diseñé campañas integradas para 6 países, incluidos 2 reality shows digitales originales con figuras de TV en Perú y Argentina.',
-        desc_en: 'I designed integrated campaigns for 6 countries, including 2 original digital reality shows with TV personalities in Peru and Argentina.',
-        bullets: ['Presupuesto de USD $6M en 6 países', '2 reality shows digitales originales', 'Mayor alza regional de participación en 10 años', '19% de participación LATAM', 'KPIs que conectan alcance con ventas', '-30% en costos de agencias'],
-        bullets_en: ['USD $6M budget across 6 countries', '2 original digital reality shows', 'Largest regional share gain in 10 years', '19% LATAM market share', 'KPIs linking reach to sales', '-30% in agency costs'],
+        desc: 'Diseñé campañas integradas para 6 países, incluidos 2 reality shows digitales originales con figuras de TV: Pro Am en Argentina y Pulsar Aventura en dos ruedas en Perú.',
+        desc_en: 'I designed integrated campaigns for 6 countries, including 2 original digital reality shows with TV personalities: Pro Am in Argentina and Pulsar Aventura en dos ruedas in Peru.',
+        bullets: ['Presupuesto de USD $6M en 6 países', 'Reality shows Pro Am (Argentina) y Pulsar Aventura en dos ruedas (Perú)', 'Mayor alza regional de participación en 10 años', '19% de participación LATAM', 'KPIs que conectan alcance con ventas', '-30% en costos de agencias'],
+        bullets_en: ['USD $6M budget across 6 countries', 'Reality shows Pro Am (Argentina) and Pulsar Aventura en dos ruedas (Peru)', 'Largest regional share gain in 10 years', '19% LATAM market share', 'KPIs linking reach to sales', '-30% in agency costs'],
         chips: ['Marketing integrado', 'Contenido', 'Gestión de agencias'], chips_en: ['Integrated marketing', 'Content', 'Agency management'],
         path: 'bajaj / campañas', path_en: 'bajaj / campaigns',
-        sketch: t => video(t('Reality show · Ep. 01', 'Reality show · Ep. 01'), [t('Perú', 'Peru'), 'Argentina', t('6 países', '6 countries')]) },
+        sketch: t => video('Pulsar Aventura en dos ruedas', [t('Pro Am · Argentina', 'Pro Am · Argentina'), t('Pulsar · Perú', 'Pulsar · Peru'), t('6 países', '6 countries')]) },
       { org: 'Electrolux', area: 'Product marketing', area_en: 'Product marketing', year: '2013 – 2016',
         title: 'Electrolux premium con chefs Michelin', title_en: 'Electrolux goes premium with Michelin chefs', short: 'Premium con chefs Michelin', short_en: 'Premium with Michelin chefs',
-        desc: 'Reposicioné Electrolux en el segmento premium con chefs Michelin como embajadores, bajo el concepto "disfrute culinario".',
-        desc_en: 'I repositioned Electrolux in the premium segment with Michelin-starred chefs as ambassadors, under the "culinary enjoyment" concept.',
-        bullets: ['De 1% a 5% de participación premium en el año 1', 'Acuerdos con retailers y grandes tiendas', 'Electrolux, Fensa y Mademsa #1 en Chile', 'USD $20M de inversión aprobada por el HQ global'],
-        bullets_en: ['From 1% to 5% premium share in year one', 'Deals with retailers and department stores', 'Electrolux, Fensa and Mademsa #1 in Chile', 'USD $20M investment approved by global HQ'],
-        chips: ['Posicionamiento de marca', 'Producto', 'Retail'], chips_en: ['Brand positioning', 'Product', 'Retail'],
+        desc: 'Lideré el desarrollo de producto y el line-up completo de Electrolux para Latinoamérica, con USD $20M de inversión, y reposicioné la marca en el segmento premium con chefs Michelin como embajadores.',
+        desc_en: 'I led product development and the full Electrolux line-up for Latin America, backed by a USD $20M investment, and repositioned the brand as premium with Michelin-starred chefs as ambassadors.',
+        bullets: ['Desarrollo de producto y line-up completo para LATAM', 'USD $20M de inversión aprobada por el HQ global', 'De 1% a 5% de participación premium en el año 1', 'Concepto "disfrute culinario" con chefs Michelin', 'Electrolux, Fensa y Mademsa #1 en Chile'],
+        bullets_en: ['Product development and full line-up for LATAM', 'USD $20M investment approved by global HQ', 'From 1% to 5% premium share in year one', '"Culinary enjoyment" concept with Michelin chefs', 'Electrolux, Fensa and Mademsa #1 in Chile'],
+        chips: ['Desarrollo de producto', 'Posicionamiento de marca', 'Retail'], chips_en: ['Product development', 'Brand positioning', 'Retail'],
         path: 'electrolux / premium',
         sketch: t => bars([[t('Antes', 'Before'), 1, '1%'], [t('Año 1', 'Year 1'), 5, '5%', true]], 5, t('PARTICIPACIÓN EN SEGMENTO PREMIUM', 'PREMIUM SEGMENT SHARE')) },
       { org: 'Accenture', area: 'Associate Marketing Manager', area_en: 'Associate Marketing Manager', year: '2016 – 2017',
@@ -774,11 +761,6 @@
     function flow(left, center, right, totals) {
       return `<div class="sk-flow"><div class="sk-col">${left.map(x => node(x)).join('')}</div><div class="sk-link"></div>
         <div class="sk-col">${node(center, true)}</div><div class="sk-link"></div><div class="sk-col">${right.map(x => node(x)).join('')}</div></div>${foot(totals)}`;
-    }
-    function dashboard(kpis, label) {
-      return `<div class="sk-kpis">${kpis.map(([k, v, hot]) => `<div class="sk-kpi${hot ? ' hot' : ''}">${esc(k)}<strong>${esc(v)}</strong></div>`).join('')}</div>
-        <div class="sk-chart"><div class="p-tag" style="text-align:left">${esc(label)}</div>
-        <svg viewBox="0 0 300 120" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,96 50,92 100,84 150,80 200,62 250,50 300,34" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><circle cx="300" cy="34" r="5" fill="currentColor"/></svg></div>`;
     }
     function store(totals) {
       const prod = '<div class="sk-prod"><div></div><i></i><em></em></div>';
