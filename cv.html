@@ -219,12 +219,12 @@
     /* Worked with */
     .groups { display: grid; gap: 28px; }
     .group h3 { font: 500 .8rem var(--font-mono); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 12px; }
-    .wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
+    .wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
     .mark { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; min-height: 88px; display: flex; align-items: center; gap: 14px; overflow: hidden; }
     .mark .name { font: 800 1.08rem/1.15 var(--font-display); letter-spacing: -0.02em; color: var(--heading); margin-bottom: 3px; }
     /* Logos sit on white in both themes, as brands design them; missing logos show initials on navy */
-    .logo-tile { flex: none; width: 52px; height: 52px; border-radius: 12px; background: #fff; border: 1px solid var(--border); display: grid; place-items: center; padding: 9px; }
-    .logo-tile img { width: 100%; height: 100%; object-fit: contain; }
+    .logo-tile { flex: none; width: 80px; height: 52px; border-radius: 12px; background: #fff; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; padding: 7px 9px; }
+    .logo-tile img { display: block; width: 100%; height: 100%; object-fit: contain; }
     .logo-tile.mono { padding: 0; background: var(--navy); border-color: var(--navy-line); color: var(--on-navy); font: 800 1.05rem var(--font-display); letter-spacing: -0.02em; }
     .logo-tile.mono.long { font-size: .74rem; letter-spacing: 0; }
     .mark .rel { font-size: .82rem; color: var(--muted); }
@@ -574,17 +574,17 @@
     /* Network. logo: file in logos/ shown on a white tile; until a logo file exists, the tile shows `mono` (initials). */
     const GROUPS = [
       { name: 'Empresas donde he trabajado', name_en: "Companies I've worked at", items: [
-        { n: 'BoostBrands', rel: 'Fundador y CEO', rel_en: 'Founder & CEO', mono: 'BB' },
-        { n: 'Bajaj Motochile', rel: 'Director de Marketing y Ventas', rel_en: 'Marketing & Sales Director', mono: 'BM' },
-        { n: 'Bajaj Auto', rel: 'Country Manager y CMO regional', rel_en: 'Country Manager & regional CMO', mono: 'BA' },
+        { n: 'BoostBrands', rel: 'Fundador y CEO', rel_en: 'Founder & CEO', logo: 'logos/boostbrands.png', mono: 'BB' },
+        { n: 'Bajaj Motochile', rel: 'Director de Marketing y Ventas', rel_en: 'Marketing & Sales Director', logo: 'logos/bajaj.png', mono: 'BM' },
+        { n: 'Bajaj Auto', rel: 'Country Manager y CMO regional', rel_en: 'Country Manager & regional CMO', logo: 'logos/bajaj.png', mono: 'BA' },
         { n: 'Accenture', rel: 'Associate Marketing Manager', rel_en: 'Associate Marketing Manager', logo: 'logos/accenture.svg', mono: 'A' },
-        { n: 'Electrolux', rel: 'Product Marketing regional', rel_en: 'Regional product marketing', mono: 'E' },
+        { n: 'Electrolux', rel: 'Product Marketing regional', rel_en: 'Regional product marketing', logo: 'logos/electrolux.png', mono: 'E' },
         { n: 'Cencosud', rel: 'Product Marketing', rel_en: 'Product marketing', mono: 'C' } ] },
       { name: 'Marcas, socios y clientes', name_en: 'Brands, partners and clients', items: [
         { n: 'Fensa', rel: 'Marca #1 en Chile (Electrolux)', rel_en: '#1 brand in Chile (Electrolux)', mono: 'F' },
         { n: 'Mademsa', rel: 'Marca #1 en Chile (Electrolux)', rel_en: '#1 brand in Chile (Electrolux)', mono: 'M' },
-        { n: 'Acapella', rel: 'Moda sostenible, representación retail', rel_en: 'Sustainable fashion, retail representation', mono: 'A' },
-        { n: 'Bench', rel: 'Moda, representación retail', rel_en: 'Fashion, retail representation', mono: 'B' },
+        { n: 'Acapella', rel: 'Moda sostenible, representación retail', rel_en: 'Sustainable fashion, retail representation', logo: 'logos/acapella.png', mono: 'A' },
+        { n: 'Bench', rel: 'Moda, representación retail', rel_en: 'Fashion, retail representation', logo: 'logos/bench.png', mono: 'B' },
         { n: 'Galgo', rel: 'Fintech, alianza USD $8M', rel_en: 'Fintech, USD $8M alliance', mono: 'G' },
         { n: '3M Chile', rel: 'Proyecto RFID de tesis', rel_en: 'RFID thesis project', logo: 'logos/3m.svg', mono: '3M' },
         { n: 'Commonwealth Kitchen', rel: 'Proyecto MIT en Boston', rel_en: 'MIT project in Boston', mono: 'CK' } ] },
