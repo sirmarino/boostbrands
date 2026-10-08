@@ -346,7 +346,13 @@
     .yt-cap a { font: 500 .78rem var(--font-mono); color: var(--accent-text); text-decoration: none; white-space: nowrap; min-height: 44px; display: inline-flex; align-items: center; }
     .yt-cap a:hover { text-decoration: underline; }
     .p-press { margin: 0; }
-    .p-press img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: var(--pos, 50% 30%); border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 20px 40px -26px rgba(20, 33, 61, .55); }
+    .p-press-media { position: relative; }
+    .p-zoom { display: block; padding: 0; border: 0; background: none; cursor: zoom-in; }
+    .p-zoom img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .p-zoom.main { width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 20px 40px -26px rgba(20, 33, 61, .55); }
+    .p-zoom.main img { object-position: 50% 35%; transition: transform .4s ease; }
+    .p-zoom.main:hover img { transform: scale(1.03); }
+    .p-zoom.inset { position: absolute; left: 10px; bottom: 10px; width: 34%; aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden; border: 3px solid var(--surface); box-shadow: 0 14px 28px -12px rgba(0, 0, 0, .6); }
     .p-press figcaption { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 8px; font-size: .9rem; font-weight: 600; color: var(--heading); }
     .p-press small { font: 500 .72rem var(--font-mono); color: var(--muted); white-space: nowrap; }
 
@@ -1049,6 +1055,9 @@
         stats_en: [['USD $1M', 'in sales in year one'], ['5%', 'market share in year one'], ['25', 'people on the team'], ['3', 'stores opened']],
         chips: ['Expansión internacional', 'Go-to-market', 'Liderazgo de equipos'], chips_en: ['International expansion', 'Go-to-market', 'Team leadership'],
         link: { href: 'https://www.lanacion.com.py/negocios_edicion_impresa/2019/01/12/bajaj-llego-al-paraguay-y-busca-ser-lider-en-el-segmento-de-motos/', label: 'Nota en La Nación (Paraguay)', label_en: 'La Nación (Paraguay) article' },
+        photo: { src: 'fotos/paraguay-lanzamiento.jpg', alt: 'Cristian Marino en el lanzamiento de Bajaj en Paraguay, junto a las motos', alt_en: 'Cristian Marino at the Bajaj launch in Paraguay, next to the motorcycles',
+          cap: 'Lanzamiento de Bajaj en Paraguay', cap_en: 'Bajaj launch in Paraguay', credit: 'Fotos: La Nación, 2019',
+          inset: { src: 'fotos/paraguay-entrevista.jpg', alt: 'Cristian Marino en entrevista con La Nación (Paraguay)', alt_en: 'Cristian Marino interviewed by La Nación (Paraguay)', pos: '45% 30%' } },
         videos: [{ id: 'eZw5Iau7REE', label: 'Aterrizaje de Bajaj en Paraguay', label_en: 'Bajaj lands in Paraguay' }] },
       { org: 'Bajaj Auto', area: 'CMO regional LATAM', area_en: 'Regional CMO LATAM', year: '2017 – 2020',
         logos: ['bajaj'],
@@ -1153,9 +1162,11 @@
     });
     let openProject = 0;
     const ytUrl = v => `https://www.youtube.com/watch?v=${encodeURIComponent(v.id)}${v.list ? '&list=' + encodeURIComponent(v.list) : ''}`;
-    /* photo (optional): { src, alt, alt_en, cap, cap_en, credit } shown above the videos, e.g. a press photo */
+    /* photo (optional): { src, alt, alt_en, cap, cap_en, credit, pos?, inset?: { src, alt, alt_en, pos? } } shown above
+       the videos (a press photo, with a smaller second photo over its corner); both open in the photo dialog. */
+    const zoomImg = (ph, L, t, cls) => `<button type="button" class="p-zoom ${cls}" data-src="${esc(ph.src)}" data-cap="${esc(L(ph, 'alt'))}" aria-label="${esc(t('Ampliar foto: ', 'Enlarge photo: ') + L(ph, 'alt'))}"><img src="${esc(ph.src)}" alt="" loading="lazy"${ph.pos ? ` style="object-position:${ph.pos}"` : ''}></button>`;
     function videoBlock(videos, L, t, photo) {
-      return `<div class="p-videos">${photo ? `<figure class="p-press"><img src="${esc(photo.src)}" alt="${esc(L(photo, 'alt'))}" loading="lazy">
+      return `<div class="p-videos">${photo ? `<figure class="p-press"><div class="p-press-media">${zoomImg(photo, L, t, 'main')}${photo.inset ? zoomImg(photo.inset, L, t, 'inset') : ''}</div>
           <figcaption><span>${esc(L(photo, 'cap'))}</span><small>${esc(photo.credit)}</small></figcaption></figure>` : ''}${videos.map(v => `<div>
           <div class="yt-frame"><button type="button" class="yt" data-yt="${esc(v.id)}" data-list="${esc(v.list || '')}" data-title="${esc(L(v, 'label'))}" aria-label="${esc(t('Reproducir video: ', 'Play video: ') + L(v, 'label'))}">
             <img src="https://i.ytimg.com/vi/${esc(v.id)}/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="yt-play" aria-hidden="true"></span></button></div>
@@ -1166,7 +1177,7 @@
     $('projects')?.addEventListener('click', e => {
       const tab = e.target.closest('.flip-tabs button');
       if (tab) { const g = tab.closest('.dg-flip'); clearTimeout(g._t); setFlip(g, tab.dataset.state); return; }
-      const shot = e.target.closest('button.p-shot');
+      const shot = e.target.closest('button.p-shot, button.p-zoom');
       if (shot && $('lb').showModal) { $('lb-img').src = shot.dataset.src; $('lb-img').alt = shot.dataset.cap; $('lb-cap').textContent = shot.dataset.cap; $('lb').showModal(); return; }
       const b = e.target.closest('button.yt'); if (!b) return;
       const f = document.createElement('iframe');
