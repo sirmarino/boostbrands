@@ -571,7 +571,8 @@
       todos: ['Todos', 'All'], crecimiento: ['Crecimiento', 'Growth'], finanzas: ['Finanzas', 'Finance'],
       innovacion: ['Marca e innovación', 'Brand & innovation'], liderazgo: ['Liderazgo', 'Leadership'],
     };
-    /* Network. logo: file in logos/ shown on a white tile; until a logo file exists, the tile shows `mono` (initials). */
+    /* Network. logo: file in logos/ shown on a white tile (or on `bg` for logos drawn on a brand color);
+       until a logo file exists, the tile shows `mono` (initials). */
     const GROUPS = [
       { name: 'Empresas donde he trabajado', name_en: "Companies I've worked at", items: [
         { n: 'BoostBrands', rel: 'Fundador y CEO', rel_en: 'Founder & CEO', logo: 'logos/boostbrands.png', mono: 'BB' },
@@ -579,10 +580,10 @@
         { n: 'Bajaj Auto', rel: 'Country Manager y CMO regional', rel_en: 'Country Manager & regional CMO', logo: 'logos/bajaj.png', mono: 'BA' },
         { n: 'Accenture', rel: 'Associate Marketing Manager', rel_en: 'Associate Marketing Manager', logo: 'logos/accenture.svg', mono: 'A' },
         { n: 'Electrolux', rel: 'Product Marketing regional', rel_en: 'Regional product marketing', logo: 'logos/electrolux.png', mono: 'E' },
-        { n: 'Cencosud', rel: 'Product Marketing', rel_en: 'Product marketing', mono: 'C' } ] },
+        { n: 'Cencosud', rel: 'Product Marketing', rel_en: 'Product marketing', logo: 'logos/cencosud.png', mono: 'C' } ] },
       { name: 'Marcas, socios y clientes', name_en: 'Brands, partners and clients', items: [
-        { n: 'Fensa', rel: 'Marca #1 en Chile (Electrolux)', rel_en: '#1 brand in Chile (Electrolux)', mono: 'F' },
-        { n: 'Mademsa', rel: 'Marca #1 en Chile (Electrolux)', rel_en: '#1 brand in Chile (Electrolux)', mono: 'M' },
+        { n: 'Fensa', rel: 'Marca #1 en Chile (Electrolux)', rel_en: '#1 brand in Chile (Electrolux)', logo: 'logos/fensa.png', mono: 'F' },
+        { n: 'Mademsa', rel: 'Marca #1 en Chile (Electrolux)', rel_en: '#1 brand in Chile (Electrolux)', logo: 'logos/mademsa.png', bg: '#ff8201', mono: 'M' },
         { n: 'Acapella', rel: 'Moda sostenible, representación retail', rel_en: 'Sustainable fashion, retail representation', logo: 'logos/acapella.png', mono: 'A' },
         { n: 'Bench', rel: 'Moda, representación retail', rel_en: 'Fashion, retail representation', logo: 'logos/bench.png', mono: 'B' },
         { n: 'Galgo', rel: 'Fintech, alianza USD $8M', rel_en: 'Fintech, USD $8M alliance', logo: 'logos/galgo.png', mono: 'G' },
@@ -769,8 +770,8 @@
     /* ---------- Worked with ---------- */
     function renderGroups() {
       const tile = it => {
-        const box = el('div', { class: 'logo-tile', 'aria-hidden': 'true' });
-        const mono = () => { box.className = `logo-tile mono${it.mono.length > 2 ? ' long' : ''}`; box.textContent = it.mono; };
+        const box = el('div', { class: 'logo-tile', 'aria-hidden': 'true', ...(it.bg ? { style: `background: ${it.bg}; border-color: ${it.bg}` } : {}) });
+        const mono = () => { box.className = `logo-tile mono${it.mono.length > 2 ? ' long' : ''}`; box.removeAttribute('style'); box.textContent = it.mono; };
         if (it.logo) { const img = el('img', { src: it.logo, alt: '', loading: 'lazy' }); img.onerror = mono; box.append(img); } else mono();
         return box;
       };
