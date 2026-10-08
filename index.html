@@ -217,15 +217,20 @@
     .projects-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
     .projects-head h2 { font-size: clamp(2.5rem, 6vw, 4.6rem); line-height: 1; letter-spacing: -0.04em; margin: 0; color: var(--heading); }
     .projects-head p { color: var(--muted); max-width: 46ch; }
-    #proyectos { background: var(--navy); color: var(--on-navy); }
+    #proyectos { position: relative; isolation: isolate; color: var(--on-navy);
+      background: radial-gradient(55% 45% at 88% 0%, rgba(232, 85, 28, .24), transparent 70%), radial-gradient(45% 55% at 0% 100%, rgba(84, 116, 210, .2), transparent 70%), var(--navy); }
+    #proyectos::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background-image: radial-gradient(rgba(255, 255, 255, .08) 1px, transparent 1.4px); background-size: 24px 24px; -webkit-mask-image: linear-gradient(#000, transparent 80%); mask-image: linear-gradient(#000, transparent 80%); }
     #proyectos .kicker { color: var(--accent-on-navy); }
     #proyectos .projects-head h2 { color: var(--on-navy); }
     #proyectos .projects-head p { color: var(--on-navy-muted); }
     #proyectos + section { border-top: 0; }
     .projects { --proj-h: 720px; display: flex; gap: 10px; height: var(--proj-h); }
-    .proj { flex: 0 0 70px; min-width: 0; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: 28px; overflow: hidden; transition: flex-grow .45s ease, flex-basis .45s ease, border-color .2s; }
-    .proj:not([open]):hover { border-color: var(--accent); }
-    .proj[open] { flex: 1 1 0; box-shadow: 0 30px 60px -40px rgba(20, 33, 61, .35); }
+    .proj { flex: 0 0 70px; min-width: 0; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: 28px; overflow: hidden; box-shadow: 0 18px 40px -24px rgba(0, 0, 0, .6); transition: flex-grow .45s ease, flex-basis .45s ease, border-color .2s, transform .25s ease, box-shadow .25s ease; }
+    .proj:not([open]) { background: linear-gradient(180deg, var(--surface) 55%, color-mix(in srgb, var(--surface) 90%, var(--accent))); }
+    .proj:not([open]):hover { border-color: var(--accent); box-shadow: 0 28px 50px -24px rgba(0, 0, 0, .7), 0 0 0 1px var(--accent); }
+    @media (prefers-reduced-motion: no-preference) { .proj:not([open]):hover { transform: translateY(-6px); } }
+    .proj[open] { flex: 1 1 0; box-shadow: 0 50px 90px -40px rgba(0, 0, 0, .75), 0 18px 36px -18px rgba(0, 0, 0, .45); }
+    .p-fig { margin-inline-start: 14px; font-weight: 800; color: var(--accent-text); }
     .proj summary { list-style: none; cursor: pointer; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 26px 0 18px; }
     .proj summary::-webkit-details-marker { display: none; }
     .proj[open] summary { display: none; }
@@ -256,7 +261,7 @@
     .p-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 18px 22px; margin: 20px 0; }
     .p-stats.n4 { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
     .p-stats + .p-bullets { margin-top: -4px; }
-    .p-stats > div { padding-top: 12px; border-top: 2px solid var(--accent); container-type: inline-size; }
+    .p-stats > div { padding-top: 14px; background: linear-gradient(90deg, var(--accent), transparent 90%) top / 100% 3px no-repeat; container-type: inline-size; }
     .p-stats strong { display: block; font: 800 min(2.3rem, calc(100cqi / (var(--n) * .62)))/1 var(--font-display); letter-spacing: -0.03em; color: var(--accent-text); white-space: nowrap; font-variant-numeric: tabular-nums; }
     .p-stats p { margin-top: 8px; font-size: .9rem; line-height: 1.4; color: var(--muted); }
     .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
@@ -303,11 +308,15 @@
     /* Project schematics: real logos and CV figures, drawn with tokens so they work in both themes.
        Each direct child of .dg gets --d (its reveal delay) from renderProjects(); the reveal runs
        once the diagram is on screen (.dg.in) and replays whenever its card opens. */
-    .dg { flex: 1; min-height: 320px; display: flex; flex-direction: column; justify-content: center; gap: 14px; padding: 22px; border: 1px solid var(--border); border-radius: 18px; background: var(--bg); container-type: inline-size; }
+    .dg { flex: 1; min-height: 320px; display: flex; flex-direction: column; justify-content: center; gap: 14px; padding: 22px; border-radius: 18px; container-type: inline-size;
+      --bg: #111a30; --surface: #1c2b4b; --border: #31436d; --muted: #b3bdd3; --text: #e9edf5; --heading: #fff; --accent-text: #ff8a5c; --accent-soft: rgba(255, 122, 69, .18);
+      color: var(--text); border: 1px solid #22335a;
+      background: radial-gradient(90% 55% at 50% 0%, rgba(232, 85, 28, .2), transparent 70%), linear-gradient(165deg, #1d2d50, #0f182c);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), 0 24px 44px -26px rgba(10, 16, 32, .7); }
     .dg-cap, .dg-lbl { font: 500 .72rem/1.3 var(--font-mono); text-transform: uppercase; letter-spacing: .07em; color: var(--muted); text-align: center; }
     .dg-tier { display: grid; justify-items: center; gap: 6px; }
     .dg-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: 100%; }
-    .dg-hub .p-logo { width: 96px; height: 54px; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+    .dg-hub .p-logo { width: 96px; height: 54px; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft), 0 0 34px rgba(232, 85, 28, .45); }
     .dg-node { flex: 1 1 0; min-width: 0; max-width: 170px; min-height: 44px; display: grid; place-items: center; gap: 2px; padding: 8px 10px; border-radius: 12px; background: var(--surface); border: 1px solid var(--border); font: 700 .95rem/1.2 var(--font-display); color: var(--heading); text-align: center; }
     .dg-node img { display: block; height: 42px; width: auto; max-width: 100%; object-fit: contain; border-radius: 6px; }
     .dg-node.hot { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
@@ -316,7 +325,7 @@
     .dg-down::after { left: -4px; bottom: -8px; border-top: 7px solid var(--accent); border-bottom: 0; }
     .dg-step { width: min(100%, 380px); margin-inline: auto; display: flex; align-items: center; gap: 14px; padding: 8px 14px 8px 8px; border-radius: 14px; background: var(--surface); border: 1px solid var(--border); font-size: .9rem; line-height: 1.35; color: var(--text); }
     .dg-step b { display: block; font: 700 1rem/1.2 var(--font-display); color: var(--heading); }
-    .dg-step.hot { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+    .dg-step.hot { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft), 0 0 30px rgba(232, 85, 28, .3); }
     /* Narrow diagrams: the wide-screen accordion column (~300px) and phones */
     @container (max-width: 340px) {
       .dg-node { font-size: .88rem; padding: 8px 6px; }
@@ -342,16 +351,16 @@
     .flip-grid { display: grid; grid-template-columns: repeat(5, 34px); gap: 12px 16px; justify-content: center; padding-block: 4px; }
     .flip-grid i { width: 34px; height: 34px; background: color-mix(in srgb, var(--muted) 70%, var(--bg)); -webkit-mask: var(--ic-store) center / contain no-repeat; mask: var(--ic-store) center / contain no-repeat; }
     .dg-flip[data-state="after"] .flip-grid i { opacity: .14; transform: scale(.72); }
-    .dg-flip[data-state="after"] .flip-grid i.keep { opacity: 1; transform: scale(1.22); background: var(--accent); }
+    .dg-flip[data-state="after"] .flip-grid i.keep { opacity: 1; transform: scale(1.22); background: var(--accent); filter: drop-shadow(0 0 8px rgba(255, 122, 69, .6)); }
     .flip-cap, .flip-m b { display: grid; }
     .flip-cap > span, .flip-m b > span { grid-area: 1 / 1; }
     .dg-flip[data-state="after"] .b, .dg-flip[data-state="before"] .a { opacity: 0; visibility: hidden; transform: translateY(6px); }
     .flip-cap { justify-items: center; text-align: center; font: 800 1.3rem/1.2 var(--font-display); letter-spacing: -0.02em; color: var(--heading); }
-    .flip-cap.big { font-size: 3rem; line-height: 1; color: var(--accent-text); }
+    .flip-cap.big { font-size: 3rem; line-height: 1; color: var(--accent-text); text-shadow: 0 0 28px rgba(255, 122, 69, .45); }
     /* Waffle: 100 squares = 100% of a market; the lit ones are the share (wb before, wa after) */
     .flip-waffle { display: grid; grid-template-columns: repeat(10, 15px); gap: 5px; justify-content: center; }
     .flip-waffle i { width: 15px; height: 15px; border-radius: 4px; background: color-mix(in srgb, var(--muted) 22%, var(--bg)); }
-    .dg-flip[data-state="before"] .flip-waffle i.wb, .dg-flip[data-state="after"] .flip-waffle i.wa { background: var(--accent); }
+    .dg-flip[data-state="before"] .flip-waffle i.wb, .dg-flip[data-state="after"] .flip-waffle i.wa { background: var(--accent); box-shadow: 0 0 10px rgba(255, 122, 69, .6); }
     .flip-new { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; min-height: 40px; }
     .flip-new span { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px 8px 10px; border-radius: 999px; border: 1px solid var(--accent); background: var(--accent-soft); font-size: .86rem; font-weight: 600; color: var(--heading); }
     .flip-new [class^="ic-"]::before { content: ""; width: 18px; height: 18px; flex: none; background: var(--accent-text); -webkit-mask: var(--ic) center / contain no-repeat; mask: var(--ic) center / contain no-repeat; }
@@ -363,7 +372,7 @@
     .flip-m > span { font: 500 .72rem var(--font-mono); text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
     .flip-m > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px; }
     .flip-m i { width: 100%; height: 14px; border-radius: 7px; background: color-mix(in srgb, var(--muted) 45%, var(--bg)); transform-origin: left; }
-    .dg-flip[data-state="after"] .flip-m i { width: var(--w); background: var(--accent); }
+    .dg-flip[data-state="after"] .flip-m i { width: var(--w); background: linear-gradient(90deg, var(--accent), #ff9a6b); box-shadow: 0 0 14px rgba(255, 122, 69, .45); }
     .flip-m b { justify-items: end; min-width: 96px; font: 800 1.25rem var(--font-display); letter-spacing: -0.02em; color: var(--heading); white-space: nowrap; }
     @container (min-width: 480px) { .flip-grid { grid-template-columns: repeat(10, 34px); } }
     @media (prefers-reduced-motion: no-preference) {
@@ -443,6 +452,7 @@
       .proj summary { flex-direction: row; justify-content: flex-start; gap: 16px; padding: 14px 16px 14px 20px; height: auto; min-height: 64px; }
       .p-top { flex-direction: row; }
       .p-vtitle { writing-mode: horizontal-tb; transform: none; white-space: normal; flex: 1; }
+      .p-fig { display: block; margin: 2px 0 0; font-size: .92rem; }
       .p-body { grid-template-columns: 1fr; height: auto; overflow: visible; padding: 26px 22px 22px; gap: 24px; }
       .dg, .p-photo { min-height: 280px; }
       .p-visual:has(> .dg) { max-width: 640px; }
@@ -700,8 +710,8 @@
           <span class="kicker"><span data-l="es">Proyectos</span><span data-l="en">Projects</span></span>
           <h2><span data-l="es">Cosas que he <em>construido.</em></span><span data-l="en">Things I've <em>built.</em></span></h2>
         </div>
-        <p data-l="es">Proyectos reales de mi trayectoria. Toca uno para abrirlo. Donde aún no hay foto, la imagen de la derecha es un boceto ilustrativo, no una captura.</p>
-        <p data-l="en">Real projects from my career. Tap one to open it. Where there is no photo yet, the image on the right is an illustrative sketch, not a screenshot.</p>
+        <p data-l="es">Proyectos reales de mi trayectoria, con sus cifras. Toca uno para abrirlo.</p>
+        <p data-l="en">Real projects from my career, with their numbers. Tap one to open it.</p>
       </div>
       <div class="projects" id="projects"></div>
     </div>
@@ -1124,7 +1134,7 @@
         /* Skip the logo row beside the visual when the diagram already shows every logo. */
         const sideLogos = p.logos.every(k => visual.includes(LOGOS[k][0])) ? '' : `<div class="p-logos side">${p.logos.map(k => logoTile(k, true)).join('')}</div>`;
         d.innerHTML = `
-          <summary aria-label="${esc(L(p, 'title'))}"><span class="p-top"><span class="p-num">${num}</span>${logoTile(p.logos[0])}</span><span class="p-vtitle">${esc(L(p, 'short'))}</span><span class="p-plus" aria-hidden="true">+</span></summary>
+          <summary aria-label="${esc(L(p, 'title'))}"><span class="p-top"><span class="p-num">${num}</span>${logoTile(p.logos[0])}</span><span class="p-vtitle">${esc(L(p, 'short'))}${p.stats ? `<b class="p-fig">${esc(L(p, 'stats')[0][0])}</b>` : ''}</span><span class="p-plus" aria-hidden="true">+</span></summary>
           <div class="p-body">
             <div>
               <div class="p-logos top">${p.logos.map(k => logoTile(k, true)).join('')}</div>
