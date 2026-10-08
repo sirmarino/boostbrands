@@ -222,7 +222,7 @@
     #proyectos .projects-head h2 { color: var(--on-navy); }
     #proyectos .projects-head p { color: var(--on-navy-muted); }
     #proyectos + section { border-top: 0; }
-    .projects { --proj-h: 680px; display: flex; gap: 10px; height: var(--proj-h); }
+    .projects { --proj-h: 720px; display: flex; gap: 10px; height: var(--proj-h); }
     .proj { flex: 0 0 70px; min-width: 0; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: 28px; overflow: hidden; transition: flex-grow .45s ease, flex-basis .45s ease, border-color .2s; }
     .proj:not([open]):hover { border-color: var(--accent); }
     .proj[open] { flex: 1 1 0; box-shadow: 0 30px 60px -40px rgba(20, 33, 61, .35); }
@@ -251,7 +251,9 @@
     .p-bullets { list-style: none; display: grid; grid-template-columns: 1fr 1fr; column-gap: 22px; margin: 20px 0; }
     .p-bullets li { border-top: 1px solid var(--border); padding: 10px 0 10px 16px; position: relative; font-size: .92rem; line-height: 1.45; }
     .p-bullets li::before { content: ""; position: absolute; left: 0; top: 18px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
-    .p-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .p-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    .p-link { display: inline-flex; align-items: center; min-height: 44px; margin-left: 6px; font: 500 .85rem var(--font-mono); color: var(--accent-text); text-decoration: none; }
+    .p-link:hover { text-decoration: underline; }
     .p-chips span { font-size: .85rem; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); }
     .p-visual { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
     .p-tag { font: 500 .72rem var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); text-align: right; }
@@ -906,6 +908,7 @@
         path: 'electrolux / premium',
         sketch: t => bars([[t('Antes', 'Before'), 1, '1%'], [t('Año 1', 'Year 1'), 5, '5%', true]], 5, t('PARTICIPACIÓN EN SEGMENTO PREMIUM', 'PREMIUM SEGMENT SHARE')) },
       { org: 'Accenture', area: 'Associate Marketing Manager', area_en: 'Associate Marketing Manager', year: '2016 – 2017',
+        link: { href: 'https://www.ing.uc.cl/noticias/estudiantes-la-carrera-mindracer-drone-challenge/', label: 'Nota en Ingeniería UC', label_en: 'Ingeniería UC article' },
         logos: ['accenture'],
         title: 'Carrera de drones controlados por la mente', title_en: 'Mind-controlled drone race', short: 'Drones controlados por la mente', short_en: 'Mind-controlled drones',
         desc: 'Lideré la primera carrera de drones controlados por la mente en Latinoamérica, usada como estrategia de reclutamiento de talento STEM.',
@@ -990,7 +993,7 @@
               <p class="p-desc">${esc(L(p, 'desc'))}</p>
               <p class="p-pyme"><b>${t('Para tu PYME', 'For your SME')}</b>${esc(L(p, 'pyme'))}</p>
               <ul class="p-bullets">${L(p, 'bullets').map(b => `<li>${esc(b)}</li>`).join('')}</ul>
-              <div class="p-chips">${L(p, 'chips').map(c => `<span>${esc(c)}</span>`).join('')}</div>
+              <div class="p-chips">${L(p, 'chips').map(c => `<span>${esc(c)}</span>`).join('')}${p.link ? `<a class="p-link" href="${esc(p.link.href)}" target="_blank" rel="noopener">${esc(L(p.link, 'label'))} ↗</a>` : ''}</div>
             </div>
             <div class="p-visual"><div class="p-logos side">${p.logos.map(k => logo(k, true)).join('')}</div>${visual}</div>
           </div>`;
