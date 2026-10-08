@@ -12,7 +12,21 @@
   <meta property="og:image" content="https://cristian-marino.vercel.app/og.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="es_CL">
+  <meta property="og:locale:alternate" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://cristian-marino.vercel.app/">
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@graph": [
+    {"@type": "Person", "@id": "https://cristian-marino.vercel.app/#person", "name": "Cristian Marino", "url": "https://cristian-marino.vercel.app/",
+     "image": "https://cristian-marino.vercel.app/fotos/retrato.jpg", "jobTitle": "Fundador y CEO", "worksFor": {"@id": "https://cristian-marino.vercel.app/#boostbrands"},
+     "email": "mailto:cristian@boostbrands.cl", "sameAs": ["https://www.linkedin.com/in/cristianmarinov"],
+     "alumniOf": [{"@type": "CollegeOrUniversity", "name": "MIT Sloan School of Management"}, {"@type": "CollegeOrUniversity", "name": "University of Windsor, Odette School of Business"}, {"@type": "CollegeOrUniversity", "name": "Universidad Andrés Bello"}],
+     "knowsAbout": ["Strategic marketing", "Brand positioning", "Go-to-market", "Pricing", "Sales", "Business development", "E-commerce", "Digital marketing", "Competitive strategy", "Platform strategy", "System dynamics", "AI implementation"]},
+    {"@type": "ProfessionalService", "@id": "https://cristian-marino.vercel.app/#boostbrands", "name": "BoostBrands", "url": "https://boostbrands.cl",
+     "founder": {"@id": "https://cristian-marino.vercel.app/#person"}, "areaServed": "CL", "address": {"@type": "PostalAddress", "addressLocality": "Santiago", "addressCountry": "CL"}}
+  ]}
+  </script>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -104,10 +118,10 @@
     }
     nav.scrolled { border-bottom-color: var(--border); }
     nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 16px; }
-    .logo { font: 800 1.15rem var(--font-display); text-decoration: none; letter-spacing: -0.02em; white-space: nowrap; }
+    .logo { display: inline-flex; align-items: center; min-height: 44px; font: 800 1.15rem var(--font-display); text-decoration: none; letter-spacing: -0.02em; white-space: nowrap; }
     .logo span { color: var(--accent); }
     .nav-links { display: flex; gap: 4px; list-style: none; align-items: center; }
-    .nav-links a { text-decoration: none; color: var(--muted); font-size: .95rem; font-weight: 500; padding: 8px 12px; border-radius: 999px; }
+    .nav-links a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; color: var(--muted); font-size: .95rem; font-weight: 500; padding: 0 12px; border-radius: 999px; }
     .nav-links a:hover { color: var(--text); }
     .nav-links a.active { color: var(--accent-text); background: var(--accent-soft); }
     .nav-tools { display: flex; gap: 8px; align-items: center; }
@@ -249,6 +263,7 @@
     .stat:nth-child(-n + 2) { border-bottom: 1px solid var(--navy-line); }
     .stat strong { font: 800 2.5rem/1.05 var(--font-display); letter-spacing: -0.03em; color: var(--accent-on-navy); text-shadow: 0 0 32px rgba(255, 122, 69, .4); font-variant-numeric: tabular-nums; }
     .stat > span { color: var(--on-navy-muted); font-size: .93rem; }
+    .stat.award strong { font-size: 1.85rem; line-height: 1.1; }
 
     /* Services */
     .pains { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
@@ -395,8 +410,11 @@
     .ind-grid li { display: grid; }
     .ind { display: grid; padding: 0; border: 0; border-radius: 16px; background: none; font: inherit; color: inherit; text-align: left; cursor: pointer; perspective: 900px; }
     .ind-in { display: grid; transform-style: preserve-3d; }
-    .ind-f, .ind-b { grid-area: 1 / 1; display: flex; flex-direction: column; gap: 6px; min-height: 140px; padding: 16px; border-radius: 16px; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
-    .ind-f { position: relative; background: var(--surface); border: 1px solid var(--border); box-shadow: 0 14px 30px -24px rgba(20, 33, 61, .45); }
+    .ind-f, .ind-b { grid-area: 1 / 1; display: flex; flex-direction: column; gap: 6px; min-height: 128px; padding: 16px; border-radius: 16px; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+    .ind-f { position: relative; overflow: hidden; background: radial-gradient(120% 90% at 100% 100%, var(--accent-soft), transparent 62%), var(--surface); border: 1px solid var(--border); box-shadow: 0 14px 30px -24px rgba(20, 33, 61, .45); }
+    .ind-f b { margin-top: auto; position: relative; }
+    .ind-wm { position: absolute; right: -16px; bottom: -20px; width: 92px; height: 92px; color: var(--accent); opacity: .08; pointer-events: none; }
+    .ind-wm svg { width: 100%; height: 100%; stroke-width: 1.3; }
     .ind-b { transform: rotateY(180deg); color: var(--on-navy); box-shadow: 0 24px 40px -24px rgba(20, 33, 61, .7), inset 0 1px 0 rgba(255, 255, 255, .08);
       background: radial-gradient(90% 80% at 100% 0%, rgba(232, 85, 28, .35), transparent 70%), linear-gradient(160deg, var(--navy-2), var(--navy)); }
     .ind-ic { width: 40px; height: 40px; margin-bottom: 4px; border-radius: 12px; display: grid; place-items: center; color: var(--accent-ink); background: linear-gradient(140deg, #ff9a6b, var(--accent)); box-shadow: 0 10px 20px -10px rgba(232, 85, 28, .7); }
@@ -424,7 +442,7 @@
       .ind:hover .ind-f { visibility: hidden; }
     }
     @media (max-width: 1100px) { .ind-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-    @media (max-width: 560px) { .ind-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ind-f, .ind-b { padding: 14px 12px; } }
+    @media (max-width: 560px) { .ind-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ind-f, .ind-b { min-height: 116px; padding: 14px 12px; } }
     @keyframes skRun { from { transform: scaleX(0); } to { transform: scaleX(1); } }
     @keyframes skIn { from { opacity: 0; transform: translateY(10px); } }
     @keyframes skPop { from { opacity: 0; transform: scale(.85); } }
@@ -574,7 +592,7 @@
     /* Before/after panels (projects 02 and 06): the tabs set data-state; it plays before → after when it
        comes on screen or its card opens, and the visitor can switch back and forth. */
     .dg-flip { gap: 16px; --ic-store: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3.5 3h17l1.5 5.5a2.5 2.5 0 0 1-5 0 2.5 2.5 0 0 1-5 0 2.5 2.5 0 0 1-5 0 2.5 2.5 0 0 1-5 0z'/%3E%3Cpath d='M4 12.5h16V21h-6v-5h-4v5H4z'/%3E%3C/svg%3E"); }
-    .flip-tabs { position: relative; display: grid; grid-template-columns: 1fr 1fr; padding: 3px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); }
+    .flip-tabs { position: relative; display: grid; grid-template-columns: repeat(2, minmax(48px, 1fr)); padding: 3px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); }
     .flip-tabs::before { content: ""; position: absolute; top: 3px; bottom: 3px; left: 3px; width: calc(50% - 3px); border-radius: 999px; background: var(--accent); }
     .dg-flip[data-state="after"] .flip-tabs::before { transform: translateX(100%); }
     .flip-tabs button { position: relative; min-height: 44px; padding: 0 8px; border: 0; border-radius: 999px; background: none; font: 600 .86rem var(--font-body); color: var(--muted); cursor: pointer; }
@@ -622,7 +640,7 @@
     .path { position: relative; list-style: none; margin-top: 44px; --yr: 150px; --gap: 28px; }
     .path::before, .path-progress { content: ""; position: absolute; left: calc(var(--yr) + var(--gap)); top: 12px; bottom: 0; width: 2px; margin-left: -1px; background: var(--border); }
     .path-progress { background: linear-gradient(var(--accent), #ff9a6b); box-shadow: 0 0 14px rgba(232, 85, 28, .55); transform-origin: top; transform: scaleY(0); }
-    .path-item { position: relative; display: grid; grid-template-columns: var(--yr) minmax(0, 1fr); column-gap: calc(var(--gap) * 2); padding-bottom: 64px; }
+    .path-item { position: relative; display: grid; grid-template-columns: var(--yr) minmax(0, 1fr); column-gap: calc(var(--gap) * 2); padding-bottom: 52px; }
     .path-item:last-child { padding-bottom: 8px; }
     .path-when { text-align: right; }
     .path-year { display: block; font: 800 2.1rem/1 var(--font-display); letter-spacing: -0.03em; color: var(--muted); font-variant-numeric: tabular-nums; }
@@ -643,6 +661,15 @@
     @media (prefers-reduced-motion: no-preference) {
       .path-year, .path-item h3, .path-org, .path-item ul, .path-tag, .path-dot, .path-item li::before { transition: color .35s, background-color .35s, border-color .35s, box-shadow .35s; }
     }
+    /* Links from each stage to its success stories (they open the card and scroll to it) */
+    .path-cases { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .path-case { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px 0 6px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface);
+      font: 600 .9rem var(--font-body); color: var(--text); text-decoration: none; box-shadow: 0 10px 22px -18px rgba(20, 33, 61, .5); }
+    .path-case b { display: grid; place-items: center; min-width: 32px; height: 32px; border-radius: 999px; font: 500 .74rem var(--font-mono); color: var(--muted); background: var(--bg); }
+    .path-case i { font-style: normal; color: var(--accent-text); }
+    .path-case:hover { border-color: var(--accent); }
+    .path-item.on .path-case b { color: var(--accent-ink); background: var(--accent); }
+    @media (prefers-reduced-motion: no-preference) { .path-case i { transition: transform .2s; } .path-case:hover i { transform: translateX(3px); } .path-case b { transition: color .35s, background-color .35s; } }
     .more { margin-top: 24px; }
     .hero.art { --art-fade: radial-gradient(farthest-side at 78% 45%, #000 25%, transparent); --art-pos: 70% 40%; }
     #situaciones.art { --art-fade: radial-gradient(farthest-side at 0% 0%, #000 20%, transparent); --art-pos: 0 0; }
@@ -703,8 +730,8 @@
     .contact-box h2 { color: var(--on-navy); }
     .contact-box p { color: var(--on-navy-muted); max-width: 56ch; margin: 0 auto 28px; }
     .contact-box .actions { justify-content: center; }
-    .contact-box .mail { margin: 22px auto 0; font: 500 .95rem var(--font-mono); }
-    .contact-box .mail a { text-decoration: none; color: var(--on-navy); }
+    .contact-box .mail { margin: 12px auto 0; font: 500 .95rem var(--font-mono); }
+    .contact-box .mail a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; color: var(--on-navy); }
 
     footer { padding-block: 28px; color: var(--muted); font-size: .9rem; }
     footer .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px 24px; }
@@ -743,6 +770,7 @@
       .p-bullets { grid-template-columns: 1fr; }
       .stat { padding: 20px 16px; }
       .stat strong { font-size: clamp(1.7rem, 8.6vw, 2.3rem); }
+      .stat.award strong { font-size: clamp(1.3rem, 6vw, 1.7rem); }
       .p-gal { grid-template-columns: 1fr 1fr; }
       .p-shot:first-child { grid-column: 1 / -1; height: 190px; }
       .dg { padding: 16px; }
@@ -801,7 +829,7 @@
       .sk-proof li { grid-template-columns: minmax(0, 1fr); }
       .sk-skills { gap: 6px; }
       .sk-skills li { padding: 4px 10px; font-size: .8rem; }
-      .sk-case { justify-self: start; min-height: 40px; margin-top: 6px; }
+      .sk-case { justify-self: start; margin-top: 6px; }
       .sk-map { padding: 14px 14px 16px; }
       .sk-stops { --t: 16px; }
       .sk-stops .p-logo { height: 32px; padding: 4px 5px; }
@@ -810,7 +838,7 @@
       .band-label { width: 100%; }
       .path { margin-top: 32px; }
       .path::before, .path-progress, .path-dot { left: 8px; }
-      .path-item { grid-template-columns: minmax(0, 1fr); padding-left: 36px; padding-bottom: 48px; }
+      .path-item { grid-template-columns: minmax(0, 1fr); padding-left: 36px; padding-bottom: 40px; }
       .path-when { text-align: left; display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; margin-bottom: 10px; }
       .path-year { font-size: 1.7rem; }
       .path-range { margin-top: 0; }
@@ -879,7 +907,7 @@
       </p>
     </div>
     <div class="portrait" id="portrait">
-      <div class="frame"><img src="fotos/retrato.jpg" alt="Cristian Marino" width="800" height="800"></div>
+      <div class="frame"><img src="fotos/retrato.jpg" alt="Cristian Marino" width="800" height="800" fetchpriority="high"></div>
       <div class="badge b1"><strong>MIT Sloan</strong>MBA 2026</div>
     </div>
     <div class="hero-chart" id="hero-chart" aria-hidden="true">
@@ -963,8 +991,8 @@
         <div class="card glass">
           <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
           <h3><span data-l="es">Consultoría de crecimiento</span><span data-l="en">Growth consulting</span></h3>
-          <p data-l="es">He asesorado a 50 empresas durante la crisis económica de Chile, con +15% de crecimiento promedio en ingresos.</p>
-          <p data-l="en">I've advised 50 companies through Chile's economic downturn, delivering +15% average revenue growth.</p>
+          <p data-l="es">Para empresas que quieren vender más y con mejor margen, con un plan medido desde el primer mes.</p>
+          <p data-l="en">For companies that want to sell more at a better margin, with a plan measured from month one.</p>
           <p class="topics" data-l="es">Medición de campañas, precios, procesos, metas e incentivos, alineación de marketing y ventas, y estrategia para escalar.</p>
           <p class="topics" data-l="en">Campaign measurement, pricing, processes, goals and incentives, marketing–sales alignment and a strategy to scale.</p>
         </div>
@@ -1066,13 +1094,11 @@
         <h2><span data-l="es">Resultados, no <em>promesas</em></span><span data-l="en">Results, not <em>promises</em></span></h2>
         <p data-l="es">
           He construido y escalado negocios en Chile y Latinoamérica: desde lanzar una marca en un país nuevo
-          desde cero hasta llevar a un distribuidor nacional al #1 de su segmento. He liderado equipos de hasta
-          30 personas directas y operaciones de cerca de 200.
+          desde cero hasta llevar a un distribuidor nacional al #1 de su segmento.
         </p>
         <p data-l="en">
           I've built and scaled businesses across Chile and Latin America: from launching a brand in a new
-          country from scratch to taking a national distributor to #1 in its segment. I've led teams of up to
-          30 people directly and operations of around 200.
+          country from scratch to taking a national distributor to #1 in its segment.
         </p>
         <p data-l="es">
           Mi foco: posicionamiento claro, canales medidos contra ventas y equipos que ejecutan. En BoostBrands
@@ -1084,10 +1110,10 @@
         </p>
       </div>
       <div class="stats">
-        <div class="stat"><strong>+<span data-count="20">20</span>%</strong><span><span data-l="es">EBITDA al pasar de 20 franquicias a 4 tiendas propias</span><span data-l="en">EBITDA after moving from 20 franchises to 4 company stores</span></span></div>
-        <div class="stat"><strong><span data-count="9">9</span>→<span data-count="23">23</span>%</strong><span><span data-l="es">participación de mercado en Bajaj Motochile, #1 del segmento Street</span><span data-l="en">market share at Bajaj Motochile, #1 in the Street segment</span></span></div>
-        <div class="stat"><strong>$<span data-count="13.5" data-decimals="1">13,5</span>M</strong><span><span data-l="es">USD en ventas e-commerce construidas desde cero</span><span data-l="en">USD in e-commerce sales built from zero</span></span></div>
         <div class="stat"><strong data-count="50">50</strong><span><span data-l="es">empresas asesoradas, con +15% de crecimiento promedio en ingresos</span><span data-l="en">companies advised, with +15% average revenue growth</span></span></div>
+        <div class="stat"><strong>~<span data-count="200">200</span></strong><span><span data-l="es">personas en la operación regional de Bajaj, 30 a mi cargo directo</span><span data-l="en">people in Bajaj's regional operation, 30 reporting directly to me</span></span></div>
+        <div class="stat award"><strong><span data-l="es">Mejor CX</span><span data-l="en">Best CX</span></strong><span><span data-l="es">de Latinoamérica: la tienda de Bajaj Motochile, según Bajaj HQ India</span><span data-l="en">in Latin America: Bajaj Motochile's store, per Bajaj HQ India</span></span></div>
+        <div class="stat award"><strong><span data-l="es">Premio global</span><span data-l="en">Global award</span></strong><span><span data-l="es">Proyecto Más Escalable 2015 en Electrolux, con el primer laboratorio de Data Analytics de la región</span><span data-l="en">Most Scalable Project 2015 at Electrolux, with the region's first Data Analytics lab</span></span></div>
       </div>
     </div>
   </section>
@@ -1096,8 +1122,8 @@
     <div class="wrap">
       <span class="kicker"><span data-l="es">Trayectoria</span><span data-l="en">Track record</span></span>
       <h2><span data-l="es">Dónde <em>aprendí</em> lo que aplico</span><span data-l="en">Where I <em>learned</em> what I apply</span></h2>
-      <p class="intro" data-l="es">De hoy hacia atrás, hasta 2008. A medida que bajas, cada etapa se ilumina; el detalle completo está en mi CV.</p>
-      <p class="intro" data-l="en">From today back to 2008. As you scroll, each stage lights up; full details are in my CV.</p>
+      <p class="intro" data-l="es">De hoy hacia atrás, hasta 2008. Cada etapa enlaza a sus casos de éxito y el detalle completo está en mi CV.</p>
+      <p class="intro" data-l="en">From today back to 2008. Each stage links to its success stories, and full details are in my CV.</p>
       <ol class="path" id="path">
         <li class="path-progress" aria-hidden="true"></li>
         <li class="path-item">
@@ -1108,73 +1134,78 @@
             <h3><span data-l="es">Fundador y CEO</span><span data-l="en">Founder &amp; CEO</span></h3>
             <p class="path-org">BoostBrands SpA · Santiago</p>
             <ul>
-              <li data-l="es">Acuerdos de distribución para Acapella y Bench, marcas internacionales de moda sostenible, en 3 grandes cadenas retail: USD $400K en ventas con 40% de margen.</li>
-              <li data-l="en">Distribution deals for Acapella and Bench, international sustainable fashion brands, in 3 major retail chains: USD $400K in sales at a 40% margin.</li>
-              <li data-l="es">Asesoré a 50 empresas durante la crisis económica de Chile (12 clientes activos), con +15% de crecimiento promedio de ingresos.</li>
-              <li data-l="en">Advised 50 companies during Chile’s economic crisis (12 active clients), with +15% average revenue growth.</li>
+              <li data-l="es">Acuerdos de distribución para Acapella y Bench, marcas internacionales de moda sostenible, en las grandes cadenas retail de Chile.</li>
+              <li data-l="en">Distribution deals for Acapella and Bench, international sustainable fashion brands, in Chile’s major retail chains.</li>
+              <li data-l="es">Consultoría de crecimiento para empresas durante la crisis económica de Chile, con 12 clientes activos.</li>
+              <li data-l="en">Growth consulting for companies through Chile’s economic crisis, with 12 active clients.</li>
             </ul>
+            <p class="path-cases"><a class="path-case" href="#proyectos" data-case="0"><b>01</b><span data-l="es"><span class="sr">Ver caso: </span>Moda sostenible en retail</span><span data-l="en"><span class="sr">See case: </span>Sustainable fashion in retail</span><i aria-hidden="true">→</i></a></p>
           </div>
         </li>
         <li class="path-item">
           <div class="path-when"><span class="path-year">2020</span><span class="path-range"><span data-l="es">mar 2020 – jul 2024</span><span data-l="en">Mar 2020 – Jul 2024</span></span></div>
           <span class="path-dot" aria-hidden="true"></span>
           <div>
-            <span class="path-tag"><span data-l="es">9% → 23% participación</span><span data-l="en">9% → 23% market share</span></span>
+            <span class="path-tag">B2B → D2C</span>
             <h3><span data-l="es">Director de Marketing y Ventas</span><span data-l="en">Marketing &amp; Sales Director</span></h3>
             <p class="path-org">Bajaj Motochile · Santiago</p>
             <ul>
-              <li data-l="es">Transformación de B2B a B2C/D2C: 20 franquicias reemplazadas por 4 tiendas propias. EBITDA +20%, flujo de caja +50%.</li>
-              <li data-l="en">Moved from B2B to B2C/D2C: replaced 20 franchises with 4 company stores. EBITDA +20%, cash flow +50%.</li>
-              <li data-l="es">Alianza de USD $8M con la fintech Galgo y lanzamiento de MotoFin, microcrédito propio.</li>
-              <li data-l="en">USD $8M alliance with fintech Galgo and launch of MotoFin, an in-house microcredit unit.</li>
-              <li data-l="es">E-commerce desde cero en Shopify: USD $13,5M en ventas durante la pandemia. Equipo de 33 personas y 3 agencias.</li>
-              <li data-l="en">E-commerce from zero on Shopify: USD $13.5M in sales during the pandemic. Team of 33 people and 3 agencies.</li>
+              <li data-l="es">Cambio a venta directa con tiendas propias, en lugar de franquicias.</li>
+              <li data-l="en">Switched to direct sales through company stores instead of franchises.</li>
+              <li data-l="es">Alianza con la fintech Galgo y lanzamiento de MotoFin, microcrédito propio.</li>
+              <li data-l="en">Alliance with fintech Galgo and launch of MotoFin, an in-house microcredit unit.</li>
+              <li data-l="es">Canal e-commerce desde cero durante la pandemia, con un equipo de 33 personas y 3 agencias.</li>
+              <li data-l="en">E-commerce channel from zero during the pandemic, with a team of 33 people and 3 agencies.</li>
             </ul>
+            <p class="path-cases"><a class="path-case" href="#proyectos" data-case="1"><b>02</b><span data-l="es"><span class="sr">Ver caso: </span>De franquicias a venta directa</span><span data-l="en"><span class="sr">See case: </span>Franchises to direct sales</span><i aria-hidden="true">→</i></a><a class="path-case" href="#proyectos" data-case="2"><b>03</b><span data-l="es"><span class="sr">Ver caso: </span>E-commerce desde cero</span><span data-l="en"><span class="sr">See case: </span>E-commerce from zero</span><i aria-hidden="true">→</i></a></p>
           </div>
         </li>
         <li class="path-item">
           <div class="path-when"><span class="path-year">2017</span><span class="path-range"><span data-l="es">oct 2017 – mar 2020</span><span data-l="en">Oct 2017 – Mar 2020</span></span></div>
           <span class="path-dot" aria-hidden="true"></span>
           <div>
-            <span class="path-tag"><span data-l="es">6 países</span><span data-l="en">6 countries</span></span>
+            <span class="path-tag"><span data-l="es">Expansión regional</span><span data-l="en">Regional expansion</span></span>
             <h3><span data-l="es">Country Manager Chile y Paraguay · Regional CMO LATAM</span><span data-l="en">Country Manager Chile &amp; Paraguay · Regional CMO LATAM</span></h3>
             <p class="path-org">Bajaj Auto Limited</p>
             <ul>
-              <li data-l="es">Entrada a Paraguay desde cero: USD $1M en ventas y 5% de participación el primer año.</li>
-              <li data-l="en">Launched in Paraguay from scratch: USD $1M in sales and 5% share in year one.</li>
-              <li data-l="es">Campañas integradas en 6 países (USD $6M): el mayor crecimiento regional de participación en 10 años.</li>
-              <li data-l="en">Integrated campaigns in 6 countries (USD $6M): the largest regional share gain in 10 years.</li>
+              <li data-l="es">Entrada de Bajaj a Paraguay desde cero: distribuidor, equipo y primeras tiendas.</li>
+              <li data-l="en">Took Bajaj into Paraguay from scratch: distributor, team and first stores.</li>
+              <li data-l="es">Campañas integradas y reality shows digitales para Latinoamérica.</li>
+              <li data-l="en">Integrated campaigns and digital reality shows for Latin America.</li>
             </ul>
+            <p class="path-cases"><a class="path-case" href="#proyectos" data-case="3"><b>04</b><span data-l="es"><span class="sr">Ver caso: </span>Bajaj llega a Paraguay</span><span data-l="en"><span class="sr">See case: </span>Bajaj enters Paraguay</span><i aria-hidden="true">→</i></a><a class="path-case" href="#proyectos" data-case="4"><b>05</b><span data-l="es"><span class="sr">Ver caso: </span>Reality shows en 6 países</span><span data-l="en"><span class="sr">See case: </span>Reality shows in 6 countries</span><i aria-hidden="true">→</i></a></p>
           </div>
         </li>
         <li class="path-item">
           <div class="path-when"><span class="path-year">2016</span><span class="path-range"><span data-l="es">oct 2016 – sep 2017</span><span data-l="en">Oct 2016 – Sep 2017</span></span></div>
           <span class="path-dot" aria-hidden="true"></span>
           <div>
-            <span class="path-tag"><span data-l="es">USD $6M en acuerdos</span><span data-l="en">USD $6M in deals</span></span>
+            <span class="path-tag"><span data-l="es">Marketing B2B</span><span data-l="en">B2B marketing</span></span>
             <h3>Associate Marketing Manager</h3>
             <p class="path-org">Accenture · Santiago</p>
             <ul>
-              <li data-l="es">Marketing B2B para las 30 principales empresas de Chile.</li>
-              <li data-l="en">B2B marketing for Chile’s top 30 companies.</li>
-              <li data-l="es">Primera carrera de drones controlados por la mente en LATAM, campaña más innovadora 2017.</li>
-              <li data-l="en">LATAM’s first mind-controlled drone race, most innovative campaign of 2017.</li>
+              <li data-l="es">Estrategia y campañas B2B para las principales empresas de Chile.</li>
+              <li data-l="en">B2B strategy and campaigns for Chile’s leading companies.</li>
+              <li data-l="es">El MindRacer Drone Challenge, para atraer talento STEM.</li>
+              <li data-l="en">The MindRacer Drone Challenge, to attract STEM talent.</li>
             </ul>
+            <p class="path-cases"><a class="path-case" href="#proyectos" data-case="6"><b>07</b><span data-l="es"><span class="sr">Ver caso: </span>Drones controlados por la mente</span><span data-l="en"><span class="sr">See case: </span>Mind-controlled drones</span><i aria-hidden="true">→</i></a></p>
           </div>
         </li>
         <li class="path-item">
           <div class="path-when"><span class="path-year">2013</span><span class="path-range"><span data-l="es">may 2013 – sep 2016</span><span data-l="en">May 2013 – Sep 2016</span></span></div>
           <span class="path-dot" aria-hidden="true"></span>
           <div>
-            <span class="path-tag"><span data-l="es">#1 en Chile</span><span data-l="en">#1 in Chile</span></span>
+            <span class="path-tag"><span data-l="es">Desarrollo de producto</span><span data-l="en">Product development</span></span>
             <h3>Senior Regional Product Marketing Manager</h3>
             <p class="path-org"><span data-l="es">Electrolux · Clúster Andino</span><span data-l="en">Electrolux · Andean cluster</span></p>
             <ul>
-              <li data-l="es">Desarrollo de producto y line-up completo para Electrolux LATAM: inversión de USD $20M aprobada por el HQ global.</li>
-              <li data-l="en">Product development and full line-up for Electrolux LATAM: USD $20M investment approved by global HQ.</li>
-              <li data-l="es">Electrolux, Fensa y Mademsa #1 en Chile: 45% en refrigeradores y 75% en freezers.</li>
-              <li data-l="en">Electrolux, Fensa and Mademsa #1 in Chile: 45% share in refrigerators, 75% in freezers.</li>
+              <li data-l="es">Line-up completo de Electrolux para Latinoamérica y reposicionamiento premium.</li>
+              <li data-l="en">The full Electrolux line-up for Latin America and a premium repositioning.</li>
+              <li data-l="es">Marketing de producto para Electrolux, Fensa y Mademsa, marcas líderes en Chile.</li>
+              <li data-l="en">Product marketing for Electrolux, Fensa and Mademsa, leading brands in Chile.</li>
             </ul>
+            <p class="path-cases"><a class="path-case" href="#proyectos" data-case="5"><b>06</b><span data-l="es"><span class="sr">Ver caso: </span>Premium con chefs Michelin</span><span data-l="en"><span class="sr">See case: </span>Premium with Michelin chefs</span><i aria-hidden="true">→</i></a></p>
           </div>
         </li>
         <li class="path-item">
@@ -1375,12 +1406,12 @@
       { org: 'Bajaj Auto', area: 'CMO regional LATAM', area_en: 'Regional CMO LATAM', year: '2017 – 2020',
         logos: ['bajaj'],
         title: 'Reality shows y campañas en 6 países', title_en: 'Reality shows and campaigns in 6 countries', short: 'Reality shows en 6 países', short_en: 'Reality shows in 6 countries',
-        desc: 'Diseñé campañas integradas para 6 países, incluidos 2 reality shows digitales originales con figuras de TV: Rouser ProAm en Argentina y Pulsar Aventura en dos ruedas en Perú.',
-        desc_en: 'I designed integrated campaigns for 6 countries, including 2 original digital reality shows with TV personalities: Rouser ProAm in Argentina and Pulsar Aventura en dos ruedas in Peru.',
+        desc: 'Diseñé campañas integradas para la región, incluidos 2 reality shows digitales originales con figuras de TV: Rouser ProAm en Argentina y Pulsar Aventura en dos ruedas en Perú.',
+        desc_en: 'I designed integrated campaigns for the region, including 2 original digital reality shows with TV personalities: Rouser ProAm in Argentina and Pulsar Aventura en dos ruedas in Peru.',
         pyme: 'Contenido que la gente quiere ver, con métricas que conectan el alcance con las ventas y no solo con los likes.',
         pyme_en: 'Content people want to watch, with metrics that tie reach to sales, not just to likes.',
-        stats: [['USD $6M', 'de presupuesto en 6 países'], ['19%', 'de participación en LATAM'], ['−30%', 'en costos de agencias']],
-        stats_en: [['USD $6M', 'budget across 6 countries'], ['19%', 'LATAM market share'], ['−30%', 'in agency costs']],
+        stats: [['USD $6M', 'de presupuesto regional'], ['19%', 'de participación en LATAM'], ['−30%', 'en costos de agencias']],
+        stats_en: [['USD $6M', 'regional budget'], ['19%', 'LATAM market share'], ['−30%', 'in agency costs']],
         bullets: ['Mayor alza regional de participación en 10 años', 'KPIs que conectan alcance con ventas'],
         bullets_en: ['Largest regional share gain in 10 years', 'KPIs linking reach to sales'],
         chips: ['Marketing integrado', 'Contenido', 'Gestión de agencias'], chips_en: ['Integrated marketing', 'Content', 'Agency management'],
@@ -1391,8 +1422,8 @@
       { org: 'Electrolux', area: 'Product marketing', area_en: 'Product marketing', year: '2013 – 2016',
         logos: ['electrolux', 'fensa', 'mademsa'],
         title: 'Electrolux premium con chefs Michelin', title_en: 'Electrolux goes premium with Michelin chefs', short: 'Premium con chefs Michelin', short_en: 'Premium with Michelin chefs',
-        desc: 'Lideré el desarrollo de producto y el line-up completo de Electrolux para Latinoamérica, con USD $20M de inversión, y reposicioné la marca en el segmento premium con chefs Michelin como embajadores.',
-        desc_en: 'I led product development and the full Electrolux line-up for Latin America, backed by a USD $20M investment, and repositioned the brand as premium with Michelin-starred chefs as ambassadors.',
+        desc: 'Lideré el desarrollo de producto y el line-up completo de Electrolux para Latinoamérica y reposicioné la marca en el segmento premium con chefs Michelin como embajadores.',
+        desc_en: 'I led product development and the full Electrolux line-up for Latin America and repositioned the brand as premium with Michelin-starred chefs as ambassadors.',
         pyme: 'Subir el valor percibido de tu marca con un posicionamiento claro y aliados que le den credibilidad.',
         pyme_en: 'Raise your brand’s perceived value with clear positioning and partners who lend it credibility.',
         stats: [['USD $20M', 'de inversión aprobada por el HQ global'], ['45%', 'en refrigeradores, #1 en Chile'], ['75%', 'en freezers, #1 en Chile']],
@@ -1709,6 +1740,10 @@
       const c = e.target.closest('.sk-case');
       if (c) { e.preventDefault(); skillAuto = false; syncSkillAuto(); openCase(+c.dataset.case); }
     });
+    $('path').addEventListener('click', e => {
+      const c = e.target.closest('.path-case'); if (!c) return;
+      e.preventDefault(); openCase(+c.dataset.case);
+    });
     skBox.addEventListener('keydown', e => {
       const tab = e.target.closest('.sk-tab'); if (!tab) return;
       const n = SKILLS.length, i = +tab.dataset.i;
@@ -1765,6 +1800,11 @@
     }, { threshold: .35 }).observe(skBox);
     else skBox.classList.add('seen');
     const indBox = $('industrias');
+    /* A large faint copy of each industry icon behind its name */
+    indBox.querySelectorAll('.ind-f').forEach(f => {
+      const w = document.createElement('span'); w.className = 'ind-wm'; w.setAttribute('aria-hidden', 'true');
+      w.append(f.querySelector('.ind-ic svg').cloneNode(true)); f.append(w);
+    });
     indBox.addEventListener('click', e => {
       const b = e.target.closest('.ind'); if (!b) return;
       const on = b.getAttribute('aria-pressed') !== 'true';
