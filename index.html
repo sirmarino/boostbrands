@@ -251,10 +251,13 @@
     .p-bullets { list-style: none; display: grid; grid-template-columns: 1fr 1fr; column-gap: 22px; margin: 20px 0; }
     .p-bullets li { border-top: 1px solid var(--border); padding: 10px 0 10px 16px; position: relative; font-size: .92rem; line-height: 1.45; }
     .p-bullets li::before { content: ""; position: absolute; left: 0; top: 18px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
-    /* Big figures in place of bullets (projects with `stats`); they count up when shown */
-    .p-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 18px 22px; margin: 24px 0; }
+    /* Big figures in place of bullets (projects with `stats`); they count up when shown. --n is the longest
+       figure's length, so every figure in a card shares one size that fits its column. */
+    .p-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 18px 22px; margin: 20px 0; }
+    .p-stats.n4 { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+    .p-stats + .p-bullets { margin-top: -4px; }
     .p-stats > div { padding-top: 12px; border-top: 2px solid var(--accent); container-type: inline-size; }
-    .p-stats strong { display: block; font: 800 min(2.3rem, 23cqi)/1 var(--font-display); letter-spacing: -0.03em; color: var(--accent-text); white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .p-stats strong { display: block; font: 800 min(2.3rem, calc(100cqi / (var(--n) * .62)))/1 var(--font-display); letter-spacing: -0.03em; color: var(--accent-text); white-space: nowrap; font-variant-numeric: tabular-nums; }
     .p-stats p { margin-top: 8px; font-size: .9rem; line-height: 1.4; color: var(--muted); }
     .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
     .p-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
@@ -309,63 +312,27 @@
     .dg-node img { display: block; height: 42px; width: auto; max-width: 100%; object-fit: contain; border-radius: 6px; }
     .dg-node.hot { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
     .dg-down { position: relative; width: 2px; height: 24px; margin: -4px auto; background: var(--accent); transform-origin: top; }
-    .dg-down::after, .dg-right::after { content: ""; position: absolute; border: 5px solid transparent; }
+    .dg-down::after { content: ""; position: absolute; border: 5px solid transparent; }
     .dg-down::after { left: -4px; bottom: -8px; border-top: 7px solid var(--accent); border-bottom: 0; }
-    .dg-shift { display: grid; grid-template-columns: minmax(0, 1fr) 30px minmax(0, 1fr); align-items: center; gap: 10px; }
-    .dg-shift .dg-row { flex-direction: column; align-items: stretch; }
-    .dg-shift .dg-node { flex: none; max-width: none; }
-    .dg-right { position: relative; height: 2px; background: var(--accent); margin-right: 6px; }
-    .dg-right::after { right: -8px; top: -4px; border-left: 7px solid var(--accent); border-right: 0; }
     .dg-step { width: min(100%, 380px); margin-inline: auto; display: flex; align-items: center; gap: 14px; padding: 8px 14px 8px 8px; border-radius: 14px; background: var(--surface); border: 1px solid var(--border); font-size: .9rem; line-height: 1.35; color: var(--text); }
     .dg-step b { display: block; font: 700 1rem/1.2 var(--font-display); color: var(--heading); }
     .dg-step.hot { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
-    .dg-step.hot b { font: 800 1.5rem/1.1 var(--font-display); letter-spacing: -0.02em; color: var(--accent-text); }
-    .dg-pair { display: grid; gap: 6px; }
-    .dg-pair .dg-lbl { text-align: left; }
-    .dg-hbar { display: grid; grid-template-columns: 74px minmax(0, 1fr) 76px; align-items: center; gap: 10px; font-size: .85rem; color: var(--muted); }
-    .dg-hbar i { height: 12px; width: var(--w); border-radius: 6px; background: color-mix(in srgb, var(--muted) 45%, var(--bg)); transform-origin: left; }
-    .dg-hbar.hot i { background: var(--accent); }
-    .dg-hbar b { font: 700 .95rem var(--font-display); color: var(--heading); white-space: nowrap; }
-    .dg-cols { display: flex; justify-content: center; align-items: flex-end; gap: 28px; height: 150px; border-bottom: 1px solid var(--border); }
-    .dg-col { width: 84px; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px; }
-    .dg-col b { font: 800 1.4rem/1 var(--font-display); letter-spacing: -0.02em; color: var(--heading); }
-    .dg-col i { width: 100%; height: var(--h); border-radius: 8px 8px 0 0; background: color-mix(in srgb, var(--muted) 45%, var(--bg)); transform-origin: bottom; }
-    .dg-col.hot i { background: var(--accent); }
-    .dg-axis { display: flex; justify-content: center; gap: 28px; margin-top: 6px; }
-    .dg-axis span { width: 84px; }
-    .dg-donuts { display: flex; justify-content: center; gap: 28px; }
-    .dg-donut { display: grid; justify-items: center; gap: 4px; width: 104px; font-size: .82rem; text-align: center; color: var(--muted); }
-    .dg-donut > div { position: relative; width: 84px; height: 84px; }
-    .dg-donut svg { display: block; width: 100%; height: 100%; transform: rotate(-90deg); }
-    .dg-donut circle { fill: none; stroke-width: 5; }
-    .dg-donut .trk { stroke: var(--border); }
-    .dg-donut .val { stroke: var(--accent); stroke-linecap: round; }
-    .dg-donut b { position: absolute; inset: 0; display: grid; place-items: center; font: 800 1.15rem var(--font-display); color: var(--heading); }
-    .dg-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; }
-    .dg-kpi { padding: 12px 14px; border-radius: 12px; background: var(--surface); border: 1px solid var(--border); font: 500 .72rem/1.3 var(--font-mono); text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
-    .dg-kpi strong { display: block; margin-top: 4px; font: 800 1.5rem/1.1 var(--font-display); letter-spacing: -0.02em; text-transform: none; color: var(--accent-text); white-space: nowrap; }
     /* Narrow diagrams: the wide-screen accordion column (~300px) and phones */
     @container (max-width: 340px) {
-      .dg-kpi { padding: 10px; }
-      .dg-kpi strong, .dg-step.hot b { font-size: 1.2rem; letter-spacing: -0.03em; }
-      .dg-shift { gap: 8px; grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr); }
-      .dg-shift .dg-node { font-size: .85rem; padding: 6px 8px; min-height: 38px; }
       .dg-node { font-size: .88rem; padding: 8px 6px; }
-      .dg-hbar { grid-template-columns: 58px minmax(0, 1fr) 72px; gap: 8px; }
-      .dg-cols { height: 130px; }
     }
     @media (min-width: 1366px) { .dg { padding: 18px 16px; gap: 12px; } }
     @media (prefers-reduced-motion: no-preference) {
       .proj[open] .dg > * { animation: dgUp .5s ease var(--d, 0ms) both paused; }
       .proj[open] .dg > .dg-down { animation-name: dgY; animation-duration: .35s; }
-      .proj[open] .dg-hbar i { animation: dgX .8s cubic-bezier(.2, .7, .2, 1) calc(var(--d, 0ms) + 200ms) both paused; }
-      .proj[open] .dg-col i { animation: dgY .8s cubic-bezier(.2, .7, .2, 1) calc(var(--d, 0ms) + 200ms) both paused; }
-      .proj[open] .dg-donut .val { animation: dgArc 1.1s ease calc(var(--d, 0ms) + 200ms) both paused; }
-      .proj[open] .dg.in > *, .proj[open] .dg.in .dg-hbar i, .proj[open] .dg.in .dg-col i, .proj[open] .dg.in .dg-donut .val { animation-play-state: running; }
+      .proj[open] .dg.in > * { animation-play-state: running; }
+      /* A dot keeps running down each arrow while the card is open: the flow from one step to the next */
+      .proj[open] .dg.in .dg-down::before { content: ""; position: absolute; left: -4px; top: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); animation: dgFlow 2.4s cubic-bezier(.5, 0, .5, 1) calc(var(--d, 0ms) + 800ms) infinite both; }
     }
+    @keyframes dgFlow { 0% { transform: translateY(-8px); opacity: 0; } 15% { opacity: 1; } 55% { transform: translateY(18px); opacity: 1; } 70%, 100% { transform: translateY(18px); opacity: 0; } }
     @keyframes dgUp { from { opacity: 0; transform: translateY(10px); } }
-    /* Before/after panel (project 02): the tabs set data-state; it plays before → after when it comes
-       on screen or its card opens, and the visitor can switch back and forth. */
+    /* Before/after panels (projects 02 and 06): the tabs set data-state; it plays before → after when it
+       comes on screen or its card opens, and the visitor can switch back and forth. */
     .dg-flip { gap: 16px; --ic-store: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3.5 3h17l1.5 5.5a2.5 2.5 0 0 1-5 0 2.5 2.5 0 0 1-5 0 2.5 2.5 0 0 1-5 0 2.5 2.5 0 0 1-5 0z'/%3E%3Cpath d='M4 12.5h16V21h-6v-5h-4v5H4z'/%3E%3C/svg%3E"); }
     .flip-tabs { position: relative; display: grid; grid-template-columns: 1fr 1fr; padding: 3px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); }
     .flip-tabs::before { content: ""; position: absolute; top: 3px; bottom: 3px; left: 3px; width: calc(50% - 3px); border-radius: 999px; background: var(--accent); }
@@ -380,11 +347,17 @@
     .flip-cap > span, .flip-m b > span { grid-area: 1 / 1; }
     .dg-flip[data-state="after"] .b, .dg-flip[data-state="before"] .a { opacity: 0; visibility: hidden; transform: translateY(6px); }
     .flip-cap { justify-items: center; text-align: center; font: 800 1.3rem/1.2 var(--font-display); letter-spacing: -0.02em; color: var(--heading); }
+    .flip-cap.big { font-size: 3rem; line-height: 1; color: var(--accent-text); }
+    /* Waffle: 100 squares = 100% of a market; the lit ones are the share (wb before, wa after) */
+    .flip-waffle { display: grid; grid-template-columns: repeat(10, 15px); gap: 5px; justify-content: center; }
+    .flip-waffle i { width: 15px; height: 15px; border-radius: 4px; background: color-mix(in srgb, var(--muted) 22%, var(--bg)); }
+    .dg-flip[data-state="before"] .flip-waffle i.wb, .dg-flip[data-state="after"] .flip-waffle i.wa { background: var(--accent); }
     .flip-new { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; min-height: 40px; }
     .flip-new span { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px 8px 10px; border-radius: 999px; border: 1px solid var(--accent); background: var(--accent-soft); font-size: .86rem; font-weight: 600; color: var(--heading); }
-    .flip-new span::before { content: ""; width: 18px; height: 18px; flex: none; background: var(--accent-text); -webkit-mask: var(--ic) center / contain no-repeat; mask: var(--ic) center / contain no-repeat; }
+    .flip-new [class^="ic-"]::before { content: ""; width: 18px; height: 18px; flex: none; background: var(--accent-text); -webkit-mask: var(--ic) center / contain no-repeat; mask: var(--ic) center / contain no-repeat; }
     .flip-new .ic-cart { --ic: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 3.5h2.2l2.4 11a1.6 1.6 0 0 0 1.6 1.3h8.8a1.6 1.6 0 0 0 1.6-1.2L21 7.5H6'/%3E%3Ccircle cx='9.5' cy='20' r='1.2'/%3E%3Ccircle cx='17.5' cy='20' r='1.2'/%3E%3C/svg%3E"); }
     .flip-new .ic-card { --ic: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linejoin='round'%3E%3Crect x='2.5' y='5' width='19' height='14' rx='2.5'/%3E%3Cpath d='M2.5 10h19M6.5 15h4'/%3E%3C/svg%3E"); }
+    .flip-new .ic-star { --ic: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z'/%3E%3C/svg%3E"); }
     .dg-flip[data-state="before"] .flip-new span { opacity: 0; visibility: hidden; transform: scale(.8); }
     .flip-m { display: grid; gap: 6px; }
     .flip-m > span { font: 500 .72rem var(--font-mono); text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
@@ -400,10 +373,9 @@
       .flip-new span { transition: opacity .4s .35s, transform .5s .35s cubic-bezier(.3, 1.5, .5, 1), visibility .4s .35s; }
       .flip-new span + span { transition-delay: .5s; }
       .flip-m i { transition: width .9s cubic-bezier(.3, .7, .2, 1), background-color .5s; }
+      .flip-waffle i { transition: background-color .35s calc(var(--i) * 160ms); }
     }
     @keyframes dgY { from { transform: scaleY(0); } }
-    @keyframes dgX { from { transform: scaleX(0); } }
-    @keyframes dgArc { from { stroke-dasharray: 0 100; } }
 
     /* Track record: a scroll timeline. The line draws itself as you scroll and the
        entry at the middle of the screen is shown at full contrast (the rest stay muted). */
@@ -947,8 +919,8 @@
         desc_en: 'I brought two international sustainable fashion brands, Acapella and Bench, to Falabella, Paris and Mercado Libre.',
         pyme: 'Si tu marca está lista para el retail, te ayudo a negociar la entrada a las grandes cadenas cuidando el margen.',
         pyme_en: 'If your brand is ready for retail, I help you negotiate your way into the big chains while protecting your margin.',
-        bullets: ['Acuerdos de distribución con Falabella, Paris y Mercado Libre', '2 marcas internacionales: Acapella y Bench', 'USD $400K en ventas', '40% de margen'],
-        bullets_en: ['Distribution deals with Falabella, Paris and Mercado Libre', '2 international brands: Acapella and Bench', 'USD $400K in sales', '40% margin'],
+        stats: [['USD $400K', 'en ventas'], ['40%', 'de margen']],
+        stats_en: [['USD $400K', 'in sales'], ['40%', 'margin']],
         chips: ['Negociación retail', 'Distribución', 'Desarrollo de marcas'], chips_en: ['Retail negotiation', 'Distribution', 'Brand development'],
         gallery: { title: 'Acapella en Falabella', title_en: 'Acapella at Falabella', items: [
           { src: 'fotos/acapella-falabella.jpg', alt: 'Cristian en Falabella, junto a la mesa de Acapella', alt_en: 'Cristian at Falabella, by the Acapella table', pos: '50% 40%' },
@@ -961,8 +933,7 @@
           dDown(),
           dTier(`<span class="dg-hub">${logoTile('boostbrands')}</span>`, t('Representación y negociación', 'Representation and negotiation')),
           dDown(),
-          dTier(dNode('', 'falabella') + dNode('', 'paris') + dNode('Mercado Libre', 'mercadolibre'), t('Canales de venta en Chile', 'Sales channels in Chile')),
-          dKpis([[t('Ventas', 'Sales'), 'USD $400K'], [t('Margen', 'Margin'), '40%']])) },
+          dTier(dNode('', 'falabella') + dNode('', 'paris') + dNode('Mercado Libre', 'mercadolibre'), t('Canales de venta en Chile', 'Sales channels in Chile'))) },
       { org: 'Bajaj Motochile', area: 'Transformación comercial', area_en: 'Commercial transformation', year: '2020 – 2024',
         logos: ['bajaj', 'galgo'],
         title: 'De franquicias a venta directa', title_en: 'From franchises to direct sales', short: 'De franquicias a venta directa', short_en: 'Franchises to direct sales',
@@ -973,15 +944,14 @@
         stats: [['+20%', 'EBITDA'], ['+50%', 'Flujo de caja'], ['USD $8M', 'Alianza con la fintech Galgo: 5.500 motos en 2 años']],
         stats_en: [['+20%', 'EBITDA'], ['+50%', 'Cash flow'], ['USD $8M', 'Alliance with fintech Galgo: 5,500 motorcycles over 2 years']],
         chips: ['Transformación D2C', 'P&L', 'Retail', 'Fintech'], chips_en: ['D2C transformation', 'P&L', 'Retail', 'Fintech'],
-        sketch: t => dShift({
-          aria: t('Antes y después: de 20 franquicias (B2B) a 4 tiendas propias, e-commerce y MotoFin (B2C/D2C). Cuentas por cobrar de USD $1M a $400K y crédito de 60 a 30 días.',
+        sketch: t => dFlip(t('Antes y después: de 20 franquicias (B2B) a 4 tiendas propias, e-commerce y MotoFin (B2C/D2C). Cuentas por cobrar de USD $1M a $400K y crédito de 60 a 30 días.',
             'Before and after: from 20 franchises (B2B) to 4 company stores, e-commerce and MotoFin (B2C/D2C). Receivables from USD $1M to $400K and credit terms from 60 to 30 days.'),
-          tabs: [t('Antes · B2B', 'Before · B2B'), t('Después · D2C', 'After · D2C')],
-          count: 20, keep: [1, 8, 10, 17],
-          cap: [t('20 franquicias', '20 franchises'), t('4 tiendas propias', '4 company stores')],
-          extras: [['cart', 'E-commerce'], ['card', 'MotoFin']],
-          metrics: [[t('Cuentas por cobrar', 'Receivables'), 'USD $1M', 'USD $400K', 40], [t('Plazo de crédito', 'Credit terms'), t('60 días', '60 days'), t('30 días', '30 days'), 50]],
-        }) },
+          [t('Antes · B2B', 'Before · B2B'), t('Después · D2C', 'After · D2C')],
+          fStores(20, [1, 8, 10, 17]),
+          fSwap(t('20 franquicias', '20 franchises'), t('4 tiendas propias', '4 company stores')),
+          fNew([['cart', 'E-commerce'], ['card', 'MotoFin']]),
+          fMetric(t('Cuentas por cobrar', 'Receivables'), 'USD $1M', 'USD $400K', 40),
+          fMetric(t('Plazo de crédito', 'Credit terms'), t('60 días', '60 days'), t('30 días', '30 days'), 50)) },
       { org: 'Bajaj Motochile', area: 'Canal digital', area_en: 'Digital channel', year: '2020 – 2024',
         logos: ['bajaj', 'shopify', 'hubspot'],
         title: 'E-commerce desde cero', title_en: 'E-commerce from zero', short: 'E-commerce desde cero', short_en: 'E-commerce from zero',
@@ -989,18 +959,17 @@
         desc_en: 'I built the online sales channel from scratch during the pandemic, with the store and payment gateways on Shopify, and connected it to a CRM to measure every stage of the sale.',
         pyme: 'Una tienda online en Shopify, con pagos y un CRM, para vender en línea y medir cada etapa de la venta.',
         pyme_en: 'An online store on Shopify, with payments and a CRM, so you can sell online and measure every stage of the sale.',
-        bullets: ['USD $13,5M en ventas online', 'Tienda y pasarelas de pago en Shopify', 'HubSpot CRM implementado', 'Parte de la estrategia que llevó la participación de 9% a 23%'],
-        bullets_en: ['USD $13.5M in online sales', 'Store and payment gateways on Shopify', 'HubSpot CRM implemented', 'Part of the strategy that took market share from 9% to 23%'],
+        stats: [['USD $13,5M', 'en ventas online'], ['23%', 'de participación de mercado, desde 9%, con toda la estrategia comercial']],
+        stats_en: [['USD $13.5M', 'in online sales'], ['23%', 'market share, up from 9%, with the whole commercial strategy']],
         chips: ['Shopify', 'HubSpot', 'CAC y conversión'], chips_en: ['Shopify', 'HubSpot', 'CAC & conversion'],
-        sketch: t => diagram(t('Esquema: tienda y pagos en Shopify, CRM en HubSpot y USD $13,5M en ventas online para Bajaj. La participación de mercado pasó de 9% a 23% con toda la estrategia comercial.',
-            'Diagram: store and payments on Shopify, CRM on HubSpot and USD $13.5M in online sales for Bajaj. Market share went from 9% to 23% with the whole commercial strategy.'),
+        sketch: t => diagram(t('Esquema: tienda y pasarelas de pago en Shopify, conectadas al CRM HubSpot para medir cada etapa de la venta: el canal online de Bajaj, construido desde cero en plena pandemia.',
+            'Diagram: store and payment gateways on Shopify, connected to the HubSpot CRM to measure every stage of the sale: Bajaj’s online channel, built from zero during the pandemic.'),
           dCap(t('Cómo se armó', 'How it was built')),
           dStep('shopify', 'Shopify', t('Tienda y pasarelas de pago', 'Store and payment gateways')),
           dDown(),
           dStep('hubspot', 'HubSpot', t('CRM: cada etapa de la venta medida', 'CRM: every stage of the sale measured')),
           dDown(),
-          dStep('bajaj', t('USD $13,5M', 'USD $13.5M'), t('en ventas online', 'in online sales'), true),
-          dPair(t('Participación de mercado (toda la estrategia comercial)', 'Market share (whole commercial strategy)'), [[t('Antes', 'Before'), 39, '9%'], [t('Después', 'After'), 100, '23%', true]])) },
+          dStep('bajaj', t('Canal online de Bajaj', 'Bajaj’s online channel'), t('Desde cero, en plena pandemia', 'From zero, during the pandemic'), true)) },
       { org: 'Bajaj Auto', area: 'Country Manager', area_en: 'Country Manager', year: '2017 – 2020',
         logos: ['bajaj'],
         title: 'Bajaj llega a Paraguay', title_en: 'Bajaj enters Paraguay', short: 'Bajaj llega a Paraguay', short_en: 'Bajaj enters Paraguay',
@@ -1008,8 +977,8 @@
         desc_en: 'I led Bajaj’s entry into Paraguay from scratch: chose the distributor, built the team and opened the first stores.',
         pyme: 'Antes de abrir una nueva ciudad, país o canal: elegir bien al socio, armar el equipo y medir desde el primer mes.',
         pyme_en: 'Before opening a new city, country or channel: choose the right partner, build the team and measure from month one.',
-        bullets: ['Selección del distribuidor', 'Equipo de 25 personas', '3 tiendas abiertas', 'USD $1M en ventas el primer año', '5% de participación en el año 1'],
-        bullets_en: ['Distributor selection', 'Team of 25 people', '3 stores opened', 'USD $1M in sales in year one', '5% market share in year one'],
+        stats: [['USD $1M', 'en ventas el primer año'], ['5%', 'de participación en el año 1'], ['25', 'personas en el equipo'], ['3', 'tiendas abiertas']],
+        stats_en: [['USD $1M', 'in sales in year one'], ['5%', 'market share in year one'], ['25', 'people on the team'], ['3', 'stores opened']],
         chips: ['Expansión internacional', 'Go-to-market', 'Liderazgo de equipos'], chips_en: ['International expansion', 'Go-to-market', 'Team leadership'],
         videos: [{ id: 'eZw5Iau7REE', label: 'Aterrizaje de Bajaj en Paraguay', label_en: 'Bajaj lands in Paraguay' }] },
       { org: 'Bajaj Auto', area: 'CMO regional LATAM', area_en: 'Regional CMO LATAM', year: '2017 – 2020',
@@ -1019,8 +988,10 @@
         desc_en: 'I designed integrated campaigns for 6 countries, including 2 original digital reality shows with TV personalities: Rouser ProAm in Argentina and Pulsar Aventura en dos ruedas in Peru.',
         pyme: 'Contenido que la gente quiere ver, con métricas que conectan el alcance con las ventas y no solo con los likes.',
         pyme_en: 'Content people want to watch, with metrics that tie reach to sales, not just to likes.',
-        bullets: ['Presupuesto de USD $6M en 6 países', 'Reality shows Rouser ProAm (Argentina) y Pulsar Aventura en dos ruedas (Perú)', 'Mayor alza regional de participación en 10 años', '19% de participación LATAM', 'KPIs que conectan alcance con ventas', '-30% en costos de agencias'],
-        bullets_en: ['USD $6M budget across 6 countries', 'Reality shows Rouser ProAm (Argentina) and Pulsar Aventura en dos ruedas (Peru)', 'Largest regional share gain in 10 years', '19% LATAM market share', 'KPIs linking reach to sales', '-30% in agency costs'],
+        stats: [['USD $6M', 'de presupuesto en 6 países'], ['19%', 'de participación en LATAM'], ['−30%', 'en costos de agencias']],
+        stats_en: [['USD $6M', 'budget across 6 countries'], ['19%', 'LATAM market share'], ['−30%', 'in agency costs']],
+        bullets: ['Mayor alza regional de participación en 10 años', 'KPIs que conectan alcance con ventas'],
+        bullets_en: ['Largest regional share gain in 10 years', 'KPIs linking reach to sales'],
         chips: ['Marketing integrado', 'Contenido', 'Gestión de agencias'], chips_en: ['Integrated marketing', 'Content', 'Agency management'],
         videos: [
           { id: '3WPd5LJGRUg', list: 'PLDQzHPNYeF3pRpPwWPZLfoBPjrMV-Gf6i', label: 'Pulsar Aventura en dos ruedas · Perú', label_en: 'Pulsar Aventura en dos ruedas · Peru' },
@@ -1033,16 +1004,16 @@
         desc_en: 'I led product development and the full Electrolux line-up for Latin America, backed by a USD $20M investment, and repositioned the brand as premium with Michelin-starred chefs as ambassadors.',
         pyme: 'Subir el valor percibido de tu marca con un posicionamiento claro y aliados que le den credibilidad.',
         pyme_en: 'Raise your brand’s perceived value with clear positioning and partners who lend it credibility.',
-        bullets: ['Desarrollo de producto y line-up completo para LATAM', 'USD $20M de inversión aprobada por el HQ global', 'De 1% a 5% de participación premium en el año 1', 'Concepto "disfrute culinario" con chefs Michelin', 'Electrolux, Fensa y Mademsa #1 en Chile'],
-        bullets_en: ['Product development and full line-up for LATAM', 'USD $20M investment approved by global HQ', 'From 1% to 5% premium share in year one', '"Culinary enjoyment" concept with Michelin chefs', 'Electrolux, Fensa and Mademsa #1 in Chile'],
+        stats: [['USD $20M', 'de inversión aprobada por el HQ global'], ['45%', 'en refrigeradores, #1 en Chile'], ['75%', 'en freezers, #1 en Chile']],
+        stats_en: [['USD $20M', 'investment approved by global HQ'], ['45%', 'share in refrigerators, #1 in Chile'], ['75%', 'share in freezers, #1 in Chile']],
         chips: ['Desarrollo de producto', 'Posicionamiento de marca', 'Retail'], chips_en: ['Product development', 'Brand positioning', 'Retail'],
-        sketch: t => diagram(t('Esquema: participación en el segmento premium de 1% a 5% en el año 1. Electrolux, Fensa y Mademsa #1 en Chile, con 45% en refrigeradores y 75% en freezers. USD $20M de inversión para el line-up LATAM.',
-            'Diagram: premium segment share from 1% to 5% in year one. Electrolux, Fensa and Mademsa #1 in Chile, with 45% in refrigerators and 75% in freezers. USD $20M investment for the LATAM line-up.'),
-          dCap(t('Participación en segmento premium', 'Premium segment share')),
-          dCols([[t('Antes', 'Before'), 15, '1%'], [t('Año 1', 'Year 1'), 75, '5%', true]]),
-          dCap(t('Electrolux, Fensa y Mademsa: #1 en Chile', 'Electrolux, Fensa and Mademsa: #1 in Chile')),
-          `<div class="dg-donuts">${dDonut(45, t('Refrigeradores', 'Refrigerators'))}${dDonut(75, 'Freezers')}</div>`,
-          dKpis([[t('Inversión line-up LATAM', 'LATAM line-up investment'), 'USD $20M']])) },
+        sketch: t => dFlip(t('Antes y año 1: la participación en el segmento premium pasa de 1% a 5%, con chefs Michelin como embajadores y el line-up completo para LATAM.',
+            'Before and year one: premium segment share goes from 1% to 5%, with Michelin chefs as ambassadors and the full LATAM line-up.'),
+          [t('Antes', 'Before'), t('Año 1', 'Year 1')],
+          dCap(t('Participación en el segmento premium', 'Premium segment share')),
+          fWaffle(1, 5),
+          fSwap('1%', '5%', true),
+          fNew([['star', t('Chefs Michelin', 'Michelin chefs')], ['', t('Line-up LATAM', 'LATAM line-up')]])) },
       { org: 'Accenture', area: 'Associate Marketing Manager', area_en: 'Associate Marketing Manager', year: '2016 – 2017',
         link: { href: 'https://www.ing.uc.cl/noticias/estudiantes-la-carrera-mindracer-drone-challenge/', label: 'Nota en Ingeniería UC', label_en: 'Ingeniería UC article' },
         logos: ['accenture'],
@@ -1051,8 +1022,10 @@
         desc_en: 'I led the MindRacer Drone Challenge, Latin America’s first mind-controlled drone race, used as a recruiting strategy for STEM talent.',
         pyme: 'Ideas que llaman la atención y a la vez sirven a un objetivo concreto del negocio; en este caso, atraer talento.',
         pyme_en: 'Ideas that grab attention while serving a concrete business goal; in this case, attracting talent.',
-        bullets: ['Campaña más innovadora de 2017', 'Primera en Latinoamérica', 'Reclutamiento de talento STEM', 'Marketing B2B para las 30 principales empresas de Chile', 'USD $6M en acuerdos comerciales'],
-        bullets_en: ['Most innovative campaign of 2017', 'First in Latin America', 'STEM talent recruiting', 'B2B marketing for Chile’s top 30 companies', 'USD $6M in commercial deals'],
+        stats: [['USD $6M', 'en acuerdos comerciales'], ['30', 'principales empresas de Chile en el marketing B2B']],
+        stats_en: [['USD $6M', 'in commercial deals'], ['30', 'of Chile’s top companies in B2B marketing']],
+        bullets: ['Campaña más innovadora de 2017', 'Primera en Latinoamérica'],
+        bullets_en: ['Most innovative campaign of 2017', 'First in Latin America'],
         chips: ['Innovación', 'Eventos', 'Employer branding'], chips_en: ['Innovation', 'Events', 'Employer branding'],
         clip: { src: 'videos/mindracer-2017.mp4', poster: 'videos/mindracer-2017.jpg', label: 'MindRacer Drone Challenge, 2017',
           photo: 'fotos/mindracer-equipo.jpg', photo_alt: 'Equipo del MindRacer Drone Challenge con el dron', photo_alt_en: 'MindRacer Drone Challenge team with the drone' } },
@@ -1071,23 +1044,15 @@
     const dNode = (txt, k, hot) => `<div class="dg-node${hot ? ' hot' : ''}">${k ? `<img src="${LOGOS[k][0]}" alt="" loading="lazy">` : ''}${txt ? `<span>${esc(txt)}</span>` : ''}</div>`;
     const dDown = () => '<div class="dg-down"></div>';
     const dStep = (k, title, txt, hot) => `<div class="dg-step${hot ? ' hot' : ''}">${logoTile(k)}<span><b>${esc(title)}</b>${esc(txt)}</span></div>`;
-    const dKpis = list => `<div class="dg-kpis">${list.map(([k, v]) => `<div class="dg-kpi">${esc(k)}<strong>${esc(v)}</strong></div>`).join('')}</div>`;
-    /* Before/after bars: [label, width %, value, hot] */
-    const dPair = (title, rows) => `<div class="dg-pair"><span class="dg-lbl">${esc(title)}</span>${rows.map(([k, w, v, hot]) =>
-      `<div class="dg-hbar${hot ? ' hot' : ''}"><span>${esc(k)}</span><i style="--w:${w}%"></i><b>${esc(v)}</b></div>`).join('')}</div>`;
-    /* Column chart: [label, height %, value, hot] */
-    const dCols = list => `<div><div class="dg-cols">${list.map(([, h, v, hot]) => `<div class="dg-col${hot ? ' hot' : ''}"><b>${esc(v)}</b><i style="--h:${h}%"></i></div>`).join('')}</div>
-      <div class="dg-axis dg-lbl">${list.map(([k]) => `<span>${esc(k)}</span>`).join('')}</div></div>`;
-    const dDonut = (pct, label) => `<div class="dg-donut"><div><svg viewBox="0 0 42 42"><circle class="trk" cx="21" cy="21" r="15.9155"/><circle class="val" cx="21" cy="21" r="15.9155" stroke-dasharray="${pct} 100"/></svg><b>${pct}%</b></div><span>${esc(label)}</span></div>`;
-    /* Before/after panel: { aria, tabs: [before, after], count, keep: [indexes], cap: [before, after],
-       extras: [[icon, label]] (appear after), metrics: [[label, before, after, after width %]] } */
-    const dShift = o => `<div class="dg dg-flip" role="group" aria-label="${esc(o.aria)}" data-state="after">
-      <div class="flip-tabs">${o.tabs.map((x, n) => `<button type="button" data-state="${n ? 'after' : 'before'}" aria-pressed="${n ? 'true' : 'false'}">${esc(x)}</button>`).join('')}</div>
-      <div class="flip-grid" aria-hidden="true">${Array.from({ length: o.count }, (_, n) => `<i${o.keep.includes(n) ? ' class="keep"' : ''} style="--i:${n}"></i>`).join('')}</div>
-      <p class="flip-cap"><span class="b">${esc(o.cap[0])}</span><span class="a">${esc(o.cap[1])}</span></p>
-      <div class="flip-new">${o.extras.map(([ic, x]) => `<span class="ic-${ic}">${esc(x)}</span>`).join('')}</div>
-      ${o.metrics.map(([k, b, a, w]) => `<div class="flip-m"><span>${esc(k)}</span><div><i style="--w:${w}%"></i><b><span class="b">${esc(b)}</span><span class="a">${esc(a)}</span></b></div></div>`).join('')}
-    </div>`;
+    /* Before/after panels: dFlip(aria, [before tab, after tab], ...parts). Inside, .b / .a elements show the
+       before / after version; the panel plays before → after when shown (playCard) and the tabs switch it. */
+    const dFlip = (aria, tabs, ...parts) => `<div class="dg dg-flip" role="group" aria-label="${esc(aria)}" data-state="after">
+      <div class="flip-tabs">${tabs.map((x, n) => `<button type="button" data-state="${n ? 'after' : 'before'}" aria-pressed="${n ? 'true' : 'false'}">${esc(x)}</button>`).join('')}</div>${parts.join('')}</div>`;
+    const fStores = (count, keep) => `<div class="flip-grid" aria-hidden="true">${Array.from({ length: count }, (_, n) => `<i${keep.includes(n) ? ' class="keep"' : ''} style="--i:${n}"></i>`).join('')}</div>`;
+    const fWaffle = (before, after) => `<div class="flip-waffle" aria-hidden="true">${Array.from({ length: 100 }, (_, n) => `<i${n < before ? ' class="wb wa"' : n < after ? ' class="wa"' : ''} style="--i:${Math.min(n, after)}"></i>`).join('')}</div>`;
+    const fSwap = (b, a, big) => `<p class="flip-cap${big ? ' big' : ''}"><span class="b">${esc(b)}</span><span class="a">${esc(a)}</span></p>`;
+    const fNew = list => `<div class="flip-new">${list.map(([ic, x]) => `<span${ic ? ` class="ic-${ic}"` : ''}>${esc(x)}</span>`).join('')}</div>`;
+    const fMetric = (k, b, a, w) => `<div class="flip-m"><span>${esc(k)}</span><div><i style="--w:${w}%"></i><b><span class="b">${esc(b)}</span><span class="a">${esc(a)}</span></b></div></div>`;
     const calm = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
     const setFlip = (g, state) => { g.dataset.state = state; g.querySelectorAll('.flip-tabs button').forEach(b => b.setAttribute('aria-pressed', b.dataset.state === state)); };
     /* Play a before/after panel (show "before", then switch) and count stats up from zero. */
@@ -1167,8 +1132,8 @@
               <h3>${esc(L(p, 'title'))}</h3>
               <p class="p-desc">${esc(L(p, 'desc'))}</p>
               <p class="p-pyme"><b>${t('Para tu PYME', 'For your SME')}</b>${esc(L(p, 'pyme'))}</p>
-              ${p.stats ? `<div class="p-stats">${L(p, 'stats').map(([v, k]) => `<div><strong><span aria-hidden="true" data-to="${esc(v)}">${esc(v)}</span><span class="sr">${esc(v)}</span></strong><p>${esc(k)}</p></div>`).join('')}</div>`
-                : `<ul class="p-bullets">${L(p, 'bullets').map(b => `<li>${esc(b)}</li>`).join('')}</ul>`}
+              ${p.stats ? `<div class="p-stats n${p.stats.length}" style="--n:${Math.max(...L(p, 'stats').map(([v]) => v.length))}">${L(p, 'stats').map(([v, k]) => `<div><strong><span aria-hidden="true" data-to="${esc(v)}">${esc(v)}</span><span class="sr">${esc(v)}</span></strong><p>${esc(k)}</p></div>`).join('')}</div>` : ''}
+              ${p.bullets ? `<ul class="p-bullets">${L(p, 'bullets').map(b => `<li>${esc(b)}</li>`).join('')}</ul>` : ''}
               <div class="p-chips">${L(p, 'chips').map(c => `<span>${esc(c)}</span>`).join('')}${p.link ? `<a class="p-link" href="${esc(p.link.href)}" target="_blank" rel="noopener">${esc(L(p.link, 'label'))} ↗</a>` : ''}</div>
               ${p.gallery ? `<div class="p-gallery"><span class="p-gal-t">${esc(L(p.gallery, 'title'))}</span><div class="p-gal">${p.gallery.items.map(g =>
                 `<button type="button" class="p-shot" data-src="${esc(g.src)}" data-cap="${esc(L(g, 'alt'))}" aria-label="${esc(t('Ampliar foto: ', 'Enlarge photo: ') + L(g, 'alt'))}"><img src="${esc(g.src)}" alt="" loading="lazy"${g.pos ? ` style="object-position:${g.pos}"` : ''}></button>`).join('')}</div></div>` : ''}
