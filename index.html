@@ -263,6 +263,8 @@
     .p-clip { margin: 0; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
     .p-clip video { display: block; height: 470px; max-width: 100%; aspect-ratio: 480 / 848; object-fit: cover; border-radius: 16px; background: var(--navy); border: 1px solid var(--border); }
     .p-clip figcaption { font-size: .9rem; font-weight: 600; color: var(--heading); }
+    .p-clip-photo { display: block; width: 100%; aspect-ratio: 608 / 338; object-fit: cover; border-radius: 14px; border: 1px solid var(--border); }
+    .p-clip.with-photo video { height: 300px; }
     /* Real videos: a YouTube thumbnail that turns into the player on click */
     .p-videos { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 18px; }
     .p-videos > div { flex: none; }
@@ -376,6 +378,9 @@
       .sk, .p-photo { min-height: 280px; }
       .p-logos.top { display: flex; }
       .p-logos.side { display: none; }
+      .p-clip.with-photo { flex-direction: row; flex-wrap: wrap; align-items: flex-start; justify-content: flex-start; }
+      .p-clip.with-photo .p-clip-photo { width: min(100%, 420px); }
+      .p-clip.with-photo figcaption { width: 100%; }
       .p-videos { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 420px)); align-items: start; }
     }
     @media (max-width: 1100px) {
@@ -918,7 +923,8 @@
         bullets_en: ['Most innovative campaign of 2017', 'First in Latin America', 'STEM talent recruiting', 'B2B marketing for Chile’s top 30 companies', 'USD $6M in commercial deals'],
         chips: ['Innovación', 'Eventos', 'Employer branding'], chips_en: ['Innovation', 'Events', 'Employer branding'],
         path: 'accenture / drones',
-        clip: { src: 'videos/mindracer-2017.mp4', poster: 'videos/mindracer-2017.jpg', label: 'MindRacer Drone Challenge, 2017' } },
+        clip: { src: 'videos/mindracer-2017.mp4', poster: 'videos/mindracer-2017.jpg', label: 'MindRacer Drone Challenge, 2017',
+          photo: 'fotos/mindracer-equipo.jpg', photo_alt: 'Equipo del MindRacer Drone Challenge con el dron', photo_alt_en: 'MindRacer Drone Challenge team with the drone' } },
     ];
 
     const esc = v => String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -974,7 +980,7 @@
         const d = document.createElement('details');
         d.className = 'proj'; d.name = 'proyectos'; d.open = i === openProject;
         const visual = p.videos ? videoBlock(p.videos, L, t) : p.clip
-          ? `<figure class="p-clip"><video controls playsinline preload="none" poster="${esc(p.clip.poster)}" aria-label="${esc(L(p.clip, 'label'))}"><source src="${esc(p.clip.src)}" type="video/mp4"></video><figcaption>${esc(L(p.clip, 'label'))}</figcaption></figure><div class="p-tag">Video</div>`
+          ? `<figure class="p-clip${p.clip.photo ? ' with-photo' : ''}">${p.clip.photo ? `<img class="p-clip-photo" src="${esc(p.clip.photo)}" alt="${esc(L(p.clip, 'photo_alt'))}" loading="lazy">` : ''}<video controls playsinline preload="none" poster="${esc(p.clip.poster)}" aria-label="${esc(L(p.clip, 'label'))}"><source src="${esc(p.clip.src)}" type="video/mp4"></video><figcaption>${esc(L(p.clip, 'label'))}</figcaption></figure><div class="p-tag">Video</div>`
           : projPhotos.has(i)
           ? `<figure class="p-photo"><img src="fotos/proyecto-${num}.jpg" alt="${esc(L(p, 'title'))}" loading="lazy"></figure><div class="p-tag">${t('Foto', 'Photo')}</div>`
           : `<div class="sk" aria-hidden="true"><div class="sk-bar"><i></i><i></i><i></i><span>${esc(L(p, 'path'))}</span></div><div class="sk-body">${p.sketch(t)}</div></div><div class="p-tag">${t('Ilustrativo', 'Illustrative')}</div>`;
