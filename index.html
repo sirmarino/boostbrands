@@ -299,24 +299,32 @@
     .sk-pills span { font: 500 .7rem var(--font-mono); padding: 6px 10px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); text-transform: uppercase; }
     .sk-pills span.hot { border-color: var(--accent); color: var(--accent-text); }
 
-    /* Track record */
-    .timeline { list-style: none; display: grid; gap: 10px; }
-    .job { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; transition: border-color .2s; }
-    .job:hover, .job[open] { border-color: color-mix(in srgb, var(--accent) 55%, var(--border)); }
-    .job summary {
-      list-style: none; cursor: pointer; padding: 20px 24px; min-height: 44px;
-      display: grid; grid-template-columns: 120px minmax(0, 1fr) auto auto; gap: 20px; align-items: center;
+    /* Track record: a scroll timeline. The line draws itself as you scroll and the
+       entry at the middle of the screen is shown at full contrast (the rest stay muted). */
+    .path { position: relative; list-style: none; margin-top: 44px; --yr: 150px; --gap: 28px; }
+    .path::before, .path-progress { content: ""; position: absolute; left: calc(var(--yr) + var(--gap)); top: 12px; bottom: 0; width: 2px; margin-left: -1px; background: var(--border); }
+    .path-progress { background: var(--accent); transform-origin: top; transform: scaleY(0); }
+    .path-item { position: relative; display: grid; grid-template-columns: var(--yr) minmax(0, 1fr); column-gap: calc(var(--gap) * 2); padding-bottom: 64px; }
+    .path-item:last-child { padding-bottom: 8px; }
+    .path-when { text-align: right; }
+    .path-year { display: block; font: 800 2.1rem/1 var(--font-display); letter-spacing: -0.03em; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .path-range { display: block; margin-top: 8px; font: 500 .78rem var(--font-mono); color: var(--muted); }
+    .path-dot { position: absolute; top: 9px; left: calc(var(--yr) + var(--gap)); width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: var(--bg); border: 2px solid var(--border); }
+    .path-tag { display: inline-block; font: 500 .74rem var(--font-mono); text-transform: uppercase; letter-spacing: .05em; padding: 4px 10px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); }
+    .path-item h3 { font: 800 clamp(1.45rem, 2.6vw, 2rem)/1.1 var(--font-display); letter-spacing: -0.03em; margin: 12px 0 6px; color: var(--muted); }
+    .path-org { color: var(--muted); }
+    .path-item ul { list-style: none; display: grid; gap: 8px; margin-top: 16px; max-width: 72ch; color: var(--muted); }
+    .path-item li { position: relative; padding-left: 20px; }
+    .path-item li::before { content: "–"; position: absolute; left: 0; color: var(--border); }
+    .path-year, .path-item h3 { color: color-mix(in srgb, var(--muted) 80%, var(--bg)); } /* large text only: 3.6:1 light, 5.6:1 dark */
+    .path-item.on .path-year, .path-item.on h3 { color: var(--heading); }
+    .path-item.on .path-org, .path-item.on ul { color: var(--text); }
+    .path-item.on li::before { color: var(--accent); }
+    .path-item.on .path-tag { color: var(--accent-text); border-color: var(--accent); background: var(--accent-soft); }
+    .path-item.on .path-dot { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 6px var(--accent-soft); }
+    @media (prefers-reduced-motion: no-preference) {
+      .path-year, .path-item h3, .path-org, .path-item ul, .path-tag, .path-dot, .path-item li::before { transition: color .35s, background-color .35s, border-color .35s, box-shadow .35s; }
     }
-    .job summary::-webkit-details-marker { display: none; }
-    .when { color: var(--accent-text); font: 500 .85rem var(--font-mono); font-variant-numeric: tabular-nums; }
-    .job h3 { font-size: 1.08rem; line-height: 1.3; }
-    .company { color: var(--muted); font-size: .93rem; }
-    .metric { font: 600 .82rem var(--font-body); background: var(--accent-soft); color: var(--accent-text); padding: 5px 12px; border-radius: 999px; white-space: nowrap; }
-    .chev { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--border); display: grid; place-items: center; transition: transform .25s; color: var(--muted); }
-    .job[open] .chev { transform: rotate(45deg); color: var(--accent-text); border-color: var(--accent); }
-    .job-body { padding: 0 24px 22px calc(120px + 20px + 24px); }
-    .job-body ul { display: grid; gap: 8px; padding-left: 18px; max-width: 74ch; color: var(--muted); }
-    .job-body li::marker { color: var(--accent); }
     .more { margin-top: 24px; }
 
     /* Education strip */
@@ -391,11 +399,13 @@
       section { padding-block: 64px; }
       .band .wrap { flex-wrap: wrap; gap: 10px; }
       .band-label { width: 100%; }
-      .job summary { grid-template-columns: minmax(0, 1fr) auto; gap: 6px 14px; padding: 18px; }
-      .when { grid-column: 1 / -1; }
-      .metric { grid-column: 1; grid-row: 3; justify-self: start; }
-      .chev { grid-column: 2; grid-row: 2; }
-      .job-body { padding: 0 18px 18px; }
+      .path { margin-top: 32px; }
+      .path::before, .path-progress, .path-dot { left: 8px; }
+      .path-item { grid-template-columns: minmax(0, 1fr); padding-left: 36px; padding-bottom: 48px; }
+      .path-when { text-align: left; display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; margin-bottom: 10px; }
+      .path-year { font-size: 1.7rem; }
+      .path-range { margin-top: 0; }
+      .path-dot { top: 6px; }
       .contact-box { padding: 44px 20px; }
       .contact-box .btn { width: 100%; justify-content: center; }
     }
@@ -609,93 +619,100 @@
     <div class="wrap">
       <span class="kicker"><span data-l="es">Trayectoria</span><span data-l="en">Track record</span></span>
       <h2><span data-l="es">Dónde <em>aprendí</em> lo que aplico</span><span data-l="en">Where I <em>learned</em> what I apply</span></h2>
-      <p class="intro" data-l="es">Un resumen. Abre un cargo para ver el detalle, o revisa la versión completa e interactiva en mi CV.</p>
-      <p class="intro" data-l="en">A summary. Open a role for details, or see the full interactive version in my CV.</p>
-      <ol class="timeline">
-        <li><details class="job">
-          <summary>
-            <span class="when"><span data-l="es">2020 – hoy</span><span data-l="en">2020 – now</span></span>
-            <span><h3><span data-l="es">Fundador y CEO</span><span data-l="en">Founder &amp; CEO</span></h3><span class="company">BoostBrands SpA · Santiago</span></span>
-            <span class="metric"><span data-l="es">USD $550K en ventas</span><span data-l="en">USD $550K in sales</span></span>
-            <span class="chev" aria-hidden="true">+</span>
-          </summary>
-          <div class="job-body"><ul>
-            <li data-l="es">Acuerdos de distribución para 2 marcas internacionales de moda sostenible en 3 grandes cadenas retail: USD $400K en ventas con 40% de margen.</li>
-            <li data-l="en">Distribution deals for 2 international sustainable fashion brands in 3 major retail chains: USD $400K in sales at a 40% margin.</li>
-            <li data-l="es">Asesoré a 50 PYMES durante la crisis económica de Chile (12 clientes activos), con +15% de crecimiento promedio de ingresos.</li>
-            <li data-l="en">Advised 50 SMEs during Chile's economic crisis (12 active clients), with +15% average revenue growth.</li>
-          </ul></div>
-        </details></li>
-        <li><details class="job">
-          <summary>
-            <span class="when">2020 – 2024</span>
-            <span><h3><span data-l="es">Director de Marketing y Ventas</span><span data-l="en">Marketing &amp; Sales Director</span></h3><span class="company">Bajaj Motochile · Santiago</span></span>
-            <span class="metric"><span data-l="es">9% → 23% participación</span><span data-l="en">9% → 23% market share</span></span>
-            <span class="chev" aria-hidden="true">+</span>
-          </summary>
-          <div class="job-body"><ul>
-            <li data-l="es">Transformación de B2B a B2C/D2C: 20 franquicias reemplazadas por 4 tiendas propias. EBITDA +20%, flujo de caja +50%.</li>
-            <li data-l="en">Moved from B2B to B2C/D2C: replaced 20 franchises with 4 company stores. EBITDA +20%, cash flow +50%.</li>
-            <li data-l="es">Alianza de USD $8M con la fintech Galgo y lanzamiento de MotoFin, microcrédito propio.</li>
-            <li data-l="en">USD $8M alliance with fintech Galgo and launch of MotoFin, an in-house microcredit unit.</li>
-            <li data-l="es">E-commerce desde cero en Shopify: USD $13,5M en ventas durante la pandemia. Equipo de 33 personas y 3 agencias.</li>
-            <li data-l="en">E-commerce from zero on Shopify: USD $13.5M in sales during the pandemic. Team of 33 people and 3 agencies.</li>
-          </ul></div>
-        </details></li>
-        <li><details class="job">
-          <summary>
-            <span class="when">2017 – 2020</span>
-            <span><h3><span data-l="es">Country Manager Chile y Paraguay · Regional CMO LATAM</span><span data-l="en">Country Manager Chile &amp; Paraguay · Regional CMO LATAM</span></h3><span class="company">Bajaj Auto Limited</span></span>
-            <span class="metric"><span data-l="es">6 países</span><span data-l="en">6 countries</span></span>
-            <span class="chev" aria-hidden="true">+</span>
-          </summary>
-          <div class="job-body"><ul>
-            <li data-l="es">Entrada a Paraguay desde cero: USD $1M en ventas y 5% de participación el primer año.</li>
-            <li data-l="en">Launched in Paraguay from scratch: USD $1M in sales and 5% share in year one.</li>
-            <li data-l="es">Campañas integradas en 6 países (USD $6M): el mayor crecimiento regional de participación en 10 años.</li>
-            <li data-l="en">Integrated campaigns in 6 countries (USD $6M): the largest regional share gain in 10 years.</li>
-          </ul></div>
-        </details></li>
-        <li><details class="job">
-          <summary>
-            <span class="when">2016 – 2017</span>
-            <span><h3>Associate Marketing Manager</h3><span class="company">Accenture · Santiago</span></span>
-            <span class="metric"><span data-l="es">USD $6M en acuerdos</span><span data-l="en">USD $6M in deals</span></span>
-            <span class="chev" aria-hidden="true">+</span>
-          </summary>
-          <div class="job-body"><ul>
-            <li data-l="es">Marketing B2B para las 30 principales empresas de Chile.</li>
-            <li data-l="en">B2B marketing for Chile's top 30 companies.</li>
-            <li data-l="es">Primera carrera de drones controlados por la mente en LATAM, campaña más innovadora 2017.</li>
-            <li data-l="en">LATAM's first mind-controlled drone race, most innovative campaign of 2017.</li>
-          </ul></div>
-        </details></li>
-        <li><details class="job">
-          <summary>
-            <span class="when">2013 – 2016</span>
-            <span><h3>Senior Regional Product Marketing Manager</h3><span class="company"><span data-l="es">Electrolux · Clúster Andino</span><span data-l="en">Electrolux · Andean cluster</span></span></span>
-            <span class="metric"><span data-l="es">#1 en Chile</span><span data-l="en">#1 in Chile</span></span>
-            <span class="chev" aria-hidden="true">+</span>
-          </summary>
-          <div class="job-body"><ul>
-            <li data-l="es">Desarrollo de producto y line-up completo para Electrolux LATAM: inversión de USD $20M aprobada por el HQ global.</li>
-            <li data-l="en">Product development and full line-up for Electrolux LATAM: USD $20M investment approved by global HQ.</li>
-            <li data-l="es">Electrolux, Fensa y Mademsa #1 en Chile: 45% en refrigeradores y 75% en freezers.</li>
-            <li data-l="en">Electrolux, Fensa and Mademsa #1 in Chile: 45% share in refrigerators, 75% in freezers.</li>
-          </ul></div>
-        </details></li>
-        <li><details class="job">
-          <summary>
-            <span class="when">2008 – 2011</span>
-            <span><h3>Product Marketing Manager</h3><span class="company"><span data-l="es">Cencosud · Tarjeta de crédito</span><span data-l="en">Cencosud · Credit card</span></span></span>
-            <span class="metric"><span data-l="es">2M tarjetahabientes</span><span data-l="en">2M cardholders</span></span>
-            <span class="chev" aria-hidden="true">+</span>
-          </summary>
-          <div class="job-body"><ul>
-            <li data-l="es">Red de comercios asociados +15% anual y ticket promedio +10% con promociones cruzadas.</li>
-            <li data-l="en">Partner merchant network +15% YoY and average ticket +10% through cross promotions.</li>
-          </ul></div>
-        </details></li>
+      <p class="intro" data-l="es">De 2008 a hoy. A medida que bajas, cada etapa se ilumina; el detalle completo está en mi CV.</p>
+      <p class="intro" data-l="en">From 2008 to today. As you scroll, each stage lights up; full details are in my CV.</p>
+      <ol class="path" id="path">
+        <li class="path-progress" aria-hidden="true"></li>
+        <li class="path-item">
+          <div class="path-when"><span class="path-year">2008</span><span class="path-range"><span data-l="es">ago 2008 – sep 2011</span><span data-l="en">Aug 2008 – Sep 2011</span></span></div>
+          <span class="path-dot" aria-hidden="true"></span>
+          <div>
+            <span class="path-tag"><span data-l="es">2M tarjetahabientes</span><span data-l="en">2M cardholders</span></span>
+            <h3>Product Marketing Manager</h3>
+            <p class="path-org"><span data-l="es">Cencosud · Tarjeta de crédito</span><span data-l="en">Cencosud · Credit card</span></p>
+            <ul>
+              <li data-l="es">Red de comercios asociados +15% anual y ticket promedio +10% con promociones cruzadas.</li>
+              <li data-l="en">Partner merchant network +15% YoY and average ticket +10% through cross promotions.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="path-item">
+          <div class="path-when"><span class="path-year">2013</span><span class="path-range"><span data-l="es">may 2013 – sep 2016</span><span data-l="en">May 2013 – Sep 2016</span></span></div>
+          <span class="path-dot" aria-hidden="true"></span>
+          <div>
+            <span class="path-tag"><span data-l="es">#1 en Chile</span><span data-l="en">#1 in Chile</span></span>
+            <h3>Senior Regional Product Marketing Manager</h3>
+            <p class="path-org"><span data-l="es">Electrolux · Clúster Andino</span><span data-l="en">Electrolux · Andean cluster</span></p>
+            <ul>
+              <li data-l="es">Desarrollo de producto y line-up completo para Electrolux LATAM: inversión de USD $20M aprobada por el HQ global.</li>
+              <li data-l="en">Product development and full line-up for Electrolux LATAM: USD $20M investment approved by global HQ.</li>
+              <li data-l="es">Electrolux, Fensa y Mademsa #1 en Chile: 45% en refrigeradores y 75% en freezers.</li>
+              <li data-l="en">Electrolux, Fensa and Mademsa #1 in Chile: 45% share in refrigerators, 75% in freezers.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="path-item">
+          <div class="path-when"><span class="path-year">2016</span><span class="path-range"><span data-l="es">oct 2016 – sep 2017</span><span data-l="en">Oct 2016 – Sep 2017</span></span></div>
+          <span class="path-dot" aria-hidden="true"></span>
+          <div>
+            <span class="path-tag"><span data-l="es">USD $6M en acuerdos</span><span data-l="en">USD $6M in deals</span></span>
+            <h3>Associate Marketing Manager</h3>
+            <p class="path-org">Accenture · Santiago</p>
+            <ul>
+              <li data-l="es">Marketing B2B para las 30 principales empresas de Chile.</li>
+              <li data-l="en">B2B marketing for Chile’s top 30 companies.</li>
+              <li data-l="es">Primera carrera de drones controlados por la mente en LATAM, campaña más innovadora 2017.</li>
+              <li data-l="en">LATAM’s first mind-controlled drone race, most innovative campaign of 2017.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="path-item">
+          <div class="path-when"><span class="path-year">2017</span><span class="path-range"><span data-l="es">oct 2017 – mar 2020</span><span data-l="en">Oct 2017 – Mar 2020</span></span></div>
+          <span class="path-dot" aria-hidden="true"></span>
+          <div>
+            <span class="path-tag"><span data-l="es">6 países</span><span data-l="en">6 countries</span></span>
+            <h3><span data-l="es">Country Manager Chile y Paraguay · Regional CMO LATAM</span><span data-l="en">Country Manager Chile &amp; Paraguay · Regional CMO LATAM</span></h3>
+            <p class="path-org">Bajaj Auto Limited</p>
+            <ul>
+              <li data-l="es">Entrada a Paraguay desde cero: USD $1M en ventas y 5% de participación el primer año.</li>
+              <li data-l="en">Launched in Paraguay from scratch: USD $1M in sales and 5% share in year one.</li>
+              <li data-l="es">Campañas integradas en 6 países (USD $6M): el mayor crecimiento regional de participación en 10 años.</li>
+              <li data-l="en">Integrated campaigns in 6 countries (USD $6M): the largest regional share gain in 10 years.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="path-item">
+          <div class="path-when"><span class="path-year">2020</span><span class="path-range"><span data-l="es">mar 2020 – jul 2024</span><span data-l="en">Mar 2020 – Jul 2024</span></span></div>
+          <span class="path-dot" aria-hidden="true"></span>
+          <div>
+            <span class="path-tag"><span data-l="es">9% → 23% participación</span><span data-l="en">9% → 23% market share</span></span>
+            <h3><span data-l="es">Director de Marketing y Ventas</span><span data-l="en">Marketing &amp; Sales Director</span></h3>
+            <p class="path-org">Bajaj Motochile · Santiago</p>
+            <ul>
+              <li data-l="es">Transformación de B2B a B2C/D2C: 20 franquicias reemplazadas por 4 tiendas propias. EBITDA +20%, flujo de caja +50%.</li>
+              <li data-l="en">Moved from B2B to B2C/D2C: replaced 20 franchises with 4 company stores. EBITDA +20%, cash flow +50%.</li>
+              <li data-l="es">Alianza de USD $8M con la fintech Galgo y lanzamiento de MotoFin, microcrédito propio.</li>
+              <li data-l="en">USD $8M alliance with fintech Galgo and launch of MotoFin, an in-house microcredit unit.</li>
+              <li data-l="es">E-commerce desde cero en Shopify: USD $13,5M en ventas durante la pandemia. Equipo de 33 personas y 3 agencias.</li>
+              <li data-l="en">E-commerce from zero on Shopify: USD $13.5M in sales during the pandemic. Team of 33 people and 3 agencies.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="path-item">
+          <div class="path-when"><span class="path-year">2020</span><span class="path-range"><span data-l="es">mar 2020 – hoy</span><span data-l="en">Mar 2020 – now</span></span></div>
+          <span class="path-dot" aria-hidden="true"></span>
+          <div>
+            <span class="path-tag"><span data-l="es">USD $550K en ventas</span><span data-l="en">USD $550K in sales</span></span>
+            <h3><span data-l="es">Fundador y CEO</span><span data-l="en">Founder &amp; CEO</span></h3>
+            <p class="path-org">BoostBrands SpA · Santiago</p>
+            <ul>
+              <li data-l="es">Acuerdos de distribución para Acapella y Bench, marcas internacionales de moda sostenible, en 3 grandes cadenas retail: USD $400K en ventas con 40% de margen.</li>
+              <li data-l="en">Distribution deals for Acapella and Bench, international sustainable fashion brands, in 3 major retail chains: USD $400K in sales at a 40% margin.</li>
+              <li data-l="es">Asesoré a 50 PYMES durante la crisis económica de Chile (12 clientes activos), con +15% de crecimiento promedio de ingresos.</li>
+              <li data-l="en">Advised 50 SMEs during Chile’s economic crisis (12 active clients), with +15% average revenue growth.</li>
+            </ul>
+          </div>
+        </li>
       </ol>
       <div class="more"><a href="cv.html" class="btn btn-ghost"><span data-l="es">Ver trayectoria completa →</span><span data-l="en">See full track record →</span></a></div>
     </div>
@@ -1001,6 +1018,20 @@
       if (en.isIntersecting) navMap.forEach((a, id) => a.classList.toggle('active', id === en.target.id));
     }), { rootMargin: '-45% 0px -50% 0px' });
     document.querySelectorAll('section[id], header[id]').forEach(s => io.observe(s)); // the hero has no nav link, so reaching it clears the highlight
+
+    /* Track record: draw the line up to the middle of the screen and light up the entry there */
+    const path = $('path'), pathItems = [...path.querySelectorAll('.path-item')], pathBar = path.querySelector('.path-progress');
+    let pathQueued = false;
+    function paintPath() {
+      pathQueued = false;
+      const mid = innerHeight / 2, box = path.getBoundingClientRect();
+      pathBar.style.transform = `scaleY(${Math.min(1, Math.max(0, (mid - box.top) / box.height))})`;
+      let on = 0;
+      pathItems.forEach((it, i) => { if (it.getBoundingClientRect().top <= mid) on = i; });
+      pathItems.forEach((it, i) => it.classList.toggle('on', i === on));
+    }
+    addEventListener('scroll', () => { if (!pathQueued) { pathQueued = true; requestAnimationFrame(paintPath); } }, { passive: true });
+    addEventListener('resize', paintPath); paintPath();
 
     /* Phones: keep the booking button in reach between the hero buttons and the contact section */
     const sticky = $('sticky-cta'), seen = { hero: true, end: false };
