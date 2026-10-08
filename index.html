@@ -141,6 +141,7 @@
     .badge strong { display: block; font: 800 1.3rem var(--font-display); color: var(--accent-text); }
     .badge.b1 { left: -28px; top: 10%; }
     .badge.b2 { right: -24px; bottom: 9%; }
+    @media (max-width: 1140px) { .badge.b2 { right: -10px; } }
     @media (prefers-reduced-motion: no-preference) {
       .badge { animation: float 6s ease-in-out infinite; }
       .badge.b2 { animation-delay: -3s; }
@@ -231,6 +232,19 @@
     .p-tag { font: 500 .72rem var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); text-align: right; }
     .p-photo { flex: 1; min-height: 320px; border-radius: 18px; overflow: hidden; border: 1px solid var(--border); }
     .p-photo img { width: 100%; height: 100%; object-fit: cover; }
+    /* Real videos: a YouTube thumbnail that turns into the player on click */
+    .p-videos { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 18px; }
+    .p-videos > div { flex: none; }
+    .yt-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; background: var(--navy); border: 1px solid var(--border); }
+    .yt-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .yt { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; padding: 0; background: none; cursor: pointer; display: grid; place-items: center; }
+    .yt img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+    .yt:hover img { transform: scale(1.04); }
+    .yt-play { position: relative; width: 62px; height: 62px; border-radius: 50%; background: var(--accent); display: grid; place-items: center; box-shadow: 0 10px 30px -10px rgba(0,0,0,.6); }
+    .yt-play::before { content: ""; border-left: 17px solid var(--accent-ink); border-top: 11px solid transparent; border-bottom: 11px solid transparent; margin-left: 5px; }
+    .yt-cap { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: .9rem; font-weight: 600; color: var(--heading); margin-top: 4px; }
+    .yt-cap a { font: 500 .78rem var(--font-mono); color: var(--accent-text); text-decoration: none; white-space: nowrap; min-height: 44px; display: inline-flex; align-items: center; }
+    .yt-cap a:hover { text-decoration: underline; }
 
     /* Illustrative sketches (drawn with tokens so they work in both themes) */
     .sk { flex: 1; min-height: 320px; border: 1px solid var(--border); border-radius: 18px; background: var(--bg); display: flex; flex-direction: column; overflow: hidden; }
@@ -262,15 +276,6 @@
     .sk-prod div { aspect-ratio: 4 / 3; border-radius: 8px; background: var(--border); }
     .sk-prod i { height: 6px; border-radius: 3px; background: var(--border); width: 80%; }
     .sk-prod em { height: 22px; border-radius: 6px; background: var(--accent); width: 60%; }
-    .sk-steps { display: grid; gap: 12px; position: relative; }
-    .sk-step { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 12px; align-items: center; }
-    .sk-step b { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--surface); border: 1px solid var(--border); font: 600 .8rem var(--font-mono); color: var(--muted); }
-    .sk-step.hot b { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
-    .sk-video { position: relative; aspect-ratio: 16 / 9; border-radius: 12px; background: var(--navy); display: grid; place-items: center; overflow: hidden; }
-    .sk-video::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 5px; background: linear-gradient(90deg, var(--accent) 38%, var(--navy-line) 38%); }
-    .sk-play { width: 58px; height: 58px; border-radius: 50%; background: var(--accent); display: grid; place-items: center; }
-    .sk-play::before { content: ""; border-left: 16px solid var(--accent-ink); border-top: 10px solid transparent; border-bottom: 10px solid transparent; margin-left: 4px; }
-    .sk-ep { position: absolute; top: 12px; left: 12px; font: 500 .68rem var(--font-mono); color: var(--on-navy-muted); text-transform: uppercase; letter-spacing: .06em; }
     .sk-pills { display: flex; flex-wrap: wrap; gap: 8px; }
     .sk-pills span { font: 500 .7rem var(--font-mono); padding: 6px 10px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); text-transform: uppercase; }
     .sk-pills span.hot { border-color: var(--accent); color: var(--accent-text); }
@@ -325,7 +330,6 @@
       .p-vtitle { writing-mode: horizontal-tb; transform: none; white-space: normal; flex: 1; }
       .p-body { grid-template-columns: 1fr; height: auto; overflow: visible; padding: 26px 22px 22px; gap: 24px; }
       .sk, .p-photo { min-height: 280px; }
-      .badge.b2 { right: -10px; }
     }
     @media (max-width: 560px) {
       .p-bullets { grid-template-columns: 1fr; }
@@ -686,7 +690,8 @@
     $('lang-btn').addEventListener('click', () => setLang(lang === 'es' ? 'en' : 'es'));
 
     /* ---------- Projects (content from the CV). Fields ending in _en are the English versions.
-       Real photos: put fotos/proyecto-01.jpg … proyecto-07.jpg and they replace the sketch. ---------- */
+       Real photos: put fotos/proyecto-01.jpg … proyecto-07.jpg and they replace the sketch.
+       Projects with `videos` (YouTube ids, optional playlist) show those instead of a photo or sketch. ---------- */
     const PROJECTS = [
       { org: 'BoostBrands', area: 'Representación retail', area_en: 'Retail representation', year: '2020 – hoy', year_en: '2020 – now',
         title: 'Moda sostenible en el retail chileno', title_en: 'Sustainable fashion in Chilean retail', short: 'Moda sostenible en retail', short_en: 'Sustainable fashion in retail',
@@ -725,16 +730,19 @@
         bullets_en: ['Distributor selection', 'Team of 25 people', '3 stores opened', 'USD $1M in sales in year one', '5% market share in year one'],
         chips: ['Expansión internacional', 'Go-to-market', 'Liderazgo de equipos'], chips_en: ['International expansion', 'Go-to-market', 'Team leadership'],
         path: 'bajaj / paraguay',
-        sketch: t => steps([t('Distribuidor elegido', 'Distributor chosen'), t('Equipo de 25 personas', 'Team of 25'), t('3 tiendas abiertas', '3 stores opened'), t('USD $1M · 5% de participación', 'USD $1M · 5% share')]) },
+        videos: [{ id: 'eZw5Iau7REE', label: 'Aterrizaje de Bajaj en Paraguay', label_en: 'Bajaj lands in Paraguay' }] },
       { org: 'Bajaj Auto', area: 'CMO regional LATAM', area_en: 'Regional CMO LATAM', year: '2017 – 2020',
         title: 'Reality shows y campañas en 6 países', title_en: 'Reality shows and campaigns in 6 countries', short: 'Reality shows en 6 países', short_en: 'Reality shows in 6 countries',
-        desc: 'Diseñé campañas integradas para 6 países, incluidos 2 reality shows digitales originales con figuras de TV: Pro Am en Argentina y Pulsar Aventura en dos ruedas en Perú.',
-        desc_en: 'I designed integrated campaigns for 6 countries, including 2 original digital reality shows with TV personalities: Pro Am in Argentina and Pulsar Aventura en dos ruedas in Peru.',
-        bullets: ['Presupuesto de USD $6M en 6 países', 'Reality shows Pro Am (Argentina) y Pulsar Aventura en dos ruedas (Perú)', 'Mayor alza regional de participación en 10 años', '19% de participación LATAM', 'KPIs que conectan alcance con ventas', '-30% en costos de agencias'],
-        bullets_en: ['USD $6M budget across 6 countries', 'Reality shows Pro Am (Argentina) and Pulsar Aventura en dos ruedas (Peru)', 'Largest regional share gain in 10 years', '19% LATAM market share', 'KPIs linking reach to sales', '-30% in agency costs'],
+        desc: 'Diseñé campañas integradas para 6 países, incluidos 2 reality shows digitales originales con figuras de TV: Rouser ProAm en Argentina y Pulsar Aventura en dos ruedas en Perú.',
+        desc_en: 'I designed integrated campaigns for 6 countries, including 2 original digital reality shows with TV personalities: Rouser ProAm in Argentina and Pulsar Aventura en dos ruedas in Peru.',
+        bullets: ['Presupuesto de USD $6M en 6 países', 'Reality shows Rouser ProAm (Argentina) y Pulsar Aventura en dos ruedas (Perú)', 'Mayor alza regional de participación en 10 años', '19% de participación LATAM', 'KPIs que conectan alcance con ventas', '-30% en costos de agencias'],
+        bullets_en: ['USD $6M budget across 6 countries', 'Reality shows Rouser ProAm (Argentina) and Pulsar Aventura en dos ruedas (Peru)', 'Largest regional share gain in 10 years', '19% LATAM market share', 'KPIs linking reach to sales', '-30% in agency costs'],
         chips: ['Marketing integrado', 'Contenido', 'Gestión de agencias'], chips_en: ['Integrated marketing', 'Content', 'Agency management'],
         path: 'bajaj / campañas', path_en: 'bajaj / campaigns',
-        sketch: t => video('Pulsar Aventura en dos ruedas', [t('Pro Am · Argentina', 'Pro Am · Argentina'), t('Pulsar · Perú', 'Pulsar · Peru'), t('6 países', '6 countries')]) },
+        videos: [
+          { id: '3WPd5LJGRUg', list: 'PLDQzHPNYeF3pRpPwWPZLfoBPjrMV-Gf6i', label: 'Pulsar Aventura en dos ruedas · Perú', label_en: 'Pulsar Aventura en dos ruedas · Peru' },
+          { id: 'K4kNNuP8Z4k', list: 'PLpP2m8fmUUotaXHzy287rd6iYhd8aavNa', label: 'Rouser ProAm · Argentina' },
+        ] },
       { org: 'Electrolux', area: 'Product marketing', area_en: 'Product marketing', year: '2013 – 2016',
         title: 'Electrolux premium con chefs Michelin', title_en: 'Electrolux goes premium with Michelin chefs', short: 'Premium con chefs Michelin', short_en: 'Premium with Michelin chefs',
         desc: 'Lideré el desarrollo de producto y el line-up completo de Electrolux para Latinoamérica, con USD $20M de inversión, y reposicioné la marca en el segmento premium con chefs Michelin como embajadores.',
@@ -766,13 +774,6 @@
       const prod = '<div class="sk-prod"><div></div><i></i><em></em></div>';
       return `<div class="sk-store">${prod.repeat(3)}</div>${foot(totals)}`;
     }
-    function steps(list) {
-      return `<div class="sk-steps">${list.map((s, i) => `<div class="sk-step${i === list.length - 1 ? ' hot' : ''}"><b>${i + 1}</b>${node(s, i === list.length - 1)}</div>`).join('')}</div>`;
-    }
-    function video(ep, pills) {
-      return `<div class="sk-video"><span class="sk-ep">${esc(ep)}</span><div class="sk-play"></div></div>
-        <div class="sk-pills">${pills.map((p, i) => `<span class="${i === pills.length - 1 ? 'hot' : ''}">${esc(p)}</span>`).join('')}</div>`;
-    }
     function bars(list, max, label) {
       return `<div class="sk-bars">${list.map(([k, v, txt, hot]) => `<div class="sk-barcol"><b>${esc(txt)}</b><div class="sk-fill${hot ? ' hot' : ''}" style="height:${Math.max(6, v / max * 80)}%"></div></div>`).join('')}</div>
         <div class="sk-axis">${list.map(([k]) => `<span>${esc(k)}</span>`).join('')}</div><div class="p-tag" style="text-align:center">${esc(label)}</div>`;
@@ -792,6 +793,24 @@
       img.src = src;
     });
     let openProject = 0;
+    const ytUrl = v => `https://www.youtube.com/watch?v=${encodeURIComponent(v.id)}${v.list ? '&list=' + encodeURIComponent(v.list) : ''}`;
+    function videoBlock(videos, L, t) {
+      return `<div class="p-videos">${videos.map(v => `<div>
+          <div class="yt-frame"><button type="button" class="yt" data-yt="${esc(v.id)}" data-list="${esc(v.list || '')}" data-title="${esc(L(v, 'label'))}" aria-label="${esc(t('Reproducir video: ', 'Play video: ') + L(v, 'label'))}">
+            <img src="https://i.ytimg.com/vi/${esc(v.id)}/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="yt-play" aria-hidden="true"></span></button></div>
+          <div class="yt-cap"><span>${esc(L(v, 'label'))}</span><a href="${esc(ytUrl(v))}" target="_blank" rel="noopener">YouTube ↗</a></div>
+        </div>`).join('')}</div><div class="p-tag">Video</div>`;
+    }
+    /* Swap a thumbnail for the YouTube player (privacy-enhanced domain) only when clicked. */
+    $('projects')?.addEventListener('click', e => {
+      const b = e.target.closest('button.yt'); if (!b) return;
+      const f = document.createElement('iframe');
+      f.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(b.dataset.yt)}?autoplay=1&rel=0${b.dataset.list ? '&list=' + encodeURIComponent(b.dataset.list) : ''}`;
+      f.title = b.dataset.title;
+      f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      f.allowFullscreen = true; f.referrerPolicy = 'strict-origin-when-cross-origin';
+      b.replaceWith(f);
+    });
     function renderProjects() {
       const box = $('projects'); if (!box) return;
       const L = (o, k) => (lang === 'en' && o[k + '_en'] !== undefined) ? o[k + '_en'] : o[k];
@@ -800,7 +819,7 @@
         const num = String(i + 1).padStart(2, '0');
         const d = document.createElement('details');
         d.className = 'proj'; d.name = 'proyectos'; d.open = i === openProject;
-        const visual = projPhotos.has(i)
+        const visual = p.videos ? videoBlock(p.videos, L, t) : projPhotos.has(i)
           ? `<figure class="p-photo"><img src="fotos/proyecto-${num}.jpg" alt="${esc(L(p, 'title'))}" loading="lazy"></figure><div class="p-tag">${t('Foto', 'Photo')}</div>`
           : `<div class="sk" aria-hidden="true"><div class="sk-bar"><i></i><i></i><i></i><span>${esc(L(p, 'path'))}</span></div><div class="sk-body">${p.sketch(t)}</div></div><div class="p-tag">${t('Ilustrativo', 'Illustrative')}</div>`;
         d.innerHTML = `
