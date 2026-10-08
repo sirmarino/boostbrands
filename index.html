@@ -107,6 +107,10 @@
     .wrap { max-width: 1120px; margin: 0 auto; padding-inline: 20px; }
     h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; }
 
+    /* Skip link: hidden until focused with the keyboard */
+    .skip { position: fixed; left: 16px; top: 12px; z-index: 200; padding: 12px 18px; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font-weight: 600; text-decoration: none; transform: translateY(-160%); }
+    .skip:focus { transform: none; }
+    main:focus { outline: none; }
     .progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); z-index: 30; }
 
     /* Nav */
@@ -287,7 +291,11 @@
     .card .icon { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; background: linear-gradient(140deg, #ff9a6b, var(--accent)); color: var(--accent-ink); margin-bottom: 18px; box-shadow: 0 12px 24px -10px rgba(232, 85, 28, .7); }
     .card h3 { font-size: 1.2rem; margin-bottom: 8px; }
     .card p { color: var(--muted); font-size: .97rem; }
-    .card .topics { margin-top: 10px; color: var(--text); font-size: .92rem; }
+    /* What each service covers, as tags at the foot of the card (cards share one height, so the tags line up) */
+    .card { display: flex; flex-direction: column; }
+    .card .icon { flex: none; }
+    .card-tags { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 18px; }
+    .card-tags li { padding: 5px 11px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border)); background: var(--accent-soft); font-size: .82rem; font-weight: 600; color: var(--heading); }
     .steps { margin-top: 28px; border-radius: 20px; padding: 30px; display: grid; grid-template-columns: 220px repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; color: var(--on-navy);
       background: radial-gradient(50% 120% at 100% 0%, rgba(232, 85, 28, .3), transparent 70%), radial-gradient(40% 100% at 0% 100%, rgba(84, 116, 210, .22), transparent 70%), linear-gradient(160deg, var(--navy-2), var(--navy));
       box-shadow: 0 30px 56px -32px rgba(20, 33, 61, .7), inset 0 1px 0 rgba(255, 255, 255, .08); }
@@ -850,6 +858,7 @@
 </head>
 <body>
   <div class="progress" id="progress" aria-hidden="true"></div>
+  <a class="skip" href="#main"><span data-l="es">Saltar al contenido</span><span data-l="en">Skip to content</span></a>
 
   <nav id="nav">
     <div class="wrap">
@@ -870,6 +879,7 @@
     </div>
   </nav>
 
+  <main id="main" tabindex="-1">
   <header class="wrap hero art" id="top">
     <div>
       <span class="eyebrow"><span class="dot"></span><span data-l="es">Fundador y CEO · BoostBrands</span><span data-l="en">Founder &amp; CEO · BoostBrands</span></span>
@@ -993,20 +1003,24 @@
           <h3><span data-l="es">Consultoría de crecimiento</span><span data-l="en">Growth consulting</span></h3>
           <p data-l="es">Para empresas que quieren vender más y con mejor margen, con un plan medido desde el primer mes.</p>
           <p data-l="en">For companies that want to sell more at a better margin, with a plan measured from month one.</p>
-          <p class="topics" data-l="es">Medición de campañas, precios, procesos, metas e incentivos, alineación de marketing y ventas, y estrategia para escalar.</p>
-          <p class="topics" data-l="en">Campaign measurement, pricing, processes, goals and incentives, marketing–sales alignment and a strategy to scale.</p>
+          <ul class="card-tags" data-l="es"><li>Medición de campañas</li><li>Precios</li><li>Procesos</li><li>Metas e incentivos</li><li>Marketing + ventas</li><li>Estrategia para escalar</li></ul>
+          <ul class="card-tags" data-l="en"><li>Campaign measurement</li><li>Pricing</li><li>Processes</li><li>Goals &amp; incentives</li><li>Marketing + sales</li><li>Strategy to scale</li></ul>
         </div>
         <div class="card glass">
           <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M3 9h18M10 20v-6h4v6"/></svg></div>
           <h3><span data-l="es">Representación retail</span><span data-l="en">Retail representation</span></h3>
           <p data-l="es">Llevo marcas a las grandes cadenas: 2 marcas internacionales de moda sostenible, Acapella y Bench, en 3 cadenas retail chilenas.</p>
           <p data-l="en">I bring brands into major chains: 2 international sustainable fashion brands, Acapella and Bench, in 3 Chilean retail chains.</p>
+          <ul class="card-tags" data-l="es"><li>Falabella</li><li>Paris</li><li>Mercado Libre</li></ul>
+          <ul class="card-tags" data-l="en"><li>Falabella</li><li>Paris</li><li>Mercado Libre</li></ul>
         </div>
         <div class="card glass">
           <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></div>
           <h3><span data-l="es">Marketing con IA</span><span data-l="en">AI-powered marketing</span></h3>
           <p data-l="es">IA agéntica integrada en campañas y producción de contenido, con un enfoque radical de bajo costo y alto rendimiento.</p>
           <p data-l="en">Agentic AI built into campaigns and content production, for a radically low-cost, high-output approach.</p>
+          <ul class="card-tags" data-l="es"><li>Campañas</li><li>Contenido</li><li>Dashboards de datos</li></ul>
+          <ul class="card-tags" data-l="en"><li>Campaigns</li><li>Content</li><li>Data dashboards</li></ul>
         </div>
       </div>
       <div class="steps" id="como-trabajo">
@@ -1264,6 +1278,7 @@
       </div>
     </div>
   </section>
+  </main>
 
   <footer>
     <div class="wrap">
