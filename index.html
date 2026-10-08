@@ -300,7 +300,7 @@
     .dg-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: 100%; }
     .dg-hub .p-logo { width: 96px; height: 54px; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
     .dg-node { flex: 1 1 0; min-width: 0; max-width: 170px; min-height: 44px; display: grid; place-items: center; gap: 2px; padding: 8px 10px; border-radius: 12px; background: var(--surface); border: 1px solid var(--border); font: 700 .95rem/1.2 var(--font-display); color: var(--heading); text-align: center; }
-    .dg-node img { display: block; height: 42px; width: auto; max-width: 100%; }
+    .dg-node img { display: block; height: 42px; width: auto; max-width: 100%; object-fit: contain; border-radius: 6px; }
     .dg-node.hot { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
     .dg-down { position: relative; width: 2px; height: 24px; margin: -4px auto; background: var(--accent); transform-origin: top; }
     .dg-down::after, .dg-right::after { content: ""; position: absolute; border: 5px solid transparent; }
@@ -892,7 +892,7 @@
       boostbrands: ['logos/boostbrands.png', 'BoostBrands'], acapella: ['logos/acapella.png', 'Acapella'], bench: ['logos/bench.png', 'Bench'],
       bajaj: ['logos/bajaj.png', 'Bajaj'], galgo: ['logos/galgo.png', 'Galgo'], shopify: ['logos/shopify.svg', 'Shopify'], hubspot: ['logos/hubspot.svg', 'HubSpot'],
       electrolux: ['logos/electrolux.png', 'Electrolux'], fensa: ['logos/fensa.png', 'Fensa'], mademsa: ['logos/mademsa.png', 'Mademsa', '#ff8201'],
-      accenture: ['logos/accenture.svg', 'Accenture'], mercadolibre: ['logos/mercadolibre.svg', 'Mercado Libre'], paris: ['logos/paris.png', 'Paris'],
+      accenture: ['logos/accenture.svg', 'Accenture'], mercadolibre: ['logos/mercadolibre.svg', 'Mercado Libre'], paris: ['logos/paris.png', 'Paris'], falabella: ['logos/falabella.png', 'Falabella'],
     };
     const PROJECTS = [
       { org: 'BoostBrands', area: 'Representación retail', area_en: 'Retail representation', year: '2020 – hoy', year_en: '2020 – now',
@@ -916,7 +916,7 @@
           dDown(),
           dTier(`<span class="dg-hub">${logoTile('boostbrands')}</span>`, t('Representación y negociación', 'Representation and negotiation')),
           dDown(),
-          dTier(dNode('Falabella') + dNode('', 'paris') + dNode('Mercado Libre', 'mercadolibre'), t('Canales de venta en Chile', 'Sales channels in Chile')),
+          dTier(dNode('', 'falabella') + dNode('', 'paris') + dNode('Mercado Libre', 'mercadolibre'), t('Canales de venta en Chile', 'Sales channels in Chile')),
           dKpis([[t('Ventas', 'Sales'), 'USD $400K'], [t('Margen', 'Margin'), '40%']])) },
       { org: 'Bajaj Motochile', area: 'Transformación comercial', area_en: 'Commercial transformation', year: '2020 – 2024',
         logos: ['bajaj', 'galgo'],
