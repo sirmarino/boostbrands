@@ -259,6 +259,10 @@
     .p-tag { font: 500 .72rem var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); text-align: right; }
     .p-photo { flex: 1; min-height: 320px; border-radius: 18px; overflow: hidden; border: 1px solid var(--border); }
     .p-photo img { width: 100%; height: 100%; object-fit: cover; }
+    /* Own video (vertical phone clip): fixed height, width from its 9:16 shape */
+    .p-clip { margin: 0; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+    .p-clip video { display: block; height: 470px; max-width: 100%; aspect-ratio: 480 / 848; object-fit: cover; border-radius: 16px; background: var(--navy); border: 1px solid var(--border); }
+    .p-clip figcaption { font-size: .9rem; font-weight: 600; color: var(--heading); }
     /* Real videos: a YouTube thumbnail that turns into the player on click */
     .p-videos { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 18px; }
     .p-videos > div { flex: none; }
@@ -296,16 +300,11 @@
     .sk-fill.hot { background: var(--accent); }
     .sk-axis { display: flex; gap: 20px; padding: 0 10px; font: 500 .7rem var(--font-mono); color: var(--muted); text-transform: uppercase; }
     .sk-axis span { flex: 1; text-align: center; }
-    .sk-chart { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px; color: var(--accent); }
-    .sk-chart svg { width: 100%; height: 120px; display: block; }
     .sk-store { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
     .sk-prod { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px; display: grid; gap: 8px; }
     .sk-prod div { aspect-ratio: 4 / 3; border-radius: 8px; background: var(--border); }
     .sk-prod i { height: 6px; border-radius: 3px; background: var(--border); width: 80%; }
     .sk-prod em { height: 22px; border-radius: 6px; background: var(--accent); width: 60%; }
-    .sk-pills { display: flex; flex-wrap: wrap; gap: 8px; }
-    .sk-pills span { font: 500 .7rem var(--font-mono); padding: 6px 10px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); text-transform: uppercase; }
-    .sk-pills span.hot { border-color: var(--accent); color: var(--accent-text); }
 
     /* Track record: a scroll timeline. The line draws itself as you scroll and the
        entry at the middle of the screen is shown at full contrast (the rest stay muted). */
@@ -911,15 +910,15 @@
         link: { href: 'https://www.ing.uc.cl/noticias/estudiantes-la-carrera-mindracer-drone-challenge/', label: 'Nota en Ingeniería UC', label_en: 'Ingeniería UC article' },
         logos: ['accenture'],
         title: 'Carrera de drones controlados por la mente', title_en: 'Mind-controlled drone race', short: 'Drones controlados por la mente', short_en: 'Mind-controlled drones',
-        desc: 'Lideré la primera carrera de drones controlados por la mente en Latinoamérica, usada como estrategia de reclutamiento de talento STEM.',
-        desc_en: 'I led Latin America’s first mind-controlled drone race, used as a recruiting strategy for STEM talent.',
+        desc: 'Lideré el MindRacer Drone Challenge, la primera carrera de drones controlados por la mente en Latinoamérica, usada como estrategia de reclutamiento de talento STEM.',
+        desc_en: 'I led the MindRacer Drone Challenge, Latin America’s first mind-controlled drone race, used as a recruiting strategy for STEM talent.',
         pyme: 'Ideas que llaman la atención y a la vez sirven a un objetivo concreto del negocio; en este caso, atraer talento.',
         pyme_en: 'Ideas that grab attention while serving a concrete business goal; in this case, attracting talent.',
         bullets: ['Campaña más innovadora de 2017', 'Primera en Latinoamérica', 'Reclutamiento de talento STEM', 'Marketing B2B para las 30 principales empresas de Chile', 'USD $6M en acuerdos comerciales'],
         bullets_en: ['Most innovative campaign of 2017', 'First in Latin America', 'STEM talent recruiting', 'B2B marketing for Chile’s top 30 companies', 'USD $6M in commercial deals'],
         chips: ['Innovación', 'Eventos', 'Employer branding'], chips_en: ['Innovation', 'Events', 'Employer branding'],
         path: 'accenture / drones',
-        sketch: t => wave(t('SEÑAL CEREBRAL → DRON', 'BRAIN SIGNAL → DRONE'), [t('Más innovadora 2017', 'Most innovative 2017'), 'STEM']) },
+        clip: { src: 'videos/mindracer-2017.mp4', poster: 'videos/mindracer-2017.jpg', label: 'MindRacer Drone Challenge, 2017' } },
     ];
 
     const esc = v => String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -936,12 +935,6 @@
     function bars(list, max, label) {
       return `<div class="sk-bars">${list.map(([k, v, txt, hot]) => `<div class="sk-barcol"><b>${esc(txt)}</b><div class="sk-fill${hot ? ' hot' : ''}" style="height:${Math.max(6, v / max * 80)}%"></div></div>`).join('')}</div>
         <div class="sk-axis">${list.map(([k]) => `<span>${esc(k)}</span>`).join('')}</div><div class="p-tag" style="text-align:center">${esc(label)}</div>`;
-    }
-    function wave(label, pills) {
-      return `<div class="sk-chart"><div class="p-tag" style="text-align:left">${esc(label)}</div>
-        <svg viewBox="0 0 300 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60 Q 15 20 30 60 T 60 60 T 90 60 Q 100 10 110 60 T 130 60 Q 140 100 150 60 T 180 60 Q 195 15 210 60 T 240 60 T 270 60 Q 285 30 300 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></div>
-        <div class="sk-flow"><div class="sk-col">${node('EEG')}</div><div class="sk-link"></div><div class="sk-col">${node('APP')}</div><div class="sk-link"></div><div class="sk-col">${node('DRON', true)}</div></div>
-        <div class="sk-pills">${pills.map((p, i) => `<span class="${i === 0 ? 'hot' : ''}">${esc(p)}</span>`).join('')}</div>`;
     }
 
     const projPhotos = new Set();
@@ -980,7 +973,9 @@
         const num = String(i + 1).padStart(2, '0');
         const d = document.createElement('details');
         d.className = 'proj'; d.name = 'proyectos'; d.open = i === openProject;
-        const visual = p.videos ? videoBlock(p.videos, L, t) : projPhotos.has(i)
+        const visual = p.videos ? videoBlock(p.videos, L, t) : p.clip
+          ? `<figure class="p-clip"><video controls playsinline preload="none" poster="${esc(p.clip.poster)}" aria-label="${esc(L(p.clip, 'label'))}"><source src="${esc(p.clip.src)}" type="video/mp4"></video><figcaption>${esc(L(p.clip, 'label'))}</figcaption></figure><div class="p-tag">Video</div>`
+          : projPhotos.has(i)
           ? `<figure class="p-photo"><img src="fotos/proyecto-${num}.jpg" alt="${esc(L(p, 'title'))}" loading="lazy"></figure><div class="p-tag">${t('Foto', 'Photo')}</div>`
           : `<div class="sk" aria-hidden="true"><div class="sk-bar"><i></i><i></i><i></i><span>${esc(L(p, 'path'))}</span></div><div class="sk-body">${p.sketch(t)}</div></div><div class="p-tag">${t('Ilustrativo', 'Illustrative')}</div>`;
         d.innerHTML = `
