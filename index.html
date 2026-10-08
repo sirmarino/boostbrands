@@ -294,7 +294,8 @@
     .sk-proof p { font-size: .97rem; line-height: 1.45; }
     .sk-case { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); font: 600 .85rem var(--font-body); color: var(--text); text-decoration: none; white-space: nowrap; transition: border-color .2s, color .2s; }
     .sk-case:hover { border-color: var(--accent); color: var(--accent-text); }
-    .sk-chips { margin-top: 14px; }
+    .sk-skills { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 4px; }
+    .sk-skills li { padding: 6px 13px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border)); background: var(--surface); font-size: .88rem; font-weight: 600; color: var(--heading); box-shadow: 0 6px 14px -10px rgba(232, 85, 28, .5); }
     .sk-map { padding: 16px 30px 18px; color: var(--on-navy);
       background: radial-gradient(50% 140% at 100% 100%, rgba(232, 85, 28, .22), transparent 70%), radial-gradient(60% 140% at 0% 100%, rgba(84, 116, 210, .25), transparent 70%), linear-gradient(160deg, var(--navy-2), var(--navy)); }
     .sk-map > span { display: block; margin-bottom: 12px; font: 600 .9rem var(--font-body); color: var(--on-navy-muted); }
@@ -316,16 +317,34 @@
       .skills.auto .sk-prog .cur b { animation: skRun 8s linear both; }
       .skills.auto:has(.sk-panels:hover) .sk-prog .cur b { animation-play-state: paused; }
       .sk-panel { transition: opacity .35s ease, visibility .35s; }
-      .skills.seen .sk-panel.on :is(h3, .p-pyme) { animation: skIn .45s ease both; }
-      .skills.seen .sk-panel.on .p-pyme { animation-delay: 60ms; }
-      .skills.seen .sk-panel.on .sk-proof li { animation: skIn .5s ease calc(140ms + var(--i) * 90ms) both; }
-      .skills.seen .sk-panel.on .sk-chips { animation: skIn .5s ease 420ms both; }
+      .skills.seen .sk-panel.on h3 { animation: skIn .45s ease both; }
+      .skills.seen .sk-panel.on .sk-skills li { animation: skPop .45s cubic-bezier(.3, 1.4, .5, 1) calc(80ms + var(--i) * 70ms) both; }
+      .skills.seen .sk-panel.on .p-pyme { animation: skIn .45s ease 260ms both; }
+      .skills.seen .sk-panel.on .sk-proof li { animation: skIn .5s ease calc(340ms + var(--i) * 90ms) both; }
       .skills.seen .sk-panel.on .sk-mark { animation: skMark .8s cubic-bezier(.3, .7, .2, 1) both; }
       .sk-stops .p-logo, .sk-stops .p-logo::after, .sk-stops img, .sk-stops small { transition: opacity .45s, filter .45s, background-color .45s, box-shadow .45s, transform .45s, border-color .45s; transition-delay: calc(var(--i) * 70ms); }
       .sk-line { transition: left .6s cubic-bezier(.3, .7, .2, 1), width .6s cubic-bezier(.3, .7, .2, 1); }
     }
+    /* Industries: six tiles under the skills, each naming where Cristian worked in it */
+    .industries { margin-top: 40px; }
+    .industries h3 { font-size: 1.3rem; letter-spacing: -0.02em; color: var(--heading); margin-bottom: 14px; }
+    .ind-grid { list-style: none; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+    .ind-grid li { display: grid; grid-template-rows: auto auto 1fr; gap: 6px; padding: 18px 16px; border-radius: 16px; background: var(--surface); border: 1px solid var(--border);
+      box-shadow: 0 14px 30px -24px rgba(20, 33, 61, .45); transition: border-color .25s, box-shadow .25s, transform .25s; }
+    .ind-grid li:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); box-shadow: 0 24px 40px -24px rgba(20, 33, 61, .55); }
+    .ind-ic { width: 40px; height: 40px; margin-bottom: 4px; border-radius: 12px; display: grid; place-items: center; color: var(--accent-ink); background: linear-gradient(140deg, #ff9a6b, var(--accent)); box-shadow: 0 10px 20px -10px rgba(232, 85, 28, .7); }
+    .ind-grid b { font: 700 1.02rem/1.2 var(--font-display); letter-spacing: -0.01em; color: var(--heading); }
+    .ind-grid small { font-size: .84rem; line-height: 1.4; color: var(--muted); }
+    @media (prefers-reduced-motion: no-preference) {
+      .ind-grid li:hover { transform: translateY(-3px); }
+      .industries:not(.seen) li { opacity: 0; transform: translateY(12px); }
+      .industries.seen li { animation: skIn .5s ease calc(var(--i) * 80ms) both; }
+    }
+    @media (max-width: 1100px) { .ind-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (max-width: 560px) { .ind-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ind-grid li { padding: 14px 12px; } }
     @keyframes skRun { from { transform: scaleX(0); } to { transform: scaleX(1); } }
     @keyframes skIn { from { opacity: 0; transform: translateY(10px); } }
+    @keyframes skPop { from { opacity: 0; transform: scale(.85); } }
     @keyframes skMark { from { opacity: 0; transform: rotate(-20deg) scale(.8); } }
 
     /* Projects: horizontal accordion of <details name="proyectos">. The open card shows copy + a visual;
@@ -657,6 +676,8 @@
       .sk-top { padding: 12px 12px 0 20px; }
       .sk-panels { padding: 4px 20px 22px; }
       .sk-proof li { grid-template-columns: minmax(0, 1fr); }
+      .sk-skills { gap: 6px; }
+      .sk-skills li { padding: 5px 11px; font-size: .82rem; }
       .sk-case { justify-self: start; min-height: 40px; margin-top: 6px; }
       .sk-map { padding: 14px 14px 16px; }
       .sk-stops { --t: 16px; }
@@ -835,8 +856,8 @@
     <div class="wrap">
       <span class="kicker"><span data-l="es">Habilidades</span><span data-l="en">Skills</span></span>
       <h2><span data-l="es">Lo que llevo a tu <em>empresa</em></span><span data-l="en">What I bring to your <em>business</em></span></h2>
-      <p class="intro" data-l="es">Seis habilidades probadas en empresas reales. Elige una para ver dónde la apliqué.</p>
-      <p class="intro" data-l="en">Six skills proven at real companies. Pick one to see where I applied it.</p>
+      <p class="intro" data-l="es">Mis habilidades por categoría, cada una probada en empresas reales. Elige una para ver dónde la apliqué.</p>
+      <p class="intro" data-l="en">My skills by category, each proven at real companies. Pick one to see where I applied it.</p>
       <div class="skills" id="skills">
         <div class="sk-side">
           <div class="sk-tabs" role="tablist" id="sk-tabs" aria-label="Habilidades / Skills"></div>
@@ -846,6 +867,17 @@
           </div>
         </div>
         <div class="sk-stage" id="sk-stage"></div>
+      </div>
+      <div class="industries" id="industrias">
+        <h3><span data-l="es">Experiencia en industrias</span><span data-l="en">Industry experience</span></h3>
+        <ul class="ind-grid">
+          <li style="--i:0"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6.5 15h4"/></svg></span><b><span data-l="es">Fintech</span><span data-l="en">Fintech</span></b><small><span data-l="es">MotoFin y la alianza con Galgo (Bajaj) · tarjeta de crédito Cencosud</span><span data-l="en">MotoFin and the Galgo alliance (Bajaj) · Cencosud credit card</span></small></li>
+          <li style="--i:1"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 18l4-5"/><circle cx="12" cy="18" r="1.2"/></svg></span><b><span data-l="es">Automotriz</span><span data-l="en">Automotive</span></b><small><span data-l="es">Bajaj Auto y Bajaj Motochile</span><span data-l="en">Bajaj Auto and Bajaj Motochile</span></small></li>
+          <li style="--i:2"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></span><b><span data-l="es">Consultoría de gestión</span><span data-l="en">Management consulting</span></b><small><span data-l="es">Accenture y BoostBrands</span><span data-l="en">Accenture and BoostBrands</span></small></li>
+          <li style="--i:3"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M3 9h18M10 20v-6h4v6"/></svg></span><b><span data-l="es">Retail</span><span data-l="en">Retail</span></b><small><span data-l="es">Cencosud, Electrolux y BoostBrands</span><span data-l="en">Cencosud, Electrolux and BoostBrands</span></small></li>
+          <li style="--i:4"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M9.5 3v4M14.5 3v4M9.5 17v4M14.5 17v4M3 9.5h4M3 14.5h4M17 9.5h4M17 14.5h4"/></svg></span><b><span data-l="es">Tecnología</span><span data-l="en">Technology</span></b><small><span data-l="es">Accenture · e&#8209;commerce y CRM en Bajaj</span><span data-l="en">Accenture · e&#8209;commerce and CRM at Bajaj</span></small></li>
+          <li style="--i:5"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg></span><b><span data-l="es">Innovación</span><span data-l="en">Innovation</span></b><small><span data-l="es">Drones controlados por la mente (Accenture) · laboratorio de Data Analytics (Electrolux)</span><span data-l="en">Mind-controlled drones (Accenture) · Data Analytics lab (Electrolux)</span></small></li>
+        </ul>
       </div>
     </div>
   </section>
@@ -1371,66 +1403,72 @@
     const SK_ICONS = {
       compass: '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
       star: '<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>',
-      chart: '<path d="M4 20h16M7 16v-5M12 16V6M17 16v-8"/>',
-      cart: '<path d="M2.5 3.5h2.2l2.4 11a1.6 1.6 0 0 0 1.6 1.3h8.8a1.6 1.6 0 0 0 1.6-1.2L21 7.5H6"/><circle cx="9.5" cy="20" r="1.2"/><circle cx="17.5" cy="20" r="1.2"/>',
-      link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+      gear: '<circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/>',
+      trend: '<path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/>',
+      spark: '<path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/>',
       team: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-4-6"/>',
     };
     const SKILLS = [
-      { ic: 'compass', name: 'Estrategia comercial', name_en: 'Commercial strategy', sub: 'Mercados, canales y precios', sub_en: 'Markets, channels and pricing',
-        title: 'Estrategia comercial y go-to-market', title_en: 'Commercial strategy and go-to-market',
-        for: 'Defino dónde y cómo crecer: qué mercados, canales y precios te dan volumen sin sacrificar margen.',
-        for_en: 'I define where and how to grow: which markets, channels and prices bring volume without giving up margin.',
+      { ic: 'star', name: 'Marketing', name_en: 'Marketing', sub: 'Marca, producto y performance', sub_en: 'Brand, product and performance',
+        title: 'Marketing estratégico, marca y performance', title_en: 'Strategic marketing, brand and performance',
+        skills: ['Marketing estratégico', 'Posicionamiento de marca', 'Neuromarketing', 'Marketing digital y performance', 'Desarrollo de producto'],
+        skills_en: ['Strategic marketing management', 'Brand positioning', 'Neuromarketing', 'Digital marketing & performance', 'Product development'],
+        for: 'Hago que tu marca se distinga y se perciba de más valor, y mido cada peso invertido contra ventas.',
+        for_en: 'I make your brand stand out and be seen as worth more, and measure every peso spent against sales.',
         proofs: [
-          { at: 'bajaj', who: 'Bajaj Motochile', text: 'Llevé la marca al #1 del segmento Street, con +2.400 unidades al año.', text_en: 'Took the brand to #1 in the Street segment, with 2,400+ more units a year.' },
-          { at: 'electrolux', who: 'Electrolux', text: 'Presenté el plan estratégico regional con el que aseguré la inversión del HQ global.', text_en: 'Presented the regional strategic plan that secured the global HQ investment.', case: 5 },
-          { at: 'mit', who: 'MIT Sloan · Singapur', who_en: 'MIT Sloan · Singapore', text: 'Estrategia de pricing y go-to-market para una startup biotech en Oceanía, Europa y Norteamérica.', text_en: 'Pricing and go-to-market strategy for a biotech startup in Oceania, Europe and North America.' }],
-        tools: ['Go-to-market', 'Pricing', 'Expansión internacional'], tools_en: ['Go-to-market', 'Pricing', 'International expansion'] },
-      { ic: 'star', name: 'Marca y posicionamiento', name_en: 'Brand and positioning', sub: 'Valor percibido y diferenciación', sub_en: 'Perceived value and differentiation',
-        title: 'Marca y posicionamiento', title_en: 'Brand and positioning',
-        for: 'Hago que tu marca se distinga y se perciba de más valor, para no competir solo por precio.',
-        for_en: 'I make your brand stand out and be seen as worth more, so you don’t compete on price alone.',
-        proofs: [
-          { at: 'electrolux', who: 'Electrolux', text: 'Reposicioné la marca en el segmento premium, con chefs Michelin como embajadores.', text_en: 'Repositioned the brand as premium, with Michelin-starred chefs as ambassadors.', case: 5 },
-          { at: 'bajaj', who: 'Bajaj Auto', text: 'Reality shows digitales originales con figuras de TV en Perú y Argentina.', text_en: 'Original digital reality shows with TV personalities in Peru and Argentina.', case: 4 },
-          { at: 'accenture', who: 'Accenture', text: 'La primera carrera de drones controlados por la mente en Latinoamérica: la campaña más innovadora del año.', text_en: 'Latin America’s first mind-controlled drone race: the most innovative campaign of the year.', case: 6 }],
-        tools: ['Posicionamiento premium', 'Contenido', 'Neuromarketing'], tools_en: ['Premium positioning', 'Content', 'Neuromarketing'] },
-      { ic: 'chart', name: 'Marketing medible', name_en: 'Measurable marketing', sub: 'KPIs conectados con ventas', sub_en: 'KPIs tied to sales',
-        title: 'Marketing medible y datos', title_en: 'Measurable marketing and data',
-        for: 'Mido cada peso que inviertes en marketing, con KPIs y un tablero que conectan alcance y conversión con ventas.',
-        for_en: 'I measure every peso you put into marketing, with KPIs and a dashboard that tie reach and conversion to sales.',
-        proofs: [
-          { at: 'bajaj', who: 'Bajaj Auto', text: 'Frameworks y KPIs para medir la performance digital y física en todos los mercados.', text_en: 'Frameworks and KPIs to measure digital and physical performance in every market.', case: 4 },
-          { at: 'electrolux', who: 'Electrolux', text: 'Ganador del Proyecto Global Más Escalable 2015 con el primer laboratorio de Data Analytics de la región.', text_en: 'Winner of the Most Scalable Global Project 2015 with the region’s first Data Analytics lab.' },
-          { at: 'cencosud', who: 'Cencosud', text: 'Campañas de email segmentadas por perfil de uso, ciclo de deuda y ticket promedio.', text_en: 'Email campaigns segmented by usage profile, debt cycle and average ticket.' }],
-        tools: ['KPIs', 'Data analytics', 'Segmentación'], tools_en: ['KPIs', 'Data analytics', 'Segmentation'] },
-      { ic: 'cart', name: 'E-commerce, CRM e IA', name_en: 'E-commerce, CRM & AI', sub: 'Vender online y automatizar', sub_en: 'Selling online and automating',
-        title: 'E-commerce, CRM e IA', title_en: 'E-commerce, CRM and AI',
-        for: 'Armo tu canal online y tu CRM, y uso IA en campañas y contenido para hacer más con menos.',
-        for_en: 'I set up your online channel and CRM, and use AI in campaigns and content to do more with less.',
-        proofs: [
-          { at: 'bajaj', who: 'Bajaj Motochile', text: 'Canal e-commerce desde cero en Shopify, conectado al CRM HubSpot.', text_en: 'E-commerce channel from zero on Shopify, connected to the HubSpot CRM.', case: 2 },
-          { at: 'boostbrands', who: 'BoostBrands', text: 'IA agéntica para hacer más eficientes las campañas y la producción de contenido.', text_en: 'Agentic AI to make campaigns and content production more efficient.' },
-          { at: 'mit', who: 'MIT Sloan · Boston', text: 'Dirigí dashboards de datos y planes de marketing con IA agéntica para Commonwealth Kitchen.', text_en: 'Led data dashboards and agentic-AI marketing plans for Commonwealth Kitchen.' }],
-        tools: ['Shopify', 'HubSpot', 'Salesforce', 'IA agéntica'], tools_en: ['Shopify', 'HubSpot', 'Salesforce', 'Agentic AI'] },
-      { ic: 'link', name: 'Retail y alianzas', name_en: 'Retail and partnerships', sub: 'Negociar con cadenas y socios', sub_en: 'Negotiating with chains and partners',
-        title: 'Negociación, retail y alianzas', title_en: 'Negotiation, retail and partnerships',
-        for: 'Negocio con grandes cadenas, socios y proveedores para abrir canales y cuidar tu margen.',
-        for_en: 'I negotiate with major chains, partners and suppliers to open channels and protect your margin.',
+          { at: 'electrolux', who: 'Electrolux', text: 'Desarrollé el line-up para Latinoamérica y llevé la marca al segmento premium con chefs Michelin.', text_en: 'Developed the Latin American line-up and took the brand premium with Michelin-starred chefs.', case: 5 },
+          { at: 'bajaj', who: 'Bajaj Auto', text: 'Reality shows digitales originales y KPIs que conectan alcance y conversión con ventas.', text_en: 'Original digital reality shows, and KPIs tying reach and conversion to sales.', case: 4 },
+          { at: 'cencosud', who: 'Cencosud', text: 'Campañas de email segmentadas por perfil de uso, ciclo de deuda y ticket promedio.', text_en: 'Email campaigns segmented by usage profile, debt cycle and average ticket.' }] },
+      { ic: 'trend', name: 'Ventas', name_en: 'Sales', sub: 'Go-to-market y pricing', sub_en: 'Go-to-market and pricing',
+        title: 'Ventas, go-to-market y pricing', title_en: 'Sales, go-to-market and pricing',
+        skills: ['Ventas', 'Go-to-market', 'Pricing (EVC, análisis conjoint)', 'Desarrollo de negocios', 'E-commerce'],
+        skills_en: ['Sales', 'Go-to-market', 'Pricing (EVC, conjoint analysis)', 'Business development', 'E-commerce'],
+        for: 'Defino a quién vender, a qué precio y por qué canal, y abro nuevos negocios.',
+        for_en: 'I define who to sell to, at what price and through which channel, and open new business.',
         proofs: [
           { at: 'boostbrands', who: 'BoostBrands', text: 'Acapella y Bench en Falabella, Paris y Mercado Libre.', text_en: 'Acapella and Bench at Falabella, Paris and Mercado Libre.', case: 0 },
-          { at: 'bajaj', who: 'Bajaj Motochile', text: 'Alianza con la fintech Galgo: 20% de los ingresos mensuales y un anticipo de liquidez de USD $300K al mes.', text_en: 'Alliance with fintech Galgo: 20% of monthly revenue and a USD $300K monthly cash advance.', case: 1 },
-          { at: 'accenture', who: 'Accenture', text: 'Negociación regional con las filiales de Latinoamérica: −10% en costos de agencia.', text_en: 'Regional negotiation with the Latin American subsidiaries: −10% in agency costs.' }],
-        tools: ['Negociación retail', 'Alianzas', 'Gestión de agencias'], tools_en: ['Retail negotiation', 'Partnerships', 'Agency management'] },
-      { ic: 'team', name: 'Liderazgo de equipos', name_en: 'Team leadership', sub: 'Marketing y ventas como una unidad', sub_en: 'Marketing and sales as one unit',
-        title: 'Liderazgo de equipos comerciales', title_en: 'Leading sales and marketing teams',
-        for: 'Alineo marketing y ventas en un solo equipo, con metas claras y entrenamiento.',
-        for_en: 'I align marketing and sales into one team, with clear goals and training.',
+          { at: 'bajaj', who: 'Bajaj Motochile', text: 'Canal e-commerce desde cero en Shopify, conectado al CRM HubSpot.', text_en: 'E-commerce channel from zero on Shopify, connected to the HubSpot CRM.', case: 2 },
+          { at: 'accenture', who: 'Accenture', text: 'Estrategia y campañas B2B que cerraron acuerdos con las principales empresas de Chile.', text_en: 'B2B strategy and campaigns that closed deals with Chile’s leading companies.', case: 6 }] },
+      { ic: 'gear', name: 'Operaciones', name_en: 'Operations', sub: 'Procesos, caja y presupuesto', sub_en: 'Processes, cash and budget',
+        title: 'Operaciones y procesos', title_en: 'Operations and processes',
+        skills: ['System dynamics', 'Dynamic Work Design', 'Gestión de presupuesto'],
+        skills_en: ['System dynamics', 'Dynamic Work Design', 'Budget management'],
+        for: 'Ordeno procesos, caja y presupuesto para que tu empresa crezca sin desordenarse.',
+        for_en: 'I put processes, cash and budget in order so your business grows without the chaos.',
+        proofs: [
+          { at: 'bajaj', who: 'Bajaj Motochile', text: 'Ordené la caja: menos cuentas por cobrar y el plazo de crédito a la mitad.', text_en: 'Fixed the cash position: lower receivables and credit terms cut in half.', case: 1 },
+          { at: 'bajaj', who: 'Bajaj Auto', text: 'Gestioné el presupuesto de campañas de la región y renegocié 3 contratos con agencias.', text_en: 'Managed the region’s campaign budget and renegotiated 3 agency contracts.', case: 4 },
+          { at: 'accenture', who: 'Accenture', text: 'Negociación regional con las filiales de Latinoamérica: −10% en costos de agencia.', text_en: 'Regional negotiation with the Latin American subsidiaries: −10% in agency costs.' }] },
+      { ic: 'spark', name: 'Inteligencia artificial', name_en: 'Artificial intelligence', sub: 'Desarrollo e implementación', sub_en: 'Development and implementation',
+        title: 'IA: desarrollo e implementación', title_en: 'AI: development and implementation',
+        skills: ['Desarrollo de IA', 'Implementación de IA y cultura de empresa'],
+        skills_en: ['AI development', 'AI implementation and company culture'],
+        for: 'Llevo la IA a tu empresa: herramientas que funcionan y un equipo que las adopta.',
+        for_en: 'I bring AI into your business: tools that work and a team that adopts them.',
+        proofs: [
+          { at: 'boostbrands', who: 'BoostBrands', text: 'IA agéntica para hacer más eficientes las campañas y la producción de contenido.', text_en: 'Agentic AI to make campaigns and content production more efficient.' },
+          { at: 'mit', who: 'MIT Sloan · Boston', text: 'Dirigí dashboards de datos y planes de marketing con IA agéntica para Commonwealth Kitchen.', text_en: 'Led data dashboards and agentic-AI marketing plans for Commonwealth Kitchen.' },
+          { at: 'mit', who: 'MIT Sloan', text: 'Finalista de IDEA WEEK con un parche regulador de dopamina con IA.', text_en: 'IDEA WEEK finalist with an AI dopamine-regulating patch.' }] },
+      { ic: 'team', name: 'Organización', name_en: 'Organization', sub: 'Equipos, cultura y cambio', sub_en: 'Teams, culture and change',
+        title: 'Organización y equipos', title_en: 'Organization and teams',
+        skills: ['Armado de equipos', 'Three Lenses'],
+        skills_en: ['Team building', 'Three Lenses'],
+        for: 'Armo y alineo equipos de marketing y ventas, con metas claras y entrenamiento.',
+        for_en: 'I build and align marketing and sales teams, with clear goals and training.',
         proofs: [
           { at: 'electrolux', who: 'Electrolux', text: 'Diseñé y lideré un programa de entrenamiento en ventas para 400 vendedores, formando 15 instructores.', text_en: 'Designed and led a sales training program for 400 reps, developing 15 instructors.' },
           { at: 'bajaj', who: 'Bajaj Auto · Paraguay', text: 'Elegí al distribuidor y armé el equipo desde cero.', text_en: 'Chose the distributor and built the team from scratch.', case: 3 },
-          { at: 'mit', who: 'MIT Sloan', text: 'Ganador del concurso de Change Management.', text_en: 'Winner of the Change Management competition.' }],
-        tools: ['Equipos comerciales', 'Entrenamiento en ventas', 'Change management'], tools_en: ['Sales teams', 'Sales training', 'Change management'] },
+          { at: 'mit', who: 'MIT Sloan', text: 'Ganador del concurso de Change Management.', text_en: 'Winner of the Change Management competition.' }] },
+      { ic: 'compass', name: 'Estrategia', name_en: 'Strategy', sub: 'Competitiva y de largo plazo', sub_en: 'Competitive and long-term',
+        title: 'Estrategia competitiva y de largo plazo', title_en: 'Competitive and long-term strategy',
+        skills: ['Estrategia competitiva', 'Estrategia de largo plazo', 'Estrategia de plataformas'],
+        skills_en: ['Competitive strategy', 'Long-term strategy', 'Platform strategy'],
+        for: 'Defino cómo compite tu empresa hoy y hacia dónde crece en los próximos años.',
+        for_en: 'I define how your business competes today and where it grows over the coming years.',
+        proofs: [
+          { at: 'bajaj', who: 'Bajaj Motochile', text: 'Cambié el modelo de B2B a venta directa y llevé la marca al #1 del segmento Street.', text_en: 'Moved the model from B2B to direct sales and took the brand to #1 in the Street segment.', case: 1 },
+          { at: 'electrolux', who: 'Electrolux', text: 'Presenté el plan estratégico regional con el que aseguré la inversión del HQ global.', text_en: 'Presented the regional strategic plan that secured the global HQ investment.', case: 5 },
+          { at: 'mit', who: 'MIT Sloan · Singapur', who_en: 'MIT Sloan · Singapore', text: 'Estrategia de pricing y go-to-market para una startup biotech en Oceanía, Europa y Norteamérica.', text_en: 'Pricing and go-to-market strategy for a biotech startup in Oceania, Europe and North America.' }] },
     ];
     const skIcon = (k, s) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${SK_ICONS[k]}</svg>`;
     let skillAt = 0, skillAuto = !reduceMotion, skillOnScreen = false;
@@ -1447,10 +1485,10 @@
             <div class="sk-panel" role="tabpanel" id="sk-p${i}" aria-labelledby="sk-t${i}"${s.proofs.some(p => p.case !== undefined) ? '' : ' tabindex="0"'}>
               <span class="sk-mark">${skIcon(s.ic, 150)}</span>
               <h3>${esc(L(s, 'title'))}</h3>
+              <ul class="sk-skills" aria-label="${t('Habilidades', 'Skills')}">${L(s, 'skills').map((c, n) => `<li style="--i:${n}">${esc(c)}</li>`).join('')}</ul>
               <p class="p-pyme"><b>${t('Para tu empresa', 'For your business')}</b>${esc(L(s, 'for'))}</p>
               <ul class="sk-proof">${s.proofs.map((p, n) => `<li style="--i:${n}"><div><span class="sk-who">${esc(L(p, 'who'))}</span><p>${esc(L(p, 'text'))}</p></div>${p.case === undefined ? ''
                 : `<a class="sk-case" href="#proyectos" data-case="${p.case}" aria-label="${esc(t('Ver caso: ', 'See case: ') + L(PROJECTS[p.case], 'title'))}">${t('Ver caso', 'See case')} →</a>`}</li>`).join('')}</ul>
-              <div class="p-chips sk-chips">${L(s, 'tools').map(c => `<span>${esc(c)}</span>`).join('')}</div>
             </div>`).join('')}
           </div>
           <div class="sk-map" aria-hidden="true"><span>${t('Dónde la apliqué', 'Where I applied it')}</span>
@@ -1506,6 +1544,9 @@
       skillOnScreen = e.isIntersecting; if (skillOnScreen) skBox.classList.add('seen'); syncSkillAuto();
     }, { threshold: .35 }).observe(skBox);
     else skBox.classList.add('seen');
+    const indBox = $('industrias');
+    if ('IntersectionObserver' in window) { const indIo = new IntersectionObserver(([e]) => { if (e.isIntersecting) { indBox.classList.add('seen'); indIo.disconnect(); } }, { threshold: .2 }); indIo.observe(indBox); }
+    else indBox.classList.add('seen');
 
     /* Contact links from CONFIG */
     function applyConfig() {
