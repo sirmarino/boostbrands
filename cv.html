@@ -259,6 +259,7 @@
     .toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 120px); visibility: hidden; background: var(--text); color: var(--bg); padding: 12px 20px; border-radius: 12px; font-weight: 500; transition: transform .3s, visibility .3s; z-index: 60; max-width: calc(100% - 32px); }
     .toast.show { transform: translate(-50%, 0); visibility: visible; }
 
+    @media (max-width: 1100px) { .badge.b2 { right: -10px; } }
     @media (max-width: 980px) {
       .menu-btn { display: grid; }
       .nav-links { position: absolute; top: 68px; left: 0; right: 0; flex-direction: column; background: var(--bg); border-bottom: 1px solid var(--border); padding: 10px 20px 18px; display: none; }
@@ -460,7 +461,7 @@
         desc: 'Programa ejecutivo de gestión de marketing estratégico y neuromarketing.', desc_en: 'Executive program in strategic marketing management and neuromarketing.', bullets: [],
         big: 'GSB', cap: 'Stanford, EEUU', cap_en: 'Stanford, USA' },
       { id: 'accenture', lane: 'work', start: 2016.75, end: 2017.7, label: 'ACN',
-        title: 'Subgerente de Marketing', title_en: 'Marketing Manager', org: 'Accenture · Santiago', period: 'oct 2016 – sep 2017', period_en: 'Oct 2016 – Sep 2017',
+        title: 'Associate Marketing Manager (Subgerente de Marketing)', title_en: 'Associate Marketing Manager', org: 'Accenture · Santiago', period: 'oct 2016 – sep 2017', period_en: 'Oct 2016 – Sep 2017',
         desc: 'Marketing B2B para las 30 principales empresas de Chile con Salesforce Marketing Cloud. Coordiné 3 colaboradores y 3 agencias.',
         desc_en: "B2B marketing for Chile's top 30 companies with Salesforce Marketing Cloud. Coordinated 3 staff and 3 agencies.",
         bullets: ['Estrategia y campañas que cerraron acuerdos por USD $6M.', 'Lideré la primera carrera de drones controlados por la mente en LATAM, campaña "más innovadora" 2017 y estrategia de reclutamiento STEM.', 'Reduje costos de agencia en 10% con una negociación regional.'],
@@ -549,7 +550,7 @@
     const GROUPS = [
       { name: 'Empresas donde he trabajado', name_en: "Companies I've worked at", items: [
         ['BoostBrands', 'Fundador y CEO', 'Founder & CEO'], ['Bajaj Motochile', 'Director de Marketing y Ventas', 'Marketing & Sales Director'],
-        ['Bajaj Auto', 'Country Manager y CMO regional', 'Country Manager & regional CMO'], ['Accenture', 'Subgerente de Marketing', 'Marketing Manager'],
+        ['Bajaj Auto', 'Country Manager y CMO regional', 'Country Manager & regional CMO'], ['Accenture', 'Associate Marketing Manager', 'Associate Marketing Manager'],
         ['Electrolux', 'Product Marketing regional', 'Regional product marketing'], ['Cencosud', 'Product Marketing', 'Product marketing'] ] },
       { name: 'Marcas, socios y clientes', name_en: 'Brands, partners and clients', items: [
         ['Fensa', 'Marca #1 en Chile (Electrolux)', '#1 brand in Chile (Electrolux)'], ['Mademsa', 'Marca #1 en Chile (Electrolux)', '#1 brand in Chile (Electrolux)'],

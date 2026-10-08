@@ -16,7 +16,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Serif:ital@1&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
   <style>
     /* Layout: single column. Hero (copy + large portrait), navy company band, stats, services + how we start,
        case studies, condensed track record, education strip, navy contact block. Palette: orange + navy. */
@@ -197,18 +197,87 @@
     .step b { width: 36px; height: 36px; border-radius: 50%; background: var(--navy); color: var(--on-navy); display: grid; place-items: center; font: 700 .95rem var(--font-display); }
     .step p { font-size: .97rem; }
 
-    /* Cases */
-    .cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
-    .case { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; display: grid; grid-template-rows: auto 1fr auto; }
-    .case-top { padding: 24px 24px 0; }
-    .case .tag { font: 500 .78rem var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
-    .case h3 { font-size: 1.3rem; line-height: 1.2; margin-top: 8px; }
-    .case dl { padding: 16px 24px 22px; display: grid; gap: 12px; }
-    .case dt { font: 500 .75rem var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--accent-text); }
-    .case dd { font-size: .95rem; color: var(--text); }
-    .case .result { background: var(--navy); color: var(--on-navy); padding: 20px 24px; }
-    .case .result strong { display: block; font: 800 2.1rem/1.05 var(--font-display); letter-spacing: -0.03em; color: var(--accent-on-navy); }
-    .case .result span { color: var(--on-navy-muted); font-size: .92rem; }
+    /* Projects: horizontal accordion of <details name="proyectos">. The open card shows copy + a visual;
+       closed cards are narrow vertical tabs. Below 1100px it becomes a vertical accordion. */
+    .wide { max-width: 1400px; margin: 0 auto; padding-inline: 20px; }
+    .projects-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
+    .projects-head h2 { font-size: clamp(2.5rem, 6vw, 4.6rem); line-height: 1; letter-spacing: -0.04em; margin: 0; color: var(--heading); }
+    .projects-head h2 em { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -0.01em; color: var(--accent-text); }
+    .projects-head p { color: var(--muted); max-width: 46ch; }
+    .projects { display: flex; gap: 10px; height: 660px; }
+    .proj { flex: 0 0 70px; min-width: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 28px; overflow: hidden; transition: flex-grow .45s ease, flex-basis .45s ease, border-color .2s; }
+    .proj:not([open]):hover { border-color: var(--accent); }
+    .proj[open] { flex: 1 1 0; box-shadow: 0 30px 60px -40px rgba(20, 33, 61, .35); }
+    .proj summary { list-style: none; cursor: pointer; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 26px 0 18px; }
+    .proj summary::-webkit-details-marker { display: none; }
+    .proj[open] summary { display: none; }
+    .p-num { font: 500 .85rem var(--font-mono); color: var(--muted); }
+    .p-vtitle { writing-mode: vertical-rl; transform: rotate(180deg); font: 700 1.05rem var(--font-display); letter-spacing: -0.01em; white-space: nowrap; color: var(--heading); }
+    .p-plus { width: 44px; height: 44px; flex: none; border-radius: 50%; border: 1px solid var(--border); display: grid; place-items: center; font-size: 1.3rem; transition: background-color .2s, color .2s, border-color .2s; }
+    .proj summary:hover .p-plus { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+    .p-body { height: 100%; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: 32px; padding: 34px 34px 28px; overflow-y: auto; }
+    @media (prefers-reduced-motion: no-preference) { .proj[open] .p-body { animation: pIn .45s ease both; } }
+    @keyframes pIn { from { opacity: 0; transform: translateY(8px); } }
+    .p-meta { font: 500 .8rem var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+    .p-meta b { color: var(--text); font-weight: 500; margin-right: 10px; }
+    .p-body h3 { font-size: clamp(1.8rem, 2.6vw, 2.4rem); line-height: 1.04; letter-spacing: -0.035em; margin: 14px 0 12px; color: var(--heading); }
+    .p-desc { color: var(--muted); font-size: 1rem; max-width: 56ch; }
+    .p-bullets { list-style: none; display: grid; grid-template-columns: 1fr 1fr; column-gap: 22px; margin: 20px 0; }
+    .p-bullets li { border-top: 1px solid var(--border); padding: 10px 0 10px 16px; position: relative; font-size: .92rem; line-height: 1.45; }
+    .p-bullets li::before { content: ""; position: absolute; left: 0; top: 18px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    .p-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .p-chips span { font-size: .85rem; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); }
+    .p-visual { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+    .p-tag { font: 500 .72rem var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); text-align: right; }
+    .p-photo { flex: 1; min-height: 320px; border-radius: 18px; overflow: hidden; border: 1px solid var(--border); }
+    .p-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Illustrative sketches (drawn with tokens so they work in both themes) */
+    .sk { flex: 1; min-height: 320px; border: 1px solid var(--border); border-radius: 18px; background: var(--bg); display: flex; flex-direction: column; overflow: hidden; }
+    .sk-bar { display: flex; align-items: center; gap: 6px; padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--surface); font: 500 .78rem var(--font-mono); color: var(--muted); }
+    .sk-bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--border); }
+    .sk-bar span { margin-left: 8px; }
+    .sk-body { flex: 1; padding: 22px; display: flex; flex-direction: column; gap: 16px; justify-content: center; min-width: 0; }
+    .sk-node { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; font: 500 .7rem var(--font-mono); text-transform: uppercase; letter-spacing: .04em; color: var(--muted); overflow-wrap: break-word; min-width: 0; }
+    .sk-node::after { content: ""; display: block; height: 6px; border-radius: 3px; background: var(--border); margin-top: 8px; width: 70%; }
+    .sk-node.hot { border-color: var(--accent); color: var(--accent-text); }
+    .sk-node.hot::after { background: var(--accent-soft); }
+    .sk-flow { display: grid; justify-items: center; }
+    .sk-col { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; width: 100%; }
+    .sk-col .sk-node { flex: 1 1 0; min-width: 90px; max-width: 180px; }
+    .sk-link { height: 22px; border-left: 2px dashed var(--border); }
+    .sk-foot { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font: 500 .7rem var(--font-mono); text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+    .sk-foot strong { display: block; font: 800 1.45rem var(--font-display); letter-spacing: -0.02em; text-transform: none; color: var(--accent-text); }
+    .sk-bars { display: flex; align-items: flex-end; gap: 20px; height: 190px; padding: 0 10px; border-bottom: 1px solid var(--border); }
+    .sk-barcol { flex: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px; font: 500 .7rem var(--font-mono); color: var(--muted); }
+    .sk-barcol b { font: 800 1.15rem var(--font-display); color: var(--text); }
+    .sk-fill { width: 100%; border-radius: 8px 8px 0 0; background: var(--border); }
+    .sk-fill.hot { background: var(--accent); }
+    .sk-axis { display: flex; gap: 20px; padding: 0 10px; font: 500 .7rem var(--font-mono); color: var(--muted); text-transform: uppercase; }
+    .sk-axis span { flex: 1; text-align: center; }
+    .sk-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .sk-kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px; font: 500 .66rem var(--font-mono); text-transform: uppercase; color: var(--muted); }
+    .sk-kpi strong { display: block; font: 800 1.35rem var(--font-display); color: var(--text); text-transform: none; margin-top: 4px; }
+    .sk-kpi.hot strong { color: var(--accent-text); }
+    .sk-chart { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px; color: var(--accent); }
+    .sk-chart svg { width: 100%; height: 120px; display: block; }
+    .sk-store { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .sk-prod { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px; display: grid; gap: 8px; }
+    .sk-prod div { aspect-ratio: 4 / 3; border-radius: 8px; background: var(--border); }
+    .sk-prod i { height: 6px; border-radius: 3px; background: var(--border); width: 80%; }
+    .sk-prod em { height: 22px; border-radius: 6px; background: var(--accent); width: 60%; }
+    .sk-steps { display: grid; gap: 12px; position: relative; }
+    .sk-step { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 12px; align-items: center; }
+    .sk-step b { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--surface); border: 1px solid var(--border); font: 600 .8rem var(--font-mono); color: var(--muted); }
+    .sk-step.hot b { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+    .sk-video { position: relative; aspect-ratio: 16 / 9; border-radius: 12px; background: var(--navy); display: grid; place-items: center; overflow: hidden; }
+    .sk-video::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 5px; background: linear-gradient(90deg, var(--accent) 38%, var(--navy-line) 38%); }
+    .sk-play { width: 58px; height: 58px; border-radius: 50%; background: var(--accent); display: grid; place-items: center; }
+    .sk-play::before { content: ""; border-left: 16px solid var(--accent-ink); border-top: 10px solid transparent; border-bottom: 10px solid transparent; margin-left: 4px; }
+    .sk-ep { position: absolute; top: 12px; left: 12px; font: 500 .68rem var(--font-mono); color: var(--on-navy-muted); text-transform: uppercase; letter-spacing: .06em; }
+    .sk-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .sk-pills span { font: 500 .7rem var(--font-mono); padding: 6px 10px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); text-transform: uppercase; }
+    .sk-pills span.hot { border-color: var(--accent); color: var(--accent-text); }
 
     /* Track record */
     .timeline { list-style: none; display: grid; gap: 10px; }
@@ -253,6 +322,19 @@
     .toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 120px); visibility: hidden; background: var(--text); color: var(--bg); padding: 12px 20px; border-radius: 12px; font-weight: 500; transition: transform .3s, visibility .3s; z-index: 40; max-width: calc(100% - 32px); }
     .toast.show { transform: translate(-50%, 0); visibility: visible; }
 
+    @media (max-width: 1100px) {
+      .projects { flex-direction: column; height: auto; }
+      .proj, .proj[open] { flex: none; border-radius: 20px; }
+      .proj summary { flex-direction: row; justify-content: flex-start; gap: 16px; padding: 14px 16px 14px 20px; height: auto; min-height: 64px; }
+      .p-vtitle { writing-mode: horizontal-tb; transform: none; white-space: normal; flex: 1; }
+      .p-body { grid-template-columns: 1fr; height: auto; overflow: visible; padding: 26px 22px 22px; gap: 24px; }
+      .sk, .p-photo { min-height: 280px; }
+      .badge.b2 { right: -10px; }
+    }
+    @media (max-width: 560px) {
+      .p-bullets { grid-template-columns: 1fr; }
+      .sk-body { padding: 16px; }
+    }
     @media (max-width: 980px) {
       .menu-btn { display: grid; }
       .nav-links {
@@ -268,7 +350,7 @@
       .hero { grid-template-columns: 1fr; padding-block: 44px 64px; gap: 48px; }
       .portrait { width: min(88%, 340px); }
       .badge.b1 { left: -12px; } .badge.b2 { right: -12px; }
-      .about-grid, .cards, .cases, .edu { grid-template-columns: 1fr; }
+      .about-grid, .cards, .edu { grid-template-columns: 1fr; }
       .steps { grid-template-columns: 1fr; }
       section { padding-block: 64px; }
       .band .wrap { flex-wrap: wrap; gap: 10px; }
@@ -292,7 +374,7 @@
       <ul class="nav-links" id="nav-links">
         <li><a href="#sobre-mi"><span data-l="es">Sobre mí</span><span data-l="en">About</span></a></li>
         <li><a href="#boostbrands">BoostBrands</a></li>
-        <li><a href="#casos"><span data-l="es">Casos</span><span data-l="en">Cases</span></a></li>
+        <li><a href="#proyectos"><span data-l="es">Proyectos</span><span data-l="en">Projects</span></a></li>
         <li><a href="#trayectoria"><span data-l="es">Trayectoria</span><span data-l="en">Track record</span></a></li>
         <li><a href="#contacto"><span data-l="es">Contacto</span><span data-l="en">Contact</span></a></li>
         <li><a href="cv.html" class="cv-link"><span data-l="es">CV completo ↗</span><span data-l="en">Full CV ↗</span></a></li>
@@ -427,47 +509,17 @@
     </div>
   </section>
 
-  <section id="casos">
-    <div class="wrap">
-      <span class="kicker"><span data-l="es">Casos</span><span data-l="en">Cases</span></span>
-      <h2><span data-l="es">Resultados reales</span><span data-l="en">Real results</span></h2>
-      <p class="intro" data-l="es">Tres ejemplos de lo que hago, en PYMES y en una gran compañía.</p>
-      <p class="intro" data-l="en">Three examples of my work, with SMEs and at a large company.</p>
-      <div class="cases">
-        <article class="case">
-          <div class="case-top">
-            <span class="tag"><span data-l="es">BoostBrands · Consultoría</span><span data-l="en">BoostBrands · Consulting</span></span>
-            <h3><span data-l="es">50 PYMES en plena crisis</span><span data-l="en">50 SMEs through a downturn</span></h3>
-          </div>
-          <dl>
-            <div><dt><span data-l="es">Desafío</span><span data-l="en">Challenge</span></dt><dd><span data-l="es">Pequeñas y medianas empresas enfrentando la crisis económica de Chile.</span><span data-l="en">Small and mid-sized companies facing Chile's economic crisis.</span></dd></div>
-            <div><dt><span data-l="es">Qué hice</span><span data-l="en">What I did</span></dt><dd><span data-l="es">Asesoría de marketing comercial y crecimiento a 50 empresas; hoy 12 son clientes activos.</span><span data-l="en">Commercial marketing and growth advice for 50 companies; 12 are active clients today.</span></dd></div>
-          </dl>
-          <div class="result"><strong>+15%</strong><span><span data-l="es">crecimiento promedio de ingresos</span><span data-l="en">average revenue growth</span></span></div>
-        </article>
-        <article class="case">
-          <div class="case-top">
-            <span class="tag"><span data-l="es">BoostBrands · Retail</span><span data-l="en">BoostBrands · Retail</span></span>
-            <h3><span data-l="es">Moda sostenible en el retail chileno</span><span data-l="en">Sustainable fashion in Chilean retail</span></h3>
-          </div>
-          <dl>
-            <div><dt><span data-l="es">Desafío</span><span data-l="en">Challenge</span></dt><dd><span data-l="es">Llevar 2 marcas internacionales de moda sostenible, incluida Acapella, a las grandes cadenas chilenas.</span><span data-l="en">Bringing 2 international sustainable fashion brands, including Acapella, into Chile's major chains.</span></dd></div>
-            <div><dt><span data-l="es">Qué hice</span><span data-l="en">What I did</span></dt><dd><span data-l="es">Negocié acuerdos de distribución con 3 grandes cadenas retail.</span><span data-l="en">Negotiated distribution deals with 3 major retail chains.</span></dd></div>
-          </dl>
-          <div class="result"><strong>USD $400K</strong><span><span data-l="es">en ventas, con 40% de margen</span><span data-l="en">in sales, at a 40% margin</span></span></div>
-        </article>
-        <article class="case">
-          <div class="case-top">
-            <span class="tag"><span data-l="es">Bajaj Motochile · Transformación</span><span data-l="en">Bajaj Motochile · Transformation</span></span>
-            <h3><span data-l="es">De franquicias a venta directa</span><span data-l="en">From franchises to direct sales</span></h3>
-          </div>
-          <dl>
-            <div><dt><span data-l="es">Desafío</span><span data-l="en">Challenge</span></dt><dd><span data-l="es">Un distribuidor con 20 franquicias, USD $1M en cuentas por cobrar y crédito a 60 días.</span><span data-l="en">A distributor with 20 franchises, USD $1M in receivables and 60-day credit terms.</span></dd></div>
-            <div><dt><span data-l="es">Qué hice</span><span data-l="en">What I did</span></dt><dd><span data-l="es">Pasé el modelo de B2B a B2C/D2C con 4 tiendas propias, e-commerce desde cero y una alianza fintech de USD $8M.</span><span data-l="en">Moved the model from B2B to B2C/D2C with 4 company stores, e-commerce from zero and a USD $8M fintech alliance.</span></dd></div>
-          </dl>
-          <div class="result"><strong>+20% EBITDA</strong><span><span data-l="es">+50% de flujo de caja y participación de 9% a 23%</span><span data-l="en">+50% cash flow and market share from 9% to 23%</span></span></div>
-        </article>
+  <section id="proyectos">
+    <div class="wide">
+      <div class="projects-head">
+        <div>
+          <span class="kicker"><span data-l="es">Proyectos</span><span data-l="en">Projects</span></span>
+          <h2><span data-l="es">Cosas que he <em>construido.</em></span><span data-l="en">Things I've <em>built.</em></span></h2>
+        </div>
+        <p data-l="es">Proyectos reales de mi trayectoria. Toca uno para abrirlo. Donde aún no hay foto, la imagen de la derecha es un boceto ilustrativo, no una captura.</p>
+        <p data-l="en">Real projects from my career. Tap one to open it. Where there is no photo yet, the image on the right is an illustrative sketch, not a screenshot.</p>
       </div>
+      <div class="projects" id="projects"></div>
     </div>
   </section>
 
@@ -525,7 +577,7 @@
         <li><details class="job">
           <summary>
             <span class="when">2016 – 2017</span>
-            <span><h3><span data-l="es">Subgerente de Marketing</span><span data-l="en">Marketing Manager</span></h3><span class="company">Accenture · Santiago</span></span>
+            <span><h3>Associate Marketing Manager</h3><span class="company">Accenture · Santiago</span></span>
             <span class="metric"><span data-l="es">USD $6M en acuerdos</span><span data-l="en">USD $6M in deals</span></span>
             <span class="chev" aria-hidden="true">+</span>
           </summary>
@@ -633,8 +685,162 @@
       try { localStorage.setItem('lang', l); } catch {}
       paintStats();
       applyConfig();
+      renderProjects();
     }
     $('lang-btn').addEventListener('click', () => setLang(lang === 'es' ? 'en' : 'es'));
+
+    /* ---------- Projects (content from the CV). Fields ending in _en are the English versions.
+       Real photos: put fotos/proyecto-01.jpg … proyecto-08.jpg and they replace the sketch. ---------- */
+    const PROJECTS = [
+      { org: 'BoostBrands', area: 'Representación retail', area_en: 'Retail representation', year: '2020 – hoy', year_en: '2020 – now',
+        title: 'Moda sostenible en el retail chileno', title_en: 'Sustainable fashion in Chilean retail', short: 'Moda sostenible en retail', short_en: 'Sustainable fashion in retail',
+        desc: 'Llevé dos marcas internacionales de moda sostenible, incluida Acapella, a tres de las grandes cadenas retail de Chile.',
+        desc_en: 'I brought two international sustainable fashion brands, including Acapella, into three of Chile’s major retail chains.',
+        bullets: ['Acuerdos de distribución con 3 grandes cadenas', '2 marcas internacionales, incluida Acapella', 'USD $400K en ventas', '40% de margen'],
+        bullets_en: ['Distribution deals with 3 major chains', '2 international brands, including Acapella', 'USD $400K in sales', '40% margin'],
+        chips: ['Negociación retail', 'Distribución', 'Desarrollo de marcas'], chips_en: ['Retail negotiation', 'Distribution', 'Brand development'],
+        path: 'boostbrands / retail',
+        sketch: t => flow([t('ACAPELLA', 'ACAPELLA'), t('MARCA 2', 'BRAND 2')], 'BOOSTBRANDS', [t('CADENA 1', 'CHAIN 1'), t('CADENA 2', 'CHAIN 2'), t('CADENA 3', 'CHAIN 3')],
+          [[t('Ventas', 'Sales'), 'USD $400K'], [t('Margen', 'Margin'), '40%']]) },
+      { org: 'BoostBrands', area: 'Consultoría', area_en: 'Consulting', year: '2020 – hoy', year_en: '2020 – now',
+        title: '50 PYMES en plena crisis', title_en: '50 SMEs through a downturn', short: '50 PYMES en crisis', short_en: '50 SMEs in a downturn',
+        desc: 'Asesoría de marketing comercial a PYMES chilenas durante la crisis económica, combinando estrategia con IA agéntica para ejecutar a bajo costo.',
+        desc_en: 'Commercial marketing advice for Chilean SMEs during the economic crisis, combining strategy with agentic AI to execute at low cost.',
+        bullets: ['50 PYMES asesoradas', '+15% de crecimiento promedio en ingresos', '12 clientes activos', 'Campañas y contenido con IA agéntica'],
+        bullets_en: ['50 SMEs advised', '+15% average revenue growth', '12 active clients', 'Campaigns and content with agentic AI'],
+        chips: ['Estrategia comercial', 'Marketing B2B/B2C', 'IA agéntica'], chips_en: ['Commercial strategy', 'B2B/B2C marketing', 'Agentic AI'],
+        path: 'boostbrands / clientes', path_en: 'boostbrands / clients',
+        sketch: t => dashboard([[t('PYMES', 'SMEs'), '50'], [t('Activos', 'Active'), '12'], [t('Ingresos', 'Revenue'), '+15%', true]], t('INGRESOS PROMEDIO DE CLIENTES', 'AVERAGE CLIENT REVENUE')) },
+      { org: 'Bajaj Motochile', area: 'Transformación comercial', area_en: 'Commercial transformation', year: '2020 – 2024',
+        title: 'De franquicias a venta directa', title_en: 'From franchises to direct sales', short: 'De franquicias a venta directa', short_en: 'Franchises to direct sales',
+        desc: 'Transformé el modelo de B2B a B2C/D2C: reemplacé 20 franquicias por 4 tiendas propias y ordené la caja del negocio.',
+        desc_en: 'I moved the business from B2B to B2C/D2C: replaced 20 franchises with 4 company stores and fixed the cash position.',
+        bullets: ['20 franquicias → 4 tiendas propias', 'EBITDA +20%', 'Flujo de caja +50%', 'Cuentas por cobrar de USD $1M a $400K', 'Crédito de 60 a 30 días', 'Alianza fintech Galgo de USD $8M y MotoFin'],
+        bullets_en: ['20 franchises → 4 company stores', 'EBITDA +20%', 'Cash flow +50%', 'Receivables from USD $1M to $400K', 'Credit terms from 60 to 30 days', 'USD $8M Galgo fintech alliance and MotoFin'],
+        chips: ['Transformación D2C', 'P&L', 'Retail', 'Fintech'], chips_en: ['D2C transformation', 'P&L', 'Retail', 'Fintech'],
+        path: 'motochile / modelo', path_en: 'motochile / model',
+        sketch: t => flow([t('20 FRANQUICIAS', '20 FRANCHISES')], 'D2C', [t('4 TIENDAS PROPIAS', '4 OWN STORES'), 'E-COMMERCE', 'MOTOFIN'],
+          [['EBITDA', '+20%'], [t('Flujo de caja', 'Cash flow'), '+50%']]) },
+      { org: 'Bajaj Motochile', area: 'Canal digital', area_en: 'Digital channel', year: '2020 – 2024',
+        title: 'E-commerce desde cero', title_en: 'E-commerce from zero', short: 'E-commerce desde cero', short_en: 'E-commerce from zero',
+        desc: 'Construí el canal de venta online desde cero en plena pandemia y lo conecté con un CRM para medir cada etapa de la venta.',
+        desc_en: 'I built the online sales channel from scratch during the pandemic and connected it to a CRM to measure every stage of the sale.',
+        bullets: ['USD $13,5M en ventas online', 'Canal construido desde cero', 'HubSpot CRM implementado', 'Parte de la estrategia que llevó la participación de 9% a 23%'],
+        bullets_en: ['USD $13.5M in online sales', 'Channel built from zero', 'HubSpot CRM implemented', 'Part of the strategy that took market share from 9% to 23%'],
+        chips: ['E-commerce', 'HubSpot', 'CAC y conversión'], chips_en: ['E-commerce', 'HubSpot', 'CAC & conversion'],
+        path: 'tienda online', path_en: 'online store',
+        sketch: t => store([[t('Ventas online', 'Online sales'), t('USD $13,5M', 'USD $13.5M')], [t('Participación', 'Market share'), '9% → 23%']]) },
+      { org: 'Bajaj Auto', area: 'Country Manager', area_en: 'Country Manager', year: '2017 – 2020',
+        title: 'Bajaj llega a Paraguay', title_en: 'Bajaj enters Paraguay', short: 'Bajaj llega a Paraguay', short_en: 'Bajaj enters Paraguay',
+        desc: 'Lideré la entrada de Bajaj a Paraguay desde cero: elegí al distribuidor, armé el equipo y abrí las primeras tiendas.',
+        desc_en: 'I led Bajaj’s entry into Paraguay from scratch: chose the distributor, built the team and opened the first stores.',
+        bullets: ['Selección del distribuidor', 'Equipo de 25 personas', '3 tiendas abiertas', 'USD $1M en ventas el primer año', '5% de participación en el año 1'],
+        bullets_en: ['Distributor selection', 'Team of 25 people', '3 stores opened', 'USD $1M in sales in year one', '5% market share in year one'],
+        chips: ['Expansión internacional', 'Go-to-market', 'Liderazgo de equipos'], chips_en: ['International expansion', 'Go-to-market', 'Team leadership'],
+        path: 'bajaj / paraguay',
+        sketch: t => steps([t('Distribuidor elegido', 'Distributor chosen'), t('Equipo de 25 personas', 'Team of 25'), t('3 tiendas abiertas', '3 stores opened'), t('USD $1M · 5% de participación', 'USD $1M · 5% share')]) },
+      { org: 'Bajaj Auto', area: 'CMO regional LATAM', area_en: 'Regional CMO LATAM', year: '2017 – 2020',
+        title: 'Reality shows y campañas en 6 países', title_en: 'Reality shows and campaigns in 6 countries', short: 'Reality shows en 6 países', short_en: 'Reality shows in 6 countries',
+        desc: 'Diseñé campañas integradas para 6 países, incluidos 2 reality shows digitales originales con figuras de TV en Perú y Argentina.',
+        desc_en: 'I designed integrated campaigns for 6 countries, including 2 original digital reality shows with TV personalities in Peru and Argentina.',
+        bullets: ['Presupuesto de USD $6M en 6 países', '2 reality shows digitales originales', 'Mayor alza regional de participación en 10 años', '19% de participación LATAM', 'KPIs que conectan alcance con ventas', '-30% en costos de agencias'],
+        bullets_en: ['USD $6M budget across 6 countries', '2 original digital reality shows', 'Largest regional share gain in 10 years', '19% LATAM market share', 'KPIs linking reach to sales', '-30% in agency costs'],
+        chips: ['Marketing integrado', 'Contenido', 'Gestión de agencias'], chips_en: ['Integrated marketing', 'Content', 'Agency management'],
+        path: 'bajaj / campañas', path_en: 'bajaj / campaigns',
+        sketch: t => video(t('Reality show · Ep. 01', 'Reality show · Ep. 01'), [t('Perú', 'Peru'), 'Argentina', t('6 países', '6 countries')]) },
+      { org: 'Electrolux', area: 'Product marketing', area_en: 'Product marketing', year: '2013 – 2016',
+        title: 'Electrolux premium con chefs Michelin', title_en: 'Electrolux goes premium with Michelin chefs', short: 'Premium con chefs Michelin', short_en: 'Premium with Michelin chefs',
+        desc: 'Reposicioné Electrolux en el segmento premium con chefs Michelin como embajadores, bajo el concepto "disfrute culinario".',
+        desc_en: 'I repositioned Electrolux in the premium segment with Michelin-starred chefs as ambassadors, under the "culinary enjoyment" concept.',
+        bullets: ['De 1% a 5% de participación premium en el año 1', 'Acuerdos con retailers y grandes tiendas', 'Electrolux, Fensa y Mademsa #1 en Chile', 'USD $20M de inversión aprobada por el HQ global'],
+        bullets_en: ['From 1% to 5% premium share in year one', 'Deals with retailers and department stores', 'Electrolux, Fensa and Mademsa #1 in Chile', 'USD $20M investment approved by global HQ'],
+        chips: ['Posicionamiento de marca', 'Producto', 'Retail'], chips_en: ['Brand positioning', 'Product', 'Retail'],
+        path: 'electrolux / premium',
+        sketch: t => bars([[t('Antes', 'Before'), 1, '1%'], [t('Año 1', 'Year 1'), 5, '5%', true]], 5, t('PARTICIPACIÓN EN SEGMENTO PREMIUM', 'PREMIUM SEGMENT SHARE')) },
+      { org: 'Accenture', area: 'Associate Marketing Manager', area_en: 'Associate Marketing Manager', year: '2016 – 2017',
+        title: 'Carrera de drones controlados por la mente', title_en: 'Mind-controlled drone race', short: 'Drones controlados por la mente', short_en: 'Mind-controlled drones',
+        desc: 'Lideré la primera carrera de drones controlados por la mente en Latinoamérica, usada como estrategia de reclutamiento de talento STEM.',
+        desc_en: 'I led Latin America’s first mind-controlled drone race, used as a recruiting strategy for STEM talent.',
+        bullets: ['Campaña más innovadora de 2017', 'Primera en Latinoamérica', 'Reclutamiento de talento STEM', 'Marketing B2B para las 30 principales empresas de Chile', 'USD $6M en acuerdos comerciales'],
+        bullets_en: ['Most innovative campaign of 2017', 'First in Latin America', 'STEM talent recruiting', 'B2B marketing for Chile’s top 30 companies', 'USD $6M in commercial deals'],
+        chips: ['Innovación', 'Eventos', 'Employer branding'], chips_en: ['Innovation', 'Events', 'Employer branding'],
+        path: 'accenture / drones',
+        sketch: t => wave(t('SEÑAL CEREBRAL → DRON', 'BRAIN SIGNAL → DRONE'), [t('Más innovadora 2017', 'Most innovative 2017'), 'STEM']) },
+    ];
+
+    const esc = v => String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    const node = (txt, hot) => `<div class="sk-node${hot ? ' hot' : ''}">${esc(txt)}</div>`;
+    const foot = items => `<div class="sk-foot">${items.map(([k, v]) => `<div>${esc(k)}<strong>${esc(v)}</strong></div>`).join('')}</div>`;
+    function flow(left, center, right, totals) {
+      return `<div class="sk-flow"><div class="sk-col">${left.map(x => node(x)).join('')}</div><div class="sk-link"></div>
+        <div class="sk-col">${node(center, true)}</div><div class="sk-link"></div><div class="sk-col">${right.map(x => node(x)).join('')}</div></div>${foot(totals)}`;
+    }
+    function dashboard(kpis, label) {
+      return `<div class="sk-kpis">${kpis.map(([k, v, hot]) => `<div class="sk-kpi${hot ? ' hot' : ''}">${esc(k)}<strong>${esc(v)}</strong></div>`).join('')}</div>
+        <div class="sk-chart"><div class="p-tag" style="text-align:left">${esc(label)}</div>
+        <svg viewBox="0 0 300 120" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,96 50,92 100,84 150,80 200,62 250,50 300,34" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><circle cx="300" cy="34" r="5" fill="currentColor"/></svg></div>`;
+    }
+    function store(totals) {
+      const prod = '<div class="sk-prod"><div></div><i></i><em></em></div>';
+      return `<div class="sk-store">${prod.repeat(3)}</div>${foot(totals)}`;
+    }
+    function steps(list) {
+      return `<div class="sk-steps">${list.map((s, i) => `<div class="sk-step${i === list.length - 1 ? ' hot' : ''}"><b>${i + 1}</b>${node(s, i === list.length - 1)}</div>`).join('')}</div>`;
+    }
+    function video(ep, pills) {
+      return `<div class="sk-video"><span class="sk-ep">${esc(ep)}</span><div class="sk-play"></div></div>
+        <div class="sk-pills">${pills.map((p, i) => `<span class="${i === pills.length - 1 ? 'hot' : ''}">${esc(p)}</span>`).join('')}</div>`;
+    }
+    function bars(list, max, label) {
+      return `<div class="sk-bars">${list.map(([k, v, txt, hot]) => `<div class="sk-barcol"><b>${esc(txt)}</b><div class="sk-fill${hot ? ' hot' : ''}" style="height:${Math.max(6, v / max * 80)}%"></div></div>`).join('')}</div>
+        <div class="sk-axis">${list.map(([k]) => `<span>${esc(k)}</span>`).join('')}</div><div class="p-tag" style="text-align:center">${esc(label)}</div>`;
+    }
+    function wave(label, pills) {
+      return `<div class="sk-chart"><div class="p-tag" style="text-align:left">${esc(label)}</div>
+        <svg viewBox="0 0 300 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60 Q 15 20 30 60 T 60 60 T 90 60 Q 100 10 110 60 T 130 60 Q 140 100 150 60 T 180 60 Q 195 15 210 60 T 240 60 T 270 60 Q 285 30 300 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></div>
+        <div class="sk-flow"><div class="sk-col">${node('EEG')}</div><div class="sk-link"></div><div class="sk-col">${node('APP')}</div><div class="sk-link"></div><div class="sk-col">${node('DRON', true)}</div></div>
+        <div class="sk-pills">${pills.map((p, i) => `<span class="${i === 0 ? 'hot' : ''}">${esc(p)}</span>`).join('')}</div>`;
+    }
+
+    const projPhotos = new Set();
+    PROJECTS.forEach((p, i) => {
+      const src = `fotos/proyecto-${String(i + 1).padStart(2, '0')}.jpg`;
+      const img = new Image();
+      img.onload = () => { projPhotos.add(i); renderProjects(); };
+      img.src = src;
+    });
+    let openProject = 0;
+    function renderProjects() {
+      const box = $('projects'); if (!box) return;
+      const L = (o, k) => (lang === 'en' && o[k + '_en'] !== undefined) ? o[k + '_en'] : o[k];
+      const t = (es, en) => lang === 'en' ? en : es;
+      box.replaceChildren(...PROJECTS.map((p, i) => {
+        const num = String(i + 1).padStart(2, '0');
+        const d = document.createElement('details');
+        d.className = 'proj'; d.name = 'proyectos'; d.open = i === openProject;
+        const visual = projPhotos.has(i)
+          ? `<figure class="p-photo"><img src="fotos/proyecto-${num}.jpg" alt="${esc(L(p, 'title'))}" loading="lazy"></figure><div class="p-tag">${t('Foto', 'Photo')}</div>`
+          : `<div class="sk" aria-hidden="true"><div class="sk-bar"><i></i><i></i><i></i><span>${esc(L(p, 'path'))}</span></div><div class="sk-body">${p.sketch(t)}</div></div><div class="p-tag">${t('Ilustrativo', 'Illustrative')}</div>`;
+        d.innerHTML = `
+          <summary aria-label="${esc(L(p, 'title'))}"><span class="p-num">${num}</span><span class="p-vtitle">${esc(L(p, 'short'))}</span><span class="p-plus" aria-hidden="true">+</span></summary>
+          <div class="p-body">
+            <div>
+              <div class="p-meta"><b>${num}</b>${esc(p.org)} — ${esc(L(p, 'area'))} · ${esc(L(p, 'year'))}</div>
+              <h3>${esc(L(p, 'title'))}</h3>
+              <p class="p-desc">${esc(L(p, 'desc'))}</p>
+              <ul class="p-bullets">${L(p, 'bullets').map(b => `<li>${esc(b)}</li>`).join('')}</ul>
+              <div class="p-chips">${L(p, 'chips').map(c => `<span>${esc(c)}</span>`).join('')}</div>
+            </div>
+            <div class="p-visual">${visual}</div>
+          </div>`;
+        d.addEventListener('toggle', () => {
+          const all = [...box.querySelectorAll('details.proj')];
+          if (d.open) { openProject = i; all.forEach(o => { if (o !== d) o.open = false; }); }
+          else if (!all.some(o => o.open)) d.open = true;
+        });
+        return d;
+      }));
+    }
 
     /* Contact links from CONFIG */
     function applyConfig() {

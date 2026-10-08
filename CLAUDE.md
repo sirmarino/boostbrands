@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Personal website for Cristian Marino, founder of BoostBrands (boostbrands.cl). Two static pages:
 
-- `index.html`: main page aimed at winning SME clients (hero, company band, stats, services, case studies, condensed track record, contact).
+- `index.html`: main page aimed at winning SME clients (hero, company band, stats, services, projects accordion, condensed track record, contact).
 - `cv.html`: interactive CV aimed at executive/academic audiences (career timeline, achievements, network, gallery, education).
 
 There is no build step, package manager, framework or test suite. Each page is self-contained HTML with its CSS in a `<style>` block and vanilla JS in a `<script>` at the end of `<body>`.
@@ -22,6 +22,11 @@ There is no build step, package manager, framework or test suite. Each page is s
 - Static text is written twice as sibling elements with `data-l="es"` / `data-l="en"`; CSS hides the one not matching `html[lang]`. Add both versions whenever you add copy.
 - In `cv.html`, dynamic content comes from JS data arrays (`ROLES`, `WINS`, `CATS`, `GROUPS`, `COUNTRIES`, `EDU`, `TICKER`, `ROLE_LINES`, `PHOTOS`). English values live in sibling fields with an `_en` suffix and are read through `T(obj, key)`; `setLang()` re-renders every section. Edit content in those arrays, not in the markup.
 - Default language is the saved preference, else Spanish for Spanish-language browsers and English otherwise.
+
+## index.html projects section
+
+- "Cosas que he construido" is a horizontal accordion of `<details class="proj" name="proyectos">` rendered by `renderProjects()` from the `PROJECTS` array in the page script (same `_en` field convention as cv.html). One card is always open; below 1100px it becomes a vertical accordion.
+- Each project's visual is an illustrative sketch built by small helpers (`flow`, `dashboard`, `store`, `steps`, `video`, `bars`, `wave`) and labelled "Ilustrativo". If `fotos/proyecto-NN.jpg` exists (NN = 01…08, the project's position), the real photo replaces the sketch automatically.
 
 ## cv.html specifics
 
