@@ -424,7 +424,7 @@
         <p data-l="es">Consultoría para tu empresa, directorios, charlas o docencia. Escríbeme y te respondo.</p>
         <p data-l="en">Consulting for your business, boards, talks or teaching. Write to me and I'll get back to you.</p>
         <div class="actions">
-          <a href="mailto:cristian@boostbrands.cl" class="btn btn-primary" data-agenda><span data-l="es">Agenda un diagnóstico de 30 min</span><span data-l="en">Book a 30-min diagnostic</span></a>
+          <a href="mailto:cristian@boostbrands.cl" class="btn btn-primary" data-agenda><span data-l="es">Agenda una reunión de 30 min para conocer tu problema</span><span data-l="en">Book a 30-min call to understand your challenge</span></a>
           <a href="#" class="btn btn-ghost" data-whatsapp hidden target="_blank" rel="noopener">WhatsApp</a>
           <button type="button" class="btn btn-ghost" id="copy-email"><span data-l="es">Copiar email</span><span data-l="en">Copy email</span></button>
           <a href="https://www.linkedin.com/in/cristianmarinov" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn ↗</a>
@@ -823,7 +823,7 @@
 
     /* ---------- Contact links from config.js ---------- */
     function applyConfig() {
-      const subject = lang === 'es' ? 'Diagnóstico de 30 min' : '30-min diagnostic';
+      const subject = lang === 'es' ? 'Reunión de 30 min' : '30-min call';
       document.querySelectorAll('[data-agenda]').forEach(a => {
         if (CONFIG.calendarUrl) { a.href = CONFIG.calendarUrl; a.target = '_blank'; a.rel = 'noopener'; }
         else a.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}`;

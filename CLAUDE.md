@@ -14,7 +14,7 @@ There is no build step, package manager, framework or test suite. Each page is s
 
 ## Shared pieces
 
-- `config.js` sets `window.SITE_CONFIG` (contact email, booking link, WhatsApp number). Both pages load it and fill every `[data-agenda]`, `[data-whatsapp]` and `[data-email]` element from it. Empty `calendarUrl` makes "Agenda" buttons fall back to a `mailto:`; empty `whatsapp` keeps WhatsApp buttons hidden.
+- `config.js` sets `window.SITE_CONFIG` (contact email, booking link, WhatsApp number). Both pages load it and fill every `[data-agenda]`, `[data-whatsapp]` and `[data-email]` element from it. Empty `calendarUrl` makes "Agenda" buttons fall back to a `mailto:`; empty `whatsapp` keeps WhatsApp buttons hidden. Booking buttons read "Agenda una reunión de 30 min para conocer tu problema" (EN "Book a 30-min call to understand your challenge"); the phone booking bar uses the short "Agenda una reunión de 30 min". Cristian dropped the word "diagnóstico" from them.
 - `fotos/retrato.jpg` is the portrait used in both heroes. `og.jpg` (1200×630) and `favicon.svg` are referenced from both `<head>`s.
 - Language and theme preferences are shared through localStorage keys `lang` and `theme`.
 
