@@ -345,6 +345,10 @@
     .yt-cap { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: .9rem; font-weight: 600; color: var(--heading); margin-top: 4px; }
     .yt-cap a { font: 500 .78rem var(--font-mono); color: var(--accent-text); text-decoration: none; white-space: nowrap; min-height: 44px; display: inline-flex; align-items: center; }
     .yt-cap a:hover { text-decoration: underline; }
+    .p-press { margin: 0; }
+    .p-press img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: var(--pos, 50% 30%); border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 20px 40px -26px rgba(20, 33, 61, .55); }
+    .p-press figcaption { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 8px; font-size: .9rem; font-weight: 600; color: var(--heading); }
+    .p-press small { font: 500 .72rem var(--font-mono); color: var(--muted); white-space: nowrap; }
 
     /* Project schematics: real logos and CV figures, drawn with tokens so they work in both themes.
        Each direct child of .dg gets --d (its reveal delay) from renderProjects(); the reveal runs
@@ -1044,6 +1048,7 @@
         stats: [['USD $1M', 'en ventas el primer año'], ['5%', 'de participación en el año 1'], ['25', 'personas en el equipo'], ['3', 'tiendas abiertas']],
         stats_en: [['USD $1M', 'in sales in year one'], ['5%', 'market share in year one'], ['25', 'people on the team'], ['3', 'stores opened']],
         chips: ['Expansión internacional', 'Go-to-market', 'Liderazgo de equipos'], chips_en: ['International expansion', 'Go-to-market', 'Team leadership'],
+        link: { href: 'https://www.lanacion.com.py/negocios_edicion_impresa/2019/01/12/bajaj-llego-al-paraguay-y-busca-ser-lider-en-el-segmento-de-motos/', label: 'Nota en La Nación (Paraguay)', label_en: 'La Nación (Paraguay) article' },
         videos: [{ id: 'eZw5Iau7REE', label: 'Aterrizaje de Bajaj en Paraguay', label_en: 'Bajaj lands in Paraguay' }] },
       { org: 'Bajaj Auto', area: 'CMO regional LATAM', area_en: 'Regional CMO LATAM', year: '2017 – 2020',
         logos: ['bajaj'],
@@ -1148,8 +1153,10 @@
     });
     let openProject = 0;
     const ytUrl = v => `https://www.youtube.com/watch?v=${encodeURIComponent(v.id)}${v.list ? '&list=' + encodeURIComponent(v.list) : ''}`;
-    function videoBlock(videos, L, t) {
-      return `<div class="p-videos">${videos.map(v => `<div>
+    /* photo (optional): { src, alt, alt_en, cap, cap_en, credit } shown above the videos, e.g. a press photo */
+    function videoBlock(videos, L, t, photo) {
+      return `<div class="p-videos">${photo ? `<figure class="p-press"><img src="${esc(photo.src)}" alt="${esc(L(photo, 'alt'))}" loading="lazy">
+          <figcaption><span>${esc(L(photo, 'cap'))}</span><small>${esc(photo.credit)}</small></figcaption></figure>` : ''}${videos.map(v => `<div>
           <div class="yt-frame"><button type="button" class="yt" data-yt="${esc(v.id)}" data-list="${esc(v.list || '')}" data-title="${esc(L(v, 'label'))}" aria-label="${esc(t('Reproducir video: ', 'Play video: ') + L(v, 'label'))}">
             <img src="https://i.ytimg.com/vi/${esc(v.id)}/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="yt-play" aria-hidden="true"></span></button></div>
           <div class="yt-cap"><span>${esc(L(v, 'label'))}</span><a href="${esc(ytUrl(v))}" target="_blank" rel="noopener">YouTube ↗</a></div>
@@ -1180,7 +1187,7 @@
         const num = String(i + 1).padStart(2, '0');
         const d = document.createElement('details');
         d.className = 'proj'; d.name = 'proyectos'; d.open = i === openProject;
-        const visual = p.videos ? videoBlock(p.videos, L, t) : p.clip
+        const visual = p.videos ? videoBlock(p.videos, L, t, p.photo) : p.clip
           ? `<figure class="p-clip${p.clip.photo ? ' with-photo' : ''}">${p.clip.photo ? `<img class="p-clip-photo" src="${esc(p.clip.photo)}" alt="${esc(L(p.clip, 'photo_alt'))}" loading="lazy">` : ''}<video controls playsinline preload="none" poster="${esc(p.clip.poster)}" aria-label="${esc(L(p.clip, 'label'))}"><source src="${esc(p.clip.src)}" type="video/mp4"></video><figcaption>${esc(L(p.clip, 'label'))}</figcaption></figure><div class="p-tag">Video</div>`
           : projPhotos.has(i)
           ? `<figure class="p-photo"><img src="fotos/proyecto-${num}.jpg" alt="${esc(L(p, 'title'))}" loading="lazy"></figure><div class="p-tag">${t('Foto', 'Photo')}</div>`
