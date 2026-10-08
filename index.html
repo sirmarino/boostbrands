@@ -279,34 +279,76 @@
     .yt-cap a { font: 500 .78rem var(--font-mono); color: var(--accent-text); text-decoration: none; white-space: nowrap; min-height: 44px; display: inline-flex; align-items: center; }
     .yt-cap a:hover { text-decoration: underline; }
 
-    /* Illustrative sketches (drawn with tokens so they work in both themes) */
-    .sk { flex: 1; min-height: 320px; border: 1px solid var(--border); border-radius: 18px; background: var(--bg); display: flex; flex-direction: column; overflow: hidden; }
-    .sk-bar { display: flex; align-items: center; gap: 6px; padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--surface); font: 500 .78rem var(--font-mono); color: var(--muted); }
-    .sk-bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--border); }
-    .sk-bar span { margin-left: 8px; }
-    .sk-body { flex: 1; padding: 22px; display: flex; flex-direction: column; gap: 16px; justify-content: center; min-width: 0; }
-    .sk-node { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; font: 500 .7rem var(--font-mono); text-transform: uppercase; letter-spacing: .04em; color: var(--muted); overflow-wrap: break-word; min-width: 0; }
-    .sk-node::after { content: ""; display: block; height: 6px; border-radius: 3px; background: var(--border); margin-top: 8px; width: 70%; }
-    .sk-node.hot { border-color: var(--accent); color: var(--accent-text); }
-    .sk-node.hot::after { background: var(--accent-soft); }
-    .sk-flow { display: grid; justify-items: center; }
-    .sk-col { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; width: 100%; }
-    .sk-col .sk-node { flex: 1 1 0; min-width: 90px; max-width: 180px; }
-    .sk-link { height: 22px; border-left: 2px dashed var(--border); }
-    .sk-foot { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font: 500 .7rem var(--font-mono); text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
-    .sk-foot strong { display: block; font: 800 1.45rem var(--font-display); letter-spacing: -0.02em; text-transform: none; color: var(--accent-text); }
-    .sk-bars { display: flex; align-items: flex-end; gap: 20px; height: 190px; padding: 0 10px; border-bottom: 1px solid var(--border); }
-    .sk-barcol { flex: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px; font: 500 .7rem var(--font-mono); color: var(--muted); }
-    .sk-barcol b { font: 800 1.15rem var(--font-display); color: var(--text); }
-    .sk-fill { width: 100%; border-radius: 8px 8px 0 0; background: var(--border); }
-    .sk-fill.hot { background: var(--accent); }
-    .sk-axis { display: flex; gap: 20px; padding: 0 10px; font: 500 .7rem var(--font-mono); color: var(--muted); text-transform: uppercase; }
-    .sk-axis span { flex: 1; text-align: center; }
-    .sk-store { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-    .sk-prod { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px; display: grid; gap: 8px; }
-    .sk-prod div { aspect-ratio: 4 / 3; border-radius: 8px; background: var(--border); }
-    .sk-prod i { height: 6px; border-radius: 3px; background: var(--border); width: 80%; }
-    .sk-prod em { height: 22px; border-radius: 6px; background: var(--accent); width: 60%; }
+    /* Project schematics: real logos and CV figures, drawn with tokens so they work in both themes.
+       Each direct child of .dg gets --d (its reveal delay) from renderProjects(); the reveal runs
+       once the diagram is on screen (.dg.in) and replays whenever its card opens. */
+    .dg { flex: 1; min-height: 320px; display: flex; flex-direction: column; justify-content: center; gap: 14px; padding: 22px; border: 1px solid var(--border); border-radius: 18px; background: var(--bg); container-type: inline-size; }
+    .dg-cap, .dg-lbl { font: 500 .72rem/1.3 var(--font-mono); text-transform: uppercase; letter-spacing: .07em; color: var(--muted); text-align: center; }
+    .dg-tier { display: grid; justify-items: center; gap: 6px; }
+    .dg-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: 100%; }
+    .dg-hub .p-logo { width: 96px; height: 54px; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+    .dg-node { flex: 1 1 0; min-width: 0; max-width: 170px; min-height: 44px; display: grid; place-items: center; gap: 2px; padding: 8px 10px; border-radius: 12px; background: var(--surface); border: 1px solid var(--border); font: 700 .95rem/1.2 var(--font-display); color: var(--heading); text-align: center; }
+    .dg-node img { display: block; height: 30px; width: auto; max-width: 100%; }
+    .dg-node.hot { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+    .dg-down { position: relative; width: 2px; height: 24px; margin: -4px auto; background: var(--accent); transform-origin: top; }
+    .dg-down::after, .dg-right::after { content: ""; position: absolute; border: 5px solid transparent; }
+    .dg-down::after { left: -4px; bottom: -8px; border-top: 7px solid var(--accent); border-bottom: 0; }
+    .dg-shift { display: grid; grid-template-columns: minmax(0, 1fr) 30px minmax(0, 1fr); align-items: center; gap: 10px; }
+    .dg-shift .dg-row { flex-direction: column; align-items: stretch; }
+    .dg-shift .dg-node { flex: none; max-width: none; }
+    .dg-right { position: relative; height: 2px; background: var(--accent); margin-right: 6px; }
+    .dg-right::after { right: -8px; top: -4px; border-left: 7px solid var(--accent); border-right: 0; }
+    .dg-step { width: min(100%, 380px); margin-inline: auto; display: flex; align-items: center; gap: 14px; padding: 8px 14px 8px 8px; border-radius: 14px; background: var(--surface); border: 1px solid var(--border); font-size: .9rem; line-height: 1.35; color: var(--text); }
+    .dg-step b { display: block; font: 700 1rem/1.2 var(--font-display); color: var(--heading); }
+    .dg-step.hot { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+    .dg-step.hot b { font: 800 1.5rem/1.1 var(--font-display); letter-spacing: -0.02em; color: var(--accent-text); }
+    .dg-pair { display: grid; gap: 6px; }
+    .dg-pair .dg-lbl { text-align: left; }
+    .dg-hbar { display: grid; grid-template-columns: 74px minmax(0, 1fr) 76px; align-items: center; gap: 10px; font-size: .85rem; color: var(--muted); }
+    .dg-hbar i { height: 12px; width: var(--w); border-radius: 6px; background: color-mix(in srgb, var(--muted) 45%, var(--bg)); transform-origin: left; }
+    .dg-hbar.hot i { background: var(--accent); }
+    .dg-hbar b { font: 700 .95rem var(--font-display); color: var(--heading); white-space: nowrap; }
+    .dg-cols { display: flex; justify-content: center; align-items: flex-end; gap: 28px; height: 150px; border-bottom: 1px solid var(--border); }
+    .dg-col { width: 84px; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px; }
+    .dg-col b { font: 800 1.4rem/1 var(--font-display); letter-spacing: -0.02em; color: var(--heading); }
+    .dg-col i { width: 100%; height: var(--h); border-radius: 8px 8px 0 0; background: color-mix(in srgb, var(--muted) 45%, var(--bg)); transform-origin: bottom; }
+    .dg-col.hot i { background: var(--accent); }
+    .dg-axis { display: flex; justify-content: center; gap: 28px; margin-top: 6px; }
+    .dg-axis span { width: 84px; }
+    .dg-donuts { display: flex; justify-content: center; gap: 28px; }
+    .dg-donut { display: grid; justify-items: center; gap: 4px; width: 104px; font-size: .82rem; text-align: center; color: var(--muted); }
+    .dg-donut > div { position: relative; width: 84px; height: 84px; }
+    .dg-donut svg { display: block; width: 100%; height: 100%; transform: rotate(-90deg); }
+    .dg-donut circle { fill: none; stroke-width: 5; }
+    .dg-donut .trk { stroke: var(--border); }
+    .dg-donut .val { stroke: var(--accent); stroke-linecap: round; }
+    .dg-donut b { position: absolute; inset: 0; display: grid; place-items: center; font: 800 1.15rem var(--font-display); color: var(--heading); }
+    .dg-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; }
+    .dg-kpi { padding: 12px 14px; border-radius: 12px; background: var(--surface); border: 1px solid var(--border); font: 500 .72rem/1.3 var(--font-mono); text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+    .dg-kpi strong { display: block; margin-top: 4px; font: 800 1.5rem/1.1 var(--font-display); letter-spacing: -0.02em; text-transform: none; color: var(--accent-text); white-space: nowrap; }
+    /* Narrow diagrams: the wide-screen accordion column (~300px) and phones */
+    @container (max-width: 340px) {
+      .dg-kpi { padding: 10px; }
+      .dg-kpi strong, .dg-step.hot b { font-size: 1.2rem; letter-spacing: -0.03em; }
+      .dg-shift { gap: 8px; grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr); }
+      .dg-shift .dg-node { font-size: .85rem; padding: 6px 8px; min-height: 38px; }
+      .dg-node { font-size: .88rem; padding: 8px 6px; }
+      .dg-hbar { grid-template-columns: 58px minmax(0, 1fr) 72px; gap: 8px; }
+      .dg-cols { height: 130px; }
+    }
+    @media (min-width: 1366px) { .dg { padding: 18px 16px; gap: 12px; } }
+    @media (prefers-reduced-motion: no-preference) {
+      .proj[open] .dg > * { animation: dgUp .5s ease var(--d, 0ms) both paused; }
+      .proj[open] .dg > .dg-down { animation-name: dgY; animation-duration: .35s; }
+      .proj[open] .dg-hbar i { animation: dgX .8s cubic-bezier(.2, .7, .2, 1) calc(var(--d, 0ms) + 200ms) both paused; }
+      .proj[open] .dg-col i { animation: dgY .8s cubic-bezier(.2, .7, .2, 1) calc(var(--d, 0ms) + 200ms) both paused; }
+      .proj[open] .dg-donut .val { animation: dgArc 1.1s ease calc(var(--d, 0ms) + 200ms) both paused; }
+      .proj[open] .dg.in > *, .proj[open] .dg.in .dg-hbar i, .proj[open] .dg.in .dg-col i, .proj[open] .dg.in .dg-donut .val { animation-play-state: running; }
+    }
+    @keyframes dgUp { from { opacity: 0; transform: translateY(10px); } }
+    @keyframes dgY { from { transform: scaleY(0); } }
+    @keyframes dgX { from { transform: scaleX(0); } }
+    @keyframes dgArc { from { stroke-dasharray: 0 100; } }
 
     /* Track record: a scroll timeline. The line draws itself as you scroll and the
        entry at the middle of the screen is shown at full contrast (the rest stay muted). */
@@ -375,7 +417,8 @@
       .p-top { flex-direction: row; }
       .p-vtitle { writing-mode: horizontal-tb; transform: none; white-space: normal; flex: 1; }
       .p-body { grid-template-columns: 1fr; height: auto; overflow: visible; padding: 26px 22px 22px; gap: 24px; }
-      .sk, .p-photo { min-height: 280px; }
+      .dg, .p-photo { min-height: 280px; }
+      .p-visual:has(> .dg) { max-width: 640px; }
       .p-logos.top { display: flex; }
       .p-logos.side { display: none; }
       .p-clip.with-photo { flex-direction: row; flex-wrap: wrap; align-items: flex-start; justify-content: flex-start; }
@@ -388,7 +431,7 @@
     }
     @media (max-width: 560px) {
       .p-bullets { grid-template-columns: 1fr; }
-      .sk-body { padding: 16px; }
+      .dg { padding: 16px; }
     }
     @media (max-width: 980px) {
       .menu-btn { display: grid; }
@@ -831,22 +874,28 @@
       boostbrands: ['logos/boostbrands.png', 'BoostBrands'], acapella: ['logos/acapella.png', 'Acapella'], bench: ['logos/bench.png', 'Bench'],
       bajaj: ['logos/bajaj.png', 'Bajaj'], galgo: ['logos/galgo.png', 'Galgo'], shopify: ['logos/shopify.svg', 'Shopify'], hubspot: ['logos/hubspot.svg', 'HubSpot'],
       electrolux: ['logos/electrolux.png', 'Electrolux'], fensa: ['logos/fensa.png', 'Fensa'], mademsa: ['logos/mademsa.png', 'Mademsa', '#ff8201'],
-      accenture: ['logos/accenture.svg', 'Accenture'],
+      accenture: ['logos/accenture.svg', 'Accenture'], mercadolibre: ['logos/mercadolibre.svg', 'Mercado Libre'],
     };
     const PROJECTS = [
       { org: 'BoostBrands', area: 'Representación retail', area_en: 'Retail representation', year: '2020 – hoy', year_en: '2020 – now',
         logos: ['boostbrands', 'acapella', 'bench'],
         title: 'Moda sostenible en el retail chileno', title_en: 'Sustainable fashion in Chilean retail', short: 'Moda sostenible en retail', short_en: 'Sustainable fashion in retail',
-        desc: 'Llevé dos marcas internacionales de moda sostenible, Acapella y Bench, a tres de las grandes cadenas retail de Chile.',
-        desc_en: 'I brought two international sustainable fashion brands, Acapella and Bench, into three of Chile’s major retail chains.',
+        desc: 'Llevé dos marcas internacionales de moda sostenible, Acapella y Bench, a Falabella, Paris y Mercado Libre.',
+        desc_en: 'I brought two international sustainable fashion brands, Acapella and Bench, to Falabella, Paris and Mercado Libre.',
         pyme: 'Si tu marca está lista para el retail, te ayudo a negociar la entrada a las grandes cadenas cuidando el margen.',
         pyme_en: 'If your brand is ready for retail, I help you negotiate your way into the big chains while protecting your margin.',
-        bullets: ['Acuerdos de distribución con 3 grandes cadenas', '2 marcas internacionales: Acapella y Bench', 'USD $400K en ventas', '40% de margen'],
-        bullets_en: ['Distribution deals with 3 major chains', '2 international brands: Acapella and Bench', 'USD $400K in sales', '40% margin'],
+        bullets: ['Acuerdos de distribución con Falabella, Paris y Mercado Libre', '2 marcas internacionales: Acapella y Bench', 'USD $400K en ventas', '40% de margen'],
+        bullets_en: ['Distribution deals with Falabella, Paris and Mercado Libre', '2 international brands: Acapella and Bench', 'USD $400K in sales', '40% margin'],
         chips: ['Negociación retail', 'Distribución', 'Desarrollo de marcas'], chips_en: ['Retail negotiation', 'Distribution', 'Brand development'],
-        path: 'boostbrands / retail',
-        sketch: t => flow([t('ACAPELLA', 'ACAPELLA'), 'BENCH'], 'BOOSTBRANDS', [t('CADENA 1', 'CHAIN 1'), t('CADENA 2', 'CHAIN 2'), t('CADENA 3', 'CHAIN 3')],
-          [[t('Ventas', 'Sales'), 'USD $400K'], [t('Margen', 'Margin'), '40%']]) },
+        sketch: t => diagram(t('Esquema: Acapella y Bench, representadas por BoostBrands, llegan a Falabella, Paris y Mercado Libre. USD $400K en ventas con 40% de margen.',
+            'Diagram: Acapella and Bench, represented by BoostBrands, reach Falabella, Paris and Mercado Libre. USD $400K in sales at a 40% margin.'),
+          dCap(t('Cómo funciona', 'How it works')),
+          dTier(logoTile('acapella') + logoTile('bench'), t('Marcas internacionales', 'International brands')),
+          dDown(),
+          dTier(`<span class="dg-hub">${logoTile('boostbrands')}</span>`, t('Representación y negociación', 'Representation and negotiation')),
+          dDown(),
+          dTier(dNode('Falabella') + dNode('Paris') + dNode('Mercado Libre', 'mercadolibre'), t('Canales de venta en Chile', 'Sales channels in Chile')),
+          dKpis([[t('Ventas', 'Sales'), 'USD $400K'], [t('Margen', 'Margin'), '40%']])) },
       { org: 'Bajaj Motochile', area: 'Transformación comercial', area_en: 'Commercial transformation', year: '2020 – 2024',
         logos: ['bajaj', 'galgo'],
         title: 'De franquicias a venta directa', title_en: 'From franchises to direct sales', short: 'De franquicias a venta directa', short_en: 'Franchises to direct sales',
@@ -857,9 +906,13 @@
         bullets: ['20 franquicias → 4 tiendas propias', 'EBITDA +20%', 'Flujo de caja +50%', 'Cuentas por cobrar de USD $1M a $400K', 'Crédito de 60 a 30 días', 'Alianza fintech Galgo de USD $8M y MotoFin'],
         bullets_en: ['20 franchises → 4 company stores', 'EBITDA +20%', 'Cash flow +50%', 'Receivables from USD $1M to $400K', 'Credit terms from 60 to 30 days', 'USD $8M Galgo fintech alliance and MotoFin'],
         chips: ['Transformación D2C', 'P&L', 'Retail', 'Fintech'], chips_en: ['D2C transformation', 'P&L', 'Retail', 'Fintech'],
-        path: 'motochile / modelo', path_en: 'motochile / model',
-        sketch: t => flow([t('20 FRANQUICIAS', '20 FRANCHISES')], 'D2C', [t('4 TIENDAS PROPIAS', '4 OWN STORES'), 'E-COMMERCE', 'MOTOFIN'],
-          [['EBITDA', '+20%'], [t('Flujo de caja', 'Cash flow'), '+50%']]) },
+        sketch: t => diagram(t('Esquema: de 20 franquicias (B2B) a 4 tiendas propias, e-commerce y MotoFin (B2C/D2C). Cuentas por cobrar de USD $1M a $400K, crédito de 60 a 30 días, EBITDA +20% y flujo de caja +50%.',
+            'Diagram: from 20 franchises (B2B) to 4 company stores, e-commerce and MotoFin (B2C/D2C). Receivables from USD $1M to $400K, credit terms from 60 to 30 days, EBITDA +20% and cash flow +50%.'),
+          dCap(t('Cómo cambió el modelo', 'How the model changed')),
+          `<div class="dg-shift">${dTier(dNode(t('20 franquicias', '20 franchises')), t('Antes · B2B', 'Before · B2B'))}<div class="dg-right"></div>${dTier(dNode(t('4 tiendas propias', '4 company stores'), '', true) + dNode('E-commerce', '', true) + dNode('MotoFin', '', true), t('Después · B2C/D2C', 'After · B2C/D2C'))}</div>`,
+          dPair(t('Cuentas por cobrar', 'Receivables'), [[t('Antes', 'Before'), 100, 'USD $1M'], [t('Después', 'After'), 40, 'USD $400K', true]]),
+          dPair(t('Plazo de crédito', 'Credit terms'), [[t('Antes', 'Before'), 100, t('60 días', '60 days')], [t('Después', 'After'), 50, t('30 días', '30 days'), true]]),
+          dKpis([['EBITDA', '+20%'], [t('Flujo de caja', 'Cash flow'), '+50%']])) },
       { org: 'Bajaj Motochile', area: 'Canal digital', area_en: 'Digital channel', year: '2020 – 2024',
         logos: ['bajaj', 'shopify', 'hubspot'],
         title: 'E-commerce desde cero', title_en: 'E-commerce from zero', short: 'E-commerce desde cero', short_en: 'E-commerce from zero',
@@ -870,8 +923,15 @@
         bullets: ['USD $13,5M en ventas online', 'Tienda y pasarelas de pago en Shopify', 'HubSpot CRM implementado', 'Parte de la estrategia que llevó la participación de 9% a 23%'],
         bullets_en: ['USD $13.5M in online sales', 'Store and payment gateways on Shopify', 'HubSpot CRM implemented', 'Part of the strategy that took market share from 9% to 23%'],
         chips: ['Shopify', 'HubSpot', 'CAC y conversión'], chips_en: ['Shopify', 'HubSpot', 'CAC & conversion'],
-        path: 'tienda online', path_en: 'online store',
-        sketch: t => store([[t('Ventas online', 'Online sales'), t('USD $13,5M', 'USD $13.5M')], [t('Participación', 'Market share'), '9% → 23%']]) },
+        sketch: t => diagram(t('Esquema: tienda y pagos en Shopify, CRM en HubSpot y USD $13,5M en ventas online para Bajaj. La participación de mercado pasó de 9% a 23% con toda la estrategia comercial.',
+            'Diagram: store and payments on Shopify, CRM on HubSpot and USD $13.5M in online sales for Bajaj. Market share went from 9% to 23% with the whole commercial strategy.'),
+          dCap(t('Cómo se armó', 'How it was built')),
+          dStep('shopify', 'Shopify', t('Tienda y pasarelas de pago', 'Store and payment gateways')),
+          dDown(),
+          dStep('hubspot', 'HubSpot', t('CRM: cada etapa de la venta medida', 'CRM: every stage of the sale measured')),
+          dDown(),
+          dStep('bajaj', t('USD $13,5M', 'USD $13.5M'), t('en ventas online', 'in online sales'), true),
+          dPair(t('Participación de mercado (toda la estrategia comercial)', 'Market share (whole commercial strategy)'), [[t('Antes', 'Before'), 39, '9%'], [t('Después', 'After'), 100, '23%', true]])) },
       { org: 'Bajaj Auto', area: 'Country Manager', area_en: 'Country Manager', year: '2017 – 2020',
         logos: ['bajaj'],
         title: 'Bajaj llega a Paraguay', title_en: 'Bajaj enters Paraguay', short: 'Bajaj llega a Paraguay', short_en: 'Bajaj enters Paraguay',
@@ -882,7 +942,6 @@
         bullets: ['Selección del distribuidor', 'Equipo de 25 personas', '3 tiendas abiertas', 'USD $1M en ventas el primer año', '5% de participación en el año 1'],
         bullets_en: ['Distributor selection', 'Team of 25 people', '3 stores opened', 'USD $1M in sales in year one', '5% market share in year one'],
         chips: ['Expansión internacional', 'Go-to-market', 'Liderazgo de equipos'], chips_en: ['International expansion', 'Go-to-market', 'Team leadership'],
-        path: 'bajaj / paraguay',
         videos: [{ id: 'eZw5Iau7REE', label: 'Aterrizaje de Bajaj en Paraguay', label_en: 'Bajaj lands in Paraguay' }] },
       { org: 'Bajaj Auto', area: 'CMO regional LATAM', area_en: 'Regional CMO LATAM', year: '2017 – 2020',
         logos: ['bajaj'],
@@ -894,7 +953,6 @@
         bullets: ['Presupuesto de USD $6M en 6 países', 'Reality shows Rouser ProAm (Argentina) y Pulsar Aventura en dos ruedas (Perú)', 'Mayor alza regional de participación en 10 años', '19% de participación LATAM', 'KPIs que conectan alcance con ventas', '-30% en costos de agencias'],
         bullets_en: ['USD $6M budget across 6 countries', 'Reality shows Rouser ProAm (Argentina) and Pulsar Aventura en dos ruedas (Peru)', 'Largest regional share gain in 10 years', '19% LATAM market share', 'KPIs linking reach to sales', '-30% in agency costs'],
         chips: ['Marketing integrado', 'Contenido', 'Gestión de agencias'], chips_en: ['Integrated marketing', 'Content', 'Agency management'],
-        path: 'bajaj / campañas', path_en: 'bajaj / campaigns',
         videos: [
           { id: '3WPd5LJGRUg', list: 'PLDQzHPNYeF3pRpPwWPZLfoBPjrMV-Gf6i', label: 'Pulsar Aventura en dos ruedas · Perú', label_en: 'Pulsar Aventura en dos ruedas · Peru' },
           { id: 'K4kNNuP8Z4k', list: 'PLpP2m8fmUUotaXHzy287rd6iYhd8aavNa', label: 'Rouser ProAm · Argentina' },
@@ -909,8 +967,13 @@
         bullets: ['Desarrollo de producto y line-up completo para LATAM', 'USD $20M de inversión aprobada por el HQ global', 'De 1% a 5% de participación premium en el año 1', 'Concepto "disfrute culinario" con chefs Michelin', 'Electrolux, Fensa y Mademsa #1 en Chile'],
         bullets_en: ['Product development and full line-up for LATAM', 'USD $20M investment approved by global HQ', 'From 1% to 5% premium share in year one', '"Culinary enjoyment" concept with Michelin chefs', 'Electrolux, Fensa and Mademsa #1 in Chile'],
         chips: ['Desarrollo de producto', 'Posicionamiento de marca', 'Retail'], chips_en: ['Product development', 'Brand positioning', 'Retail'],
-        path: 'electrolux / premium',
-        sketch: t => bars([[t('Antes', 'Before'), 1, '1%'], [t('Año 1', 'Year 1'), 5, '5%', true]], 5, t('PARTICIPACIÓN EN SEGMENTO PREMIUM', 'PREMIUM SEGMENT SHARE')) },
+        sketch: t => diagram(t('Esquema: participación en el segmento premium de 1% a 5% en el año 1. Electrolux, Fensa y Mademsa #1 en Chile, con 45% en refrigeradores y 75% en freezers. USD $20M de inversión para el line-up LATAM.',
+            'Diagram: premium segment share from 1% to 5% in year one. Electrolux, Fensa and Mademsa #1 in Chile, with 45% in refrigerators and 75% in freezers. USD $20M investment for the LATAM line-up.'),
+          dCap(t('Participación en segmento premium', 'Premium segment share')),
+          dCols([[t('Antes', 'Before'), 15, '1%'], [t('Año 1', 'Year 1'), 75, '5%', true]]),
+          dCap(t('Electrolux, Fensa y Mademsa: #1 en Chile', 'Electrolux, Fensa and Mademsa: #1 in Chile')),
+          `<div class="dg-donuts">${dDonut(45, t('Refrigeradores', 'Refrigerators'))}${dDonut(75, 'Freezers')}</div>`,
+          dKpis([[t('Inversión line-up LATAM', 'LATAM line-up investment'), 'USD $20M']])) },
       { org: 'Accenture', area: 'Associate Marketing Manager', area_en: 'Associate Marketing Manager', year: '2016 – 2017',
         link: { href: 'https://www.ing.uc.cl/noticias/estudiantes-la-carrera-mindracer-drone-challenge/', label: 'Nota en Ingeniería UC', label_en: 'Ingeniería UC article' },
         logos: ['accenture'],
@@ -922,26 +985,35 @@
         bullets: ['Campaña más innovadora de 2017', 'Primera en Latinoamérica', 'Reclutamiento de talento STEM', 'Marketing B2B para las 30 principales empresas de Chile', 'USD $6M en acuerdos comerciales'],
         bullets_en: ['Most innovative campaign of 2017', 'First in Latin America', 'STEM talent recruiting', 'B2B marketing for Chile’s top 30 companies', 'USD $6M in commercial deals'],
         chips: ['Innovación', 'Eventos', 'Employer branding'], chips_en: ['Innovation', 'Events', 'Employer branding'],
-        path: 'accenture / drones',
         clip: { src: 'videos/mindracer-2017.mp4', poster: 'videos/mindracer-2017.jpg', label: 'MindRacer Drone Challenge, 2017',
           photo: 'fotos/mindracer-equipo.jpg', photo_alt: 'Equipo del MindRacer Drone Challenge con el dron', photo_alt_en: 'MindRacer Drone Challenge team with the drone' } },
     ];
 
     const esc = v => String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    const node = (txt, hot) => `<div class="sk-node${hot ? ' hot' : ''}">${esc(txt)}</div>`;
-    const foot = items => `<div class="sk-foot">${items.map(([k, v]) => `<div>${esc(k)}<strong>${esc(v)}</strong></div>`).join('')}</div>`;
-    function flow(left, center, right, totals) {
-      return `<div class="sk-flow"><div class="sk-col">${left.map(x => node(x)).join('')}</div><div class="sk-link"></div>
-        <div class="sk-col">${node(center, true)}</div><div class="sk-link"></div><div class="sk-col">${right.map(x => node(x)).join('')}</div></div>${foot(totals)}`;
+    /* Logo tile from LOGOS; alt text only where the logo stands alone (not inside a labelled diagram). */
+    function logoTile(k, alt) {
+      const [src, name, bg] = LOGOS[k];
+      return `<span class="p-logo"${bg ? ` style="background:${bg};border-color:${bg}"` : ''}><img src="${src}" alt="${alt ? esc(name) : ''}" loading="lazy"></span>`;
     }
-    function store(totals) {
-      const prod = '<div class="sk-prod"><div></div><i></i><em></em></div>';
-      return `<div class="sk-store">${prod.repeat(3)}</div>${foot(totals)}`;
-    }
-    function bars(list, max, label) {
-      return `<div class="sk-bars">${list.map(([k, v, txt, hot]) => `<div class="sk-barcol"><b>${esc(txt)}</b><div class="sk-fill${hot ? ' hot' : ''}" style="height:${Math.max(6, v / max * 80)}%"></div></div>`).join('')}</div>
-        <div class="sk-axis">${list.map(([k]) => `<span>${esc(k)}</span>`).join('')}</div><div class="p-tag" style="text-align:center">${esc(label)}</div>`;
-    }
+    /* Schematic builders. A diagram is one image for screen readers (role="img" + summary). */
+    const diagram = (aria, ...parts) => `<div class="dg" role="img" aria-label="${esc(aria)}">${parts.join('')}</div>`;
+    const dCap = txt => `<div class="dg-cap">${esc(txt)}</div>`;
+    const dTier = (row, label) => `<div class="dg-tier"><div class="dg-row">${row}</div><span class="dg-lbl">${esc(label)}</span></div>`;
+    const dNode = (txt, k, hot) => `<div class="dg-node${hot ? ' hot' : ''}">${k ? `<img src="${LOGOS[k][0]}" alt="" loading="lazy">` : ''}<span>${esc(txt)}</span></div>`;
+    const dDown = () => '<div class="dg-down"></div>';
+    const dStep = (k, title, txt, hot) => `<div class="dg-step${hot ? ' hot' : ''}">${logoTile(k)}<span><b>${esc(title)}</b>${esc(txt)}</span></div>`;
+    const dKpis = list => `<div class="dg-kpis">${list.map(([k, v]) => `<div class="dg-kpi">${esc(k)}<strong>${esc(v)}</strong></div>`).join('')}</div>`;
+    /* Before/after bars: [label, width %, value, hot] */
+    const dPair = (title, rows) => `<div class="dg-pair"><span class="dg-lbl">${esc(title)}</span>${rows.map(([k, w, v, hot]) =>
+      `<div class="dg-hbar${hot ? ' hot' : ''}"><span>${esc(k)}</span><i style="--w:${w}%"></i><b>${esc(v)}</b></div>`).join('')}</div>`;
+    /* Column chart: [label, height %, value, hot] */
+    const dCols = list => `<div><div class="dg-cols">${list.map(([, h, v, hot]) => `<div class="dg-col${hot ? ' hot' : ''}"><b>${esc(v)}</b><i style="--h:${h}%"></i></div>`).join('')}</div>
+      <div class="dg-axis dg-lbl">${list.map(([k]) => `<span>${esc(k)}</span>`).join('')}</div></div>`;
+    const dDonut = (pct, label) => `<div class="dg-donut"><div><svg viewBox="0 0 42 42"><circle class="trk" cx="21" cy="21" r="15.9155"/><circle class="val" cx="21" cy="21" r="15.9155" stroke-dasharray="${pct} 100"/></svg><b>${pct}%</b></div><span>${esc(label)}</span></div>`;
+    /* Reveal each diagram the first time it is on screen (CSS replays it whenever its card opens). */
+    const dgSeen = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); dgSeen.unobserve(e.target); }
+    }), { threshold: .25 }) : null;
 
     const projPhotos = new Set();
     PROJECTS.forEach((p, i) => {
@@ -973,8 +1045,6 @@
       const box = $('projects'); if (!box) return;
       const L = (o, k) => (lang === 'en' && o[k + '_en'] !== undefined) ? o[k + '_en'] : o[k];
       const t = (es, en) => lang === 'en' ? en : es;
-      const logo = (k, alt) => { const [src, name, bg] = LOGOS[k];
-        return `<span class="p-logo"${bg ? ` style="background:${bg};border-color:${bg}"` : ''}><img src="${src}" alt="${alt ? esc(name) : ''}" loading="lazy"></span>`; };
       box.replaceChildren(...PROJECTS.map((p, i) => {
         const num = String(i + 1).padStart(2, '0');
         const d = document.createElement('details');
@@ -983,12 +1053,14 @@
           ? `<figure class="p-clip${p.clip.photo ? ' with-photo' : ''}">${p.clip.photo ? `<img class="p-clip-photo" src="${esc(p.clip.photo)}" alt="${esc(L(p.clip, 'photo_alt'))}" loading="lazy">` : ''}<video controls playsinline preload="none" poster="${esc(p.clip.poster)}" aria-label="${esc(L(p.clip, 'label'))}"><source src="${esc(p.clip.src)}" type="video/mp4"></video><figcaption>${esc(L(p.clip, 'label'))}</figcaption></figure><div class="p-tag">Video</div>`
           : projPhotos.has(i)
           ? `<figure class="p-photo"><img src="fotos/proyecto-${num}.jpg" alt="${esc(L(p, 'title'))}" loading="lazy"></figure><div class="p-tag">${t('Foto', 'Photo')}</div>`
-          : `<div class="sk" aria-hidden="true"><div class="sk-bar"><i></i><i></i><i></i><span>${esc(L(p, 'path'))}</span></div><div class="sk-body">${p.sketch(t)}</div></div><div class="p-tag">${t('Ilustrativo', 'Illustrative')}</div>`;
+          : `${p.sketch(t)}<div class="p-tag">${t('Esquema con cifras reales', 'Schematic with real figures')}</div>`;
+        /* Skip the logo row beside the visual when the diagram already shows every logo. */
+        const sideLogos = p.logos.every(k => visual.includes(LOGOS[k][0])) ? '' : `<div class="p-logos side">${p.logos.map(k => logoTile(k, true)).join('')}</div>`;
         d.innerHTML = `
-          <summary aria-label="${esc(L(p, 'title'))}"><span class="p-top"><span class="p-num">${num}</span>${logo(p.logos[0], false)}</span><span class="p-vtitle">${esc(L(p, 'short'))}</span><span class="p-plus" aria-hidden="true">+</span></summary>
+          <summary aria-label="${esc(L(p, 'title'))}"><span class="p-top"><span class="p-num">${num}</span>${logoTile(p.logos[0])}</span><span class="p-vtitle">${esc(L(p, 'short'))}</span><span class="p-plus" aria-hidden="true">+</span></summary>
           <div class="p-body">
             <div>
-              <div class="p-logos top">${p.logos.map(k => logo(k, true)).join('')}</div>
+              <div class="p-logos top">${p.logos.map(k => logoTile(k, true)).join('')}</div>
               <div class="p-meta"><b>${num}</b>${esc(p.org)} — ${esc(L(p, 'area'))} · ${esc(L(p, 'year'))}</div>
               <h3>${esc(L(p, 'title'))}</h3>
               <p class="p-desc">${esc(L(p, 'desc'))}</p>
@@ -996,7 +1068,7 @@
               <ul class="p-bullets">${L(p, 'bullets').map(b => `<li>${esc(b)}</li>`).join('')}</ul>
               <div class="p-chips">${L(p, 'chips').map(c => `<span>${esc(c)}</span>`).join('')}${p.link ? `<a class="p-link" href="${esc(p.link.href)}" target="_blank" rel="noopener">${esc(L(p.link, 'label'))} ↗</a>` : ''}</div>
             </div>
-            <div class="p-visual"><div class="p-logos side">${p.logos.map(k => logo(k, true)).join('')}</div>${visual}</div>
+            <div class="p-visual">${sideLogos}${visual}</div>
           </div>`;
         d.addEventListener('toggle', () => {
           const all = [...box.querySelectorAll('details.proj')];
@@ -1005,6 +1077,10 @@
         });
         return d;
       }));
+      box.querySelectorAll('.dg').forEach(g => {
+        [...g.children].forEach((c, n) => c.style.setProperty('--d', `${n * 110}ms`));
+        dgSeen ? dgSeen.observe(g) : g.classList.add('in');
+      });
     }
 
     /* Contact links from CONFIG */
