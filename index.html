@@ -306,6 +306,11 @@
     .edu .yr { font: 500 .78rem var(--font-mono); color: var(--accent-text); display: block; margin-bottom: 4px; }
     .edu h3 { font-size: 1.02rem; }
     .edu p { color: var(--muted); font-size: .9rem; }
+    .edu-wrap { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 12px; }
+    .edu-wrap .edu { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .edu-photo { position: relative; margin: 0; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); background: var(--surface); min-height: 320px; }
+    .edu-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
+    .edu-photo figcaption { position: absolute; left: 10px; bottom: 10px; background: var(--surface); color: var(--text); font-size: .8rem; font-weight: 500; padding: 4px 10px; border-radius: 999px; }
 
     /* Contact */
     .contact-box { background: var(--navy); color: var(--on-navy); border-radius: 24px; padding: 64px 40px; text-align: center; }
@@ -350,7 +355,8 @@
       .hero { grid-template-columns: 1fr; padding-block: 44px 64px; gap: 48px; }
       .portrait { width: min(88%, 340px); }
       .badge.b1 { left: -12px; } .badge.b2 { right: -12px; }
-      .about-grid, .cards, .edu { grid-template-columns: 1fr; }
+      .about-grid, .cards, .edu, .edu-wrap, .edu-wrap .edu { grid-template-columns: 1fr; }
+      .edu-photo { aspect-ratio: 1; min-height: 0; max-width: 420px; }
       .steps { grid-template-columns: 1fr; }
       section { padding-block: 64px; }
       .band .wrap { flex-wrap: wrap; gap: 10px; }
@@ -623,13 +629,19 @@
     <div class="wrap">
       <span class="kicker"><span data-l="es">Formación y docencia</span><span data-l="en">Education &amp; teaching</span></span>
       <h2><span data-l="es">Aprender y enseñar</span><span data-l="en">Learning and teaching</span></h2>
-      <div class="edu">
-        <div><span class="yr">2024 – 2026</span><h3>MIT Sloan School of Management</h3><p>MBA</p></div>
-        <div><span class="yr">2015</span><h3>Stanford GSB</h3><p><span data-l="es">Marketing estratégico y neuromarketing</span><span data-l="en">Strategic marketing and neuromarketing</span></p></div>
-        <div><span class="yr">2012</span><h3>University of Windsor, Odette</h3><p><span data-l="es">Máster en Gestión de la Producción</span><span data-l="en">Master's in Production Management</span></p></div>
-        <div><span class="yr">2008</span><h3>Universidad Andrés Bello</h3><p><span data-l="es">Ingeniería Industrial con honores</span><span data-l="en">Industrial Engineering with honors</span></p></div>
-        <div><span class="yr"><span data-l="es">2025 – hoy</span><span data-l="en">2025 – now</span></span><h3><span data-l="es">Profesor · UDD</span><span data-l="en">Professor · UDD</span></h3><p><span data-l="es">Product Management, programa MBA</span><span data-l="en">Product Management, MBA program</span></p></div>
-        <div><span class="yr"><span data-l="es">2025 – hoy</span><span data-l="en">2025 – now</span></span><h3><span data-l="es">Profesor · UNAB</span><span data-l="en">Professor · UNAB</span></h3><p><span data-l="es">Escuela de Ingeniería, proyecto de título</span><span data-l="en">School of Engineering, capstone projects</span></p></div>
+      <div class="edu-wrap">
+        <figure class="edu-photo">
+          <img src="fotos/mit-graduacion.jpg" alt="Cristian Marino, MIT Sloan" width="960" height="1280" loading="lazy">
+          <figcaption><span data-l="es">Graduación, MIT Sloan</span><span data-l="en">Graduation, MIT Sloan</span></figcaption>
+        </figure>
+        <div class="edu">
+          <div><span class="yr">2024 – 2026</span><h3>MIT Sloan School of Management</h3><p>MBA</p></div>
+          <div><span class="yr">2015</span><h3>Stanford GSB</h3><p><span data-l="es">Marketing estratégico y neuromarketing</span><span data-l="en">Strategic marketing and neuromarketing</span></p></div>
+          <div><span class="yr">2012</span><h3>University of Windsor, Odette</h3><p><span data-l="es">Máster en Gestión de la Producción</span><span data-l="en">Master's in Production Management</span></p></div>
+          <div><span class="yr">2008</span><h3>Universidad Andrés Bello</h3><p><span data-l="es">Ingeniería Industrial con honores</span><span data-l="en">Industrial Engineering with honors</span></p></div>
+          <div><span class="yr"><span data-l="es">2025 – hoy</span><span data-l="en">2025 – now</span></span><h3><span data-l="es">Profesor · UDD</span><span data-l="en">Professor · UDD</span></h3><p><span data-l="es">Product Management, programa MBA</span><span data-l="en">Product Management, MBA program</span></p></div>
+          <div><span class="yr"><span data-l="es">2025 – hoy</span><span data-l="en">2025 – now</span></span><h3><span data-l="es">Profesor · UNAB</span><span data-l="en">Professor · UNAB</span></h3><p><span data-l="es">Escuela de Ingeniería, proyecto de título</span><span data-l="en">School of Engineering, capstone projects</span></p></div>
+        </div>
       </div>
     </div>
   </section>
