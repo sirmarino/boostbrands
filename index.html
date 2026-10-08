@@ -248,6 +248,86 @@
     .step b { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(140deg, #ff9a6b, var(--accent)); color: var(--accent-ink); display: grid; place-items: center; font: 800 .95rem var(--font-display); box-shadow: 0 0 22px rgba(255, 122, 69, .5); }
     .step p { font-size: .97rem; }
 
+    /* Skills: one tab per skill beside a stage with what it means for the client, proofs from the CV (each can
+       open its success story) and a navy strip of the companies where it was applied, lit per skill. All panels
+       share one grid cell, so switching never moves the page. While on screen it walks through the skills on its
+       own (story-style bar on top, paused while the pointer is over the text) until the visitor picks one. */
+    #habilidades { background: radial-gradient(40% 50% at 100% 100%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%), radial-gradient(40% 50% at 0% 0%, rgba(84, 116, 210, .07), transparent 70%); }
+    .skills { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 18px; }
+    .sk-side { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+    .sk-tabs { display: grid; gap: 10px; }
+    .sk-cta { margin-top: auto; padding: 20px; border-radius: 18px; border: 1px dashed color-mix(in srgb, var(--accent) 55%, var(--border));
+      background: radial-gradient(90% 100% at 100% 0%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%), var(--surface); }
+    .sk-cta p { font: 700 1.15rem/1.25 var(--font-display); letter-spacing: -0.01em; color: var(--heading); margin-bottom: 14px; }
+    .sk-cta .btn { width: 100%; justify-content: center; padding-inline: 14px; }
+    .sk-tab { position: relative; display: grid; grid-template-columns: 42px minmax(0, 1fr); align-items: center; column-gap: 14px; min-height: 68px; padding: 12px 16px 12px 12px; text-align: left; font: inherit; color: var(--text); cursor: pointer;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 14px 30px -24px rgba(20, 33, 61, .45); transition: border-color .3s, box-shadow .3s, transform .25s; }
+    .sk-tab:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); }
+    @media (prefers-reduced-motion: no-preference) { .sk-tab:hover { transform: translateX(3px); } }
+    .sk-ic { grid-row: span 2; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-text); transition: color .3s, box-shadow .3s; }
+    .sk-tab b { font: 700 1.02rem/1.25 var(--font-display); letter-spacing: -0.01em; color: var(--heading); }
+    .sk-tab small { font-size: .86rem; line-height: 1.3; color: var(--muted); }
+    .sk-tab[aria-selected="true"] { border-color: transparent; background: radial-gradient(80% 140% at 100% 0%, rgba(232, 85, 28, .3), transparent 70%), linear-gradient(160deg, var(--navy-2), var(--navy));
+      box-shadow: 0 22px 40px -22px rgba(20, 33, 61, .75), inset 0 1px 0 rgba(255, 255, 255, .08); }
+    .sk-tab[aria-selected="true"] b { color: var(--on-navy); }
+    .sk-tab[aria-selected="true"] small { color: var(--on-navy-muted); }
+    .sk-tab[aria-selected="true"] .sk-ic { background: linear-gradient(140deg, #ff9a6b, var(--accent)); color: var(--accent-ink); box-shadow: 0 0 22px rgba(255, 122, 69, .5); }
+    .sk-stage { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; min-width: 0; border-radius: 24px; border: 1px solid var(--border);
+      background: radial-gradient(55% 45% at 100% 0%, color-mix(in srgb, var(--accent) 11%, transparent), transparent 70%), var(--surface);
+      box-shadow: 0 40px 70px -44px rgba(20, 33, 61, .6), 0 18px 36px -28px rgba(20, 33, 61, .35); }
+    .sk-stage::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background-image: radial-gradient(color-mix(in srgb, var(--muted) 30%, transparent) 1px, transparent 1.4px); background-size: 22px 22px; -webkit-mask-image: linear-gradient(225deg, #000, transparent 55%); mask-image: linear-gradient(225deg, #000, transparent 55%); }
+    .sk-top { display: flex; align-items: center; gap: 14px; padding: 16px 18px 0 30px; min-height: 60px; }
+    .sk-prog { flex: 1; display: flex; gap: 6px; }
+    .sk-prog i { flex: 1; height: 4px; border-radius: 2px; overflow: hidden; background: color-mix(in srgb, var(--muted) 25%, transparent); }
+    .sk-prog b { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), #ff9a6b); transform: scaleX(0); transform-origin: left; }
+    .sk-prog .done b, .sk-prog .cur b { transform: none; }
+    .sk-play { flex: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border); background: var(--surface); color: var(--text); cursor: pointer; font-size: .8rem; }
+    .sk-panels { flex: 1; display: grid; padding: 4px 30px 26px; }
+    .sk-panel { grid-area: 1 / 1; position: relative; min-width: 0; visibility: hidden; opacity: 0; }
+    .sk-panel.on { visibility: visible; opacity: 1; }
+    .sk-mark { position: absolute; z-index: -1; right: -10px; top: -14px; color: var(--accent); opacity: .09; pointer-events: none; }
+    .sk-panel h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1.08; letter-spacing: -0.03em; color: var(--heading); margin: 6px 0 4px; max-width: 24ch; }
+    .sk-proof { list-style: none; display: grid; margin-top: 18px; }
+    .sk-proof li { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 16px; padding: 12px 0 12px 20px; border-top: 1px solid var(--border); }
+    .sk-proof li::before { content: ""; position: absolute; left: 0; top: 20px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+    .sk-who { display: block; font: 600 .85rem/1.4 var(--font-body); color: var(--accent-text); }
+    .sk-proof p { font-size: .97rem; line-height: 1.45; }
+    .sk-case { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); font: 600 .85rem var(--font-body); color: var(--text); text-decoration: none; white-space: nowrap; transition: border-color .2s, color .2s; }
+    .sk-case:hover { border-color: var(--accent); color: var(--accent-text); }
+    .sk-chips { margin-top: 14px; }
+    .sk-map { padding: 16px 30px 18px; color: var(--on-navy);
+      background: radial-gradient(50% 140% at 100% 100%, rgba(232, 85, 28, .22), transparent 70%), radial-gradient(60% 140% at 0% 100%, rgba(84, 116, 210, .25), transparent 70%), linear-gradient(160deg, var(--navy-2), var(--navy)); }
+    .sk-map > span { display: block; margin-bottom: 12px; font: 600 .9rem var(--font-body); color: var(--on-navy-muted); }
+    .sk-stops { position: relative; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); --t: 20px; }
+    .sk-stops::before, .sk-line { content: ""; position: absolute; top: var(--t); height: 2px; margin-top: -1px; left: calc(100% / 12); right: calc(100% / 12); background: var(--navy-line); }
+    .sk-line { right: auto; left: calc((var(--a, 0) + .5) * 100% / 6); width: calc((var(--b, 0) - var(--a, 0)) * 100% / 6); background: linear-gradient(90deg, var(--accent), #ff9a6b); box-shadow: 0 0 12px rgba(255, 122, 69, .6); }
+    .skills:not(.seen) .sk-line { width: 0; }
+    .sk-stops > span { position: relative; display: grid; justify-items: center; gap: 6px; }
+    /* Unlit logos sit under a navy veil (the tile stays opaque, so the line never shows through) */
+    .sk-stops .p-logo { position: relative; overflow: hidden; width: min(60px, 100%); height: 40px; padding: 5px 7px; border-color: transparent; }
+    .sk-stops .p-logo::after { content: ""; position: absolute; inset: 0; background: var(--navy-2); opacity: .8; }
+    .sk-stops .p-logo img { filter: grayscale(1); }
+    .sk-stops small { font: 500 .75rem var(--font-mono); color: var(--on-navy-muted); opacity: .55; }
+    .skills.seen .sk-stops .on .p-logo img { filter: none; }
+    .skills.seen .sk-stops .on .p-logo::after { opacity: 0; }
+    .skills.seen .sk-stops .on .p-logo { background: #fff; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(255, 122, 69, .35), 0 0 24px rgba(255, 122, 69, .45); transform: translateY(-2px); }
+    .skills.seen .sk-stops .on small { opacity: 1; color: var(--on-navy); }
+    @media (prefers-reduced-motion: no-preference) {
+      .skills.auto .sk-prog .cur b { animation: skRun 8s linear both; }
+      .skills.auto:has(.sk-panels:hover) .sk-prog .cur b { animation-play-state: paused; }
+      .sk-panel { transition: opacity .35s ease, visibility .35s; }
+      .skills.seen .sk-panel.on :is(h3, .p-pyme) { animation: skIn .45s ease both; }
+      .skills.seen .sk-panel.on .p-pyme { animation-delay: 60ms; }
+      .skills.seen .sk-panel.on .sk-proof li { animation: skIn .5s ease calc(140ms + var(--i) * 90ms) both; }
+      .skills.seen .sk-panel.on .sk-chips { animation: skIn .5s ease 420ms both; }
+      .skills.seen .sk-panel.on .sk-mark { animation: skMark .8s cubic-bezier(.3, .7, .2, 1) both; }
+      .sk-stops .p-logo, .sk-stops .p-logo::after, .sk-stops img, .sk-stops small { transition: opacity .45s, filter .45s, background-color .45s, box-shadow .45s, transform .45s, border-color .45s; transition-delay: calc(var(--i) * 70ms); }
+      .sk-line { transition: left .6s cubic-bezier(.3, .7, .2, 1), width .6s cubic-bezier(.3, .7, .2, 1); }
+    }
+    @keyframes skRun { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    @keyframes skIn { from { opacity: 0; transform: translateY(10px); } }
+    @keyframes skMark { from { opacity: 0; transform: rotate(-20deg) scale(.8); } }
+
     /* Projects: horizontal accordion of <details name="proyectos">. The open card shows copy + a visual;
        closed cards are narrow vertical tabs. At 1365px and below it becomes a vertical accordion. */
     .wide { max-width: 1400px; margin: 0 auto; padding-inline: 20px; }
@@ -464,6 +544,7 @@
     .more { margin-top: 24px; }
     .hero.art { --art-fade: radial-gradient(farthest-side at 78% 45%, #000 25%, transparent); --art-pos: 70% 40%; }
     #situaciones.art { --art-fade: radial-gradient(farthest-side at 0% 0%, #000 20%, transparent); --art-pos: 0 0; }
+    #habilidades.art { --art-fade: radial-gradient(farthest-side at 100% 0%, #000 15%, transparent); --art-pos: 100% 0; }
     #sobre-mi.art { --art-fade: radial-gradient(farthest-side at 100% 100%, #000 20%, transparent); --art-pos: 100% 100%; }
     #boostbrands.art { --art-fade: radial-gradient(farthest-side at 0% 100%, #000 15%, transparent); --photo-pos: right 30%; --photo-size: auto 100%; }
     #trayectoria.art { --art-fade: linear-gradient(90deg, transparent 30%, #000 85%); --art-size: 1500px auto; --art-pos: right top; --art-repeat: repeat-y; }
@@ -560,6 +641,26 @@
       .sticky-cta .btn-ghost { width: 48px; padding: 0; justify-content: center; flex: none; }
       .edu-photo { aspect-ratio: 1; min-height: 0; max-width: 420px; }
       .steps { grid-template-columns: 1fr; }
+      .skills { grid-template-columns: minmax(0, 1fr); }
+      .sk-side { gap: 0; }
+      .sk-cta { display: none; }
+      /* Phones: the skills become one row of chips that slides sideways (the selected one is scrolled into view) */
+      .sk-tabs { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x proximity; scroll-padding-inline: 20px; margin: -6px -20px 0; padding: 6px 20px 14px; scrollbar-width: none;
+        -webkit-mask-image: linear-gradient(90deg, transparent, #000 16px, #000 calc(100% - 32px), transparent); mask-image: linear-gradient(90deg, transparent, #000 16px, #000 calc(100% - 32px), transparent); }
+      .sk-tabs::-webkit-scrollbar { display: none; }
+      .sk-tab { flex: none; scroll-snap-align: start; grid-template-columns: 30px auto; column-gap: 10px; min-height: 48px; padding: 8px 16px 8px 8px; border-radius: 999px; }
+      @media (prefers-reduced-motion: no-preference) { .sk-tab:hover { transform: none; } }
+      .sk-ic { grid-row: auto; width: 32px; height: 32px; border-radius: 50%; }
+      .sk-ic svg { width: 17px; height: 17px; }
+      .sk-tab b { font-size: .92rem; white-space: nowrap; }
+      .sk-tab small { display: none; }
+      .sk-top { padding: 12px 12px 0 20px; }
+      .sk-panels { padding: 4px 20px 22px; }
+      .sk-proof li { grid-template-columns: minmax(0, 1fr); }
+      .sk-case { justify-self: start; min-height: 40px; margin-top: 6px; }
+      .sk-map { padding: 14px 14px 16px; }
+      .sk-stops { --t: 16px; }
+      .sk-stops .p-logo { height: 32px; padding: 4px 5px; }
       section { padding-block: 64px; }
       .band .wrap { flex-wrap: wrap; gap: 10px; }
       .band-label { width: 100%; }
@@ -583,6 +684,7 @@
       <a href="#top" class="logo">Cristian Marino<span>.</span></a>
       <ul class="nav-links" id="nav-links">
         <li><a href="#boostbrands"><span data-l="es">Servicios</span><span data-l="en">Services</span></a></li>
+        <li><a href="#habilidades"><span data-l="es">Habilidades</span><span data-l="en">Skills</span></a></li>
         <li><a href="#proyectos"><span data-l="es">Casos de éxito</span><span data-l="en">Success stories</span></a></li>
         <li><a href="#como-trabajo"><span data-l="es">Cómo trabajo</span><span data-l="en">How I work</span></a></li>
         <li><a href="#trayectoria"><span data-l="es">Trayectoria</span><span data-l="en">Track record</span></a></li>
@@ -725,6 +827,25 @@
         <div class="step"><b>1</b><p><span data-l="es">Conversamos 30 minutos sobre tu negocio y tus metas.</span><span data-l="en">We talk for 30 minutes about your business and your goals.</span></p></div>
         <div class="step"><b>2</b><p><span data-l="es">Te propongo prioridades concretas para crecer.</span><span data-l="en">I propose concrete priorities to grow.</span></p></div>
         <div class="step"><b>3</b><p><span data-l="es">Si tiene sentido para ambos, armamos un plan y lo ejecutamos juntos.</span><span data-l="en">If it makes sense for both of us, we build a plan and execute it together.</span></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="habilidades" class="art">
+    <div class="wrap">
+      <span class="kicker"><span data-l="es">Habilidades</span><span data-l="en">Skills</span></span>
+      <h2><span data-l="es">Lo que llevo a tu <em>empresa</em></span><span data-l="en">What I bring to your <em>business</em></span></h2>
+      <p class="intro" data-l="es">Seis habilidades probadas en empresas reales. Elige una para ver dónde la apliqué.</p>
+      <p class="intro" data-l="en">Six skills proven at real companies. Pick one to see where I applied it.</p>
+      <div class="skills" id="skills">
+        <div class="sk-side">
+          <div class="sk-tabs" role="tablist" id="sk-tabs" aria-label="Habilidades / Skills"></div>
+          <div class="sk-cta">
+            <p><span data-l="es">¿Cuál necesita tu empresa?</span><span data-l="en">Which one does your business need?</span></p>
+            <a href="mailto:cristian@boostbrands.cl?subject=Diagn%C3%B3stico%2030%20min" class="btn btn-primary" data-agenda><span data-l="es">Agenda un diagnóstico de 30 min</span><span data-l="en">Book a 30-min diagnostic</span></a>
+          </div>
+        </div>
+        <div class="sk-stage" id="sk-stage"></div>
       </div>
     </div>
   </section>
@@ -967,6 +1088,7 @@
       paintStats();
       applyConfig();
       renderProjects();
+      renderSkills();
     }
     $('lang-btn').addEventListener('click', () => setLang(lang === 'es' ? 'en' : 'es'));
 
@@ -979,6 +1101,7 @@
       bajaj: ['logos/bajaj.png', 'Bajaj'], galgo: ['logos/galgo.png', 'Galgo'], shopify: ['logos/shopify.svg', 'Shopify'], hubspot: ['logos/hubspot.svg', 'HubSpot'],
       electrolux: ['logos/electrolux.png', 'Electrolux'], fensa: ['logos/fensa.png', 'Fensa'], mademsa: ['logos/mademsa.png', 'Mademsa', '#ff8201'],
       accenture: ['logos/accenture.svg', 'Accenture'], mercadolibre: ['logos/mercadolibre.svg', 'Mercado Libre'], paris: ['logos/paris.png', 'Paris'], falabella: ['logos/falabella.png', 'Falabella'],
+      cencosud: ['logos/cencosud.png', 'Cencosud'], mit: ['logos/mit.png', 'MIT Sloan'],
     };
     const PROJECTS = [
       { org: 'BoostBrands', area: 'Representación retail', area_en: 'Retail representation', year: '2020 – hoy', year_en: '2020 – now',
@@ -1241,6 +1364,148 @@
       box.querySelectorAll('.dg').forEach(g => [...g.children].forEach((c, n) => c.style.setProperty('--d', `${n * 110}ms`)));
       box.querySelectorAll('.dg, .p-stats').forEach(g => { dgSeen ? dgSeen.observe(g) : g.classList.add('in'); });
     }
+
+    /* ---------- Skills (content from the CV). Each proof says where the skill was applied (`at`, a key of
+       SK_ORGS, lit in the strip), what was done, and optionally `case`, the index in PROJECTS of its success story. ---------- */
+    const SK_ORGS = [['cencosud', '2008'], ['electrolux', '2013'], ['accenture', '2016'], ['bajaj', '2017'], ['boostbrands', '2020'], ['mit', '2024']];
+    const SK_ICONS = {
+      compass: '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+      star: '<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>',
+      chart: '<path d="M4 20h16M7 16v-5M12 16V6M17 16v-8"/>',
+      cart: '<path d="M2.5 3.5h2.2l2.4 11a1.6 1.6 0 0 0 1.6 1.3h8.8a1.6 1.6 0 0 0 1.6-1.2L21 7.5H6"/><circle cx="9.5" cy="20" r="1.2"/><circle cx="17.5" cy="20" r="1.2"/>',
+      link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+      team: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-4-6"/>',
+    };
+    const SKILLS = [
+      { ic: 'compass', name: 'Estrategia comercial', name_en: 'Commercial strategy', sub: 'Mercados, canales y precios', sub_en: 'Markets, channels and pricing',
+        title: 'Estrategia comercial y go-to-market', title_en: 'Commercial strategy and go-to-market',
+        for: 'Defino dónde y cómo crecer: qué mercados, canales y precios te dan volumen sin sacrificar margen.',
+        for_en: 'I define where and how to grow: which markets, channels and prices bring volume without giving up margin.',
+        proofs: [
+          { at: 'bajaj', who: 'Bajaj Motochile', text: 'Llevé la marca al #1 del segmento Street, con +2.400 unidades al año.', text_en: 'Took the brand to #1 in the Street segment, with 2,400+ more units a year.' },
+          { at: 'electrolux', who: 'Electrolux', text: 'Presenté el plan estratégico regional con el que aseguré la inversión del HQ global.', text_en: 'Presented the regional strategic plan that secured the global HQ investment.', case: 5 },
+          { at: 'mit', who: 'MIT Sloan · Singapur', who_en: 'MIT Sloan · Singapore', text: 'Estrategia de pricing y go-to-market para una startup biotech en Oceanía, Europa y Norteamérica.', text_en: 'Pricing and go-to-market strategy for a biotech startup in Oceania, Europe and North America.' }],
+        tools: ['Go-to-market', 'Pricing', 'Expansión internacional'], tools_en: ['Go-to-market', 'Pricing', 'International expansion'] },
+      { ic: 'star', name: 'Marca y posicionamiento', name_en: 'Brand and positioning', sub: 'Valor percibido y diferenciación', sub_en: 'Perceived value and differentiation',
+        title: 'Marca y posicionamiento', title_en: 'Brand and positioning',
+        for: 'Hago que tu marca se distinga y se perciba de más valor, para no competir solo por precio.',
+        for_en: 'I make your brand stand out and be seen as worth more, so you don’t compete on price alone.',
+        proofs: [
+          { at: 'electrolux', who: 'Electrolux', text: 'Reposicioné la marca en el segmento premium, con chefs Michelin como embajadores.', text_en: 'Repositioned the brand as premium, with Michelin-starred chefs as ambassadors.', case: 5 },
+          { at: 'bajaj', who: 'Bajaj Auto', text: 'Reality shows digitales originales con figuras de TV en Perú y Argentina.', text_en: 'Original digital reality shows with TV personalities in Peru and Argentina.', case: 4 },
+          { at: 'accenture', who: 'Accenture', text: 'La primera carrera de drones controlados por la mente en Latinoamérica: la campaña más innovadora del año.', text_en: 'Latin America’s first mind-controlled drone race: the most innovative campaign of the year.', case: 6 }],
+        tools: ['Posicionamiento premium', 'Contenido', 'Neuromarketing'], tools_en: ['Premium positioning', 'Content', 'Neuromarketing'] },
+      { ic: 'chart', name: 'Marketing medible', name_en: 'Measurable marketing', sub: 'KPIs conectados con ventas', sub_en: 'KPIs tied to sales',
+        title: 'Marketing medible y datos', title_en: 'Measurable marketing and data',
+        for: 'Mido cada peso que inviertes en marketing, con KPIs y un tablero que conectan alcance y conversión con ventas.',
+        for_en: 'I measure every peso you put into marketing, with KPIs and a dashboard that tie reach and conversion to sales.',
+        proofs: [
+          { at: 'bajaj', who: 'Bajaj Auto', text: 'Frameworks y KPIs para medir la performance digital y física en todos los mercados.', text_en: 'Frameworks and KPIs to measure digital and physical performance in every market.', case: 4 },
+          { at: 'electrolux', who: 'Electrolux', text: 'Ganador del Proyecto Global Más Escalable 2015 con el primer laboratorio de Data Analytics de la región.', text_en: 'Winner of the Most Scalable Global Project 2015 with the region’s first Data Analytics lab.' },
+          { at: 'cencosud', who: 'Cencosud', text: 'Campañas de email segmentadas por perfil de uso, ciclo de deuda y ticket promedio.', text_en: 'Email campaigns segmented by usage profile, debt cycle and average ticket.' }],
+        tools: ['KPIs', 'Data analytics', 'Segmentación'], tools_en: ['KPIs', 'Data analytics', 'Segmentation'] },
+      { ic: 'cart', name: 'E-commerce, CRM e IA', name_en: 'E-commerce, CRM & AI', sub: 'Vender online y automatizar', sub_en: 'Selling online and automating',
+        title: 'E-commerce, CRM e IA', title_en: 'E-commerce, CRM and AI',
+        for: 'Armo tu canal online y tu CRM, y uso IA en campañas y contenido para hacer más con menos.',
+        for_en: 'I set up your online channel and CRM, and use AI in campaigns and content to do more with less.',
+        proofs: [
+          { at: 'bajaj', who: 'Bajaj Motochile', text: 'Canal e-commerce desde cero en Shopify, conectado al CRM HubSpot.', text_en: 'E-commerce channel from zero on Shopify, connected to the HubSpot CRM.', case: 2 },
+          { at: 'boostbrands', who: 'BoostBrands', text: 'IA agéntica para hacer más eficientes las campañas y la producción de contenido.', text_en: 'Agentic AI to make campaigns and content production more efficient.' },
+          { at: 'mit', who: 'MIT Sloan · Boston', text: 'Dirigí dashboards de datos y planes de marketing con IA agéntica para Commonwealth Kitchen.', text_en: 'Led data dashboards and agentic-AI marketing plans for Commonwealth Kitchen.' }],
+        tools: ['Shopify', 'HubSpot', 'Salesforce', 'IA agéntica'], tools_en: ['Shopify', 'HubSpot', 'Salesforce', 'Agentic AI'] },
+      { ic: 'link', name: 'Retail y alianzas', name_en: 'Retail and partnerships', sub: 'Negociar con cadenas y socios', sub_en: 'Negotiating with chains and partners',
+        title: 'Negociación, retail y alianzas', title_en: 'Negotiation, retail and partnerships',
+        for: 'Negocio con grandes cadenas, socios y proveedores para abrir canales y cuidar tu margen.',
+        for_en: 'I negotiate with major chains, partners and suppliers to open channels and protect your margin.',
+        proofs: [
+          { at: 'boostbrands', who: 'BoostBrands', text: 'Acapella y Bench en Falabella, Paris y Mercado Libre.', text_en: 'Acapella and Bench at Falabella, Paris and Mercado Libre.', case: 0 },
+          { at: 'bajaj', who: 'Bajaj Motochile', text: 'Alianza con la fintech Galgo: 20% de los ingresos mensuales y un anticipo de liquidez de USD $300K al mes.', text_en: 'Alliance with fintech Galgo: 20% of monthly revenue and a USD $300K monthly cash advance.', case: 1 },
+          { at: 'accenture', who: 'Accenture', text: 'Negociación regional con las filiales de Latinoamérica: −10% en costos de agencia.', text_en: 'Regional negotiation with the Latin American subsidiaries: −10% in agency costs.' }],
+        tools: ['Negociación retail', 'Alianzas', 'Gestión de agencias'], tools_en: ['Retail negotiation', 'Partnerships', 'Agency management'] },
+      { ic: 'team', name: 'Liderazgo de equipos', name_en: 'Team leadership', sub: 'Marketing y ventas como una unidad', sub_en: 'Marketing and sales as one unit',
+        title: 'Liderazgo de equipos comerciales', title_en: 'Leading sales and marketing teams',
+        for: 'Alineo marketing y ventas en un solo equipo, con metas claras y entrenamiento.',
+        for_en: 'I align marketing and sales into one team, with clear goals and training.',
+        proofs: [
+          { at: 'electrolux', who: 'Electrolux', text: 'Diseñé y lideré un programa de entrenamiento en ventas para 400 vendedores, formando 15 instructores.', text_en: 'Designed and led a sales training program for 400 reps, developing 15 instructors.' },
+          { at: 'bajaj', who: 'Bajaj Auto · Paraguay', text: 'Elegí al distribuidor y armé el equipo desde cero.', text_en: 'Chose the distributor and built the team from scratch.', case: 3 },
+          { at: 'mit', who: 'MIT Sloan', text: 'Ganador del concurso de Change Management.', text_en: 'Winner of the Change Management competition.' }],
+        tools: ['Equipos comerciales', 'Entrenamiento en ventas', 'Change management'], tools_en: ['Sales teams', 'Sales training', 'Change management'] },
+    ];
+    const skIcon = (k, s) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${SK_ICONS[k]}</svg>`;
+    let skillAt = 0, skillAuto = !reduceMotion, skillOnScreen = false;
+    const skBox = $('skills');
+    function renderSkills() {
+      const L = (o, k) => (lang === 'en' && o[k + '_en'] !== undefined) ? o[k + '_en'] : o[k];
+      const t = (es, en) => lang === 'en' ? en : es;
+      $('sk-tabs').setAttribute('aria-label', t('Habilidades', 'Skills'));
+      $('sk-tabs').innerHTML = SKILLS.map((s, i) => `
+          <button type="button" role="tab" class="sk-tab" id="sk-t${i}" aria-controls="sk-p${i}" data-i="${i}"><span class="sk-ic">${skIcon(s.ic, 20)}</span><b>${esc(L(s, 'name'))}</b><small>${esc(L(s, 'sub'))}</small></button>`).join('');
+      $('sk-stage').innerHTML = `
+          <div class="sk-top"><div class="sk-prog" aria-hidden="true">${SKILLS.map(() => '<i><b></b></i>').join('')}</div><button type="button" class="sk-play" id="sk-play"></button></div>
+          <div class="sk-panels">${SKILLS.map((s, i) => `
+            <div class="sk-panel" role="tabpanel" id="sk-p${i}" aria-labelledby="sk-t${i}"${s.proofs.some(p => p.case !== undefined) ? '' : ' tabindex="0"'}>
+              <span class="sk-mark">${skIcon(s.ic, 150)}</span>
+              <h3>${esc(L(s, 'title'))}</h3>
+              <p class="p-pyme"><b>${t('Para tu empresa', 'For your business')}</b>${esc(L(s, 'for'))}</p>
+              <ul class="sk-proof">${s.proofs.map((p, n) => `<li style="--i:${n}"><div><span class="sk-who">${esc(L(p, 'who'))}</span><p>${esc(L(p, 'text'))}</p></div>${p.case === undefined ? ''
+                : `<a class="sk-case" href="#proyectos" data-case="${p.case}" aria-label="${esc(t('Ver caso: ', 'See case: ') + L(PROJECTS[p.case], 'title'))}">${t('Ver caso', 'See case')} →</a>`}</li>`).join('')}</ul>
+              <div class="p-chips sk-chips">${L(s, 'tools').map(c => `<span>${esc(c)}</span>`).join('')}</div>
+            </div>`).join('')}
+          </div>
+          <div class="sk-map" aria-hidden="true"><span>${t('Dónde la apliqué', 'Where I applied it')}</span>
+            <div class="sk-stops"><i class="sk-line"></i>${SK_ORGS.map(([k, y], n) => `<span style="--i:${n}">${logoTile(k)}<small>${y}</small></span>`).join('')}</div></div>`;
+      showSkill(skillAt);
+      syncSkillAuto();
+    }
+    function showSkill(i) {
+      skillAt = i;
+      skBox.querySelectorAll('.sk-tab').forEach((b, n) => { b.setAttribute('aria-selected', n === i); b.tabIndex = n === i ? 0 : -1; });
+      skBox.querySelectorAll('.sk-panel').forEach((p, n) => { p.classList.toggle('on', n === i); p.inert = n !== i; });
+      skBox.querySelectorAll('.sk-prog i').forEach((s, n) => { s.className = n < i ? 'done' : n === i ? 'cur' : ''; });
+      const lit = SK_ORGS.map(([k]) => SKILLS[i].proofs.some(p => p.at === k)), stops = skBox.querySelector('.sk-stops');
+      stops.querySelectorAll(':scope > span').forEach((s, n) => s.classList.toggle('on', lit[n]));
+      stops.style.setProperty('--a', lit.indexOf(true)); stops.style.setProperty('--b', lit.lastIndexOf(true));
+      const row = $('sk-tabs');
+      if (row.scrollWidth > row.clientWidth + 1) row.scrollTo({ left: row.scrollLeft + $('sk-t' + i).getBoundingClientRect().left - row.getBoundingClientRect().left - 20, behavior: calm() ? 'auto' : 'smooth' });
+    }
+    /* The tour runs while the section is on screen, until the visitor picks a skill or pauses it. */
+    function syncSkillAuto() {
+      skBox.classList.toggle('auto', skillAuto && skillOnScreen);
+      const b = $('sk-play'), es = lang !== 'en';
+      b.hidden = reduceMotion;
+      b.textContent = skillAuto ? '❚❚' : '▶';
+      b.setAttribute('aria-label', skillAuto ? (es ? 'Pausar recorrido' : 'Pause tour') : (es ? 'Reproducir recorrido' : 'Play tour'));
+    }
+    /* "Ver caso": open that success story and bring it into view. */
+    function openCase(i) {
+      const d = $('projects').querySelectorAll('details.proj')[i]; if (!d) return;
+      d.open = true;
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        d.scrollIntoView({ behavior: calm() ? 'auto' : 'smooth', block: 'start' });
+        setTimeout(() => playCard(d), calm() ? 0 : 700);
+      }));
+    }
+    skBox.addEventListener('click', e => {
+      const tab = e.target.closest('.sk-tab');
+      if (tab) { skillAuto = false; showSkill(+tab.dataset.i); syncSkillAuto(); return; }
+      if (e.target.closest('#sk-play')) { skillAuto = !skillAuto; syncSkillAuto(); return; }
+      const c = e.target.closest('.sk-case');
+      if (c) { e.preventDefault(); skillAuto = false; syncSkillAuto(); openCase(+c.dataset.case); }
+    });
+    skBox.addEventListener('keydown', e => {
+      const tab = e.target.closest('.sk-tab'); if (!tab) return;
+      const n = SKILLS.length, i = +tab.dataset.i;
+      const j = { ArrowRight: i + 1, ArrowDown: i + 1, ArrowLeft: i - 1, ArrowUp: i - 1, Home: 0, End: n - 1 }[e.key];
+      if (j === undefined) return;
+      e.preventDefault(); skillAuto = false; showSkill((j + n) % n); syncSkillAuto(); $('sk-t' + skillAt).focus();
+    });
+    $('sk-tabs').addEventListener('touchstart', () => { if (skillAuto) { skillAuto = false; syncSkillAuto(); } }, { passive: true });
+    skBox.addEventListener('animationend', e => { if (e.animationName === 'skRun' && skillAuto) showSkill((skillAt + 1) % SKILLS.length); });
+    if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => {
+      skillOnScreen = e.isIntersecting; if (skillOnScreen) skBox.classList.add('seen'); syncSkillAuto();
+    }, { threshold: .35 }).observe(skBox);
+    else skBox.classList.add('seen');
 
     /* Contact links from CONFIG */
     function applyConfig() {
