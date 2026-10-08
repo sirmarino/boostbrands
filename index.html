@@ -272,76 +272,127 @@
     .sk-tab[aria-selected="true"] b { color: var(--on-navy); }
     .sk-tab[aria-selected="true"] small { color: var(--on-navy-muted); }
     .sk-tab[aria-selected="true"] .sk-ic { background: linear-gradient(140deg, #ff9a6b, var(--accent)); color: var(--accent-ink); box-shadow: 0 0 22px rgba(255, 122, 69, .5); }
-    .sk-stage { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; min-width: 0; border-radius: 24px; border: 1px solid var(--border);
-      background: radial-gradient(55% 45% at 100% 0%, color-mix(in srgb, var(--accent) 11%, transparent), transparent 70%), var(--surface);
-      box-shadow: 0 40px 70px -44px rgba(20, 33, 61, .6), 0 18px 36px -28px rgba(20, 33, 61, .35); }
-    .sk-stage::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background-image: radial-gradient(color-mix(in srgb, var(--muted) 30%, transparent) 1px, transparent 1.4px); background-size: 22px 22px; -webkit-mask-image: linear-gradient(225deg, #000, transparent 55%); mask-image: linear-gradient(225deg, #000, transparent 55%); }
-    .sk-top { display: flex; align-items: center; gap: 14px; padding: 16px 18px 0 30px; min-height: 60px; }
+    /* The stage is a deck of cards, one per category: the front card shows it and the next two peek out below.
+       It can be dragged or swiped sideways, moved with the arrows, the tabs or the tour; the front card tilts and
+       lights up under the pointer, and hovering a proof lifts its company in the strip. */
+    .sk-stage { display: flex; flex-direction: column; min-width: 0; }
+    .sk-top { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
     .sk-prog { flex: 1; display: flex; gap: 6px; }
     .sk-prog i { flex: 1; height: 4px; border-radius: 2px; overflow: hidden; background: color-mix(in srgb, var(--muted) 25%, transparent); }
     .sk-prog b { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), #ff9a6b); transform: scaleX(0); transform-origin: left; }
     .sk-prog .done b, .sk-prog .cur b { transform: none; }
-    .sk-play { flex: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border); background: var(--surface); color: var(--text); cursor: pointer; font-size: .8rem; }
-    .sk-panels { flex: 1; display: grid; padding: 4px 30px 26px; }
-    .sk-panel { grid-area: 1 / 1; position: relative; min-width: 0; visibility: hidden; opacity: 0; }
-    .sk-panel.on { visibility: visible; opacity: 1; }
-    .sk-mark { position: absolute; z-index: -1; right: -10px; top: -14px; color: var(--accent); opacity: .09; pointer-events: none; }
-    .sk-panel h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1.08; letter-spacing: -0.03em; color: var(--heading); margin: 6px 0 4px; max-width: 24ch; }
+    .sk-btn { flex: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border); background: var(--surface); color: var(--text); cursor: pointer; display: grid; place-items: center; font-size: .8rem;
+      box-shadow: 0 10px 22px -16px rgba(20, 33, 61, .55); transition: border-color .2s, color .2s, transform .2s; }
+    .sk-btn:hover { border-color: var(--accent); color: var(--accent-text); }
+    .sk-deck { flex: 1; position: relative; display: grid; padding-bottom: 30px; touch-action: pan-y; }
+    .sk-deck.grabbing { cursor: grabbing; -webkit-user-select: none; user-select: none; }
+    .sk-card { grid-area: 1 / 1; position: relative; min-width: 0; z-index: 1; transform-origin: 50% 100%; opacity: 0; visibility: hidden; transform: translateY(30px) scale(.9); }
+    .sk-card[data-d="0"] { z-index: 5; opacity: 1; visibility: visible; transform: none; }
+    .sk-card[data-d="1"] { z-index: 4; opacity: 1; visibility: visible; transform: translateY(15px) scale(.95); }
+    .sk-card[data-d="2"] { z-index: 3; opacity: 1; visibility: visible; transform: translateY(30px) scale(.9); }
+    .sk-card[data-d="out"], .sk-card.leaving { z-index: 6; opacity: 0; visibility: visible; transform: translateX(-115%) rotate(-10deg); }
+    @media (hover: hover) { .sk-card[data-d="0"] { cursor: grab; } }
+    .sk-face { position: relative; isolation: isolate; overflow: hidden; height: 100%; display: flex; flex-direction: column; border-radius: 24px; border: 1px solid var(--border);
+      background: radial-gradient(55% 45% at 100% 0%, color-mix(in srgb, var(--accent) 11%, transparent), transparent 70%), var(--surface);
+      box-shadow: 0 40px 70px -44px rgba(20, 33, 61, .6), 0 18px 36px -28px rgba(20, 33, 61, .35); }
+    .sk-card[data-d="1"] .sk-face { filter: brightness(.96); }
+    .sk-card[data-d="2"] .sk-face { filter: brightness(.92); }
+    .sk-face::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background-image: radial-gradient(color-mix(in srgb, var(--muted) 30%, transparent) 1px, transparent 1.4px); background-size: 22px 22px; -webkit-mask-image: linear-gradient(225deg, #000, transparent 55%); mask-image: linear-gradient(225deg, #000, transparent 55%); }
+    /* Light that follows the pointer over the front card */
+    .sk-face::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0; transition: opacity .3s;
+      background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--accent) 16%, transparent), transparent 65%); }
+    .sk-deck:hover .sk-card[data-d="0"] .sk-face::after { opacity: 1; }
+    .sk-body { flex: 1; position: relative; padding: 26px 30px 24px; }
+    .sk-mark { position: absolute; z-index: -1; right: 10px; top: 8px; color: var(--accent); opacity: .09; pointer-events: none; }
+    .sk-body h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1.08; letter-spacing: -0.03em; color: var(--heading); margin: 0 0 4px; max-width: 24ch; }
     .sk-proof { list-style: none; display: grid; margin-top: 18px; }
     .sk-proof li { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 16px; padding: 12px 0 12px 20px; border-top: 1px solid var(--border); }
-    .sk-proof li::before { content: ""; position: absolute; left: 0; top: 20px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+    .sk-proof li::before { content: ""; position: absolute; left: 0; top: 20px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); transition: transform .25s, box-shadow .25s; }
+    .sk-proof li:hover::before { transform: scale(1.5); box-shadow: 0 0 0 5px var(--accent-soft), 0 0 16px rgba(255, 122, 69, .7); }
     .sk-who { display: block; font: 600 .85rem/1.4 var(--font-body); color: var(--accent-text); }
     .sk-proof p { font-size: .97rem; line-height: 1.45; }
-    .sk-case { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); font: 600 .85rem var(--font-body); color: var(--text); text-decoration: none; white-space: nowrap; transition: border-color .2s, color .2s; }
-    .sk-case:hover { border-color: var(--accent); color: var(--accent-text); }
+    .sk-case { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); font: 600 .85rem var(--font-body); color: var(--text); text-decoration: none; white-space: nowrap; transition: border-color .2s, color .2s, background-color .2s; }
+    .sk-case:hover { border-color: var(--accent); color: var(--accent-ink); background: var(--accent); }
     .sk-skills { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 4px; }
-    .sk-skills li { padding: 6px 13px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border)); background: var(--surface); font-size: .88rem; font-weight: 600; color: var(--heading); box-shadow: 0 6px 14px -10px rgba(232, 85, 28, .5); }
+    .sk-skills li { padding: 6px 13px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border)); background: var(--surface); font-size: .88rem; font-weight: 600; color: var(--heading); box-shadow: 0 6px 14px -10px rgba(232, 85, 28, .5); transition: transform .2s, background-color .2s, box-shadow .2s; }
+    .sk-skills li:hover { background: var(--accent-soft); box-shadow: 0 10px 18px -10px rgba(232, 85, 28, .7); }
     .sk-map { padding: 16px 30px 18px; color: var(--on-navy);
       background: radial-gradient(50% 140% at 100% 100%, rgba(232, 85, 28, .22), transparent 70%), radial-gradient(60% 140% at 0% 100%, rgba(84, 116, 210, .25), transparent 70%), linear-gradient(160deg, var(--navy-2), var(--navy)); }
     .sk-map > span { display: block; margin-bottom: 12px; font: 600 .9rem var(--font-body); color: var(--on-navy-muted); }
     .sk-stops { position: relative; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); --t: 20px; }
     .sk-stops::before, .sk-line { content: ""; position: absolute; top: var(--t); height: 2px; margin-top: -1px; left: calc(100% / 12); right: calc(100% / 12); background: var(--navy-line); }
     .sk-line { right: auto; left: calc((var(--a, 0) + .5) * 100% / 6); width: calc((var(--b, 0) - var(--a, 0)) * 100% / 6); background: linear-gradient(90deg, var(--accent), #ff9a6b); box-shadow: 0 0 12px rgba(255, 122, 69, .6); }
-    .skills:not(.seen) .sk-line { width: 0; }
+    .skills:not(.seen) .sk-line, .sk-card:not([data-d="0"]) .sk-line { width: 0; }
     .sk-stops > span { position: relative; display: grid; justify-items: center; gap: 6px; }
     /* Unlit logos sit under a navy veil (the tile stays opaque, so the line never shows through) */
     .sk-stops .p-logo { position: relative; overflow: hidden; width: min(60px, 100%); height: 40px; padding: 5px 7px; border-color: transparent; }
     .sk-stops .p-logo::after { content: ""; position: absolute; inset: 0; background: var(--navy-2); opacity: .8; }
     .sk-stops .p-logo img { filter: grayscale(1); }
     .sk-stops small { font: 500 .75rem var(--font-mono); color: var(--on-navy-muted); opacity: .55; }
-    .skills.seen .sk-stops .on .p-logo img { filter: none; }
-    .skills.seen .sk-stops .on .p-logo::after { opacity: 0; }
-    .skills.seen .sk-stops .on .p-logo { background: #fff; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(255, 122, 69, .35), 0 0 24px rgba(255, 122, 69, .45); transform: translateY(-2px); }
-    .skills.seen .sk-stops .on small { opacity: 1; color: var(--on-navy); }
+    .skills.seen .sk-card[data-d="0"] .sk-stops .on .p-logo img { filter: none; }
+    .skills.seen .sk-card[data-d="0"] .sk-stops .on .p-logo::after { opacity: 0; }
+    .skills.seen .sk-card[data-d="0"] .sk-stops .on .p-logo { background: #fff; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(255, 122, 69, .35), 0 0 24px rgba(255, 122, 69, .45); transform: translateY(-2px); }
+    .skills.seen .sk-card[data-d="0"] .sk-stops .on small { opacity: 1; color: var(--on-navy); }
+    .skills.seen .sk-card[data-d="0"] .sk-stops .on.ping .p-logo { transform: translateY(-7px) scale(1.1); box-shadow: 0 0 0 4px rgba(255, 122, 69, .6), 0 0 36px rgba(255, 122, 69, .75); transition-delay: 0s; }
     @media (prefers-reduced-motion: no-preference) {
+      .sk-btn:hover { transform: translateY(-2px); }
+      .sk-card { transition: transform .6s cubic-bezier(.3, .7, .2, 1), opacity .45s ease, visibility .6s; }
+      .sk-card.dragging { transition: none; }
+      .sk-face { transition: transform .25s ease-out; }
+      .sk-skills li:hover { transform: translateY(-2px); }
       .skills.auto .sk-prog .cur b { animation: skRun 8s linear both; }
-      .skills.auto:has(.sk-panels:hover) .sk-prog .cur b { animation-play-state: paused; }
-      .sk-panel { transition: opacity .35s ease, visibility .35s; }
-      .skills.seen .sk-panel.on h3 { animation: skIn .45s ease both; }
-      .skills.seen .sk-panel.on .sk-skills li { animation: skPop .45s cubic-bezier(.3, 1.4, .5, 1) calc(80ms + var(--i) * 70ms) both; }
-      .skills.seen .sk-panel.on .p-pyme { animation: skIn .45s ease 260ms both; }
-      .skills.seen .sk-panel.on .sk-proof li { animation: skIn .5s ease calc(340ms + var(--i) * 90ms) both; }
-      .skills.seen .sk-panel.on .sk-mark { animation: skMark .8s cubic-bezier(.3, .7, .2, 1) both; }
-      .sk-stops .p-logo, .sk-stops .p-logo::after, .sk-stops img, .sk-stops small { transition: opacity .45s, filter .45s, background-color .45s, box-shadow .45s, transform .45s, border-color .45s; transition-delay: calc(var(--i) * 70ms); }
-      .sk-line { transition: left .6s cubic-bezier(.3, .7, .2, 1), width .6s cubic-bezier(.3, .7, .2, 1); }
+      .skills.auto:has(.sk-deck:hover) .sk-prog .cur b { animation-play-state: paused; }
+      .skills.seen .sk-card[data-d="0"] h3 { animation: skIn .45s ease both; }
+      .skills.seen .sk-card[data-d="0"] .sk-skills li { animation: skPop .45s cubic-bezier(.3, 1.4, .5, 1) calc(80ms + var(--i) * 70ms) both; }
+      .skills.seen .sk-card[data-d="0"] .p-pyme { animation: skIn .45s ease 260ms both; }
+      .skills.seen .sk-card[data-d="0"] .sk-proof li { animation: skIn .5s ease calc(340ms + var(--i) * 90ms) both; }
+      .skills.seen .sk-card[data-d="0"] .sk-mark { animation: skMark .8s cubic-bezier(.3, .7, .2, 1) both; }
+      .sk-stops .p-logo, .sk-stops .p-logo::after, .sk-stops img, .sk-stops small { transition: opacity .45s, filter .45s, background-color .45s, box-shadow .45s, transform .45s, border-color .45s; transition-delay: calc(300ms + var(--i) * 70ms); }
+      .sk-line { transition: left .6s cubic-bezier(.3, .7, .2, 1), width .6s cubic-bezier(.3, .7, .2, 1) .3s; }
     }
-    /* Industries: six tiles under the skills, each naming where Cristian worked in it */
-    .industries { margin-top: 40px; }
-    .industries h3 { font-size: 1.3rem; letter-spacing: -0.02em; color: var(--heading); margin-bottom: 14px; }
+    /* Industries: flip tiles. The front names the industry with its companies' logos; hovering (or tapping) turns
+       it over to say where Cristian worked in it. */
+    .industries { margin-top: 44px; }
+    .ind-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; margin-bottom: 14px; }
+    .ind-head h3 { font-size: 1.3rem; letter-spacing: -0.02em; color: var(--heading); }
+    .ind-head p { font-size: .92rem; color: var(--muted); }
     .ind-grid { list-style: none; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
-    .ind-grid li { display: grid; grid-template-rows: auto auto 1fr; gap: 6px; padding: 18px 16px; border-radius: 16px; background: var(--surface); border: 1px solid var(--border);
-      box-shadow: 0 14px 30px -24px rgba(20, 33, 61, .45); transition: border-color .25s, box-shadow .25s, transform .25s; }
-    .ind-grid li:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); box-shadow: 0 24px 40px -24px rgba(20, 33, 61, .55); }
+    .ind-grid li { display: grid; }
+    .ind { display: grid; padding: 0; border: 0; border-radius: 16px; background: none; font: inherit; color: inherit; text-align: left; cursor: pointer; perspective: 900px; }
+    .ind-in { display: grid; transform-style: preserve-3d; }
+    .ind-f, .ind-b { grid-area: 1 / 1; display: flex; flex-direction: column; gap: 6px; min-height: 168px; padding: 16px; border-radius: 16px; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+    .ind-f { position: relative; background: var(--surface); border: 1px solid var(--border); box-shadow: 0 14px 30px -24px rgba(20, 33, 61, .45); }
+    .ind-b { transform: rotateY(180deg); color: var(--on-navy); box-shadow: 0 24px 40px -24px rgba(20, 33, 61, .7), inset 0 1px 0 rgba(255, 255, 255, .08);
+      background: radial-gradient(90% 80% at 100% 0%, rgba(232, 85, 28, .35), transparent 70%), linear-gradient(160deg, var(--navy-2), var(--navy)); }
     .ind-ic { width: 40px; height: 40px; margin-bottom: 4px; border-radius: 12px; display: grid; place-items: center; color: var(--accent-ink); background: linear-gradient(140deg, #ff9a6b, var(--accent)); box-shadow: 0 10px 20px -10px rgba(232, 85, 28, .7); }
-    .ind-grid b { font: 700 1.02rem/1.2 var(--font-display); letter-spacing: -0.01em; color: var(--heading); }
-    .ind-grid small { font-size: .84rem; line-height: 1.4; color: var(--muted); }
+    .ind-f b { font: 700 1.02rem/1.2 var(--font-display); letter-spacing: -0.01em; color: var(--heading); }
+    .ind-b b { font: 700 1.02rem/1.2 var(--font-display); color: var(--accent-on-navy); }
+    .ind-b small { font-size: .86rem; line-height: 1.45; color: var(--on-navy); }
+    .ind-logos { display: flex; margin-top: auto; padding: 8px 0 0 6px; }
+    .ind-logos span { width: 48px; height: 32px; margin-left: -6px; padding: 4px 6px; border-radius: 9px; background: #fff; border: 2px solid var(--surface); box-shadow: 0 6px 12px -6px rgba(20, 33, 61, .45); display: grid; place-items: center; }
+    .ind-logos img { width: 100%; height: 100%; object-fit: contain; }
+    .ind-hint { position: absolute; top: 12px; right: 12px; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-size: .95rem; color: var(--accent-text); background: var(--accent-soft); }
+    .ind[aria-pressed="true"] .ind-in, .ind:focus-visible .ind-in { transform: rotateY(180deg); }
+    @media (hover: hover) { .ind:hover .ind-in { transform: rotateY(180deg); } }
     @media (prefers-reduced-motion: no-preference) {
-      .ind-grid li:hover { transform: translateY(-3px); }
+      .ind-in { transition: transform .7s cubic-bezier(.3, .7, .2, 1); }
       .industries:not(.seen) li { opacity: 0; transform: translateY(12px); }
       .industries.seen li { animation: skIn .5s ease calc(var(--i) * 80ms) both; }
     }
+    /* Without motion the back simply replaces the front */
+    @media (prefers-reduced-motion: reduce) {
+      .ind-f, .ind-b { -webkit-backface-visibility: visible; backface-visibility: visible; transform: none; }
+      .ind-b { visibility: hidden; }
+      .ind .ind-in { transform: none !important; }
+      .ind[aria-pressed="true"] .ind-b, .ind:focus-visible .ind-b { visibility: visible; }
+      .ind[aria-pressed="true"] .ind-f, .ind:focus-visible .ind-f { visibility: hidden; }
+    }
+    @media (prefers-reduced-motion: reduce) and (hover: hover) {
+      .ind:hover .ind-b { visibility: visible; }
+      .ind:hover .ind-f { visibility: hidden; }
+    }
     @media (max-width: 1100px) { .ind-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-    @media (max-width: 560px) { .ind-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ind-grid li { padding: 14px 12px; } }
+    @media (max-width: 560px) { .ind-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ind-f, .ind-b { padding: 14px 12px; } }
     @keyframes skRun { from { transform: scaleX(0); } to { transform: scaleX(1); } }
     @keyframes skIn { from { opacity: 0; transform: translateY(10px); } }
     @keyframes skPop { from { opacity: 0; transform: scale(.85); } }
@@ -673,11 +724,14 @@
       .sk-ic svg { width: 17px; height: 17px; }
       .sk-tab b { font-size: .92rem; white-space: nowrap; }
       .sk-tab small { display: none; }
-      .sk-top { padding: 12px 12px 0 20px; }
-      .sk-panels { padding: 4px 20px 22px; }
+      .sk-top { gap: 8px; margin-bottom: 12px; }
+      .sk-body { padding: 20px; }
+      .sk-deck { padding-bottom: 24px; }
+      .sk-card[data-d="1"] { transform: translateY(12px) scale(.95); }
+      .sk-card[data-d="2"] { transform: translateY(24px) scale(.9); }
       .sk-proof li { grid-template-columns: minmax(0, 1fr); }
       .sk-skills { gap: 6px; }
-      .sk-skills li { padding: 5px 11px; font-size: .82rem; }
+      .sk-skills li { padding: 4px 10px; font-size: .8rem; }
       .sk-case { justify-self: start; min-height: 40px; margin-top: 6px; }
       .sk-map { padding: 14px 14px 16px; }
       .sk-stops { --t: 16px; }
@@ -856,8 +910,8 @@
     <div class="wrap">
       <span class="kicker"><span data-l="es">Habilidades</span><span data-l="en">Skills</span></span>
       <h2><span data-l="es">Lo que llevo a tu <em>empresa</em></span><span data-l="en">What I bring to your <em>business</em></span></h2>
-      <p class="intro" data-l="es">Mis habilidades por categoría, cada una probada en empresas reales. Elige una para ver dónde la apliqué.</p>
-      <p class="intro" data-l="en">My skills by category, each proven at real companies. Pick one to see where I applied it.</p>
+      <p class="intro" data-l="es">Mis habilidades por categoría, cada una probada en empresas reales. Elige una o desliza las tarjetas.</p>
+      <p class="intro" data-l="en">My skills by category, each proven at real companies. Pick one or swipe through the cards.</p>
       <div class="skills" id="skills">
         <div class="sk-side">
           <div class="sk-tabs" role="tablist" id="sk-tabs" aria-label="Habilidades / Skills"></div>
@@ -869,14 +923,35 @@
         <div class="sk-stage" id="sk-stage"></div>
       </div>
       <div class="industries" id="industrias">
-        <h3><span data-l="es">Experiencia en industrias</span><span data-l="en">Industry experience</span></h3>
+        <div class="ind-head">
+          <h3><span data-l="es">Experiencia en industrias</span><span data-l="en">Industry experience</span></h3>
+          <p><span data-l="es">Toca una para ver dónde trabajé en ella.</span><span data-l="en">Tap one to see where I worked in it.</span></p>
+        </div>
         <ul class="ind-grid">
-          <li style="--i:0"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6.5 15h4"/></svg></span><b><span data-l="es">Fintech</span><span data-l="en">Fintech</span></b><small><span data-l="es">MotoFin y la alianza con Galgo (Bajaj) · tarjeta de crédito Cencosud</span><span data-l="en">MotoFin and the Galgo alliance (Bajaj) · Cencosud credit card</span></small></li>
-          <li style="--i:1"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 18l4-5"/><circle cx="12" cy="18" r="1.2"/></svg></span><b><span data-l="es">Automotriz</span><span data-l="en">Automotive</span></b><small><span data-l="es">Bajaj Auto y Bajaj Motochile</span><span data-l="en">Bajaj Auto and Bajaj Motochile</span></small></li>
-          <li style="--i:2"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></span><b><span data-l="es">Consultoría de gestión</span><span data-l="en">Management consulting</span></b><small><span data-l="es">Accenture y BoostBrands</span><span data-l="en">Accenture and BoostBrands</span></small></li>
-          <li style="--i:3"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M3 9h18M10 20v-6h4v6"/></svg></span><b><span data-l="es">Retail</span><span data-l="en">Retail</span></b><small><span data-l="es">Cencosud, Electrolux y BoostBrands</span><span data-l="en">Cencosud, Electrolux and BoostBrands</span></small></li>
-          <li style="--i:4"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M9.5 3v4M14.5 3v4M9.5 17v4M14.5 17v4M3 9.5h4M3 14.5h4M17 9.5h4M17 14.5h4"/></svg></span><b><span data-l="es">Tecnología</span><span data-l="en">Technology</span></b><small><span data-l="es">Accenture · e&#8209;commerce y CRM en Bajaj</span><span data-l="en">Accenture · e&#8209;commerce and CRM at Bajaj</span></small></li>
-          <li style="--i:5"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg></span><b><span data-l="es">Innovación</span><span data-l="en">Innovation</span></b><small><span data-l="es">Drones controlados por la mente (Accenture) · laboratorio de Data Analytics (Electrolux)</span><span data-l="en">Mind-controlled drones (Accenture) · Data Analytics lab (Electrolux)</span></small></li>
+          <li style="--i:0"><button type="button" class="ind" aria-pressed="false"><span class="ind-in">
+            <span class="ind-f"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6.5 15h4"/></svg></span><b><span data-l="es">Fintech</span><span data-l="en">Fintech</span></b><span class="ind-logos"><span><img src="logos/galgo.png" alt="" loading="lazy"></span><span><img src="logos/cencosud.png" alt="" loading="lazy"></span></span><span class="ind-hint" aria-hidden="true">↻</span></span>
+            <span class="ind-b"><b aria-hidden="true"><span data-l="es">Fintech</span><span data-l="en">Fintech</span></b><small><span data-l="es">MotoFin y la alianza con Galgo (Bajaj) · tarjeta de crédito Cencosud</span><span data-l="en">MotoFin and the Galgo alliance (Bajaj) · Cencosud credit card</span></small></span>
+          </span></button></li>
+          <li style="--i:1"><button type="button" class="ind" aria-pressed="false"><span class="ind-in">
+            <span class="ind-f"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 18l4-5"/><circle cx="12" cy="18" r="1.2"/></svg></span><b><span data-l="es">Automotriz</span><span data-l="en">Automotive</span></b><span class="ind-logos"><span><img src="logos/bajaj.png" alt="" loading="lazy"></span></span><span class="ind-hint" aria-hidden="true">↻</span></span>
+            <span class="ind-b"><b aria-hidden="true"><span data-l="es">Automotriz</span><span data-l="en">Automotive</span></b><small><span data-l="es">Bajaj Auto y Bajaj Motochile</span><span data-l="en">Bajaj Auto and Bajaj Motochile</span></small></span>
+          </span></button></li>
+          <li style="--i:2"><button type="button" class="ind" aria-pressed="false"><span class="ind-in">
+            <span class="ind-f"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></span><b><span data-l="es">Consultoría de gestión</span><span data-l="en">Management consulting</span></b><span class="ind-logos"><span><img src="logos/accenture.svg" alt="" loading="lazy"></span><span><img src="logos/boostbrands.png" alt="" loading="lazy"></span></span><span class="ind-hint" aria-hidden="true">↻</span></span>
+            <span class="ind-b"><b aria-hidden="true"><span data-l="es">Consultoría de gestión</span><span data-l="en">Management consulting</span></b><small><span data-l="es">Accenture y BoostBrands</span><span data-l="en">Accenture and BoostBrands</span></small></span>
+          </span></button></li>
+          <li style="--i:3"><button type="button" class="ind" aria-pressed="false"><span class="ind-in">
+            <span class="ind-f"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M3 9h18M10 20v-6h4v6"/></svg></span><b><span data-l="es">Retail</span><span data-l="en">Retail</span></b><span class="ind-logos"><span><img src="logos/cencosud.png" alt="" loading="lazy"></span><span><img src="logos/electrolux.png" alt="" loading="lazy"></span><span><img src="logos/boostbrands.png" alt="" loading="lazy"></span></span><span class="ind-hint" aria-hidden="true">↻</span></span>
+            <span class="ind-b"><b aria-hidden="true"><span data-l="es">Retail</span><span data-l="en">Retail</span></b><small><span data-l="es">Cencosud, Electrolux y BoostBrands</span><span data-l="en">Cencosud, Electrolux and BoostBrands</span></small></span>
+          </span></button></li>
+          <li style="--i:4"><button type="button" class="ind" aria-pressed="false"><span class="ind-in">
+            <span class="ind-f"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M9.5 3v4M14.5 3v4M9.5 17v4M14.5 17v4M3 9.5h4M3 14.5h4M17 9.5h4M17 14.5h4"/></svg></span><b><span data-l="es">Tecnología</span><span data-l="en">Technology</span></b><span class="ind-logos"><span><img src="logos/accenture.svg" alt="" loading="lazy"></span><span><img src="logos/shopify.svg" alt="" loading="lazy"></span><span><img src="logos/hubspot.svg" alt="" loading="lazy"></span></span><span class="ind-hint" aria-hidden="true">↻</span></span>
+            <span class="ind-b"><b aria-hidden="true"><span data-l="es">Tecnología</span><span data-l="en">Technology</span></b><small><span data-l="es">Accenture · e&#8209;commerce y CRM en Bajaj</span><span data-l="en">Accenture · e&#8209;commerce and CRM at Bajaj</span></small></span>
+          </span></button></li>
+          <li style="--i:5"><button type="button" class="ind" aria-pressed="false"><span class="ind-in">
+            <span class="ind-f"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg></span><b><span data-l="es">Innovación</span><span data-l="en">Innovation</span></b><span class="ind-logos"><span><img src="logos/accenture.svg" alt="" loading="lazy"></span><span><img src="logos/electrolux.png" alt="" loading="lazy"></span></span><span class="ind-hint" aria-hidden="true">↻</span></span>
+            <span class="ind-b"><b aria-hidden="true"><span data-l="es">Innovación</span><span data-l="en">Innovation</span></b><small><span data-l="es">Drones controlados por la mente (Accenture) · laboratorio de Data Analytics (Electrolux)</span><span data-l="en">Mind-controlled drones (Accenture) · Data Analytics lab (Electrolux)</span></small></span>
+          </span></button></li>
         </ul>
       </div>
     </div>
@@ -1479,31 +1554,44 @@
       $('sk-tabs').setAttribute('aria-label', t('Habilidades', 'Skills'));
       $('sk-tabs').innerHTML = SKILLS.map((s, i) => `
           <button type="button" role="tab" class="sk-tab" id="sk-t${i}" aria-controls="sk-p${i}" data-i="${i}"><span class="sk-ic">${skIcon(s.ic, 20)}</span><b>${esc(L(s, 'name'))}</b><small>${esc(L(s, 'sub'))}</small></button>`).join('');
+      const chev = d => `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
       $('sk-stage').innerHTML = `
-          <div class="sk-top"><div class="sk-prog" aria-hidden="true">${SKILLS.map(() => '<i><b></b></i>').join('')}</div><button type="button" class="sk-play" id="sk-play"></button></div>
-          <div class="sk-panels">${SKILLS.map((s, i) => `
-            <div class="sk-panel" role="tabpanel" id="sk-p${i}" aria-labelledby="sk-t${i}"${s.proofs.some(p => p.case !== undefined) ? '' : ' tabindex="0"'}>
-              <span class="sk-mark">${skIcon(s.ic, 150)}</span>
-              <h3>${esc(L(s, 'title'))}</h3>
-              <ul class="sk-skills" aria-label="${t('Habilidades', 'Skills')}">${L(s, 'skills').map((c, n) => `<li style="--i:${n}">${esc(c)}</li>`).join('')}</ul>
-              <p class="p-pyme"><b>${t('Para tu empresa', 'For your business')}</b>${esc(L(s, 'for'))}</p>
-              <ul class="sk-proof">${s.proofs.map((p, n) => `<li style="--i:${n}"><div><span class="sk-who">${esc(L(p, 'who'))}</span><p>${esc(L(p, 'text'))}</p></div>${p.case === undefined ? ''
-                : `<a class="sk-case" href="#proyectos" data-case="${p.case}" aria-label="${esc(t('Ver caso: ', 'See case: ') + L(PROJECTS[p.case], 'title'))}">${t('Ver caso', 'See case')} →</a>`}</li>`).join('')}</ul>
-            </div>`).join('')}
-          </div>
-          <div class="sk-map" aria-hidden="true"><span>${t('Dónde la apliqué', 'Where I applied it')}</span>
-            <div class="sk-stops"><i class="sk-line"></i>${SK_ORGS.map(([k, y], n) => `<span style="--i:${n}">${logoTile(k)}<small>${y}</small></span>`).join('')}</div></div>`;
+          <div class="sk-top">
+            <button type="button" class="sk-btn" data-go="-1" aria-label="${t('Categoría anterior', 'Previous category')}">${chev('M15 5l-7 7 7 7')}</button>
+            <div class="sk-prog" aria-hidden="true">${SKILLS.map(() => '<i><b></b></i>').join('')}</div>
+            <button type="button" class="sk-btn" data-go="1" aria-label="${t('Categoría siguiente', 'Next category')}">${chev('M9 5l7 7-7 7')}</button>
+            <button type="button" class="sk-btn sk-play" id="sk-play"></button></div>
+          <div class="sk-deck" id="sk-deck">${SKILLS.map((s, i) => {
+            const lit = SK_ORGS.map(([k]) => s.proofs.some(p => p.at === k));
+            return `
+            <div class="sk-card" role="tabpanel" id="sk-p${i}" aria-labelledby="sk-t${i}" data-d="${skDepth(i, skillAt)}"${s.proofs.some(p => p.case !== undefined) ? '' : ' tabindex="0"'}><div class="sk-face">
+              <div class="sk-body">
+                <span class="sk-mark">${skIcon(s.ic, 150)}</span>
+                <h3>${esc(L(s, 'title'))}</h3>
+                <ul class="sk-skills" aria-label="${t('Habilidades', 'Skills')}">${L(s, 'skills').map((c, n) => `<li style="--i:${n}">${esc(c)}</li>`).join('')}</ul>
+                <p class="p-pyme"><b>${t('Para tu empresa', 'For your business')}</b>${esc(L(s, 'for'))}</p>
+                <ul class="sk-proof">${s.proofs.map((p, n) => `<li style="--i:${n}" data-at="${p.at}"><div><span class="sk-who">${esc(L(p, 'who'))}</span><p>${esc(L(p, 'text'))}</p></div>${p.case === undefined ? ''
+                  : `<a class="sk-case" href="#proyectos" data-case="${p.case}" aria-label="${esc(t('Ver caso: ', 'See case: ') + L(PROJECTS[p.case], 'title'))}">${t('Ver caso', 'See case')} →</a>`}</li>`).join('')}</ul>
+              </div>
+              <div class="sk-map" aria-hidden="true"><span>${t('Dónde la apliqué', 'Where I applied it')}</span>
+                <div class="sk-stops" style="--a:${lit.indexOf(true)};--b:${lit.lastIndexOf(true)}"><i class="sk-line"></i>${SK_ORGS.map(([k, y], n) => `<span data-k="${k}"${lit[n] ? ' class="on"' : ''} style="--i:${n}">${logoTile(k)}<small>${y}</small></span>`).join('')}</div></div>
+            </div></div>`; }).join('')}
+          </div>`;
       showSkill(skillAt);
       syncSkillAuto();
     }
+    /* Place in the deck of card i while card `at` is in front: 0 front, 1–2 peeking out below, `out` just left
+       (gone to the left), `back` hidden behind. */
+    function skDepth(i, at) { const n = SKILLS.length, d = (i - at + n) % n; return d < 3 ? String(d) : d === n - 1 ? 'out' : 'back'; }
     function showSkill(i) {
-      skillAt = i;
+      const was = skillAt; skillAt = i;
       skBox.querySelectorAll('.sk-tab').forEach((b, n) => { b.setAttribute('aria-selected', n === i); b.tabIndex = n === i ? 0 : -1; });
-      skBox.querySelectorAll('.sk-panel').forEach((p, n) => { p.classList.toggle('on', n === i); p.inert = n !== i; });
+      const cards = [...skBox.querySelectorAll('.sk-card')];
+      cards.forEach((c, n) => { c.dataset.d = skDepth(n, i); c.inert = n !== i; c.querySelector('.sk-face').style.transform = ''; });
+      /* A card that jumps to the back (tab or tour) flies out to the left first */
+      const old = cards[was];
+      if (was !== i && old && old.dataset.d === 'back' && !calm()) { old.classList.add('leaving'); setTimeout(() => old.classList.remove('leaving'), 600); }
       skBox.querySelectorAll('.sk-prog i').forEach((s, n) => { s.className = n < i ? 'done' : n === i ? 'cur' : ''; });
-      const lit = SK_ORGS.map(([k]) => SKILLS[i].proofs.some(p => p.at === k)), stops = skBox.querySelector('.sk-stops');
-      stops.querySelectorAll(':scope > span').forEach((s, n) => s.classList.toggle('on', lit[n]));
-      stops.style.setProperty('--a', lit.indexOf(true)); stops.style.setProperty('--b', lit.lastIndexOf(true));
       const row = $('sk-tabs');
       if (row.scrollWidth > row.clientWidth + 1) row.scrollTo({ left: row.scrollLeft + $('sk-t' + i).getBoundingClientRect().left - row.getBoundingClientRect().left - 20, behavior: calm() ? 'auto' : 'smooth' });
     }
@@ -1528,6 +1616,8 @@
       const tab = e.target.closest('.sk-tab');
       if (tab) { skillAuto = false; showSkill(+tab.dataset.i); syncSkillAuto(); return; }
       if (e.target.closest('#sk-play')) { skillAuto = !skillAuto; syncSkillAuto(); return; }
+      const go = e.target.closest('[data-go]');
+      if (go) { skillAuto = false; syncSkillAuto(); showSkill((skillAt + +go.dataset.go + SKILLS.length) % SKILLS.length); return; }
       const c = e.target.closest('.sk-case');
       if (c) { e.preventDefault(); skillAuto = false; syncSkillAuto(); openCase(+c.dataset.case); }
     });
@@ -1539,12 +1629,59 @@
       e.preventDefault(); skillAuto = false; showSkill((j + n) % n); syncSkillAuto(); $('sk-t' + skillAt).focus();
     });
     $('sk-tabs').addEventListener('touchstart', () => { if (skillAuto) { skillAuto = false; syncSkillAuto(); } }, { passive: true });
+    /* Drag or swipe the front card sideways: far enough and it moves to the next (left) or previous (right) card */
+    let skDrag = null;
+    skBox.addEventListener('pointerdown', e => {
+      const card = e.target.closest('.sk-card[data-d="0"]');
+      if (!card || e.button > 0 || e.target.closest('a, button')) return;
+      skDrag = { card, id: e.pointerId, x0: e.clientX, y0: e.clientY, dx: 0, on: false };
+    });
+    skBox.addEventListener('pointermove', e => {
+      if (skDrag && e.pointerId === skDrag.id) {
+        const dx = e.clientX - skDrag.x0, dy = e.clientY - skDrag.y0;
+        if (!skDrag.on) {
+          if (Math.abs(dx) < 8) return;
+          if (Math.abs(dy) > Math.abs(dx)) { skDrag = null; return; }
+          skDrag.on = true; skDrag.card.classList.add('dragging'); $('sk-deck').classList.add('grabbing');
+          skDrag.card.setPointerCapture(e.pointerId); skDrag.card.querySelector('.sk-face').style.transform = '';
+          if (skillAuto) { skillAuto = false; syncSkillAuto(); }
+        }
+        skDrag.dx = dx; skDrag.card.style.transform = `translateX(${dx}px) rotate(${dx / 24}deg)`;
+        return;
+      }
+      /* Tilt and light the front card under the mouse */
+      if (e.pointerType !== 'mouse' || calm()) return;
+      const face = e.target.closest('.sk-card[data-d="0"]')?.querySelector('.sk-face'); if (!face) return;
+      const r = face.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      face.style.setProperty('--mx', `${x * 100}%`); face.style.setProperty('--my', `${y * 100}%`);
+      face.style.transform = `perspective(1400px) rotateX(${(.5 - y) * 3}deg) rotateY(${(x - .5) * 4}deg)`;
+    });
+    const skDragEnd = () => {
+      if (!skDrag) return; const { card, dx, on } = skDrag; skDrag = null; if (!on) return;
+      card.classList.remove('dragging'); card.style.transform = ''; $('sk-deck').classList.remove('grabbing');
+      const n = SKILLS.length;
+      if (dx < -70) showSkill((skillAt + 1) % n); else if (dx > 70) showSkill((skillAt - 1 + n) % n);
+    };
+    skBox.addEventListener('pointerup', skDragEnd); skBox.addEventListener('pointercancel', skDragEnd);
+    skBox.addEventListener('pointerleave', () => skBox.querySelectorAll('.sk-face').forEach(f => { f.style.transform = ''; }));
+    /* Hovering a proof lifts its company in the strip */
+    skBox.addEventListener('pointerover', e => {
+      skBox.querySelectorAll('.sk-stops .ping').forEach(x => x.classList.remove('ping'));
+      const li = e.target.closest('.sk-proof li');
+      if (li) li.closest('.sk-face').querySelector(`.sk-stops [data-k="${li.dataset.at}"]`)?.classList.add('ping');
+    });
+    skBox.addEventListener('pointerout', e => { if (!e.relatedTarget || !skBox.contains(e.relatedTarget)) skBox.querySelectorAll('.sk-stops .ping').forEach(x => x.classList.remove('ping')); });
     skBox.addEventListener('animationend', e => { if (e.animationName === 'skRun' && skillAuto) showSkill((skillAt + 1) % SKILLS.length); });
     if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => {
       skillOnScreen = e.isIntersecting; if (skillOnScreen) skBox.classList.add('seen'); syncSkillAuto();
     }, { threshold: .35 }).observe(skBox);
     else skBox.classList.add('seen');
     const indBox = $('industrias');
+    indBox.addEventListener('click', e => {
+      const b = e.target.closest('.ind'); if (!b) return;
+      const on = b.getAttribute('aria-pressed') !== 'true';
+      indBox.querySelectorAll('.ind').forEach(x => x.setAttribute('aria-pressed', x === b && on));
+    });
     if ('IntersectionObserver' in window) { const indIo = new IntersectionObserver(([e]) => { if (e.isIntersecting) { indBox.classList.add('seen'); indIo.disconnect(); } }, { threshold: .2 }); indIo.observe(indBox); }
     else indBox.classList.add('seen');
 
