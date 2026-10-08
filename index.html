@@ -165,11 +165,8 @@
     }
     .badge strong { display: block; font: 800 1.3rem var(--font-display); color: var(--accent-text); }
     .badge.b1 { left: -28px; top: 10%; }
-    .badge.b2 { right: -24px; bottom: 9%; }
-    @media (max-width: 1140px) { .badge.b2 { right: -10px; } }
     @media (prefers-reduced-motion: no-preference) {
       .badge { animation: float 6s ease-in-out infinite; }
-      .badge.b2 { animation-delay: -3s; }
     }
     @keyframes float { 50% { transform: translateY(-8px); } }
 
@@ -554,7 +551,7 @@
     @media (max-width: 860px) {
       .hero { grid-template-columns: 1fr; padding-block: 44px 64px; gap: 48px; }
       .portrait { width: min(88%, 340px); }
-      .badge.b1 { left: -12px; } .badge.b2 { right: -12px; }
+      .badge.b1 { left: -12px; }
       .about-grid, .cards, .pains, .edu, .edu-wrap, .edu-wrap .edu { grid-template-columns: 1fr; }
       .pains-cta .btn { width: 100%; justify-content: center; }
       /* Booking button that follows on phones between the hero and the contact section */
@@ -635,7 +632,6 @@
     <div class="portrait" id="portrait">
       <div class="frame"><img src="fotos/retrato.jpg" alt="Cristian Marino" width="800" height="800"></div>
       <div class="badge b1"><strong>MIT Sloan</strong>MBA 2026</div>
-      <div class="badge b2"><strong><span data-l="es">Profesor</span><span data-l="en">Professor</span></strong><span data-l="es">UDD y UNAB</span><span data-l="en">UDD and UNAB</span></div>
     </div>
   </header>
 
