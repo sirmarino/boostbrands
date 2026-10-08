@@ -133,19 +133,27 @@
     .on-navy .btn-ghost { background: transparent; border-color: var(--navy-line); color: var(--on-navy); }
 
     /* Hero */
-    .hero { padding-block: 72px 80px; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: 64px; align-items: center; }
+    .hero { padding-block: 48px 72px; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: 64px; align-items: center; }
     .eyebrow {
       display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px;
       background: var(--accent-soft); color: var(--accent-text);
       font: 500 .8rem var(--font-mono); letter-spacing: .05em; text-transform: uppercase; margin-bottom: 22px;
     }
     .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
-    h1 { font-size: clamp(2.4rem, 5.6vw, 4.2rem); line-height: 1.04; letter-spacing: -0.035em; font-weight: 800; color: var(--heading); }
+    h1 { font-size: clamp(2.4rem, 5.6vw, 3.9rem); line-height: 1.04; letter-spacing: -0.035em; font-weight: 800; color: var(--heading); }
     h1 em { font-style: normal; color: var(--accent-text); background: linear-gradient(transparent 64%, color-mix(in srgb, var(--accent) 24%, transparent) 64%, color-mix(in srgb, var(--accent) 24%, transparent) 94%, transparent 94%) no-repeat 0 0 / 100% 100%; }
     @media (prefers-reduced-motion: no-preference) { h1 em { animation: mark .9s .5s cubic-bezier(.3, .7, .2, 1) both; } }
     @keyframes mark { from { background-size: 0 100%; } }
-    .lead { font-size: 1.15rem; color: var(--muted); max-width: 56ch; margin: 22px 0 30px; }
+    .lead { font-size: 1.15rem; color: var(--muted); max-width: 58ch; margin: 20px 0 26px; }
     .lead-s { display: none; }
+    .lead b { color: var(--text); font-weight: 600; }
+    /* Why work with me: three short reasons on one glass card */
+    .why { list-style: none; display: grid; gap: 8px; margin: -6px 0 26px; padding: 14px 16px; border-radius: 16px; border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--surface) 78%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); box-shadow: 0 18px 36px -26px rgba(20, 33, 61, .45); }
+    .why li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; font-size: .94rem; line-height: 1.45; color: var(--muted); }
+    .why li::before { content: ""; width: 22px; height: 22px; margin-top: 1px; border-radius: 50%; background: var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2316181d' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center / 14px no-repeat; box-shadow: 0 4px 10px -4px rgba(232, 85, 28, .7); }
+    .why b { color: var(--heading); font-weight: 600; }
+    .why li > span { text-wrap: pretty; }
     /* Trust line under the buttons */
     .proof { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 20px; font: 500 .92rem var(--font-body); color: var(--muted); }
     .proof > span { display: inline-flex; align-items: center; gap: 6px; }
@@ -175,22 +183,19 @@
       padding: 10px 14px; box-shadow: 0 20px 40px -20px rgba(20, 33, 61, .5), inset 0 1px 0 rgba(255, 255, 255, .35); font-size: .82rem; line-height: 1.3; color: var(--muted);
     }
     .badge strong { display: block; font: 800 1.3rem var(--font-display); color: var(--accent-text); }
-    /* Three credential cards at different depths: they drift with the mouse (--px/--py from JS, scaled by --k) */
+    /* The credential card drifts with the mouse (--px/--py from JS, scaled by --k) */
     .badge { z-index: 2; translate: calc(var(--px, 0) * var(--k, 16px)) calc(var(--py, 0) * var(--k, 16px)); }
-    .badge.b1 { left: -28px; top: 30%; --k: 26px; }
-    .badge.b2 { right: -6px; top: -4%; --k: 24px; }
-    .badge.b3 { left: -40px; bottom: 8%; --k: 18px; }
+    .badge.b1 { left: -28px; top: 14%; --k: 26px; }
     @media (prefers-reduced-motion: no-preference) {
       .badge { transition: translate .5s cubic-bezier(.2, .7, .2, 1); animation: badgeIn .6s cubic-bezier(.3, 1.4, .5, 1) var(--in, 1s) both, float 6s ease-in-out calc(var(--in, 1s) + .6s) infinite; }
-      .badge.b2 { --in: 1.15s; animation-duration: .6s, 7s; }
-      .badge.b3 { --in: 1.3s; animation-duration: .6s, 5.5s; }
       /* Entrance: the headline rises word by word (words wrapped in .w by JS), then the rest follows */
       .hero h1 .w { display: inline-block; animation: heroW .8s cubic-bezier(.2, .8, .2, 1) calc(150ms + var(--i) * 70ms) both; }
       .hero h1 em { animation-delay: 1.05s; }
       .hero .eyebrow { animation: heroIn .6s ease both; }
       .hero .lead { animation: heroIn .7s ease .7s both; }
-      .hero .actions { animation: heroIn .7s ease .85s both; }
-      .hero .proof { animation: heroIn .7s ease 1s both; }
+      .hero .why { animation: heroIn .7s ease .85s both; }
+      .hero .actions { animation: heroIn .7s ease 1s both; }
+      .hero .proof { animation: heroIn .7s ease 1.1s both; }
       .portrait { animation: heroPhoto 1s cubic-bezier(.2, .8, .2, 1) .2s both; }
     }
     @keyframes float { 50% { transform: translateY(-8px); } }
@@ -730,11 +735,14 @@
     @media (max-width: 860px) {
       .hero { grid-template-columns: 1fr; padding-block: 26px 60px; gap: 26px; }
       /* Phones: the portrait comes first, small, with the three cards stacked beside it */
-      .portrait { order: -1; justify-self: stretch; width: 100%; display: grid; grid-template-columns: 124px minmax(0, 1fr); column-gap: 20px; row-gap: 8px; align-items: center; align-content: center; }
-      .portrait .frame { grid-row: 1 / 4; border-radius: 20px; box-shadow: 0 20px 40px -24px rgba(20, 33, 61, .5), 0 0 60px 6px rgba(232, 85, 28, .25); }
+      .portrait { order: -1; justify-self: stretch; width: 100%; display: grid; grid-template-columns: 124px minmax(0, 1fr); column-gap: 20px; align-items: center; }
+      .portrait .frame { border-radius: 20px; box-shadow: 0 20px 40px -24px rgba(20, 33, 61, .5), 0 0 60px 6px rgba(232, 85, 28, .25); }
       .portrait::before { inset: auto; top: 0; left: 0; width: 124px; aspect-ratio: 4 / 5; border-radius: 20px; transform: translate(8px, 8px); }
       .portrait::after { right: auto; left: 64px; top: -24px; width: 120px; height: 120px; }
-      .badge, .badge.b1, .badge.b2, .badge.b3 { position: static; translate: none; justify-self: start; padding: 7px 12px; font-size: .78rem; }
+      .badge, .badge.b1 { position: static; translate: none; justify-self: start; padding: 7px 12px; font-size: .78rem; }
+      .hero > div:first-child { display: flex; flex-direction: column; align-items: flex-start; }
+      .hero .why { order: 5; margin: 26px 0 0; }
+      .hero .proof { order: 4; }
       .badge strong { font-size: 1.02rem; }
       .about-grid, .cards, .pains, .edu, .edu-wrap, .edu-wrap .edu { grid-template-columns: 1fr; }
       .pains-cta .btn { width: 100%; justify-content: center; }
@@ -814,10 +822,20 @@
         <span data-l="es">Estrategia de multinacional para hacer <em>crecer</em> tu empresa.</span>
         <span data-l="en">Multinational-grade strategy to <em>grow</em> your business.</span>
       </h1>
-      <p class="lead" data-l="es"><span class="lead-l">Llevo 17 años liderando crecimiento, P&amp;L y transformación de negocios en Bajaj, Electrolux,
-        Accenture y Cencosud. Hoy pongo esa experiencia al servicio de las empresas chilenas a través de BoostBrands.</span><span class="lead-s">17 años liderando crecimiento en Bajaj, Electrolux, Accenture y Cencosud, hoy al servicio de tu empresa.</span></p>
-      <p class="lead" data-l="en"><span class="lead-l">17 years leading growth, P&amp;L and business transformation at Bajaj, Electrolux, Accenture and
-        Cencosud. Today I bring that experience to Chilean companies through BoostBrands.</span><span class="lead-s">17 years leading growth at Bajaj, Electrolux, Accenture and Cencosud, now working for your business.</span></p>
+      <p class="lead" data-l="es"><span class="lead-l">Fui <b>Country Manager</b> de Bajaj en Chile y Paraguay, <b>CMO regional</b> para Latinoamérica y <b>Director de Marketing y Ventas</b>
+        de Bajaj Motochile, después de liderar marketing en Electrolux, Accenture y Cencosud. Hoy, desde BoostBrands, pongo esos 17 años al servicio de tu empresa.</span><span class="lead-s">Ex <b>Country Manager</b> y <b>CMO regional</b> de Bajaj, con 17 años en Bajaj, Electrolux, Accenture y Cencosud. Hoy, al servicio de tu empresa.</span></p>
+      <p class="lead" data-l="en"><span class="lead-l">I was Bajaj's <b>Country Manager</b> for Chile and Paraguay, <b>Regional CMO</b> for Latin America and <b>Marketing &amp; Sales Director</b>
+        at Bajaj Motochile, after leading marketing at Electrolux, Accenture and Cencosud. Today, through BoostBrands, I put those 17 years to work for your business.</span><span class="lead-s">Former <b>Country Manager</b> and <b>Regional CMO</b> at Bajaj, with 17 years at Bajaj, Electrolux, Accenture and Cencosud. Now working for your business.</span></p>
+      <ul class="why" data-l="es" aria-label="Por qué trabajar conmigo">
+        <li><span><b>Lo he hecho:</b> llevé marcas a nuevos mercados y armé canales desde cero.</span></li>
+        <li><span><b>Visión de multinacional, a tu escala:</b> un plan medido en ventas y margen.</span></li>
+        <li><span><b>Ejecución, no solo diagnóstico:</b> lo hacemos juntos, apoyados en IA.</span></li>
+      </ul>
+      <ul class="why" data-l="en" aria-label="Why work with me">
+        <li><span><b>I've done it:</b> taken brands into new markets and built channels from scratch.</span></li>
+        <li><span><b>Multinational thinking, at your scale:</b> one plan, measured in sales and margin.</span></li>
+        <li><span><b>Execution, not just a diagnosis:</b> we do it together, backed by AI.</span></li>
+      </ul>
       <div class="actions">
         <a href="mailto:cristian@boostbrands.cl?subject=Diagn%C3%B3stico%2030%20min" class="btn btn-primary" data-agenda>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
@@ -836,8 +854,6 @@
     <div class="portrait" id="portrait">
       <div class="frame"><img src="fotos/retrato.jpg" alt="Cristian Marino" width="800" height="800"></div>
       <div class="badge b1"><strong>MIT Sloan</strong>MBA 2026</div>
-      <div class="badge b2"><strong>Country Manager</strong><span data-l="es">Bajaj · Chile y Paraguay</span><span data-l="en">Bajaj · Chile &amp; Paraguay</span></div>
-      <div class="badge b3"><strong><span data-l="es">CMO regional</span><span data-l="en">Regional CMO</span></strong><span data-l="es">Bajaj · Latinoamérica</span><span data-l="en">Bajaj · Latin America</span></div>
     </div>
   </header>
 
