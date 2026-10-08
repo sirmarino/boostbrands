@@ -37,6 +37,8 @@
       --accent-on-navy: #ff7a45;
       --accent-ink: #16181d;      /* text on orange fills (4.86:1) */
       --accent-soft: #fdeee6;
+      --art-ink: rgba(20, 33, 61, .13);   /* topographic lines */
+      --photo-op: .26; --photo-blend: multiply;   /* photo watermarks */
       --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
       --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
       --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
@@ -47,6 +49,7 @@
         --bg: #0c111d; --surface: #141b2b; --text: #eef1f6; --muted: #a3abbd; --border: #24304a; --heading: #eef1f6;
         --navy: #18233d; --navy-2: #22304f; --navy-line: #34446a; --on-navy: #eef1f6; --on-navy-muted: #b7c0d3;
         --accent: #ff7a45; --accent-text: #ff8a5c; --accent-on-navy: #ff8a5c; --accent-ink: #16181d; --accent-soft: #2a1a12;
+        --art-ink: rgba(255, 255, 255, .07); --photo-op: .16; --photo-blend: screen;
         color-scheme: dark;
       }
     }
@@ -54,8 +57,27 @@
       --bg: #0c111d; --surface: #141b2b; --text: #eef1f6; --muted: #a3abbd; --border: #24304a; --heading: #eef1f6;
       --navy: #18233d; --navy-2: #22304f; --navy-line: #34446a; --on-navy: #eef1f6; --on-navy-muted: #b7c0d3;
       --accent: #ff7a45; --accent-text: #ff8a5c; --accent-on-navy: #ff8a5c; --accent-ink: #16181d; --accent-soft: #2a1a12;
+      --art-ink: rgba(255, 255, 255, .07); --photo-op: .16; --photo-blend: screen;
       color-scheme: dark;
     }
+
+    /* Background art behind sections (.art): topographic lines (fondos/contornos.svg used as a mask, so their
+       colour is the --art-ink token) faded by --art-fade, and, with data-photo, one of Cristian's photos as a
+       grey watermark (--photo, set by JS when the section gets close) faded by --photo-mask. */
+    .art { position: relative; isolation: isolate; }
+    .art::before, .art::after { content: ""; position: absolute; inset: 0; pointer-events: none; }
+    .art::before { z-index: -2; background: var(--art-ink);
+      -webkit-mask-image: url(fondos/contornos.svg), var(--art-fade, radial-gradient(farthest-side at 80% 20%, #000 15%, transparent));
+      mask-image: url(fondos/contornos.svg), var(--art-fade, radial-gradient(farthest-side at 80% 20%, #000 15%, transparent));
+      -webkit-mask-size: var(--art-size, cover), 100% 100%; mask-size: var(--art-size, cover), 100% 100%;
+      -webkit-mask-position: var(--art-pos, center), center; mask-position: var(--art-pos, center), center;
+      -webkit-mask-repeat: var(--art-repeat, no-repeat), no-repeat; mask-repeat: var(--art-repeat, no-repeat), no-repeat; -webkit-mask-composite: source-in; mask-composite: intersect; }
+    .art[data-photo]::after { z-index: -1; background: var(--photo, none) var(--photo-pos, right center) / var(--photo-size, cover) no-repeat;
+      opacity: var(--photo-op); mix-blend-mode: var(--photo-blend);
+      -webkit-mask-image: var(--photo-mask, linear-gradient(to left, #000 10%, transparent 70%)); mask-image: var(--photo-mask, linear-gradient(to left, #000 10%, transparent 70%)); }
+    @media (prefers-reduced-motion: no-preference) { .art[data-photo]::after { transition: opacity .8s ease; } }
+    /* Glass: cards over a photo let it show through softly */
+    .glass { background: color-mix(in srgb, var(--surface) 82%, transparent) !important; -webkit-backdrop-filter: blur(10px) saturate(1.15); backdrop-filter: blur(10px) saturate(1.15); }
 
     /* Language: Spanish markup is the default; English twins are hidden until the toggle switches. */
     html[lang="es"] [data-l="en"], html[lang="en"] [data-l="es"] { display: none !important; }
@@ -213,17 +235,21 @@
       background: radial-gradient(55% 140% at 100% 0%, rgba(232, 85, 28, .32), transparent 70%), linear-gradient(160deg, var(--navy-2), var(--navy)); box-shadow: 0 26px 46px -28px rgba(20, 33, 61, .7); }
     .pains-cta p { font-weight: 600; color: var(--on-navy); }
     .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; transition: border-color .2s, transform .2s; }
-    .card:hover { border-color: var(--accent); transform: translateY(-4px); }
-    .card .icon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-text); margin-bottom: 18px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 28px; box-shadow: 0 22px 44px -28px rgba(20, 33, 61, .45); transition: border-color .25s, transform .25s, box-shadow .25s; }
+    .card:hover { border-color: color-mix(in srgb, var(--accent) 50%, var(--border)); box-shadow: 0 32px 56px -28px rgba(20, 33, 61, .55); }
+    @media (prefers-reduced-motion: no-preference) { .card:hover { transform: translateY(-4px); } }
+    .card .icon { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; background: linear-gradient(140deg, #ff9a6b, var(--accent)); color: var(--accent-ink); margin-bottom: 18px; box-shadow: 0 12px 24px -10px rgba(232, 85, 28, .7); }
     .card h3 { font-size: 1.2rem; margin-bottom: 8px; }
     .card p { color: var(--muted); font-size: .97rem; }
     .card .topics { margin-top: 10px; color: var(--text); font-size: .92rem; }
-    .steps { margin-top: 28px; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 28px; display: grid; grid-template-columns: 220px repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; }
-    .steps h3 { font-size: 1.25rem; }
-    .steps h3 + p { color: var(--muted); font-size: .92rem; margin-top: 6px; }
+    .steps { margin-top: 28px; border-radius: 20px; padding: 30px; display: grid; grid-template-columns: 220px repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; color: var(--on-navy);
+      background: radial-gradient(50% 120% at 100% 0%, rgba(232, 85, 28, .3), transparent 70%), radial-gradient(40% 100% at 0% 100%, rgba(84, 116, 210, .22), transparent 70%), linear-gradient(160deg, var(--navy-2), var(--navy));
+      box-shadow: 0 30px 56px -32px rgba(20, 33, 61, .7), inset 0 1px 0 rgba(255, 255, 255, .08); }
+    .steps h3 { font-size: 1.25rem; color: var(--on-navy); }
+    .steps h3 + p { color: var(--on-navy-muted); font-size: .92rem; margin-top: 6px; }
+    .steps .step p { color: var(--on-navy); }
     .step { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 12px; }
-    .step b { width: 36px; height: 36px; border-radius: 50%; background: var(--navy); color: var(--on-navy); display: grid; place-items: center; font: 700 .95rem var(--font-display); }
+    .step b { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(140deg, #ff9a6b, var(--accent)); color: var(--accent-ink); display: grid; place-items: center; font: 800 .95rem var(--font-display); box-shadow: 0 0 22px rgba(255, 122, 69, .5); }
     .step p { font-size: .97rem; }
 
     /* Projects: horizontal accordion of <details name="proyectos">. The open card shows copy + a visual;
@@ -405,7 +431,7 @@
        entry at the middle of the screen is shown at full contrast (the rest stay muted). */
     .path { position: relative; list-style: none; margin-top: 44px; --yr: 150px; --gap: 28px; }
     .path::before, .path-progress { content: ""; position: absolute; left: calc(var(--yr) + var(--gap)); top: 12px; bottom: 0; width: 2px; margin-left: -1px; background: var(--border); }
-    .path-progress { background: var(--accent); transform-origin: top; transform: scaleY(0); }
+    .path-progress { background: linear-gradient(var(--accent), #ff9a6b); box-shadow: 0 0 14px rgba(232, 85, 28, .55); transform-origin: top; transform: scaleY(0); }
     .path-item { position: relative; display: grid; grid-template-columns: var(--yr) minmax(0, 1fr); column-gap: calc(var(--gap) * 2); padding-bottom: 64px; }
     .path-item:last-child { padding-bottom: 8px; }
     .path-when { text-align: right; }
@@ -423,26 +449,39 @@
     .path-item.on .path-org, .path-item.on ul { color: var(--text); }
     .path-item.on li::before { color: var(--accent); }
     .path-item.on .path-tag { color: var(--accent-text); border-color: var(--accent); background: var(--accent-soft); }
-    .path-item.on .path-dot { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 6px var(--accent-soft); }
+    .path-item.on .path-dot { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 6px var(--accent-soft), 0 0 24px rgba(232, 85, 28, .65); }
     @media (prefers-reduced-motion: no-preference) {
       .path-year, .path-item h3, .path-org, .path-item ul, .path-tag, .path-dot, .path-item li::before { transition: color .35s, background-color .35s, border-color .35s, box-shadow .35s; }
     }
     .more { margin-top: 24px; }
+    .hero.art { --art-fade: radial-gradient(farthest-side at 78% 45%, #000 25%, transparent); --art-pos: 70% 40%; }
+    #situaciones.art { --art-fade: radial-gradient(farthest-side at 0% 0%, #000 20%, transparent); --art-pos: 0 0; }
+    #sobre-mi.art { --art-fade: radial-gradient(farthest-side at 100% 100%, #000 20%, transparent); --art-pos: 100% 100%; }
+    #boostbrands.art { --art-fade: radial-gradient(farthest-side at 0% 100%, #000 15%, transparent); --photo-pos: right 30%; --photo-size: auto 100%; }
+    #trayectoria.art { --art-fade: linear-gradient(90deg, transparent 30%, #000 85%); --art-size: 1500px auto; --art-pos: right top; --art-repeat: repeat-y; }
+    #formacion.art { --art-fade: radial-gradient(farthest-side at 100% 100%, #000 15%, transparent); --photo-pos: center 35%;
+      --photo-mask: linear-gradient(#000 0%, transparent 85%); }
 
     /* Education strip */
     .edu { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-    .edu div { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; }
+    .edu div { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 18px 20px; box-shadow: 0 18px 36px -26px rgba(20, 33, 61, .45); transition: transform .25s, box-shadow .25s, border-color .25s; }
+    .edu div:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); box-shadow: 0 26px 46px -26px rgba(20, 33, 61, .55); }
+    @media (prefers-reduced-motion: no-preference) { .edu div:hover { transform: translateY(-3px); } }
     .edu .yr { font: 500 .78rem var(--font-mono); color: var(--accent-text); display: block; margin-bottom: 4px; }
     .edu h3 { font-size: 1.02rem; }
     .edu p { color: var(--muted); font-size: .9rem; }
+    .glass-kids > div { background: color-mix(in srgb, var(--surface) 82%, transparent); -webkit-backdrop-filter: blur(10px) saturate(1.15); backdrop-filter: blur(10px) saturate(1.15); }
     .edu-wrap { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 12px; }
     .edu-wrap .edu { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .edu-photo { position: relative; margin: 0; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); background: var(--surface); min-height: 320px; }
+    .edu-photo { position: relative; margin: 0; border-radius: 18px; overflow: hidden; border: 1px solid var(--border); background: var(--surface); min-height: 320px; box-shadow: 0 30px 56px -30px rgba(20, 33, 61, .6), 0 0 70px -10px rgba(232, 85, 28, .25); }
     .edu-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
     .edu-photo figcaption { position: absolute; left: 10px; bottom: 10px; background: var(--surface); color: var(--text); font-size: .8rem; font-weight: 500; padding: 4px 10px; border-radius: 999px; }
 
     /* Contact */
-    .contact-box { background: var(--navy); color: var(--on-navy); border-radius: 24px; padding: 64px 40px; text-align: center; }
+    .contact-box { color: var(--on-navy); border-radius: 28px; padding: 72px 40px; text-align: center; overflow: hidden; --art-ink: rgba(255, 255, 255, .08); --photo-op: .3; --photo-blend: screen;
+      --art-fade: radial-gradient(farthest-side at 50% 50%, #000 30%, transparent); --photo-pos: center 40%; --photo-mask: radial-gradient(farthest-side at 50% 45%, #000 20%, transparent 95%);
+      background: radial-gradient(60% 90% at 100% 0%, rgba(232, 85, 28, .32), transparent 70%), radial-gradient(50% 90% at 0% 100%, rgba(84, 116, 210, .25), transparent 70%), linear-gradient(160deg, var(--navy-2), var(--navy));
+      box-shadow: 0 50px 90px -50px rgba(20, 33, 61, .8), inset 0 1px 0 rgba(255, 255, 255, .08); }
     .contact-box .kicker { color: var(--accent-on-navy); }
     .contact-box h2 { color: var(--on-navy); }
     .contact-box p { color: var(--on-navy-muted); max-width: 56ch; margin: 0 auto 28px; }
@@ -550,7 +589,7 @@
     </div>
   </nav>
 
-  <header class="wrap hero" id="top">
+  <header class="wrap hero art" id="top">
     <div>
       <span class="eyebrow"><span class="dot"></span><span data-l="es">Fundador y CEO · BoostBrands</span><span data-l="en">Founder &amp; CEO · BoostBrands</span></span>
       <h1>
@@ -601,7 +640,7 @@
     </div>
   </div>
 
-  <section id="situaciones">
+  <section id="situaciones" class="art">
     <div class="wrap">
       <span class="kicker"><span data-l="es">¿Te suena?</span><span data-l="en">Sound familiar?</span></span>
       <h2><span data-l="es">¿Tu empresa está en alguna de estas <em>situaciones?</em></span><span data-l="en">Is your business in one of these <em>situations?</em></span></h2>
@@ -645,7 +684,7 @@
     </div>
   </section>
 
-  <section id="sobre-mi">
+  <section id="sobre-mi" class="art">
     <div class="wrap about-grid">
       <div>
         <span class="kicker"><span data-l="es">Sobre mí</span><span data-l="en">About</span></span>
@@ -678,14 +717,14 @@
     </div>
   </section>
 
-  <section id="boostbrands">
+  <section id="boostbrands" class="art" data-photo="fondos/bg-acapella.jpg">
     <div class="wrap">
       <span class="kicker">BoostBrands</span>
       <h2><span data-l="es">Qué hago <em>hoy</em></span><span data-l="en">What I do <em>today</em></span></h2>
       <p class="intro" data-l="es">BoostBrands es una consultora de marketing comercial B2B/B2C para PYMES chilenas, con dos unidades de negocio: consultoría y representación retail.</p>
       <p class="intro" data-l="en">BoostBrands is a B2B/B2C commercial marketing consultancy for Chilean SMEs, with two business units: consulting and retail representation.</p>
       <div class="cards">
-        <div class="card">
+        <div class="card glass">
           <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
           <h3><span data-l="es">Consultoría de crecimiento</span><span data-l="en">Growth consulting</span></h3>
           <p data-l="es">He asesorado a 50 PYMES durante la crisis económica de Chile, con +15% de crecimiento promedio en ingresos.</p>
@@ -693,13 +732,13 @@
           <p class="topics" data-l="es">Medición de campañas, precios, procesos, metas e incentivos, alineación de marketing y ventas, y estrategia para escalar.</p>
           <p class="topics" data-l="en">Campaign measurement, pricing, processes, goals and incentives, marketing–sales alignment and a strategy to scale.</p>
         </div>
-        <div class="card">
+        <div class="card glass">
           <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M3 9h18M10 20v-6h4v6"/></svg></div>
           <h3><span data-l="es">Representación retail</span><span data-l="en">Retail representation</span></h3>
           <p data-l="es">Llevo marcas a las grandes cadenas: 2 marcas internacionales de moda sostenible, Acapella y Bench, en 3 cadenas retail chilenas.</p>
           <p data-l="en">I bring brands into major chains: 2 international sustainable fashion brands, Acapella and Bench, in 3 Chilean retail chains.</p>
         </div>
-        <div class="card">
+        <div class="card glass">
           <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></div>
           <h3><span data-l="es">Marketing con IA</span><span data-l="en">AI-powered marketing</span></h3>
           <p data-l="es">IA agéntica integrada en campañas y producción de contenido, con un enfoque radical de bajo costo y alto rendimiento.</p>
@@ -732,7 +771,7 @@
     </div>
   </section>
 
-  <section id="trayectoria">
+  <section id="trayectoria" class="art">
     <div class="wrap">
       <span class="kicker"><span data-l="es">Trayectoria</span><span data-l="en">Track record</span></span>
       <h2><span data-l="es">Dónde <em>aprendí</em> lo que aplico</span><span data-l="en">Where I <em>learned</em> what I apply</span></h2>
@@ -835,7 +874,7 @@
     </div>
   </section>
 
-  <section id="formacion">
+  <section id="formacion" class="art" data-photo="fondos/bg-stanford.jpg">
     <div class="wrap">
       <span class="kicker"><span data-l="es">Formación y docencia</span><span data-l="en">Education &amp; teaching</span></span>
       <h2><span data-l="es">Aprender y <em>enseñar</em></span><span data-l="en">Learning and <em>teaching</em></span></h2>
@@ -844,7 +883,7 @@
           <img src="fotos/mit-graduacion.jpg" alt="Cristian Marino, MIT Sloan" width="960" height="1280" loading="lazy">
           <figcaption><span data-l="es">Graduación, MIT Sloan</span><span data-l="en">Graduation, MIT Sloan</span></figcaption>
         </figure>
-        <div class="edu">
+        <div class="edu glass-kids">
           <div><span class="yr">2024 – 2026</span><h3>MIT Sloan School of Management</h3><p>MBA</p></div>
           <div><span class="yr">2015</span><h3>Stanford GSB</h3><p><span data-l="es">Marketing estratégico y neuromarketing</span><span data-l="en">Strategic marketing and neuromarketing</span></p></div>
           <div><span class="yr">2012</span><h3>University of Windsor, Odette</h3><p><span data-l="es">Máster en Gestión de la Producción</span><span data-l="en">Master's in Production Management</span></p></div>
@@ -858,7 +897,7 @@
 
   <section id="contacto">
     <div class="wrap">
-      <div class="contact-box on-navy">
+      <div class="contact-box on-navy art" data-photo="fondos/bg-clase.jpg">
         <span class="kicker"><span data-l="es">Contacto</span><span data-l="en">Contact</span></span>
         <h2><span data-l="es">¿Conversamos sobre tu <em>negocio?</em></span><span data-l="en">Let's talk about your <em>business</em></span></h2>
         <p data-l="es">Cuéntame en qué está tu empresa y te propongo ideas concretas para avanzar. También estoy disponible para directorios, charlas y docencia.</p>
@@ -1283,6 +1322,13 @@
       e.currentTarget.setAttribute('aria-pressed', paused);
       e.currentTarget.textContent = paused ? '▶' : '❚❚';
     });
+
+    /* Background photos (data-photo) load only when their section is within a screen of view */
+    const photoIO = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.style.setProperty('--photo', `url("${e.target.dataset.photo}")`); photoIO.unobserve(e.target);
+    }), { rootMargin: '100% 0px' }) : null;
+    document.querySelectorAll('[data-photo]').forEach(el => photoIO ? photoIO.observe(el) : el.style.setProperty('--photo', `url("${el.dataset.photo}")`));
 
     /* Portrait tilt */
     const frame = document.querySelector('.portrait .frame');
