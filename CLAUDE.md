@@ -32,7 +32,7 @@ There is no build step, package manager, framework or test suite. Each page is s
 ## cv.html specifics
 
 - `ROLES` drives both the career Gantt chart (`start`/`end` as decimal years, `lane` picks the row) and the detail panel shown when a bar is clicked.
-- `WINS` entries with `top: true` lead the achievements grid as large navy tiles while the "Todos" filter is active. `GROUPS` keeps tools (Shopify, HubSpot, Salesforce) in their own "Herramientas" group, separate from brands and partners.
+- `WINS` entries with `top: true` lead the achievements grid as large navy tiles while the "Todos" filter is active. `GROUPS` keeps tools (Shopify, HubSpot, Salesforce) in their own "Herramientas" group, separate from brands and partners. Each `GROUPS` item is `{ n, rel, rel_en, logo?, mono }`: `logo` points to a file in `logos/` shown on a white tile; without one (or if it fails to load) the tile shows the `mono` initials on navy. Logos so far come from Simple Icons and gilbarbara/logos (both CC0); add others as files in `logos/` and set `logo`.
 - The hero uses `fotos/mit-sloan.jpg` in a landscape frame so it differs from the home page portrait.
 - The gallery only shows photos that actually load; the `#fotos` section and its nav link stay hidden until at least one `PHOTOS` entry exists in `fotos/`.
 
