@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
   <title>Cristian Marino · Estrategia de crecimiento para empresas</title>
   <meta name="description" content="Cristian Marino, Fundador y CEO de BoostBrands y MBA de MIT Sloan. 17 años liderando crecimiento en Bajaj, Electrolux, Accenture y Cencosud, hoy al servicio de empresas chilenas.">
   <meta property="og:type" content="website">
@@ -782,6 +783,20 @@
       #cv .wall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       #cv .mark { flex-direction: column; align-items: flex-start; gap: 10px; }
     }
+    /* Test page: sections moved into CV tabs drop their section look */
+    #cv .cv-moved { background: none; }
+    #cv #habilidades .skills { margin-top: 4px; }
+    #cv .cv-photos { margin-top: 28px; }
+    .pains-more { display: none; }
+    @media (max-width: 560px) {
+      .pains:not(.all) .pain:nth-child(n + 4) { display: none; }
+      .pains:not(.all) + .pains-more { display: flex; width: 100%; justify-content: center; margin-top: 12px; }
+      /* Six tabs wrap as chips on phones */
+      #cv .cv-tabs { flex-wrap: wrap; gap: 6px; border-bottom: 0; overflow: visible; }
+      #cv .cv-tabs [role="tab"] { min-height: 44px; padding: 0 14px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); font-size: .92rem; }
+      #cv .cv-tabs [role="tab"]::after { display: none; }
+      #cv .cv-tabs [role="tab"][aria-selected="true"] { background: var(--navy); border-color: var(--navy); color: var(--on-navy); }
+    }
     /* Links from each stage to its success stories (they open the card and scroll to it) */
     .path-cases { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
     .path-case { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px 0 6px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface);
@@ -977,11 +992,9 @@
     <div class="wrap">
       <a href="#top" class="logo">Cristian Marino<span>.</span></a>
       <ul class="nav-links" id="nav-links">
-        <li><a href="#boostbrands"><span data-l="es">Servicios</span><span data-l="en">Services</span></a></li>
-        <li><a href="#habilidades"><span data-l="es">Habilidades</span><span data-l="en">Skills</span></a></li>
         <li><a href="#proyectos"><span data-l="es">Casos de éxito</span><span data-l="en">Success stories</span></a></li>
+        <li><a href="#boostbrands"><span data-l="es">Servicios</span><span data-l="en">Services</span></a></li>
         <li><a href="#como-trabajo"><span data-l="es">Cómo trabajo</span><span data-l="en">How I work</span></a></li>
-        <li><a href="#trayectoria"><span data-l="es">Trayectoria</span><span data-l="en">Track record</span></a></li>
         <li><a href="#cv">CV</a></li>
         <li><a href="#contacto"><span data-l="es">Contacto</span><span data-l="en">Contact</span></a></li>
       </ul>
@@ -1097,11 +1110,26 @@
           <p data-l="en"><b>How I tackle it</b>We choose the path that fits you: new channels, own stores, e-commerce or new markets.</p>
         </div>
       </div>
+      <button type="button" class="btn btn-ghost pains-more" aria-expanded="false"><span data-l="es">Ver 3 situaciones más</span><span data-l="en">See 3 more situations</span></button>
       <div class="pains-cta">
         <p data-l="es">¿Te identificas con alguna? Conversemos 30 minutos y vemos por dónde partir.</p>
         <p data-l="en">Recognize any of these? Let's talk for 30 minutes and find where to start.</p>
         <a href="mailto:cristian@boostbrands.cl?subject=Reuni%C3%B3n%2030%20min" class="btn btn-primary" data-agenda><span data-l="es">Agenda una reunión de 30 min para conocer tu problema</span><span data-l="en">Book a 30-min call to understand your challenge</span></a>
       </div>
+    </div>
+  </section>
+
+  <section id="proyectos" class="on-navy">
+    <div class="wide">
+      <div class="projects-head">
+        <div>
+          <span class="kicker"><span data-l="es">Lo que puedo hacer por tu empresa</span><span data-l="en">What I can do for your business</span></span>
+          <h2><span data-l="es">Casos de <em>éxito</em></span><span data-l="en">Success <em>stories</em></span></h2>
+        </div>
+        <p data-l="es">Proyectos reales de mi trayectoria, con sus cifras. Toca uno para abrirlo.</p>
+        <p data-l="en">Real projects from my career, with their numbers. Tap one to open it.</p>
+      </div>
+      <div class="projects" id="projects"></div>
     </div>
   </section>
 
@@ -1149,71 +1177,6 @@
     </div>
   </section>
 
-  <section id="habilidades" class="art">
-    <div class="wrap">
-      <span class="kicker"><span data-l="es">Habilidades</span><span data-l="en">Skills</span></span>
-      <h2><span data-l="es">Lo que llevo a tu <em>empresa</em></span><span data-l="en">What I bring to your <em>business</em></span></h2>
-      <p class="intro" data-l="es">Mis habilidades por categoría, cada una probada en empresas reales. Elige una o desliza las tarjetas.</p>
-      <p class="intro" data-l="en">My skills by category, each proven at real companies. Pick one or swipe through the cards.</p>
-      <div class="skills" id="skills">
-        <div class="sk-side">
-          <div class="sk-tabs" role="tablist" id="sk-tabs" aria-label="Habilidades / Skills"></div>
-          <div class="sk-cta">
-            <p><span data-l="es">¿Cuál necesita tu empresa?</span><span data-l="en">Which one does your business need?</span></p>
-            <a href="mailto:cristian@boostbrands.cl?subject=Reuni%C3%B3n%2030%20min" class="btn btn-primary" data-agenda><span data-l="es">Agenda una reunión de 30 min para conocer tu problema</span><span data-l="en">Book a 30-min call to understand your challenge</span></a>
-          </div>
-        </div>
-        <div class="sk-stage" id="sk-stage"></div>
-      </div>
-      <div class="industries" id="industrias">
-        <div class="ind-head">
-          <h3><span data-l="es">Experiencia en industrias</span><span data-l="en">Industry experience</span></h3>
-          <p><span data-l="es">Toca una para ver dónde trabajé en ella.</span><span data-l="en">Tap one to see where I worked in it.</span></p>
-        </div>
-        <ul class="ind-grid">
-          <li style="--i:0"><button type="button" class="ind" aria-pressed="false"><span class="ind-in">
-            <span class="ind-f"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6.5 15h4"/></svg></span><b><span data-l="es">Fintech</span><span data-l="en">Fintech</span></b><span class="ind-hint" aria-hidden="true">↻</span></span>
-            <span class="ind-b"><b aria-hidden="true"><span data-l="es">Fintech</span><span data-l="en">Fintech</span></b><small><span data-l="es">MotoFin y la alianza con Galgo (Bajaj) · tarjeta de crédito Cencosud</span><span data-l="en">MotoFin and the Galgo alliance (Bajaj) · Cencosud credit card</span></small></span>
-          </span></button></li>
-          <li style="--i:1"><button type="button" class="ind" aria-pressed="false"><span class="ind-in">
-            <span class="ind-f"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 18l4-5"/><circle cx="12" cy="18" r="1.2"/></svg></span><b><span data-l="es">Automotriz</span><span data-l="en">Automotive</span></b><span class="ind-hint" aria-hidden="true">↻</span></span>
-            <span class="ind-b"><b aria-hidden="true"><span data-l="es">Automotriz</span><span data-l="en">Automotive</span></b><small><span data-l="es">Bajaj Auto y Bajaj Motochile</span><span data-l="en">Bajaj Auto and Bajaj Motochile</span></small></span>
-          </span></button></li>
-          <li style="--i:2"><button type="button" class="ind" aria-pressed="false"><span class="ind-in">
-            <span class="ind-f"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></span><b><span data-l="es">Consultoría de gestión</span><span data-l="en">Management consulting</span></b><span class="ind-hint" aria-hidden="true">↻</span></span>
-            <span class="ind-b"><b aria-hidden="true"><span data-l="es">Consultoría de gestión</span><span data-l="en">Management consulting</span></b><small><span data-l="es">Accenture y BoostBrands</span><span data-l="en">Accenture and BoostBrands</span></small></span>
-          </span></button></li>
-          <li style="--i:3"><button type="button" class="ind" aria-pressed="false"><span class="ind-in">
-            <span class="ind-f"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M3 9h18M10 20v-6h4v6"/></svg></span><b><span data-l="es">Retail</span><span data-l="en">Retail</span></b><span class="ind-hint" aria-hidden="true">↻</span></span>
-            <span class="ind-b"><b aria-hidden="true"><span data-l="es">Retail</span><span data-l="en">Retail</span></b><small><span data-l="es">Cencosud, Electrolux y BoostBrands</span><span data-l="en">Cencosud, Electrolux and BoostBrands</span></small></span>
-          </span></button></li>
-          <li style="--i:4"><button type="button" class="ind" aria-pressed="false"><span class="ind-in">
-            <span class="ind-f"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M9.5 3v4M14.5 3v4M9.5 17v4M14.5 17v4M3 9.5h4M3 14.5h4M17 9.5h4M17 14.5h4"/></svg></span><b><span data-l="es">Tecnología</span><span data-l="en">Technology</span></b><span class="ind-hint" aria-hidden="true">↻</span></span>
-            <span class="ind-b"><b aria-hidden="true"><span data-l="es">Tecnología</span><span data-l="en">Technology</span></b><small><span data-l="es">Accenture · e&#8209;commerce y CRM en Bajaj</span><span data-l="en">Accenture · e&#8209;commerce and CRM at Bajaj</span></small></span>
-          </span></button></li>
-          <li style="--i:5"><button type="button" class="ind" aria-pressed="false"><span class="ind-in">
-            <span class="ind-f"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg></span><b><span data-l="es">Innovación</span><span data-l="en">Innovation</span></b><span class="ind-hint" aria-hidden="true">↻</span></span>
-            <span class="ind-b"><b aria-hidden="true"><span data-l="es">Innovación</span><span data-l="en">Innovation</span></b><small><span data-l="es">Drones controlados por la mente (Accenture) · laboratorio de Data Analytics (Electrolux)</span><span data-l="en">Mind-controlled drones (Accenture) · Data Analytics lab (Electrolux)</span></small></span>
-          </span></button></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section id="proyectos" class="on-navy">
-    <div class="wide">
-      <div class="projects-head">
-        <div>
-          <span class="kicker"><span data-l="es">Lo que puedo hacer por tu empresa</span><span data-l="en">What I can do for your business</span></span>
-          <h2><span data-l="es">Casos de <em>éxito</em></span><span data-l="en">Success <em>stories</em></span></h2>
-        </div>
-        <p data-l="es">Proyectos reales de mi trayectoria, con sus cifras. Toca uno para abrirlo.</p>
-        <p data-l="en">Real projects from my career, with their numbers. Tap one to open it.</p>
-      </div>
-      <div class="projects" id="projects"></div>
-    </div>
-  </section>
-
   <section id="sobre-mi" class="art">
     <div class="bars-chart" id="bars-chart" aria-hidden="true"></div>
     <div class="wrap about-grid">
@@ -1246,12 +1209,34 @@
     </div>
   </section>
 
-  <section id="trayectoria" class="art">
+  <section id="cv">
     <div class="wrap">
-      <span class="kicker"><span data-l="es">Trayectoria</span><span data-l="en">Track record</span></span>
-      <h2><span data-l="es">Dónde <em>aprendí</em> lo que aplico</span><span data-l="en">Where I <em>learned</em> what I apply</span></h2>
-      <p class="intro" data-l="es">De hoy hacia atrás, hasta 2008. Cada etapa enlaza a sus casos de éxito y el detalle completo está en mi CV.</p>
-      <p class="intro" data-l="en">From today back to 2008. Each stage links to its success stories, and full details are in my CV.</p>
+      <span class="kicker">Curriculum vitae</span>
+      <h2><span data-l="es">Mi CV, <em>completo</em></span><span data-l="en">My <em>full</em> CV</span></h2>
+      <p class="intro" data-l="es">Para quien quiere el detalle: mi trayectoria, logros, habilidades, formación y con quién he trabajado.</p>
+      <p class="intro" data-l="en">For those who want the detail: my career, results, skills, education and who I've worked with.</p>
+      <div class="cv-tabs" id="cv-tabs" role="tablist" aria-label="Curriculum vitae">
+        <button type="button" role="tab" id="cv-t-0" aria-controls="cv-p-0" aria-selected="true"><span data-l="es">Línea de tiempo</span><span data-l="en">Timeline</span></button>
+        <button type="button" role="tab" id="cv-t-tr" aria-controls="trayectoria" aria-selected="false" tabindex="-1"><span data-l="es">Trayectoria</span><span data-l="en">Track record</span></button>
+        <button type="button" role="tab" id="cv-t-1" aria-controls="cv-p-1" aria-selected="false" tabindex="-1"><span data-l="es">Logros</span><span data-l="en">Results</span></button>
+        <button type="button" role="tab" id="cv-t-sk" aria-controls="habilidades" aria-selected="false" tabindex="-1"><span data-l="es">Habilidades</span><span data-l="en">Skills</span></button>
+        <button type="button" role="tab" id="cv-t-fo" aria-controls="formacion" aria-selected="false" tabindex="-1"><span data-l="es">Formación</span><span data-l="en">Education</span></button>
+        <button type="button" role="tab" id="cv-t-2" aria-controls="cv-p-2" aria-selected="false" tabindex="-1"><span data-l="es">Con quién</span><span data-l="en">Worked with</span></button>
+      </div>
+      <div class="cv-panel" id="cv-p-0" role="tabpanel" aria-labelledby="cv-t-0">
+        <p class="cv-hint" data-l="es">Cada barra es un cargo, un programa de estudio o una cátedra. Toca una para ver qué hice ahí, o usa las flechas ← → del teclado.</p>
+        <p class="cv-hint" data-l="en">Each bar is a role, a degree or a teaching position. Tap one to see what I did there, or use the ← → arrow keys.</p>
+        <div class="gantt-wrap"><div class="gantt" id="gantt"></div></div>
+        <div class="legend">
+          <span><i style="background:var(--accent)"></i><span data-l="es">Experiencia profesional</span><span data-l="en">Professional experience</span></span>
+          <span><i style="background:var(--bar-edu)"></i><span data-l="es">Educación</span><span data-l="en">Education</span></span>
+          <span><i style="background:var(--bar-teach)"></i><span data-l="es">Docencia</span><span data-l="en">Teaching</span></span>
+        </div>
+        <div class="detail" id="detail" aria-live="polite"></div>
+      </div>
+      <div class="cv-panel cv-moved" id="trayectoria" role="tabpanel" aria-labelledby="cv-t-tr" hidden>
+      <p class="cv-hint" data-l="es">De hoy hacia atrás, hasta 2008. Cada etapa enlaza a sus casos de éxito y el detalle completo está en mi CV.</p>
+      <p class="cv-hint" data-l="en">From today back to 2008. Each stage links to its success stories, and full details are in my CV.</p>
       <ol class="path" id="path">
         <li class="path-progress" aria-hidden="true"></li>
         <li class="path-item">
@@ -1350,32 +1335,6 @@
           </div>
         </li>
       </ol>
-      <div class="more"><a href="#cv" class="btn btn-ghost"><span data-l="es">Ver mi CV completo ↓</span><span data-l="en">See my full CV ↓</span></a></div>
-    </div>
-  </section>
-
-  <section id="cv">
-    <div class="wrap">
-      <span class="kicker">Curriculum vitae</span>
-      <h2><span data-l="es">Mi CV, <em>completo</em></span><span data-l="en">My <em>full</em> CV</span></h2>
-      <p class="intro" data-l="es">Ejecutivo senior en P&amp;L, crecimiento y transformación de negocios en consultoría, automotriz, retail y fintech, en Chile y mercados internacionales. Aquí está todo: cargos, estudios, docencia, logros y con quién he trabajado.</p>
-      <p class="intro" data-l="en">Senior executive in P&amp;L, growth and business transformation across consulting, automotive, retail and fintech, in Chile and international markets. It's all here: roles, studies, teaching, results and who I've worked with.</p>
-      <div class="cv-tabs" id="cv-tabs" role="tablist" aria-label="Curriculum vitae">
-        <button type="button" role="tab" id="cv-t-0" aria-controls="cv-p-0" aria-selected="true"><span data-l="es">Línea de tiempo</span><span data-l="en">Timeline</span></button>
-        <button type="button" role="tab" id="cv-t-1" aria-controls="cv-p-1" aria-selected="false" tabindex="-1"><span data-l="es">Logros</span><span data-l="en">Results</span></button>
-        <button type="button" role="tab" id="cv-t-2" aria-controls="cv-p-2" aria-selected="false" tabindex="-1"><span data-l="es">Con quién</span><span data-l="en">Worked with</span></button>
-        <button type="button" role="tab" id="cv-t-3" aria-controls="cv-p-3" aria-selected="false" tabindex="-1" hidden><span data-l="es">Fotos</span><span data-l="en">Photos</span></button>
-      </div>
-      <div class="cv-panel" id="cv-p-0" role="tabpanel" aria-labelledby="cv-t-0">
-        <p class="cv-hint" data-l="es">Cada barra es un cargo, un programa de estudio o una cátedra. Toca una para ver qué hice ahí, o usa las flechas ← → del teclado.</p>
-        <p class="cv-hint" data-l="en">Each bar is a role, a degree or a teaching position. Tap one to see what I did there, or use the ← → arrow keys.</p>
-        <div class="gantt-wrap"><div class="gantt" id="gantt"></div></div>
-        <div class="legend">
-          <span><i style="background:var(--accent)"></i><span data-l="es">Experiencia profesional</span><span data-l="en">Professional experience</span></span>
-          <span><i style="background:var(--bar-edu)"></i><span data-l="es">Educación</span><span data-l="en">Education</span></span>
-          <span><i style="background:var(--bar-teach)"></i><span data-l="es">Docencia</span><span data-l="en">Teaching</span></span>
-        </div>
-        <div class="detail" id="detail" aria-live="polite"></div>
       </div>
       <div class="cv-panel" id="cv-p-1" role="tabpanel" aria-labelledby="cv-t-1" hidden>
         <p class="cv-hint" data-l="es">Lo que pasó en cada empresa, en números. Filtra por tipo de impacto.</p>
@@ -1383,27 +1342,53 @@
         <div class="filters" id="win-filters" role="group" aria-label="Filtrar logros / Filter results"></div>
         <div class="wins" id="wins"></div>
       </div>
-      <div class="cv-panel" id="cv-p-2" role="tabpanel" aria-labelledby="cv-t-2" hidden>
-        <p class="cv-hint" data-l="es">Desde multinacionales Fortune 500 hasta empresas chilenas en crecimiento, en Chile y el extranjero.</p>
-        <p class="cv-hint" data-l="en">From Fortune 500 multinationals to growing Chilean companies, in Chile and abroad.</p>
-        <div class="groups" id="groups"></div>
-        <div class="group cv-countries">
-          <h3><span data-l="es">Países donde he trabajado o estudiado</span><span data-l="en">Countries where I've worked or studied</span></h3>
-          <div class="countries" id="countries"></div>
+      <div class="cv-panel cv-moved" id="habilidades" role="tabpanel" aria-labelledby="cv-t-sk" hidden>
+      <p class="cv-hint" data-l="es">Mis habilidades por categoría, cada una probada en empresas reales. Elige una o desliza las tarjetas.</p>
+      <p class="cv-hint" data-l="en">My skills by category, each proven at real companies. Pick one or swipe through the cards.</p>
+      <div class="skills" id="skills">
+        <div class="sk-side">
+          <div class="sk-tabs" role="tablist" id="sk-tabs" aria-label="Habilidades / Skills"></div>
+          <div class="sk-cta">
+            <p><span data-l="es">¿Cuál necesita tu empresa?</span><span data-l="en">Which one does your business need?</span></p>
+            <a href="mailto:cristian@boostbrands.cl?subject=Reuni%C3%B3n%2030%20min" class="btn btn-primary" data-agenda><span data-l="es">Agenda una reunión de 30 min para conocer tu problema</span><span data-l="en">Book a 30-min call to understand your challenge</span></a>
+          </div>
         </div>
+        <div class="sk-stage" id="sk-stage"></div>
       </div>
-      <div class="cv-panel" id="cv-p-3" role="tabpanel" aria-labelledby="cv-t-3" hidden>
-        <p class="cv-hint" data-l="es">Toca una foto para verla en grande.</p>
-        <p class="cv-hint" data-l="en">Tap a photo to enlarge it.</p>
-        <div class="gallery" id="gallery"></div>
+      <div class="industries" id="industrias">
+        <div class="ind-head">
+          <h3><span data-l="es">Experiencia en industrias</span><span data-l="en">Industry experience</span></h3>
+          <p><span data-l="es">Toca una para ver dónde trabajé en ella.</span><span data-l="en">Tap one to see where I worked in it.</span></p>
+        </div>
+        <ul class="ind-grid">
+          <li style="--i:0"><button type="button" class="ind" aria-pressed="false"><span class="ind-in">
+            <span class="ind-f"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6.5 15h4"/></svg></span><b><span data-l="es">Fintech</span><span data-l="en">Fintech</span></b><span class="ind-hint" aria-hidden="true">↻</span></span>
+            <span class="ind-b"><b aria-hidden="true"><span data-l="es">Fintech</span><span data-l="en">Fintech</span></b><small><span data-l="es">MotoFin y la alianza con Galgo (Bajaj) · tarjeta de crédito Cencosud</span><span data-l="en">MotoFin and the Galgo alliance (Bajaj) · Cencosud credit card</span></small></span>
+          </span></button></li>
+          <li style="--i:1"><button type="button" class="ind" aria-pressed="false"><span class="ind-in">
+            <span class="ind-f"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 18l4-5"/><circle cx="12" cy="18" r="1.2"/></svg></span><b><span data-l="es">Automotriz</span><span data-l="en">Automotive</span></b><span class="ind-hint" aria-hidden="true">↻</span></span>
+            <span class="ind-b"><b aria-hidden="true"><span data-l="es">Automotriz</span><span data-l="en">Automotive</span></b><small><span data-l="es">Bajaj Auto y Bajaj Motochile</span><span data-l="en">Bajaj Auto and Bajaj Motochile</span></small></span>
+          </span></button></li>
+          <li style="--i:2"><button type="button" class="ind" aria-pressed="false"><span class="ind-in">
+            <span class="ind-f"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></span><b><span data-l="es">Consultoría de gestión</span><span data-l="en">Management consulting</span></b><span class="ind-hint" aria-hidden="true">↻</span></span>
+            <span class="ind-b"><b aria-hidden="true"><span data-l="es">Consultoría de gestión</span><span data-l="en">Management consulting</span></b><small><span data-l="es">Accenture y BoostBrands</span><span data-l="en">Accenture and BoostBrands</span></small></span>
+          </span></button></li>
+          <li style="--i:3"><button type="button" class="ind" aria-pressed="false"><span class="ind-in">
+            <span class="ind-f"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M3 9h18M10 20v-6h4v6"/></svg></span><b><span data-l="es">Retail</span><span data-l="en">Retail</span></b><span class="ind-hint" aria-hidden="true">↻</span></span>
+            <span class="ind-b"><b aria-hidden="true"><span data-l="es">Retail</span><span data-l="en">Retail</span></b><small><span data-l="es">Cencosud, Electrolux y BoostBrands</span><span data-l="en">Cencosud, Electrolux and BoostBrands</span></small></span>
+          </span></button></li>
+          <li style="--i:4"><button type="button" class="ind" aria-pressed="false"><span class="ind-in">
+            <span class="ind-f"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M9.5 3v4M14.5 3v4M9.5 17v4M14.5 17v4M3 9.5h4M3 14.5h4M17 9.5h4M17 14.5h4"/></svg></span><b><span data-l="es">Tecnología</span><span data-l="en">Technology</span></b><span class="ind-hint" aria-hidden="true">↻</span></span>
+            <span class="ind-b"><b aria-hidden="true"><span data-l="es">Tecnología</span><span data-l="en">Technology</span></b><small><span data-l="es">Accenture · e&#8209;commerce y CRM en Bajaj</span><span data-l="en">Accenture · e&#8209;commerce and CRM at Bajaj</span></small></span>
+          </span></button></li>
+          <li style="--i:5"><button type="button" class="ind" aria-pressed="false"><span class="ind-in">
+            <span class="ind-f"><span class="ind-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg></span><b><span data-l="es">Innovación</span><span data-l="en">Innovation</span></b><span class="ind-hint" aria-hidden="true">↻</span></span>
+            <span class="ind-b"><b aria-hidden="true"><span data-l="es">Innovación</span><span data-l="en">Innovation</span></b><small><span data-l="es">Drones controlados por la mente (Accenture) · laboratorio de Data Analytics (Electrolux)</span><span data-l="en">Mind-controlled drones (Accenture) · Data Analytics lab (Electrolux)</span></small></span>
+          </span></button></li>
+        </ul>
       </div>
-    </div>
-  </section>
-
-  <section id="formacion" class="art" data-photo="fondos/bg-stanford.jpg">
-    <div class="wrap">
-      <span class="kicker"><span data-l="es">Formación y docencia</span><span data-l="en">Education &amp; teaching</span></span>
-      <h2><span data-l="es">Aprender y <em>enseñar</em></span><span data-l="en">Learning and <em>teaching</em></span></h2>
+      </div>
+      <div class="cv-panel cv-moved" id="formacion" role="tabpanel" aria-labelledby="cv-t-fo" hidden>
       <div class="edu-wrap">
         <figure class="edu-photo">
           <img src="fotos/mit-graduacion.jpg" alt="Cristian Marino, MIT Sloan" width="960" height="1280" loading="lazy">
@@ -1416,6 +1401,21 @@
           <div><span class="yr">2008</span><h3>Universidad Andrés Bello</h3><p><span data-l="es">Ingeniería Industrial con honores</span><span data-l="en">Industrial Engineering with honors</span></p></div>
           <div><span class="yr"><span data-l="es">2025 – hoy</span><span data-l="en">2025 – now</span></span><h3><span data-l="es">Profesor · UDD</span><span data-l="en">Professor · UDD</span></h3><p><span data-l="es">Product Management, programa MBA</span><span data-l="en">Product Management, MBA program</span></p></div>
           <div><span class="yr"><span data-l="es">2025 – hoy</span><span data-l="en">2025 – now</span></span><h3><span data-l="es">Profesor · UNAB</span><span data-l="en">Professor · UNAB</span></h3><p><span data-l="es">Escuela de Ingeniería, proyecto de título</span><span data-l="en">School of Engineering, capstone projects</span></p></div>
+        </div>
+      </div>
+        <div class="cv-photos">
+          <p class="cv-hint" data-l="es">Toca una foto para verla en grande.</p>
+          <p class="cv-hint" data-l="en">Tap a photo to enlarge it.</p>
+          <div class="gallery" id="gallery"></div>
+        </div>
+      </div>
+      <div class="cv-panel" id="cv-p-2" role="tabpanel" aria-labelledby="cv-t-2" hidden>
+        <p class="cv-hint" data-l="es">Desde multinacionales Fortune 500 hasta empresas chilenas en crecimiento, en Chile y el extranjero.</p>
+        <p class="cv-hint" data-l="en">From Fortune 500 multinationals to growing Chilean companies, in Chile and abroad.</p>
+        <div class="groups" id="groups"></div>
+        <div class="group cv-countries">
+          <h3><span data-l="es">Países donde he trabajado o estudiado</span><span data-l="en">Countries where I've worked or studied</span></h3>
+          <div class="countries" id="countries"></div>
         </div>
       </div>
     </div>
@@ -2381,6 +2381,7 @@
           $(tb.getAttribute('aria-controls')).hidden = k !== i;
         });
         if (focus) tabs[i].focus();
+        dispatchEvent(new Event('scroll'));   // the track record line repaints when its tab opens
         if (i === 0) bars.get(current)?.scrollIntoView({ block: 'nearest', inline: 'center' });
       }
       $('cv-tabs').addEventListener('click', e => { const tb = e.target.closest('[role="tab"]'); if (tb) showTab(tabs.indexOf(tb)); });
@@ -2505,7 +2506,7 @@
         img.src = p.src;
       });
       function renderGallery() {
-        $('cv-t-3').hidden = !loaded.length;
+        if ($('cv-t-3')) $('cv-t-3').hidden = !loaded.length;
         $('gallery').replaceChildren(...loaded.map(i => {
           const p = PHOTOS[i], cap = T(p, 'caption');
           const fig = el('button', { class: `shot sz-${p.size}`, type: 'button', 'aria-label': cap },
@@ -2520,6 +2521,11 @@
 
       return () => { renderGantt(); select(current, false); renderWins(); renderGroups(); renderGallery(); };
     })();
+
+    /* "¿Te suena?" on phones: the button shows the other three situations */
+    document.querySelector('.pains-more').addEventListener('click', e => {
+      document.querySelector('.pains').classList.add('all'); e.currentTarget.setAttribute('aria-expanded', 'true');
+    });
 
     setLang(lang);
   </script>
