@@ -814,18 +814,21 @@
     }
     /* Phones: the hero, "¿Te ocurre?" and contact stay open; the sections about Cristian fold to their title and a
        one-line summary (.fold-head, added by JS, which also marks what hides with data-fold), and services and success
-       stories fold after their intro, which stays as the summary (.fold-keep). One opens at a time.
+       stories fold after their intro, which stays as the summary (.fold-keep, in a .fold-row with the button on its
+       right, like the other summaries; the row is display: contents off phones). One opens at a time.
        "¿Te ocurre?" shows three situations and a button for the rest. */
     .fold-head, .pains-more { display: none; }
+    .fold-row { display: contents; }
     @media (max-width: 760px) {
       .pains:not(.all) .pain:nth-child(n + 4) { display: none; }
       .pains:not(.all) + .pains-more { display: flex; width: 100%; justify-content: center; margin-top: 12px; }
       .fold-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 2px; }
       .fold.open .fold-head { margin-bottom: 22px; }
       .fold-sum { color: var(--muted); font-size: .95rem; line-height: 1.45; }
-      .fold-keep { margin-bottom: 16px; cursor: pointer; }
-      .projects-head .fold-keep { margin-bottom: 0; }
-      .projects-head .fold-head, .fold.open .projects-head .fold-head { flex-basis: 100%; margin: -8px 0 0; }
+      .fold-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-basis: 100%; }
+      .fold.open .fold-row:not(.projects-head > *) { margin-bottom: 22px; }
+      .fold-row .fold-keep { flex: 1; min-width: 0; margin: 0; font-size: .95rem; line-height: 1.45; cursor: pointer; }
+      .fold-row .fold-head, .fold.open .fold-row .fold-head { flex: none; margin: 0; }
       .fold:not(.open) .projects-head { margin-bottom: 0; }
       .on-navy .fold-btn { background: rgba(255, 255, 255, .06); border-color: var(--navy-line); color: var(--on-navy); }
       .on-navy .fold-btn svg { color: var(--accent-on-navy); }
@@ -2660,7 +2663,7 @@
     const folds = [...document.querySelectorAll('section.fold')];
     folds.forEach(sec => {
       const h2 = sec.querySelector('h2');
-      /* Services and success stories keep their intro (.fold-keep) visible as the summary, with the button below it */
+      /* Services and success stories keep their intro (.fold-keep) visible as the summary, with the button on its right */
       const keep = [...sec.querySelectorAll('.fold-keep')];
       /* Hide everything beside the path from the title up to the section, except the kicker */
       for (let n = h2; n !== sec; n = n.parentElement)
@@ -2669,7 +2672,8 @@
       head.innerHTML = (keep.length ? '' : `<p class="fold-sum"><span data-l="es">${esc(sec.dataset.sumEs)}</span><span data-l="en">${esc(sec.dataset.sumEn)}</span></p>`)
         + `<button type="button" class="fold-btn" aria-expanded="false"><span data-l="es"><span class="t-show">Ver</span><span class="t-hide">Ocultar</span></span>`
         + `<span data-l="en"><span class="t-show">Show</span><span class="t-hide">Hide</span></span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>`;
-      (keep.at(-1) || h2).after(head);
+      if (keep.length) { const row = document.createElement('div'); row.className = 'fold-row'; keep[0].before(row); row.append(...keep, head); }
+      else h2.after(head);
     });
     function setFold(sec, open, scroll) {
       folds.forEach(f => { const o = f === sec && open; f.classList.toggle('open', o); f.querySelector('.fold-btn').setAttribute('aria-expanded', o); });
