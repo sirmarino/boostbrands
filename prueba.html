@@ -813,14 +813,33 @@
       #cv .wall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       #cv .mark { flex-direction: column; align-items: flex-start; gap: 10px; }
     }
+    /* Phones: the sales story stays open (hero, "¿Te ocurre?", success stories, services, contact) and the sections
+       about Cristian fold to their title and a one-line summary (.fold-head, added by JS, which also marks what hides
+       with data-fold); one opens at a time. "¿Te ocurre?" shows three situations and a button for the rest. */
+    .fold-head, .pains-more { display: none; }
+    @media (max-width: 760px) {
+      .pains:not(.all) .pain:nth-child(n + 4) { display: none; }
+      .pains:not(.all) + .pains-more { display: flex; width: 100%; justify-content: center; margin-top: 12px; }
+      .fold-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 2px; }
+      .fold.open .fold-head { margin-bottom: 22px; }
+      .fold-sum { color: var(--muted); font-size: .95rem; line-height: 1.45; }
+      .fold-btn { flex: none; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px 0 16px; border-radius: 999px; border: 1px solid var(--border);
+        background: var(--surface); font: 600 .9rem var(--font-body); color: var(--text); cursor: pointer; box-shadow: 0 10px 22px -18px rgba(20, 33, 61, .5); }
+      .fold-btn svg { flex: none; color: var(--accent-text); }
+      .fold .t-hide, .fold.open .t-show { display: none; }
+      .fold.open .t-hide { display: inline; }
+      .fold.open .fold-btn svg { transform: rotate(180deg); }
+      section.fold:not(.open) { padding-block: 30px; }
+      .fold:not(.open) [data-fold] { display: none !important; }
+      .fold:not(.open) h2 { margin-bottom: 6px; }
+      section.fold :is(.kicker, h2) { cursor: pointer; }
+    }
+    @media (max-width: 760px) and (prefers-reduced-motion: no-preference) { .fold-btn svg { transition: transform .25s; } }
     /* Test page: sections moved into CV tabs drop their section look */
     #cv .cv-moved { background: none; }
     #cv #habilidades .skills { margin-top: 4px; }
     #cv .cv-photos { margin-top: 28px; }
-    .pains-more { display: none; }
     @media (max-width: 560px) {
-      .pains:not(.all) .pain:nth-child(n + 4) { display: none; }
-      .pains:not(.all) + .pains-more { display: flex; width: 100%; justify-content: center; margin-top: 12px; }
       /* Six tabs wrap as chips on phones */
       #cv .cv-tabs { flex-wrap: wrap; gap: 6px; border-bottom: 0; overflow: visible; }
       #cv .cv-tabs [role="tab"] { min-height: 44px; padding: 0 14px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); font-size: .92rem; }
@@ -1208,7 +1227,7 @@
     </div>
   </section>
 
-  <section id="sobre-mi" class="art">
+  <section id="sobre-mi" class="art fold" data-sum-es="Quién soy y los resultados que me respaldan." data-sum-en="Who I am and the results behind me.">
     <div class="bars-chart" id="bars-chart" aria-hidden="true"></div>
     <div class="wrap about-grid">
       <div>
@@ -1240,7 +1259,7 @@
     </div>
   </section>
 
-  <section id="cv">
+  <section id="cv" class="fold" data-sum-es="Línea de tiempo, logros, con quién he trabajado y fotos." data-sum-en="Timeline, results, who I've worked with and photos.">
     <div class="wrap">
       <span class="kicker">Curriculum vitae</span>
       <h2><span data-l="es">Mi CV, <em>completo</em></span><span data-l="en">My <em>full</em> CV</span></h2>
@@ -2617,10 +2636,47 @@
       return () => { renderGantt(); select(current, false); renderWins(); renderGroups(); renderGallery(); };
     })();
 
-    /* "¿Te suena?" on phones: the button shows the other three situations */
-    document.querySelector('.pains-more').addEventListener('click', e => {
+    /* "¿Te ocurre?" on phones: the button shows the other three situations */
+    document.querySelector('.pains-more')?.addEventListener('click', e => {
       document.querySelector('.pains').classList.add('all'); e.currentTarget.setAttribute('aria-expanded', 'true');
     });
+
+    /* Phones: sections marked .fold collapse to their kicker, title and a one-line summary with a Ver / Ocultar
+       button; one opens at a time, and a link to a section (or to anything inside it) opens it first. */
+    const foldMq = matchMedia('(max-width: 760px)');
+    const folds = [...document.querySelectorAll('section.fold')];
+    folds.forEach(sec => {
+      const h2 = sec.querySelector('h2');
+      /* Hide everything beside the path from the title up to the section, except the kicker */
+      for (let n = h2; n !== sec; n = n.parentElement)
+        [...n.parentElement.children].forEach(c => { if (c !== n && !c.classList.contains('kicker')) c.dataset.fold = ''; });
+      const head = document.createElement('div'); head.className = 'fold-head';
+      head.innerHTML = `<p class="fold-sum"><span data-l="es">${esc(sec.dataset.sumEs)}</span><span data-l="en">${esc(sec.dataset.sumEn)}</span></p>`
+        + `<button type="button" class="fold-btn" aria-expanded="false"><span data-l="es"><span class="t-show">Ver</span><span class="t-hide">Ocultar</span></span>`
+        + `<span data-l="en"><span class="t-show">Show</span><span class="t-hide">Hide</span></span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>`;
+      h2.after(head);
+    });
+    function setFold(sec, open, scroll) {
+      folds.forEach(f => { const o = f === sec && open; f.classList.toggle('open', o); f.querySelector('.fold-btn').setAttribute('aria-expanded', o); });
+      if (open && scroll) requestAnimationFrame(() => sec.scrollIntoView({ block: 'start', behavior: calm() ? 'auto' : 'smooth' }));
+      dispatchEvent(new Event('scroll'));   // counters, bars and the track record line repaint
+    }
+    document.addEventListener('click', e => {
+      if (!foldMq.matches) return;
+      const sec = e.target.closest('section.fold'); if (!sec) return;
+      if (e.target.closest('.fold-btn, .fold-sum') || (e.target.closest('.kicker, h2') && !e.target.closest('[data-fold]')))
+        setFold(sec, !sec.classList.contains('open'), true);
+    });
+    const openFoldFor = el => {
+      const f = el?.closest('section.fold');
+      if (f && foldMq.matches && !f.classList.contains('open')) { setFold(f, true, false); return true; }
+    };
+    /* Capture phase: open the section before the browser scrolls to the link's target */
+    document.addEventListener('click', e => {
+      const a = e.target.closest('a[href^="#"]'); if (a && a.getAttribute('href').length > 1) openFoldFor(document.getElementById(a.getAttribute('href').slice(1)));
+    }, true);
+    addEventListener('hashchange', () => openFoldFor(document.getElementById(location.hash.slice(1))));
+    if (location.hash) { const tgt = document.getElementById(location.hash.slice(1)); if (openFoldFor(tgt)) requestAnimationFrame(() => tgt.scrollIntoView()); }
 
     setLang(lang);
   </script>
