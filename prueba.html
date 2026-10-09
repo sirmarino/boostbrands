@@ -811,8 +811,8 @@
       #cv .detail-side .big { font-size: 2rem; }
       #cv .detail-main { padding: 22px; }
       #cv .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 160px; }
-      #cv .shot.sz-full { grid-row: span 1; }
       #cv .shot.sz-tall { grid-column: 1 / -1; }   /* two columns: a lone tall tile would leave a hole beside it */
+      @media (max-width: 520px) { #cv .shot.sz-full { grid-row: span 1; } }
       #cv .wall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       #cv .mark { flex-direction: column; align-items: flex-start; gap: 10px; }
     }
@@ -2491,7 +2491,7 @@
          pos is an optional object-position for the tile crop. */
       const PHOTOS = [
         { src: 'fotos/stanford-gsb.jpg', caption: 'Stanford GSB, 2015', size: 'wide', pos: '50% 80%' },
-        { src: 'fotos/stanford-clase.jpg', caption: 'Clase en Stanford GSB', caption_en: 'Class at Stanford GSB', size: 'tall' },
+        { src: 'fotos/stanford-clase.jpg', caption: 'Clase en Stanford GSB', caption_en: 'Class at Stanford GSB', size: 'tall', pos: '50% 80%' },
         { src: 'fotos/mit-ganadores.jpg', caption: 'Ganadores, Operations Management · MIT', caption_en: 'Winners, Operations Management · MIT', size: 'wide', pos: '50% 30%' },
         { src: 'fotos/nus-singapur.jpg', caption: 'National University of Singapore (NUS) · práctica MIT', caption_en: 'National University of Singapore (NUS) · MIT practicum', size: 'full', pos: '50% 58%' },
       ];
