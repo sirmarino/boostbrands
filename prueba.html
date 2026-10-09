@@ -789,6 +789,7 @@
     #cv .shot { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: var(--surface); cursor: zoom-in; padding: 0; }
     #cv .shot.sz-tall { grid-row: span 2; }
     #cv .shot.sz-wide { grid-column: span 2; }
+    #cv .shot.sz-full { grid-column: 1 / -1; grid-row: span 2; }
     #cv .shot img { width: 100%; height: 100%; object-fit: cover; }
     #cv .shot span { position: absolute; left: 10px; bottom: 10px; background: var(--surface); color: var(--text); font-size: .8rem; font-weight: 500; padding: 4px 10px; border-radius: 999px; }
     @media (prefers-reduced-motion: no-preference) {
@@ -810,6 +811,8 @@
       #cv .detail-side .big { font-size: 2rem; }
       #cv .detail-main { padding: 22px; }
       #cv .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 160px; }
+      #cv .shot.sz-full { grid-row: span 1; }
+      #cv .shot.sz-tall { grid-column: 1 / -1; }   /* two columns: a lone tall tile would leave a hole beside it */
       #cv .wall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       #cv .mark { flex-direction: column; align-items: flex-start; gap: 10px; }
     }
@@ -1964,7 +1967,7 @@
         proofs: [
           { at: 'bajaj', who: 'Bajaj Motochile', text: 'Cambié el modelo de B2B a venta directa y llevé la marca al #1 del segmento Street.', text_en: 'Moved the model from B2B to direct sales and took the brand to #1 in the Street segment.', case: 1 },
           { at: 'electrolux', who: 'Electrolux', text: 'Presenté el plan estratégico regional con el que aseguré la inversión del HQ global.', text_en: 'Presented the regional strategic plan that secured the global HQ investment.', case: 5 },
-          { at: 'mit', who: 'MIT Sloan · Singapur', who_en: 'MIT Sloan · Singapore', text: 'Estrategia de pricing y go-to-market para una startup biotech en Oceanía, Europa y Norteamérica.', text_en: 'Pricing and go-to-market strategy for a biotech startup in Oceania, Europe and North America.' }] },
+          { at: 'mit', who: 'MIT Sloan · Singapur', who_en: 'MIT Sloan · Singapore', text: 'Estrategia de pricing y go-to-market para Pimeco, startup biomedtech, en Oceanía, Europa y Norteamérica.', text_en: 'Pricing and go-to-market strategy for Pimeco, a biomedtech startup, in Oceania, Europe and North America.' }] },
     ];
     const skIcon = (k, s) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${SK_ICONS[k]}</svg>`;
     let skillAt = 0, skillAuto = !reduceMotion, skillOnScreen = false;
@@ -2391,8 +2394,8 @@
         { id: 'mit', lane: 'edu', start: 2024.6, end: 2026.5, label: 'MIT MBA',
           title: 'MBA', org: 'MIT Sloan School of Management · Boston', period: '2024 – 2026',
           desc: 'Magíster en administración de empresas en el Massachusetts Institute of Technology.', desc_en: 'Master of Business Administration at the Massachusetts Institute of Technology.',
-          bullets: ['Práctica en Singapur: estrategia de pricing y go-to-market para una startup biotech en Oceanía, Europa y Norteamérica.', 'Dirigí dashboards de datos y planes de marketing con IA agéntica para Commonwealth Kitchen of Boston.', 'Finalista en IDEA WEEK con un parche regulador de dopamina con IA.', 'Ganador del concurso de Change Management.', 'Ganador del concurso de Operations Management.'],
-          bullets_en: ['Practicum in Singapore: pricing and go-to-market strategy for a biotech startup in Oceania, Europe and North America.', 'Led data dashboards and agentic-AI marketing plans for Commonwealth Kitchen of Boston.', 'Finalist at IDEA WEEK with an AI dopamine-regulating patch.', 'Winner of the Change Management competition.', 'Winner of the Operations Management contest.'],
+          bullets: ['Práctica en Singapur con la National University of Singapore (NUS) y Pimeco: estrategia de pricing y go-to-market para esta startup biomedtech en Oceanía, Europa y Norteamérica.', 'Dirigí dashboards de datos y planes de marketing con IA agéntica para Commonwealth Kitchen of Boston.', 'Finalista en IDEA WEEK con un parche regulador de dopamina con IA.', 'Ganador del concurso de Change Management.', 'Ganador del concurso de Operations Management.'],
+          bullets_en: ['Practicum in Singapore with the National University of Singapore (NUS) and Pimeco: pricing and go-to-market strategy for this biomedtech startup in Oceania, Europe and North America.', 'Led data dashboards and agentic-AI marketing plans for Commonwealth Kitchen of Boston.', 'Finalist at IDEA WEEK with an AI dopamine-regulating patch.', 'Winner of the Change Management competition.', 'Winner of the Operations Management contest.'],
           big: 'MIT', cap: 'Sloan School of Management' },
         { id: 'unab-prof', lane: 'teach', start: 2025.2, end: 2026.8, label: 'UNAB',
           title: 'Profesor, Escuela de Ingeniería', title_en: 'Professor, School of Engineering', org: 'Universidad Andrés Bello', period: 'mar 2025 – presente', period_en: 'Mar 2025 – present',
@@ -2448,8 +2451,10 @@
       /* Network. logo: file in logos/ shown on a white tile (or on `bg` for logos drawn on a brand color);
          until a logo file exists, the tile shows `mono` (initials). */
       const GROUPS = [
-        { name: 'Empresas donde he trabajado', name_en: "Companies I've worked at", items: [
+        { name: 'Donde he trabajado', name_en: "Where I've worked", items: [
           { n: 'BoostBrands', rel: 'Fundador y CEO', rel_en: 'Founder & CEO', logo: 'logos/boostbrands.png', mono: 'BB' },
+          { n: 'Pimeco', rel: 'Biomedtech de Singapur: pricing y go-to-market', rel_en: 'Singapore biomedtech: pricing and go-to-market', logo: 'logos/pimeco.png', mono: 'P' },
+          { n: 'National University of Singapore', rel: 'Práctica MIT Sloan en Singapur', rel_en: 'MIT Sloan practicum in Singapore', logo: 'logos/nus.png', mono: 'NUS' },
           { n: 'Bajaj Motochile', rel: 'Director de Marketing y Ventas', rel_en: 'Marketing & Sales Director', logo: 'logos/bajaj.png', mono: 'BM' },
           { n: 'Bajaj Auto', rel: 'Country Manager y CMO regional', rel_en: 'Country Manager & regional CMO', logo: 'logos/bajaj.png', mono: 'BA' },
           { n: 'Accenture', rel: 'Associate Marketing Manager', rel_en: 'Associate Marketing Manager', logo: 'logos/accenture.svg', mono: 'A' },
@@ -2482,11 +2487,13 @@
         ['Clúster Andino', 'Electrolux', 'Andean cluster', 'Electrolux'], ['EEUU', 'MIT y Stanford', 'USA', 'MIT and Stanford'],
         ['Canadá', 'máster', 'Canada', "master's"], ['Singapur', 'práctica MIT', 'Singapore', 'MIT practicum'],
       ];
-      /* Gallery: size 'tall' (1×2) or 'wide' (2×1) on a 3-column grid; pos is an optional object-position for the tile crop. */
+      /* Gallery: size 'tall' (1×2), 'wide' (2×1) or 'full' (a whole row, 2 rows high; 1 on phones) on a 3-column grid;
+         pos is an optional object-position for the tile crop. */
       const PHOTOS = [
         { src: 'fotos/stanford-gsb.jpg', caption: 'Stanford GSB, 2015', size: 'wide', pos: '50% 80%' },
         { src: 'fotos/stanford-clase.jpg', caption: 'Clase en Stanford GSB', caption_en: 'Class at Stanford GSB', size: 'tall' },
         { src: 'fotos/mit-ganadores.jpg', caption: 'Ganadores, Operations Management · MIT', caption_en: 'Winners, Operations Management · MIT', size: 'wide', pos: '50% 30%' },
+        { src: 'fotos/nus-singapur.jpg', caption: 'National University of Singapore (NUS) · práctica MIT', caption_en: 'National University of Singapore (NUS) · MIT practicum', size: 'full', pos: '50% 58%' },
       ];
 
       const T = (o, k) => (lang === 'en' && o[k + '_en'] !== undefined) ? o[k + '_en'] : o[k];
