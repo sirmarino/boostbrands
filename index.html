@@ -812,9 +812,10 @@
       #cv .wall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       #cv .mark { flex-direction: column; align-items: flex-start; gap: 10px; }
     }
-    /* Phones: the sales story stays open (hero, "¿Te ocurre?", success stories, services, contact) and the sections
-       about Cristian fold to their title and a one-line summary (.fold-head, added by JS, which also marks what hides
-       with data-fold); one opens at a time. "¿Te ocurre?" shows three situations and a button for the rest. */
+    /* Phones: the sales story stays open (hero, "¿Te ocurre?", success stories, contact) and the sections about
+       Cristian fold to their title and a one-line summary (.fold-head, added by JS, which also marks what hides with
+       data-fold); services fold after their intro, which stays as the summary (.fold-keep). One opens at a time.
+       "¿Te ocurre?" shows three situations and a button for the rest. */
     .fold-head, .pains-more { display: none; }
     @media (max-width: 760px) {
       .pains:not(.all) .pain:nth-child(n + 4) { display: none; }
@@ -822,6 +823,7 @@
       .fold-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 2px; }
       .fold.open .fold-head { margin-bottom: 22px; }
       .fold-sum { color: var(--muted); font-size: .95rem; line-height: 1.45; }
+      .fold-keep { margin-bottom: 16px; cursor: pointer; }
       .fold-btn { flex: none; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px 0 16px; border-radius: 999px; border: 1px solid var(--border);
         background: var(--surface); font: 600 .9rem var(--font-body); color: var(--text); cursor: pointer; box-shadow: 0 10px 22px -18px rgba(20, 33, 61, .5); }
       .fold-btn svg { flex: none; color: var(--accent-text); }
@@ -830,7 +832,7 @@
       .fold.open .fold-btn svg { transform: rotate(180deg); }
       section.fold:not(.open) { padding-block: 30px; }
       .fold:not(.open) [data-fold] { display: none !important; }
-      .fold:not(.open) h2 { margin-bottom: 6px; }
+      .fold:not(.open) h2:not(:has(+ .fold-keep)) { margin-bottom: 6px; }
       section.fold :is(.kicker, h2) { cursor: pointer; }
     }
     @media (max-width: 760px) and (prefers-reduced-motion: no-preference) { .fold-btn svg { transition: transform .25s; } }
@@ -1159,7 +1161,7 @@
     </div>
   </section>
 
-  <section id="boostbrands" class="art" data-photo="fondos/bg-acapella.jpg">
+  <section id="boostbrands" class="art fold" data-photo="fondos/bg-acapella.jpg">
     <div class="wrap">
       <span class="kicker">BoostBrands</span>
       <h2><span data-l="es">Qué hago <em>hoy</em></span><span data-l="en">What I do <em>today</em></span></h2>
@@ -2650,14 +2652,17 @@
     const folds = [...document.querySelectorAll('section.fold')];
     folds.forEach(sec => {
       const h2 = sec.querySelector('h2');
+      /* A section without a summary (services) keeps its intro visible as one, with the button below it */
+      const keep = sec.dataset.sumEs ? [] : [...h2.parentElement.querySelectorAll(':scope > .intro')];
+      keep.forEach(p => p.classList.add('fold-keep'));
       /* Hide everything beside the path from the title up to the section, except the kicker */
       for (let n = h2; n !== sec; n = n.parentElement)
-        [...n.parentElement.children].forEach(c => { if (c !== n && !c.classList.contains('kicker')) c.dataset.fold = ''; });
+        [...n.parentElement.children].forEach(c => { if (c !== n && !c.classList.contains('kicker') && !keep.includes(c)) c.dataset.fold = ''; });
       const head = document.createElement('div'); head.className = 'fold-head';
-      head.innerHTML = `<p class="fold-sum"><span data-l="es">${esc(sec.dataset.sumEs)}</span><span data-l="en">${esc(sec.dataset.sumEn)}</span></p>`
+      head.innerHTML = (keep.length ? '' : `<p class="fold-sum"><span data-l="es">${esc(sec.dataset.sumEs)}</span><span data-l="en">${esc(sec.dataset.sumEn)}</span></p>`)
         + `<button type="button" class="fold-btn" aria-expanded="false"><span data-l="es"><span class="t-show">Ver</span><span class="t-hide">Ocultar</span></span>`
         + `<span data-l="en"><span class="t-show">Show</span><span class="t-hide">Hide</span></span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>`;
-      h2.after(head);
+      (keep.at(-1) || h2).after(head);
     });
     function setFold(sec, open, scroll) {
       folds.forEach(f => { const o = f === sec && open; f.classList.toggle('open', o); f.querySelector('.fold-btn').setAttribute('aria-expanded', o); });
@@ -2667,7 +2672,7 @@
     document.addEventListener('click', e => {
       if (!foldMq.matches) return;
       const sec = e.target.closest('section.fold'); if (!sec) return;
-      if (e.target.closest('.fold-btn, .fold-sum') || (e.target.closest('.kicker, h2') && !e.target.closest('[data-fold]')))
+      if (e.target.closest('.fold-btn, .fold-sum, .fold-keep') || (e.target.closest('.kicker, h2') && !e.target.closest('[data-fold]')))
         setFold(sec, !sec.classList.contains('open'), true);
     });
     const openFoldFor = el => {
