@@ -58,6 +58,10 @@ There is no build step, package manager, framework or test suite. Each page is s
 - CSS for the section is scoped under `#cv` (class names like `.bar`, `.detail`, `.win` come from the old page); gallery sizes are `sz-tall`/`sz-wide` because `.wide` is a layout class elsewhere on the page.
 - The home page says "empresa", never "PYME", and that applies to the CV data too.
 
+## Publishing
+
+- `main` is the production branch: Vercel (project `cristian-marino`) publishes every push to `main` to www.cristian-marino.com on its own, and any other branch gets a preview URL. Work on a branch, check it, then bring `main` up to it (fast-forward) to publish. If a publish goes wrong, Vercel's Instant Rollback on the project's deployments page restores the previous version.
+
 ## Running locally
 
 Open `index.html` directly in a browser, or serve the folder:
