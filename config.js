@@ -1,4 +1,4 @@
-/* Contact settings shared by index.html and cv.html. Edit these three values. */
+/* Contact settings for the site (index.html, which includes the CV section). Edit these three values. */
 window.SITE_CONFIG = {
   email: 'cristian@boostbrands.cl',
   calendarUrl: 'https://calendly.com/cristian_marino/video-call', // booking link, e.g. 'https://calendly.com/...'. Empty: "Agenda" buttons open an email instead.

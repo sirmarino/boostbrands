@@ -51,6 +51,7 @@
       --accent-on-navy: #ff7a45;
       --accent-ink: #16181d;      /* text on orange fills (4.86:1) */
       --accent-soft: #fdeee6;
+      --bar-edu: #2f5fc4; --bar-edu-soft: #e7eefc; --bar-teach: #157a59; --bar-teach-soft: #e3f5ee; --on-bar: #ffffff;   /* CV timeline lanes */
       --art-ink: rgba(20, 33, 61, .13);   /* topographic lines */
       --photo-op: .26; --photo-blend: multiply;   /* photo watermarks */
       --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
@@ -62,7 +63,7 @@
       :root:not([data-theme="light"]) {
         --bg: #0c111d; --surface: #141b2b; --text: #eef1f6; --muted: #a3abbd; --border: #24304a; --heading: #eef1f6;
         --navy: #18233d; --navy-2: #22304f; --navy-line: #34446a; --on-navy: #eef1f6; --on-navy-muted: #b7c0d3;
-        --accent: #ff7a45; --accent-text: #ff8a5c; --accent-on-navy: #ff8a5c; --accent-ink: #16181d; --accent-soft: #2a1a12;
+        --accent: #ff7a45; --accent-text: #ff8a5c; --accent-on-navy: #ff8a5c; --accent-ink: #16181d; --accent-soft: #2a1a12; --bar-edu: #7aa2f7; --bar-edu-soft: #18223a; --bar-teach: #4cc79c; --bar-teach-soft: #12291f; --on-bar: #0c111d;
         --art-ink: rgba(255, 255, 255, .07); --photo-op: .16; --photo-blend: screen;
         color-scheme: dark;
       }
@@ -70,7 +71,7 @@
     :root[data-theme="dark"] {
       --bg: #0c111d; --surface: #141b2b; --text: #eef1f6; --muted: #a3abbd; --border: #24304a; --heading: #eef1f6;
       --navy: #18233d; --navy-2: #22304f; --navy-line: #34446a; --on-navy: #eef1f6; --on-navy-muted: #b7c0d3;
-      --accent: #ff7a45; --accent-text: #ff8a5c; --accent-on-navy: #ff8a5c; --accent-ink: #16181d; --accent-soft: #2a1a12;
+      --accent: #ff7a45; --accent-text: #ff8a5c; --accent-on-navy: #ff8a5c; --accent-ink: #16181d; --accent-soft: #2a1a12; --bar-edu: #7aa2f7; --bar-edu-soft: #18223a; --bar-teach: #4cc79c; --bar-teach-soft: #12291f; --on-bar: #0c111d;
       --art-ink: rgba(255, 255, 255, .07); --photo-op: .16; --photo-blend: screen;
       color-scheme: dark;
     }
@@ -125,7 +126,7 @@
     .logo { display: inline-flex; align-items: center; min-height: 44px; font: 800 1.15rem var(--font-display); text-decoration: none; letter-spacing: -0.02em; white-space: nowrap; }
     .logo span { color: var(--accent); }
     .nav-links { display: flex; gap: 4px; list-style: none; align-items: center; }
-    .nav-links a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; color: var(--muted); font-size: .95rem; font-weight: 500; padding: 0 12px; border-radius: 999px; }
+    .nav-links a { display: inline-flex; align-items: center; min-height: 44px; white-space: nowrap; text-decoration: none; color: var(--muted); font-size: .95rem; font-weight: 500; padding: 0 12px; border-radius: 999px; }
     .nav-links a:hover { color: var(--text); }
     .nav-links a.active { color: var(--accent-text); background: var(--accent-soft); }
     .nav-tools { display: flex; gap: 8px; align-items: center; }
@@ -669,6 +670,118 @@
     @media (prefers-reduced-motion: no-preference) {
       .path-year, .path-item h3, .path-org, .path-item ul, .path-tag, .path-dot, .path-item li::before { transition: color .35s, background-color .35s, border-color .35s, box-shadow .35s; }
     }
+    /* CV section (#cv, it used to be cv.html): tabs, career Gantt + detail panel, results, who I've worked with, photos.
+       Blue and green are data colours for the education and teaching lanes (--bar-* tokens). */
+    #cv button { font-family: inherit; color: inherit; }
+    .cv-tabs { display: flex; gap: 4px; margin-bottom: 26px; border-bottom: 1px solid var(--border); overflow-x: auto; scrollbar-width: none; }
+    .cv-tabs::-webkit-scrollbar { display: none; }
+    .cv-tabs [role="tab"] { position: relative; flex: none; min-height: 48px; padding: 0 16px; border: 0; background: none; font: 600 1rem var(--font-body); color: var(--muted); cursor: pointer; }
+    #cv .cv-tabs [role="tab"]:hover, #cv .cv-tabs [role="tab"][aria-selected="true"] { color: var(--heading); }
+    .cv-tabs [role="tab"]::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: -1px; height: 3px; border-radius: 3px 3px 0 0; background: var(--accent); transform: scaleX(0); }
+    .cv-tabs [role="tab"][aria-selected="true"]::after { transform: none; }
+    @media (prefers-reduced-motion: no-preference) { .cv-tabs [role="tab"]::after { transition: transform .25s; } }
+    .cv-hint { color: var(--muted); max-width: 70ch; margin-bottom: 20px; }
+    @media (max-width: 560px) { .cv-tabs { gap: 0; } .cv-tabs [role="tab"] { padding: 0 11px; font-size: .95rem; } .cv-tabs [role="tab"]::after { left: 8px; right: 8px; } }
+    @media (max-width: 400px) { .cv-tabs [role="tab"] { padding: 0 8px; font-size: .86rem; } .cv-tabs [role="tab"]::after { left: 6px; right: 6px; } }
+    #cv .gantt-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 18px; background: var(--surface); box-shadow: 0 22px 44px -32px rgba(20, 33, 61, .45); }
+    #cv .gantt { min-width: 900px; padding: 20px 20px 12px; }
+    #cv .g-axis, #cv .g-row { display: grid; grid-template-columns: 130px 1fr; align-items: center; }
+    #cv .g-axis .scale { position: relative; height: 22px; }
+    #cv .g-axis .tick { position: absolute; top: 0; transform: translateX(-50%); font: 500 .75rem var(--font-mono); color: var(--muted); }
+    #cv .g-row { min-height: 46px; border-top: 1px dashed var(--border); }
+    #cv .lane-name { font: 500 .75rem var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+    #cv .lane { position: relative; height: 46px; }
+    #cv .g-grid { position: absolute; inset: 0; pointer-events: none; }
+    #cv .g-grid i { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--border); opacity: .6; }
+    #cv .bar { position: absolute; min-width: 46px; top: 7px; height: 32px; border-radius: 8px; border: 1px solid transparent; background: var(--accent-soft); color: var(--accent-text);
+      cursor: pointer; text-align: left; font: 600 .8rem var(--font-body); padding: 0 6px; white-space: nowrap; overflow: hidden; text-overflow: clip; }
+    #cv .bar.edu { background: var(--bar-edu-soft); color: var(--bar-edu); }
+    #cv .bar.teach { background: var(--bar-teach-soft); color: var(--bar-teach); }
+    #cv .bar[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+    #cv .bar.edu[aria-pressed="true"] { background: var(--bar-edu); color: var(--on-bar); }
+    #cv .bar.teach[aria-pressed="true"] { background: var(--bar-teach); color: var(--on-bar); }
+    #cv .now-line { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--accent); }
+    #cv .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 14px; font-size: .88rem; color: var(--muted); }
+    #cv .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 4px; margin-right: 6px; vertical-align: -1px; }
+    #cv .detail { margin-top: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; display: grid; grid-template-columns: minmax(0, 1fr) 250px; overflow: hidden; box-shadow: 0 22px 44px -32px rgba(20, 33, 61, .45); }
+    #cv .detail-main { padding: 28px 30px; min-width: 0; }
+    #cv .detail-top { display: flex; justify-content: space-between; gap: 12px; align-items: start; flex-wrap: wrap; }
+    #cv .detail .period { font: 500 .85rem var(--font-mono); color: var(--accent-text); }
+    #cv .detail h3 { font-size: 1.5rem; line-height: 1.2; margin-top: 6px; letter-spacing: -0.02em; color: var(--heading); }
+    #cv .detail .org { color: var(--muted); margin-top: 2px; }
+    #cv .detail .desc { margin-top: 14px; max-width: 70ch; }
+    #cv .detail ul { margin-top: 14px; padding-left: 18px; display: grid; gap: 8px; max-width: 72ch; }
+    #cv .detail li::marker { color: var(--accent); }
+    #cv .detail-nav { display: flex; gap: 6px; }
+    #cv .detail-nav button { width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); cursor: pointer; }
+    #cv .detail-side { background: var(--navy); color: var(--on-navy-muted); padding: 28px 24px; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+    #cv .detail-side .big { font: 800 2.7rem/1 var(--font-display); letter-spacing: -0.03em; color: var(--accent-on-navy); }
+    #cv .detail-side.edu .big { color: #9bb8f9; }
+    #cv .detail-side.teach .big { color: #6fd8b0; }
+    #cv .detail-side .cap { font-size: .92rem; }
+    #cv .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    #cv .filter { min-height: 44px; padding: 8px 16px; border-radius: 999px; cursor: pointer; border: 1px solid var(--border); background: var(--surface); font-size: .92rem; font-weight: 500; }
+    #cv .filter[aria-pressed="true"] { background: var(--navy); color: var(--on-navy); border-color: var(--navy); }
+    #cv .filter .n { font: 500 .75rem var(--font-mono); opacity: .7; margin-left: 4px; }
+    #cv .wins { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+    #cv .win { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px; display: grid; gap: 6px; align-content: start; }
+    #cv .win:hover { border-color: var(--accent); }
+    #cv .win .big { font: 800 1.9rem/1.1 var(--font-display); color: var(--accent-text); letter-spacing: -0.02em; }
+    #cv .win p { font-size: .95rem; }
+    #cv .win .where { font: 500 .75rem var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-top: 4px; }
+    #cv .wins.all .win.top { background: var(--navy); border-color: var(--navy); color: var(--on-navy); padding: 28px; box-shadow: 0 22px 44px -28px rgba(20, 33, 61, .6); }
+    #cv .wins.all .win.top .big { color: var(--accent-on-navy); font-size: clamp(2.2rem, 4vw, 3rem); }
+    #cv .wins.all .win.top .where { color: var(--on-navy-muted); }
+    @media (min-width: 700px) { #cv .wins.all .win.top { grid-column: span 2; } }
+    #cv .cv-case { justify-self: start; display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; font-size: .9rem; color: var(--accent-text); text-decoration: none; }
+    #cv .cv-case:hover { text-decoration: underline; }
+    #cv .wins.all .win.top .cv-case { color: var(--accent-on-navy); }
+    #cv .groups { display: grid; gap: 28px; }
+    #cv .group h3 { font: 500 .8rem var(--font-mono); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 12px; }
+    #cv .cv-countries { margin-top: 28px; }
+    #cv .wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+    #cv .mark { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; min-height: 88px; display: flex; align-items: center; gap: 14px; overflow: hidden; }
+    #cv .mark .name { font: 800 1.08rem/1.15 var(--font-display); letter-spacing: -0.02em; color: var(--heading); margin-bottom: 3px; }
+    #cv .mark .rel { font-size: .82rem; color: var(--muted); }
+    #cv .mark::after { content: ""; position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--accent); }
+    #cv .mark:hover::after { width: 100%; }
+    /* Logos sit on white in both themes, as brands design them; missing logos show initials on navy */
+    #cv .logo-tile { flex: none; width: 80px; height: 52px; border-radius: 12px; background: #fff; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; padding: 7px 9px; }
+    #cv .logo-tile img { display: block; width: 100%; height: 100%; object-fit: contain; }
+    #cv .logo-tile.mono { padding: 0; background: var(--navy); border-color: var(--navy-line); color: var(--on-navy); font: 800 1.05rem var(--font-display); letter-spacing: -0.02em; }
+    #cv .logo-tile.mono.long { font-size: .74rem; letter-spacing: 0; }
+    #cv .countries { display: flex; flex-wrap: wrap; gap: 8px; }
+    #cv .country { padding: 8px 14px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); font-size: .92rem; }
+    #cv .country b { font-weight: 600; }
+    #cv .country span { color: var(--muted); }
+    #cv .gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 200px; grid-auto-flow: dense; gap: 12px; }
+    #cv .shot { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: var(--surface); cursor: zoom-in; padding: 0; }
+    #cv .shot.sz-tall { grid-row: span 2; }
+    #cv .shot.sz-wide { grid-column: span 2; }
+    #cv .shot img { width: 100%; height: 100%; object-fit: cover; }
+    #cv .shot span { position: absolute; left: 10px; bottom: 10px; background: var(--surface); color: var(--text); font-size: .8rem; font-weight: 500; padding: 4px 10px; border-radius: 999px; }
+    @media (prefers-reduced-motion: no-preference) {
+      #cv .bar { transition: background-color .2s, color .2s, transform .15s; }
+      #cv .bar:hover { transform: translateY(-2px); }
+      #cv .win { transition: border-color .2s, transform .2s; }
+      #cv .win:hover { transform: translateY(-3px); }
+      #cv .mark::after { transition: width .3s ease; }
+      #cv .shot img { transition: transform .5s ease; }
+      #cv .shot:hover img { transform: scale(1.05); }
+      #cv .detail-main.swap { animation: cvSwap .35s ease; }
+      #cv .win.pop { animation: cvPop .3s ease both; }
+    }
+    @keyframes cvSwap { from { opacity: .3; transform: translateY(6px); } }
+    @keyframes cvPop { from { transform: scale(.97); opacity: .4; } }
+    @media (max-width: 860px) {
+      #cv .detail { grid-template-columns: 1fr; }
+      #cv .detail-side { flex-direction: row; align-items: baseline; gap: 12px; padding: 18px 22px; flex-wrap: wrap; }
+      #cv .detail-side .big { font-size: 2rem; }
+      #cv .detail-main { padding: 22px; }
+      #cv .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 160px; }
+      #cv .wall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      #cv .mark { flex-direction: column; align-items: flex-start; gap: 10px; }
+    }
     /* Links from each stage to its success stories (they open the card and scroll to it) */
     .path-cases { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
     .path-case { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px 0 6px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface);
@@ -869,6 +982,7 @@
         <li><a href="#proyectos"><span data-l="es">Casos de éxito</span><span data-l="en">Success stories</span></a></li>
         <li><a href="#como-trabajo"><span data-l="es">Cómo trabajo</span><span data-l="en">How I work</span></a></li>
         <li><a href="#trayectoria"><span data-l="es">Trayectoria</span><span data-l="en">Track record</span></a></li>
+        <li><a href="#cv">CV</a></li>
         <li><a href="#contacto"><span data-l="es">Contacto</span><span data-l="en">Contact</span></a></li>
       </ul>
       <div class="nav-tools">
@@ -1236,7 +1350,53 @@
           </div>
         </li>
       </ol>
-      <div class="more"><a href="cv.html" class="btn btn-ghost"><span data-l="es">Ver trayectoria completa →</span><span data-l="en">See full track record →</span></a></div>
+      <div class="more"><a href="#cv" class="btn btn-ghost"><span data-l="es">Ver mi CV completo ↓</span><span data-l="en">See my full CV ↓</span></a></div>
+    </div>
+  </section>
+
+  <section id="cv">
+    <div class="wrap">
+      <span class="kicker">Curriculum vitae</span>
+      <h2><span data-l="es">Mi CV, <em>completo</em></span><span data-l="en">My <em>full</em> CV</span></h2>
+      <p class="intro" data-l="es">Ejecutivo senior en P&amp;L, crecimiento y transformación de negocios en consultoría, automotriz, retail y fintech, en Chile y mercados internacionales. Aquí está todo: cargos, estudios, docencia, logros y con quién he trabajado.</p>
+      <p class="intro" data-l="en">Senior executive in P&amp;L, growth and business transformation across consulting, automotive, retail and fintech, in Chile and international markets. It's all here: roles, studies, teaching, results and who I've worked with.</p>
+      <div class="cv-tabs" id="cv-tabs" role="tablist" aria-label="Curriculum vitae">
+        <button type="button" role="tab" id="cv-t-0" aria-controls="cv-p-0" aria-selected="true"><span data-l="es">Línea de tiempo</span><span data-l="en">Timeline</span></button>
+        <button type="button" role="tab" id="cv-t-1" aria-controls="cv-p-1" aria-selected="false" tabindex="-1"><span data-l="es">Logros</span><span data-l="en">Results</span></button>
+        <button type="button" role="tab" id="cv-t-2" aria-controls="cv-p-2" aria-selected="false" tabindex="-1"><span data-l="es">Con quién</span><span data-l="en">Worked with</span></button>
+        <button type="button" role="tab" id="cv-t-3" aria-controls="cv-p-3" aria-selected="false" tabindex="-1" hidden><span data-l="es">Fotos</span><span data-l="en">Photos</span></button>
+      </div>
+      <div class="cv-panel" id="cv-p-0" role="tabpanel" aria-labelledby="cv-t-0">
+        <p class="cv-hint" data-l="es">Cada barra es un cargo, un programa de estudio o una cátedra. Toca una para ver qué hice ahí, o usa las flechas ← → del teclado.</p>
+        <p class="cv-hint" data-l="en">Each bar is a role, a degree or a teaching position. Tap one to see what I did there, or use the ← → arrow keys.</p>
+        <div class="gantt-wrap"><div class="gantt" id="gantt"></div></div>
+        <div class="legend">
+          <span><i style="background:var(--accent)"></i><span data-l="es">Experiencia profesional</span><span data-l="en">Professional experience</span></span>
+          <span><i style="background:var(--bar-edu)"></i><span data-l="es">Educación</span><span data-l="en">Education</span></span>
+          <span><i style="background:var(--bar-teach)"></i><span data-l="es">Docencia</span><span data-l="en">Teaching</span></span>
+        </div>
+        <div class="detail" id="detail" aria-live="polite"></div>
+      </div>
+      <div class="cv-panel" id="cv-p-1" role="tabpanel" aria-labelledby="cv-t-1" hidden>
+        <p class="cv-hint" data-l="es">Lo que pasó en cada empresa, en números. Filtra por tipo de impacto.</p>
+        <p class="cv-hint" data-l="en">What happened at each company, in numbers. Filter by type of impact.</p>
+        <div class="filters" id="win-filters" role="group" aria-label="Filtrar logros / Filter results"></div>
+        <div class="wins" id="wins"></div>
+      </div>
+      <div class="cv-panel" id="cv-p-2" role="tabpanel" aria-labelledby="cv-t-2" hidden>
+        <p class="cv-hint" data-l="es">Desde multinacionales Fortune 500 hasta empresas chilenas en crecimiento, en Chile y el extranjero.</p>
+        <p class="cv-hint" data-l="en">From Fortune 500 multinationals to growing Chilean companies, in Chile and abroad.</p>
+        <div class="groups" id="groups"></div>
+        <div class="group cv-countries">
+          <h3><span data-l="es">Países donde he trabajado o estudiado</span><span data-l="en">Countries where I've worked or studied</span></h3>
+          <div class="countries" id="countries"></div>
+        </div>
+      </div>
+      <div class="cv-panel" id="cv-p-3" role="tabpanel" aria-labelledby="cv-t-3" hidden>
+        <p class="cv-hint" data-l="es">Toca una foto para verla en grande.</p>
+        <p class="cv-hint" data-l="en">Tap a photo to enlarge it.</p>
+        <div class="gallery" id="gallery"></div>
+      </div>
     </div>
   </section>
 
@@ -1287,7 +1447,7 @@
         <a href="https://www.linkedin.com/in/cristianmarinov" target="_blank" rel="noopener">LinkedIn</a>
         <a href="mailto:cristian@boostbrands.cl" data-email>cristian@boostbrands.cl</a>
         <a href="#" data-whatsapp hidden target="_blank" rel="noopener">WhatsApp</a>
-        <a href="cv.html"><span data-l="es">CV completo</span><span data-l="en">Full CV</span></a>
+        <a href="#cv">CV</a>
         <a href="#top"><span data-l="es">Volver arriba ↑</span><span data-l="en">Back to top ↑</span></a>
       </nav>
     </div>
@@ -1306,7 +1466,7 @@
 
   <script src="config.js"></script>
   <script>
-    /* Contact settings live in config.js (shared with cv.html). */
+    /* Contact settings live in config.js. */
     const CONFIG = Object.assign({ email: 'cristian@boostbrands.cl', calendarUrl: '', whatsapp: '' }, window.SITE_CONFIG);
 
     const $ = id => document.getElementById(id);
@@ -1330,13 +1490,14 @@
       applyConfig();
       renderProjects();
       renderSkills();
+      renderCV();
     }
     $('lang-btn').addEventListener('click', () => setLang(lang === 'es' ? 'en' : 'es'));
 
     /* ---------- Projects (content from the CV). Fields ending in _en are the English versions.
        Real photos: put fotos/proyecto-01.jpg … proyecto-07.jpg and they replace the sketch.
        Projects with `videos` (YouTube ids, optional playlist) show those instead of a photo or sketch. ---------- */
-    /* Logos in logos/ (shared with cv.html); bg colors the tile for logos drawn on a brand color. */
+    /* Logos in logos/ (shared with the CV section); bg colors the tile for logos drawn on a brand color. */
     const LOGOS = {
       boostbrands: ['logos/boostbrands.png', 'BoostBrands'], acapella: ['logos/acapella.png', 'Acapella'], bench: ['logos/bench.png', 'Bench'],
       bajaj: ['logos/bajaj.png', 'Bajaj'], galgo: ['logos/galgo.png', 'Galgo'], shopify: ['logos/shopify.svg', 'Shopify'], hubspot: ['logos/hubspot.svg', 'HubSpot'],
@@ -2037,6 +2198,328 @@
         toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2200);
       } catch { location.href = `mailto:${CONFIG.email}`; }
     });
+
+    /* ---------- CV (it used to be cv.html): career Gantt with a detail panel, results, who I've worked with and
+       photos, as tabs in #cv. Content from Cristian's CV; fields ending in _en are the English versions. ---------- */
+    const renderCV = (() => {
+      const ROLES = [
+        { id: 'cencosud', lane: 'work', start: 2008.6, end: 2011.7, label: 'Cencosud',
+          title: 'Product Marketing Manager, Tarjeta de Crédito', title_en: 'Product Marketing Manager, Credit Card',
+          org: 'Cencosud · Santiago', period: 'ago 2008 – sep 2011', period_en: 'Aug 2008 – Sep 2011',
+          desc: 'Marketing y producto de medios de pago: campañas de captación, activación y uso para 2 millones de tarjetahabientes (tarjeta de crédito, comercios asociados y avance en efectivo). Partí como Product Manager Junior.',
+          desc_en: 'Payments marketing and product: acquisition, activation and usage campaigns for 2 million cardholders (credit card, partner merchants and cash advance). Started as Junior Product Manager.',
+          bullets: ['Expandí la red de comercios asociados en 15% anual y aumenté el ticket promedio en 10% con promociones cruzadas.', 'Campañas de email segmentadas por perfil de uso, ciclo de deuda y ticket promedio.', 'Campañas de activación del avance en efectivo, según perfil de riesgo.'],
+          bullets_en: ['Grew the partner merchant network 15% a year and raised the average ticket 10% with cross promotions.', 'Email campaigns segmented by usage profile, debt cycle and average ticket.', 'Cash-advance activation campaigns tailored to risk profile.'],
+          big: '2M', cap: 'tarjetahabientes', cap_en: 'cardholders' },
+        { id: 'windsor', lane: 'edu', start: 2011.8, end: 2012.8, label: 'UW',
+          title: 'Máster en Gestión y Administración de la Producción', title_en: "Master's in Production Management",
+          org: 'University of Windsor, Odette School of Business · Canadá', org_en: 'University of Windsor, Odette School of Business · Canada', period: '2012',
+          desc: 'Programa de máster en Canadá.', desc_en: "Master's program in Canada.",
+          bullets: ['Ganador del Premio de la Paz 2012, elegido por los estudiantes por representar valores de liderazgo y globalidad.'],
+          bullets_en: ['Winner of the 2012 Peace Prize, chosen by students for representing leadership and global values.'],
+          big: 'Premio', big_en: 'Award', cap: 'de la Paz 2012', cap_en: '2012 Peace Prize' },
+        { id: 'electrolux', lane: 'work', start: 2013.35, end: 2016.7, label: 'Electrolux',
+          title: 'Senior Regional Product Marketing Manager · Clúster Andino', title_en: 'Senior Regional Product Marketing Manager · Andean Cluster',
+          org: 'Electrolux (dueños de Fensa y Mademsa)', org_en: 'Electrolux (owner of Fensa and Mademsa)', period: 'may 2013 – sep 2016', period_en: 'May 2013 – Sep 2016',
+          desc: 'Estrategia de marketing, producto y ventas 360° para la categoría de mayor facturación. Empecé como Senior Product Marketing Manager Chile y pasé a rol regional en 2014.',
+          desc_en: '360° marketing, product and sales strategy for the highest-revenue category. Started as Senior Product Marketing Manager Chile and moved to a regional role in 2014.',
+          bullets: ['Desarrollo de producto y line-up completo para Electrolux LATAM: aseguré una inversión de USD $20M ante el HQ global con el plan estratégico regional.', '45% de participación en refrigeradores y 75% en freezers: Electrolux, Fensa y Mademsa #1 en Chile.', 'Reposicioné Electrolux en el segmento premium con chefs Michelin ("disfrute culinario"): de 1% a 5% de participación en el primer año.', 'Ganador del Proyecto Global Más Escalable 2015 con el primer laboratorio de Data Analytics de la región.', 'Programa de entrenamiento para 400 vendedores, formando 15 instructores.'],
+          bullets_en: ['Product development and full line-up for Electrolux LATAM: secured USD $20M in investment from global HQ with the regional strategic plan.', '45% share in refrigerators and 75% in freezers: Electrolux, Fensa and Mademsa #1 in Chile.', 'Repositioned Electrolux as premium with Michelin-starred chefs ("culinary enjoyment"): from 1% to 5% share in year one.', "Winner of the Most Scalable Global Project 2015 with the region's first Data Analytics lab.", 'Sales training program for 400 reps, developing 15 instructors.'],
+          big: '#1', cap: 'en refrigeradores y freezers en Chile', cap_en: 'in refrigerators and freezers in Chile' },
+        { id: 'stanford', lane: 'edu', start: 2015.5, end: 2015.75, label: 'GSB',
+          title: 'Diplomado en Marketing Estratégico y Neuromarketing', title_en: 'Diploma in Strategic Marketing Management and Neuromarketing',
+          org: 'Stanford Graduate School of Business · Palo Alto', period: 'ago 2015', period_en: 'Aug 2015',
+          desc: 'Programa ejecutivo de gestión de marketing estratégico y neuromarketing.', desc_en: 'Executive program in strategic marketing management and neuromarketing.', bullets: [],
+          big: 'GSB', cap: 'Stanford, EEUU', cap_en: 'Stanford, USA' },
+        { id: 'accenture', lane: 'work', start: 2016.75, end: 2017.7, label: 'ACN',
+          title: 'Associate Marketing Manager (Subgerente de Marketing)', title_en: 'Associate Marketing Manager', org: 'Accenture · Santiago', period: 'oct 2016 – sep 2017', period_en: 'Oct 2016 – Sep 2017',
+          desc: 'Marketing B2B para las 30 principales empresas de Chile con Salesforce Marketing Cloud. Coordiné 3 colaboradores y 3 agencias.',
+          desc_en: "B2B marketing for Chile's top 30 companies with Salesforce Marketing Cloud. Coordinated 3 staff and 3 agencies.",
+          bullets: ['Estrategia y campañas que cerraron acuerdos por USD $6M.', 'Lideré la primera carrera de drones controlados por la mente en LATAM, campaña "más innovadora" 2017 y estrategia de reclutamiento STEM.', 'Reduje costos de agencia en 10% con una negociación regional.'],
+          bullets_en: ['Strategy and campaigns that closed USD $6M in deals.', 'Led LATAM\'s first mind-controlled drone race, the "most innovative" campaign of 2017 and a STEM recruiting strategy.', 'Cut agency costs 10% through a regional negotiation.'],
+          big: '$6M', cap: 'USD en acuerdos comerciales', cap_en: 'USD in commercial deals' },
+        { id: 'bajaj-auto', lane: 'work', start: 2017.75, end: 2020.2, label: 'Bajaj Auto',
+          title: 'Country Manager Chile y Paraguay · Regional CMO LATAM', title_en: 'Country Manager Chile & Paraguay · Regional CMO LATAM',
+          org: 'Bajaj Auto Limited (Fortune 500, +100 países)', org_en: 'Bajaj Auto Limited (Fortune 500, 100+ countries)', period: 'oct 2017 – mar 2020', period_en: 'Oct 2017 – Mar 2020',
+          desc: 'Estrategia de marca y crecimiento comercial a nivel regional: portafolio, red de distribuidores y agencias. Equipo regional directo de 30 personas y operación conjunta de ~200.',
+          desc_en: 'Regional brand and commercial growth strategy: portfolio, distributor network and agencies. Direct regional team of 30 and a joint operation of ~200.',
+          bullets: ['Lideré la entrada de Bajaj a Paraguay desde cero: elegí distribuidor, armé un equipo de 25 personas y abrí 3 tiendas. USD $1M en ventas y 5% de participación el primer año.', 'Campañas integradas en 6 países con USD $6M de presupuesto, incluyendo 2 reality shows digitales con figuras de TV, Rouser ProAm en Argentina y Pulsar Aventura en dos ruedas en Perú: el mayor crecimiento regional de participación en 10 años (19% LATAM).', 'Frameworks y KPIs que conectan alcance, engagement y conversión con revenue.', 'Renegocié 3 contratos regionales de agencias: -30% en costos.'],
+          bullets_en: ["Led Bajaj's entry into Paraguay from scratch: chose the distributor, built a 25-person team and opened 3 stores. USD $1M in sales and 5% share in year one.", 'Integrated campaigns in 6 countries with a USD $6M budget, including 2 original digital reality shows with TV personalities, Rouser ProAm in Argentina and Pulsar Aventura en dos ruedas in Peru: the largest regional share gain in 10 years (19% LATAM).', 'Frameworks and KPIs linking reach, engagement and conversion to revenue.', 'Renegotiated 3 regional agency contracts: -30% in costs.'],
+          big: '6', cap: 'países con campañas integradas', cap_en: 'countries with integrated campaigns' },
+        { id: 'boostbrands', lane: 'work2', start: 2020.2, end: 2026.8, label: 'BoostBrands · Fundador y CEO', label_en: 'BoostBrands · Founder & CEO',
+          title: 'Fundador y CEO', title_en: 'Founder & CEO', org: 'BoostBrands SpA · Santiago', period: 'mar 2020 – presente', period_en: 'Mar 2020 – present',
+          desc: 'Consultora de marketing comercial B2B/B2C para empresas chilenas, con dos unidades de negocio (consultoría y representación retail). Uso IA agéntica para eficiencia de campañas y contenido, con un enfoque radical "low cost". Equipo de 3 colaboradores.',
+          desc_en: 'B2B/B2C commercial marketing consultancy for Chilean companies, with two business units (consulting and retail representation). I use agentic AI for campaign and content efficiency, with a radical "low cost" approach. Team of 3.',
+          bullets: ['Acuerdos de distribución para 2 marcas internacionales de moda sostenible (Acapella y Bench) en 3 grandes cadenas retail chilenas: USD $400K en ventas con 40% de margen.', 'Asesoré a 50 empresas durante la crisis económica de Chile (USD $150K, 50% de margen, 12 clientes activos), con +15% de crecimiento promedio de ingresos.'],
+          bullets_en: ['Distribution deals for 2 international sustainable fashion brands (Acapella and Bench) in 3 major Chilean retail chains: USD $400K in sales at a 40% margin.', "Advised 50 companies during Chile's economic crisis (USD $150K, 50% margin, 12 active clients), with +15% average revenue growth."],
+          big: '$550K', cap: 'USD en ventas', cap_en: 'USD in sales' },
+        { id: 'motochile', lane: 'work', start: 2020.2, end: 2024.55, label: 'Bajaj Motochile',
+          title: 'Director de Marketing y Ventas', title_en: 'Marketing & Sales Director',
+          org: 'Bajaj Motochile, distribuidor oficial en Chile', org_en: 'Bajaj Motochile, official distributor in Chile', period: 'mar 2020 – jul 2024', period_en: 'Mar 2020 – Jul 2024',
+          desc: 'Control total sobre CAC, conversión, revenue por canal, ticket promedio y participación de mercado nacional. Al mando de 33 personas y 3 agencias.',
+          desc_en: 'Full ownership of CAC, conversion, revenue by channel, average ticket and national market share. Led 33 people and 3 agencies.',
+          bullets: ['Transformación de B2B a B2C/D2C: reemplacé 20 franquicias por 4 tiendas propias. EBITDA +20%, flujo de caja +50%, cuentas por cobrar de USD $1M a $400K y crédito de 60 a 30 días.', 'Alianza de USD $8M con la fintech Galgo (5.500 motos en 2 años) y lanzamiento de MotoFin, microcrédito propio para riders desbancarizados.', 'Participación de mercado de 9% a 23%: #1 en el segmento Street.', 'Canal e-commerce desde cero en Shopify, con sus pasarelas de pago: USD $13,5M en ventas durante la pandemia. Implementé HubSpot CRM.', 'Reconocido por Bajaj HQ India como "la tienda con mejor CX de LATAM".'],
+          bullets_en: ['B2B to B2C/D2C transformation: replaced 20 franchises with 4 company stores. EBITDA +20%, cash flow +50%, receivables from USD $1M to $400K and credit terms from 60 to 30 days.', 'USD $8M alliance with fintech Galgo (5,500 motorcycles over 2 years) and launch of MotoFin, an in-house microcredit unit for unbanked riders.', 'Market share from 9% to 23%: #1 in the Street segment.', 'E-commerce channel from zero on Shopify, including payment gateways: USD $13.5M in sales during the pandemic. Implemented HubSpot CRM.', 'Recognized by Bajaj HQ India as "the best-CX store in LATAM".'],
+          big: '9→23%', cap: 'participación de mercado', cap_en: 'market share' },
+        { id: 'mit', lane: 'edu', start: 2024.6, end: 2026.5, label: 'MIT MBA',
+          title: 'MBA', org: 'MIT Sloan School of Management · Boston', period: '2024 – 2026',
+          desc: 'Magíster en administración de empresas en el Massachusetts Institute of Technology.', desc_en: 'Master of Business Administration at the Massachusetts Institute of Technology.',
+          bullets: ['Práctica en Singapur: estrategia de pricing y go-to-market para una startup biotech en Oceanía, Europa y Norteamérica.', 'Dirigí dashboards de datos y planes de marketing con IA agéntica para Commonwealth Kitchen of Boston.', 'Finalista en IDEA WEEK con un parche regulador de dopamina con IA.', 'Ganador del concurso de Change Management.', 'Ganador del concurso de Operations Management.'],
+          bullets_en: ['Practicum in Singapore: pricing and go-to-market strategy for a biotech startup in Oceania, Europe and North America.', 'Led data dashboards and agentic-AI marketing plans for Commonwealth Kitchen of Boston.', 'Finalist at IDEA WEEK with an AI dopamine-regulating patch.', 'Winner of the Change Management competition.', 'Winner of the Operations Management contest.'],
+          big: 'MIT', cap: 'Sloan School of Management' },
+        { id: 'unab-prof', lane: 'teach', start: 2025.2, end: 2026.8, label: 'UNAB',
+          title: 'Profesor, Escuela de Ingeniería', title_en: 'Professor, School of Engineering', org: 'Universidad Andrés Bello', period: 'mar 2025 – presente', period_en: 'Mar 2025 – present',
+          desc: 'Cursos de Seminario de Proyecto de Título, Portafolio de Proyecto de Título y Proyecto de Título.', desc_en: 'Courses: Capstone Project Seminar, Capstone Project Portfolio and Capstone Project.', bullets: [],
+          big: 'UNAB', cap: 'Escuela de Ingeniería', cap_en: 'School of Engineering' },
+        { id: 'udd-prof', lane: 'teach2', start: 2025.6, end: 2026.8, label: 'UDD',
+          title: 'Profesor de Product Management (MBA)', title_en: 'Professor of Product Management (MBA)',
+          org: 'Universidad del Desarrollo, Facultad de Economía y Negocios', org_en: 'Universidad del Desarrollo, School of Economics and Business', period: 'ago 2025 – presente', period_en: 'Aug 2025 – present',
+          desc: 'Curso de Product Management en el programa MBA.', desc_en: 'Product Management course in the MBA program.', bullets: [],
+          big: 'MBA', cap: 'Product Management' },
+        { id: 'unab', lane: 'edu', start: 2007, end: 2008.45, label: 'UNAB',
+          title: 'Ingeniería Industrial (con honores)', title_en: 'Industrial Engineering (with honors)', org: 'Universidad Andrés Bello · Santiago', period: 'hasta jun 2008', period_en: 'until Jun 2008',
+          desc: 'Ingeniería Industrial y Licenciatura en Ciencias de la Ingeniería, graduado con honores.', desc_en: 'Industrial Engineering and Bachelor of Engineering Sciences, graduated with honors.',
+          bullets: ['Ganador del Mejor Proyecto de Tesis del Año 2007: implementación de RFID para la biblioteca de la UNAB, con USD $35K para implementarlo junto a 3M Chile.'],
+          bullets_en: ['Winner of Best Thesis Project of the Year 2007: an RFID system for the UNAB library, with USD $35K to implement it together with 3M Chile.'],
+          big: '$35K', cap: 'USD para mi tesis con 3M Chile', cap_en: 'USD for my thesis with 3M Chile' },
+      ];
+      const LANES = [
+        { key: 'work', name: 'Empresas', name_en: 'Companies' },
+        { key: 'work2', name: 'Emprendimiento', name_en: 'Founder' },
+        { key: 'edu', name: 'Educación', name_en: 'Education' },
+        { key: 'teach', name: 'Docencia', name_en: 'Teaching' },
+        { key: 'teach2', name: '' },
+      ];
+      const WINS = [
+        { top: true, cat: 'crecimiento', case: 2, big: '9% → 23%', text: 'Participación de mercado, #1 en el segmento Street.', text_en: 'Market share, #1 in the Street segment.', where: 'Bajaj Motochile' },
+        { top: true, cat: 'crecimiento', case: 2, big: 'USD $13,5M', big_en: 'USD $13.5M', text: 'En ventas con un canal e-commerce construido desde cero.', text_en: 'In sales from an e-commerce channel built from zero.', where: 'Bajaj Motochile' },
+        { top: true, cat: 'finanzas', case: 1, big: '+20% EBITDA', text: 'Y +50% en flujo de caja al pasar de 20 franquicias a 4 tiendas propias.', text_en: 'And +50% cash flow by moving from 20 franchises to 4 company stores.', where: 'Bajaj Motochile' },
+        { cat: 'finanzas', case: 1, big: 'USD $8M', text: 'Alianza con la fintech Galgo por 5.500 motos en 2 años.', text_en: 'Alliance with fintech Galgo for 5,500 motorcycles over 2 years.', where: 'Bajaj Motochile' },
+        { cat: 'innovacion', case: 1, big: 'MotoFin', text: 'Unidad propia de microcrédito para riders desbancarizados.', text_en: 'In-house microcredit unit for unbanked riders.', where: 'Bajaj Motochile' },
+        { cat: 'innovacion', big: 'Mejor CX', big_en: 'Best CX', text: 'Reconocida por Bajaj HQ India como la tienda con mejor experiencia de cliente de LATAM.', text_en: 'Recognized by Bajaj HQ India as the store with the best customer experience in LATAM.', where: 'Bajaj Motochile' },
+        { cat: 'liderazgo', big: '33 personas', big_en: '33 people', text: 'Equipo de ventas y marketing, más 3 agencias.', text_en: 'Sales and marketing team, plus 3 agencies.', where: 'Bajaj Motochile' },
+        { cat: 'crecimiento', case: 3, big: 'USD $1M', text: 'Y 5% de participación el primer año, entrando a Paraguay desde cero.', text_en: 'And 5% share in year one, entering Paraguay from scratch.', where: 'Bajaj Auto' },
+        { cat: 'crecimiento', case: 4, big: '19% LATAM', text: 'El mayor crecimiento regional de participación en 10 años.', text_en: 'The largest regional share gain in 10 years.', where: 'Bajaj Auto' },
+        { cat: 'innovacion', case: 4, big: '2 reality shows', text: 'Digitales y originales con figuras de TV: Rouser ProAm en Argentina y Pulsar Aventura en dos ruedas en Perú.', text_en: 'Original digital shows with TV personalities: Rouser ProAm in Argentina and Pulsar Aventura en dos ruedas in Peru.', where: 'Bajaj Auto' },
+        { cat: 'finanzas', case: 4, big: '-30%', text: 'En costos de agencias al renegociar 3 contratos regionales.', text_en: 'In agency costs by renegotiating 3 regional contracts.', where: 'Bajaj Auto' },
+        { cat: 'liderazgo', big: '~200', text: 'Personas en la operación regional, con 30 a cargo directo.', text_en: 'People in the regional operation, with 30 direct reports.', where: 'Bajaj Auto' },
+        { case: 6, cat: 'finanzas', big: 'USD $6M', text: 'En acuerdos comerciales con las 30 principales empresas de Chile.', text_en: "In commercial deals with Chile's top 30 companies.", where: 'Accenture' },
+        { cat: 'innovacion', case: 6, big: 'Drones mentales', big_en: 'Mind-controlled drones', text: 'Primera carrera de drones controlados por la mente en LATAM, campaña más innovadora 2017.', text_en: "LATAM's first mind-controlled drone race, most innovative campaign of 2017.", where: 'Accenture' },
+        { top: true, cat: 'finanzas', case: 5, big: 'USD $20M', text: 'De inversión aprobada por el HQ global para el desarrollo de producto y el line-up completo de LATAM.', text_en: 'Investment approved by global HQ for product development and the full LATAM line-up.', where: 'Electrolux' },
+        { cat: 'crecimiento', case: 5, big: '45% / 75%', text: 'Participación en refrigeradores y freezers: marcas #1 de Chile.', text_en: 'Share in refrigerators and freezers: #1 brands in Chile.', where: 'Electrolux' },
+        { cat: 'innovacion', case: 5, big: '1% → 5%', text: 'En el segmento premium con chefs Michelin como embajadores.', text_en: 'In the premium segment with Michelin-starred chefs as ambassadors.', where: 'Electrolux' },
+        { cat: 'innovacion', big: 'Premio global', big_en: 'Global award', text: 'Proyecto Más Escalable 2015 con el primer laboratorio de Data Analytics de la región.', text_en: "Most Scalable Project 2015 with the region's first Data Analytics lab.", where: 'Electrolux' },
+        { cat: 'liderazgo', big: '400', text: 'Vendedores entrenados y 15 instructores formados.', text_en: 'Sales reps trained and 15 instructors developed.', where: 'Electrolux' },
+        { cat: 'crecimiento', big: '+15%', text: 'Crecimiento promedio de ingresos en 50 empresas asesoradas.', text_en: 'Average revenue growth across 50 companies advised.', where: 'BoostBrands' },
+        { cat: 'finanzas', case: 0, big: 'USD $400K', text: 'En ventas retail con 40% de margen para Acapella y Bench, marcas de moda sostenible.', text_en: 'In retail sales at a 40% margin for Acapella and Bench, sustainable fashion brands.', where: 'BoostBrands' },
+        { cat: 'crecimiento', big: '+15% / +10%', text: 'Comercios asociados y ticket promedio con promociones cruzadas.', text_en: 'Partner merchants and average ticket through cross promotions.', where: 'Cencosud' },
+      ];
+      const CATS = {
+        todos: ['Todos', 'All'], crecimiento: ['Crecimiento', 'Growth'], finanzas: ['Finanzas', 'Finance'],
+        innovacion: ['Marca e innovación', 'Brand & innovation'], liderazgo: ['Liderazgo', 'Leadership'],
+      };
+      /* Network. logo: file in logos/ shown on a white tile (or on `bg` for logos drawn on a brand color);
+         until a logo file exists, the tile shows `mono` (initials). */
+      const GROUPS = [
+        { name: 'Empresas donde he trabajado', name_en: "Companies I've worked at", items: [
+          { n: 'BoostBrands', rel: 'Fundador y CEO', rel_en: 'Founder & CEO', logo: 'logos/boostbrands.png', mono: 'BB' },
+          { n: 'Bajaj Motochile', rel: 'Director de Marketing y Ventas', rel_en: 'Marketing & Sales Director', logo: 'logos/bajaj.png', mono: 'BM' },
+          { n: 'Bajaj Auto', rel: 'Country Manager y CMO regional', rel_en: 'Country Manager & regional CMO', logo: 'logos/bajaj.png', mono: 'BA' },
+          { n: 'Accenture', rel: 'Associate Marketing Manager', rel_en: 'Associate Marketing Manager', logo: 'logos/accenture.svg', mono: 'A' },
+          { n: 'Electrolux', rel: 'Product Marketing regional', rel_en: 'Regional product marketing', logo: 'logos/electrolux.png', mono: 'E' },
+          { n: 'Cencosud', rel: 'Product Marketing', rel_en: 'Product marketing', logo: 'logos/cencosud.png', mono: 'C' } ] },
+        { name: 'Marcas, socios y clientes', name_en: 'Brands, partners and clients', items: [
+          { n: 'Fensa', rel: 'Marca #1 en Chile (Electrolux)', rel_en: '#1 brand in Chile (Electrolux)', logo: 'logos/fensa.png', mono: 'F' },
+          { n: 'Mademsa', rel: 'Marca #1 en Chile (Electrolux)', rel_en: '#1 brand in Chile (Electrolux)', logo: 'logos/mademsa.png', bg: '#ff8201', mono: 'M' },
+          { n: 'Acapella', rel: 'Moda sostenible, representación retail', rel_en: 'Sustainable fashion, retail representation', logo: 'logos/acapella.png', mono: 'A' },
+          { n: 'Bench', rel: 'Moda, representación retail', rel_en: 'Fashion, retail representation', logo: 'logos/bench.png', mono: 'B' },
+          { n: 'Galgo', rel: 'Fintech, alianza USD $8M', rel_en: 'Fintech, USD $8M alliance', logo: 'logos/galgo.png', mono: 'G' },
+          { n: '3M Chile', rel: 'Proyecto RFID de tesis', rel_en: 'RFID thesis project', logo: 'logos/3m.svg', mono: '3M' },
+          { n: 'Commonwealth Kitchen', rel: 'Proyecto MIT en Boston', rel_en: 'MIT project in Boston', logo: 'logos/commonwealth-kitchen.png', mono: 'CK' } ] },
+        { name: 'Herramientas', name_en: 'Tools', items: [
+          { n: 'Shopify', rel: 'E-commerce y pasarelas de pago', rel_en: 'E-commerce and payment gateways', logo: 'logos/shopify.svg', mono: 'S' },
+          { n: 'HubSpot', rel: 'CRM implementado', rel_en: 'CRM implemented', logo: 'logos/hubspot.svg', mono: 'H' },
+          { n: 'Salesforce', rel: 'Marketing Cloud', rel_en: 'Marketing Cloud', logo: 'logos/salesforce.svg', mono: 'S' } ] },
+        { name: 'Donde hago clases', name_en: 'Where I teach', items: [
+          { n: 'Universidad Andrés Bello', rel: 'Profesor, Escuela de Ingeniería', rel_en: 'Professor, School of Engineering', logo: 'logos/unab.png', mono: 'UNAB' },
+          { n: 'Universidad del Desarrollo', rel: 'Profesor MBA, Product Management', rel_en: 'MBA professor, Product Management', logo: 'logos/udd.png', mono: 'UDD' } ] },
+        { name: 'Donde he estudiado', name_en: 'Where I studied', items: [
+          { n: 'MIT Sloan', rel: 'MBA 2024–2026', rel_en: 'MBA 2024–2026', logo: 'logos/mit.png', mono: 'MIT' },
+          { n: 'Stanford GSB', rel: 'Diplomado 2015', rel_en: 'Diploma 2015', logo: 'logos/stanford.png', mono: 'GSB' },
+          { n: 'University of Windsor', rel: 'Máster 2012', rel_en: "Master's 2012", logo: 'logos/windsor.png', mono: 'UW' },
+          { n: 'Universidad Andrés Bello', rel: 'Ingeniería Industrial 2008', rel_en: 'Industrial Engineering 2008', logo: 'logos/unab.png', mono: 'UNAB' } ] },
+      ];
+      const COUNTRIES = [
+        ['Chile', 'base', 'Chile', 'home base'], ['Paraguay', 'lanzamiento Bajaj', 'Paraguay', 'Bajaj launch'], ['Perú', 'campañas', 'Peru', 'campaigns'],
+        ['Argentina', 'campañas', 'Argentina', 'campaigns'], ['6 países LATAM', 'clúster Bajaj', '6 LATAM countries', 'Bajaj cluster'],
+        ['Clúster Andino', 'Electrolux', 'Andean cluster', 'Electrolux'], ['EEUU', 'MIT y Stanford', 'USA', 'MIT and Stanford'],
+        ['Canadá', 'máster', 'Canada', "master's"], ['Singapur', 'práctica MIT', 'Singapore', 'MIT practicum'],
+      ];
+      /* Gallery: size 'tall' (1×2) or 'wide' (2×1) on a 3-column grid; pos is an optional object-position for the tile crop. */
+      const PHOTOS = [
+        { src: 'fotos/stanford-gsb.jpg', caption: 'Stanford GSB, 2015', size: 'wide', pos: '50% 80%' },
+        { src: 'fotos/stanford-clase.jpg', caption: 'Clase en Stanford GSB', caption_en: 'Class at Stanford GSB', size: 'tall' },
+        { src: 'fotos/mit-ganadores.jpg', caption: 'Ganadores, Operations Management · MIT', caption_en: 'Winners, Operations Management · MIT', size: 'wide', pos: '50% 30%' },
+      ];
+
+      const T = (o, k) => (lang === 'en' && o[k + '_en'] !== undefined) ? o[k + '_en'] : o[k];
+      const el = (tag, attrs = {}, ...kids) => {
+        const n = document.createElement(tag);
+        for (const [k, v] of Object.entries(attrs)) {
+          if (k === 'class') n.className = v; else if (k === 'text') n.textContent = v; else n.setAttribute(k, v);
+        }
+        n.append(...kids.filter(Boolean)); return n;
+      };
+      const caseLink = i => el('a', { class: 'cv-case', href: '#proyectos', 'data-case': String(i) },
+        `${lang === 'es' ? 'Ver caso' : 'See case'} ${String(i + 1).padStart(2, '0')} →`);
+
+      /* Tabs (ARIA tablist: arrow keys, Home/End) */
+      const tabs = [...$('cv-tabs').querySelectorAll('[role="tab"]')];
+      function showTab(i, focus) {
+        tabs.forEach((tb, k) => {
+          tb.setAttribute('aria-selected', k === i); tb.tabIndex = k === i ? 0 : -1;
+          $(tb.getAttribute('aria-controls')).hidden = k !== i;
+        });
+        if (focus) tabs[i].focus();
+        if (i === 0) bars.get(current)?.scrollIntoView({ block: 'nearest', inline: 'center' });
+      }
+      $('cv-tabs').addEventListener('click', e => { const tb = e.target.closest('[role="tab"]'); if (tb) showTab(tabs.indexOf(tb)); });
+      $('cv-tabs').addEventListener('keydown', e => {
+        const i = tabs.indexOf(document.activeElement); if (i < 0) return;
+        const n = tabs.filter(tb => !tb.hidden).length;
+        const to = { ArrowRight: (i + 1) % n, ArrowLeft: (i - 1 + n) % n, Home: 0, End: n - 1 }[e.key];
+        if (to === undefined) return; e.preventDefault(); showTab(to, true);
+      });
+
+      /* Gantt + detail */
+      const Y0 = 2007, Y1 = 2027;
+      const pct = y => ((y - Y0) / (Y1 - Y0)) * 100;
+      const order = [...ROLES].sort((a, b) => a.start - b.start);
+      const bars = new Map();
+      let current = 'motochile';
+      function renderGantt() {
+        const gantt = $('gantt'); gantt.replaceChildren(); bars.clear();
+        const axis = el('div', { class: 'g-axis' }, el('span'), el('div', { class: 'scale' }));
+        for (let y = 2008; y <= 2026; y += 2) axis.lastChild.append(el('span', { class: 'tick', style: `left:${pct(y)}%`, text: String(y) }));
+        gantt.append(axis);
+        const now = new Date(); const nowY = now.getFullYear() + now.getMonth() / 12;
+        LANES.forEach(l => {
+          const lane = el('div', { class: 'lane' });
+          const grid = el('div', { class: 'g-grid' });
+          for (let y = 2008; y <= 2026; y += 2) grid.append(el('i', { style: `left:${pct(y)}%` }));
+          lane.append(grid);
+          ROLES.filter(r => r.lane === l.key).forEach(r => {
+            const kind = r.lane.startsWith('edu') ? 'edu' : r.lane.startsWith('teach') ? 'teach' : '';
+            const b = el('button', { class: `bar ${kind}`, type: 'button', 'aria-pressed': String(r.id === current),
+              style: `left:${pct(r.start)}%;width:${pct(r.end) - pct(r.start)}%`, title: `${T(r, 'title')} · ${T(r, 'period')}`, text: T(r, 'label') });
+            b.addEventListener('click', () => select(r.id, true));
+            bars.set(r.id, b); lane.append(b);
+          });
+          if (l.key === 'work') lane.append(el('div', { class: 'now-line', style: `left:${pct(Math.min(nowY, Y1))}%` }));
+          gantt.append(el('div', { class: 'g-row' }, el('span', { class: 'lane-name', text: T(l, 'name') }), lane));
+        });
+      }
+      function select(id, scrollBar) {
+        const r = ROLES.find(x => x.id === id); if (!r) return;
+        current = id;
+        bars.forEach((b, k) => b.setAttribute('aria-pressed', k === id));
+        if (scrollBar) bars.get(id).scrollIntoView({ block: 'nearest', inline: 'center', behavior: reduceMotion ? 'auto' : 'smooth' });
+        const kind = r.lane.startsWith('edu') ? 'edu' : r.lane.startsWith('teach') ? 'teach' : '';
+        const bullets = T(r, 'bullets');
+        const main = el('div', { class: 'detail-main swap' },
+          el('div', { class: 'detail-top' },
+            el('div', {}, el('div', { class: 'period', text: T(r, 'period') }), el('h3', { text: T(r, 'title') }), el('div', { class: 'org', text: T(r, 'org') })),
+            el('div', { class: 'detail-nav' },
+              el('button', { type: 'button', 'aria-label': lang === 'es' ? 'Anterior' : 'Previous', 'data-step': '-1', text: '←' }),
+              el('button', { type: 'button', 'aria-label': lang === 'es' ? 'Siguiente' : 'Next', 'data-step': '1', text: '→' }))),
+          el('p', { class: 'desc', text: T(r, 'desc') }),
+          bullets.length ? el('ul', {}, ...bullets.map(t => el('li', { text: t }))) : null);
+        const side = el('div', { class: `detail-side ${kind}` }, el('div', { class: 'big', text: T(r, 'big') }), el('div', { class: 'cap', text: T(r, 'cap') }));
+        $('detail').replaceChildren(main, side);
+        main.querySelectorAll('[data-step]').forEach(btn => btn.addEventListener('click', () => step(+btn.dataset.step)));
+      }
+      function step(d) {
+        const i = order.findIndex(r => r.id === current);
+        select(order[(i + d + order.length) % order.length].id, true);
+      }
+      /* ← → step through the roles while the timeline tab is on screen */
+      document.addEventListener('keydown', e => {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        if ($('cv-p-0').hidden || $('lb').open || e.target.closest('[role="tablist"], input, textarea, select')) return;
+        const sec = $('cv-p-0').getBoundingClientRect();
+        if (sec.top > innerHeight * .6 || sec.bottom < innerHeight * .3) return;
+        step(e.key === 'ArrowRight' ? 1 : -1);
+      });
+
+      /* Results: the headline ones lead as large navy tiles while "All" is on; results with a success story link to it */
+      let activeCat = 'todos';
+      function renderWins() {
+        const ordered = [...WINS].sort((a, b) => (b.top ? 1 : 0) - (a.top ? 1 : 0));
+        const cards = ordered.map(w => el('article', { class: w.top ? 'win top' : 'win', 'data-cat': w.cat },
+          el('div', { class: 'big', text: T(w, 'big') }), el('p', { text: T(w, 'text') }),
+          el('div', { class: 'where', text: `${w.where} · ${CATS[w.cat][lang === 'es' ? 0 : 1]}` }),
+          w.case !== undefined ? caseLink(w.case) : null));
+        cards.forEach(c => { c.hidden = activeCat !== 'todos' && c.dataset.cat !== activeCat; });
+        $('wins').replaceChildren(...cards); $('wins').classList.toggle('all', activeCat === 'todos');
+        const buttons = Object.entries(CATS).map(([key, names]) => {
+          const n = key === 'todos' ? WINS.length : WINS.filter(w => w.cat === key).length;
+          const b = el('button', { class: 'filter', type: 'button', 'aria-pressed': String(key === activeCat) }, names[lang === 'es' ? 0 : 1], el('span', { class: 'n', text: String(n) }));
+          b.addEventListener('click', () => {
+            activeCat = key; $('wins').classList.toggle('all', key === 'todos');
+            $('win-filters').querySelectorAll('.filter').forEach(x => x.setAttribute('aria-pressed', x === b));
+            cards.forEach(c => {
+              const show = key === 'todos' || c.dataset.cat === key;
+              c.hidden = !show; c.classList.remove('pop');
+              if (show) { void c.offsetWidth; c.classList.add('pop'); }
+            });
+          });
+          return b;
+        });
+        $('win-filters').replaceChildren(...buttons);
+      }
+      $('cv').addEventListener('click', e => {
+        const c = e.target.closest('.cv-case'); if (!c) return;
+        e.preventDefault(); openCase(+c.dataset.case);
+      });
+
+      /* Who I've worked with: logos on white tiles; a logo that fails to load shows its initials on navy */
+      function renderGroups() {
+        const tile = it => {
+          const box = el('div', { class: 'logo-tile', 'aria-hidden': 'true', ...(it.bg ? { style: `background: ${it.bg}; border-color: ${it.bg}` } : {}) });
+          const mono = () => { box.className = `logo-tile mono${it.mono.length > 2 ? ' long' : ''}`; box.removeAttribute('style'); box.textContent = it.mono; };
+          if (it.logo) { const img = el('img', { src: it.logo, alt: '', loading: 'lazy' }); img.onerror = mono; box.append(img); } else mono();
+          return box;
+        };
+        $('groups').replaceChildren(...GROUPS.map(g => el('div', { class: 'group' }, el('h3', { text: T(g, 'name') }),
+          el('div', { class: 'wall' }, ...g.items.map(it => el('div', { class: 'mark' }, tile(it),
+            el('div', {}, el('div', { class: 'name', text: it.n }), el('div', { class: 'rel', text: T(it, 'rel') }))))))));
+        $('countries').replaceChildren(...COUNTRIES.map(([es, whyEs, en, whyEn]) =>
+          el('span', { class: 'country' }, el('b', { text: lang === 'es' ? es : en }), el('span', { text: ` · ${lang === 'es' ? whyEs : whyEn}` }))));
+      }
+
+      /* Photos: only the ones that load; the tab stays hidden until one does. They open in the #lb dialog. */
+      const loaded = [];
+      PHOTOS.forEach((p, i) => {
+        const img = new Image();
+        img.onload = () => { loaded.push(i); loaded.sort((a, b) => a - b); renderGallery(); };
+        img.src = p.src;
+      });
+      function renderGallery() {
+        $('cv-t-3').hidden = !loaded.length;
+        $('gallery').replaceChildren(...loaded.map(i => {
+          const p = PHOTOS[i], cap = T(p, 'caption');
+          const fig = el('button', { class: `shot sz-${p.size}`, type: 'button', 'aria-label': cap },
+            el('img', { src: p.src, alt: '', loading: 'lazy', ...(p.pos ? { style: `object-position: ${p.pos}` } : {}) }), el('span', { text: cap }));
+          fig.addEventListener('click', () => {
+            if (!$('lb').showModal) return;
+            $('lb-img').src = p.src; $('lb-img').alt = cap; $('lb-cap').textContent = cap; $('lb').showModal();
+          });
+          return fig;
+        }));
+      }
+
+      return () => { renderGantt(); select(current, false); renderWins(); renderGroups(); renderGallery(); };
+    })();
 
     setLang(lang);
   </script>
