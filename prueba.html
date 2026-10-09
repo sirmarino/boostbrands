@@ -148,6 +148,10 @@
     .btn:hover { transform: translateY(-2px); }
     .btn svg { flex: none; }
     .btn-primary { background: var(--accent); color: var(--accent-ink); }
+    /* "Sin costo" tag on the hero booking button: the first 30 minutes of analysis are free */
+    .hero .btn-primary { position: relative; }
+    .btn-tag { position: absolute; top: -11px; right: 14px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--navy-line); background: var(--navy); color: var(--on-navy);
+      font: 600 .74rem/1.3 var(--font-body); letter-spacing: .02em; white-space: nowrap; box-shadow: 0 6px 14px -6px rgba(20, 33, 61, .6); pointer-events: none; }
     .btn-primary:hover { box-shadow: 0 10px 24px -10px var(--accent); }
     .btn-ghost { background: var(--surface); border-color: var(--border); color: var(--text); }
     .on-navy .btn-ghost { background: transparent; border-color: var(--navy-line); color: var(--on-navy); }
@@ -1020,18 +1024,19 @@
         at Bajaj Motochile, after leading marketing at Electrolux, Accenture and Cencosud. Today, through BoostBrands, I put those 17 years to work for your business.</span><span class="lead-s">Former <b>Country Manager</b> and <b>Regional CMO</b> at Bajaj, with 17 years at Bajaj, Electrolux, Accenture and Cencosud. Now working for your business.</span></p>
       <ul class="why" data-l="es" aria-label="Por qué trabajar conmigo">
         <li><span><b>Lo he hecho:</b> llevé marcas a nuevos mercados y armé canales desde cero.</span></li>
-        <li><span><b>Visión de multinacional, a tu escala:</b> un plan medido en ventas y margen.</span></li>
+        <li><span><b>Gestión contra resultados:</b> metas concretas en ventas y margen.</span></li>
         <li><span><b>Ejecución, no solo diagnóstico:</b> lo hacemos juntos, apoyados en IA.</span></li>
       </ul>
       <ul class="why" data-l="en" aria-label="Why work with me">
         <li><span><b>I've done it:</b> taken brands into new markets and built channels from scratch.</span></li>
-        <li><span><b>Multinational thinking, at your scale:</b> one plan, measured in sales and margin.</span></li>
+        <li><span><b>Managed against results:</b> concrete sales and margin goals.</span></li>
         <li><span><b>Execution, not just a diagnosis:</b> we do it together, backed by AI.</span></li>
       </ul>
       <div class="actions">
         <a href="mailto:cristian@boostbrands.cl?subject=Reuni%C3%B3n%2030%20min" class="btn btn-primary" data-agenda>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
           <span data-l="es">Agenda una reunión de 30 min para conocer tu problema</span><span data-l="en">Book a 30-min call to understand your challenge</span>
+          <span class="btn-tag"><span data-l="es">Sin costo</span><span data-l="en">Free</span></span>
         </a>
         <a href="#" class="btn btn-ghost" data-whatsapp hidden target="_blank" rel="noopener">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>
@@ -1076,7 +1081,7 @@
 
   <section id="situaciones" class="art">
     <div class="wrap">
-      <span class="kicker"><span data-l="es">¿Te suena?</span><span data-l="en">Sound familiar?</span></span>
+      <span class="kicker"><span data-l="es">¿Te ocurre?</span><span data-l="en">Does this happen to you?</span></span>
       <h2><span data-l="es">¿Tu empresa está en alguna de estas <em>situaciones?</em></span><span data-l="en">Is your business in one of these <em>situations?</em></span></h2>
       <div class="pains">
         <div class="pain">
@@ -1112,8 +1117,8 @@
       </div>
       <button type="button" class="btn btn-ghost pains-more" aria-expanded="false"><span data-l="es">Ver 3 situaciones más</span><span data-l="en">See 3 more situations</span></button>
       <div class="pains-cta">
-        <p data-l="es">¿Te identificas con alguna? Conversemos 30 minutos y vemos por dónde partir.</p>
-        <p data-l="en">Recognize any of these? Let's talk for 30 minutes and find where to start.</p>
+        <p data-l="es">¿Te identificas con alguna? Analicemos tu caso en 30 minutos, sin costo, y vemos por dónde partir.</p>
+        <p data-l="en">Recognize any of these? Let's review your case in 30 minutes, free of charge, and find where to start.</p>
         <a href="mailto:cristian@boostbrands.cl?subject=Reuni%C3%B3n%2030%20min" class="btn btn-primary" data-agenda><span data-l="es">Agenda una reunión de 30 min para conocer tu problema</span><span data-l="en">Book a 30-min call to understand your challenge</span></a>
       </div>
     </div>
@@ -1143,8 +1148,8 @@
         <div class="card glass">
           <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
           <h3><span data-l="es">Consultoría de crecimiento</span><span data-l="en">Growth consulting</span></h3>
-          <p data-l="es">Para empresas que quieren vender más y con mejor margen, con un plan medido desde el primer mes.</p>
-          <p data-l="en">For companies that want to sell more at a better margin, with a plan measured from month one.</p>
+          <p data-l="es">Trabajo contra resultados concretos: metas medibles de ventas y margen desde el primer mes.</p>
+          <p data-l="en">I work against concrete results: measurable sales and margin goals from month one.</p>
           <ul class="card-tags" data-l="es"><li>Medición de campañas</li><li>Precios</li><li>Procesos</li><li>Metas e incentivos</li><li>Marketing + ventas</li><li>Estrategia para escalar</li></ul>
           <ul class="card-tags" data-l="en"><li>Campaign measurement</li><li>Pricing</li><li>Processes</li><li>Goals &amp; incentives</li><li>Marketing + sales</li><li>Strategy to scale</li></ul>
         </div>
@@ -1168,11 +1173,11 @@
       <div class="steps" id="como-trabajo">
         <div>
           <h3><span data-l="es">Cómo empezamos</span><span data-l="en">How we start</span></h3>
-          <p data-l="es">Sin compromiso.</p><p data-l="en">No commitment.</p>
+          <p data-l="es">Los primeros 30 minutos son sin costo y sin compromiso.</p><p data-l="en">The first 30 minutes are free, with no commitment.</p>
         </div>
-        <div class="step"><b>1</b><p><span data-l="es">Conversamos 30 minutos sobre tu negocio y tus metas.</span><span data-l="en">We talk for 30 minutes about your business and your goals.</span></p></div>
+        <div class="step"><b>1</b><p><span data-l="es">Analizamos tu caso en 30 minutos, sin costo: tu negocio, tus metas y dónde estás hoy.</span><span data-l="en">We review your case in 30 minutes, free: your business, your goals and where you stand today.</span></p></div>
         <div class="step"><b>2</b><p><span data-l="es">Te propongo prioridades concretas para crecer.</span><span data-l="en">I propose concrete priorities to grow.</span></p></div>
-        <div class="step"><b>3</b><p><span data-l="es">Si tiene sentido para ambos, armamos un plan y lo ejecutamos juntos.</span><span data-l="en">If it makes sense for both of us, we build a plan and execute it together.</span></p></div>
+        <div class="step"><b>3</b><p><span data-l="es">Si tiene sentido para ambos, armamos un plan con metas concretas y lo ejecutamos juntos, contra resultados.</span><span data-l="en">If it makes sense for both of us, we build a plan with concrete goals and carry it out together, measured against results.</span></p></div>
       </div>
     </div>
   </section>
@@ -1426,8 +1431,8 @@
       <div class="contact-box on-navy art" data-photo="fondos/bg-clase.jpg">
         <span class="kicker"><span data-l="es">Contacto</span><span data-l="en">Contact</span></span>
         <h2><span data-l="es">¿Conversamos sobre tu <em>negocio?</em></span><span data-l="en">Let's talk about your <em>business</em></span></h2>
-        <p data-l="es">Cuéntame en qué está tu empresa y te propongo ideas concretas para avanzar. También estoy disponible para directorios, charlas y docencia.</p>
-        <p data-l="en">Tell me where your business is and I'll suggest concrete ways to move it forward. I'm also available for boards, talks and teaching.</p>
+        <p data-l="es">Los primeros 30 minutos de análisis son sin costo: cuéntame en qué está tu empresa y te propongo ideas concretas para avanzar. También estoy disponible para directorios, charlas y docencia.</p>
+        <p data-l="en">The first 30 minutes of analysis are free: tell me where your business is and I'll suggest concrete ways to move it forward. I'm also available for boards, talks and teaching.</p>
         <div class="actions">
           <a href="mailto:cristian@boostbrands.cl?subject=Reuni%C3%B3n%2030%20min" class="btn btn-primary" data-agenda><span data-l="es">Agenda una reunión de 30 min para conocer tu problema</span><span data-l="en">Book a 30-min call to understand your challenge</span></a>
           <a href="#" class="btn btn-ghost" data-whatsapp hidden target="_blank" rel="noopener">WhatsApp</a>
@@ -1454,7 +1459,7 @@
   </footer>
 
   <aside class="sticky-cta" id="sticky-cta" aria-label="Agendar una reunión / Book a call">
-    <a href="mailto:cristian@boostbrands.cl?subject=Reuni%C3%B3n%2030%20min" class="btn btn-primary" data-agenda><span data-l="es">Agenda una reunión de 30 min</span><span data-l="en">Book a 30-min call</span></a>
+    <a href="mailto:cristian@boostbrands.cl?subject=Reuni%C3%B3n%2030%20min" class="btn btn-primary" data-agenda><span data-l="es">Agenda 30 min sin costo</span><span data-l="en">Book a free 30-min call</span></a>
     <a href="#" class="btn btn-ghost" data-whatsapp hidden target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg></a>
   </aside>
 
@@ -1586,10 +1591,8 @@
         desc_en: 'I designed integrated campaigns for the region, including 2 original digital reality shows with TV personalities: Rouser ProAm in Argentina and Pulsar Aventura en dos ruedas in Peru.',
         pyme: 'Contenido que la gente quiere ver, con métricas que conectan el alcance con las ventas y no solo con los likes.',
         pyme_en: 'Content people want to watch, with metrics that tie reach to sales, not just to likes.',
-        stats: [['USD $6M', 'de presupuesto regional'], ['19%', 'de participación en LATAM'], ['−30%', 'en costos de agencias']],
-        stats_en: [['USD $6M', 'regional budget'], ['19%', 'LATAM market share'], ['−30%', 'in agency costs']],
-        bullets: ['Mayor alza regional de participación en 10 años', 'KPIs que conectan alcance con ventas'],
-        bullets_en: ['Largest regional share gain in 10 years', 'KPIs linking reach to sales'],
+        stats: [['USD $6M', 'de presupuesto regional'], ['+1%', 'de participación en Sudamérica, la mayor alza regional en 10 años'], ['19%', 'de participación en LATAM'], ['−30%', 'en costos de agencias']],
+        stats_en: [['USD $6M', 'regional budget'], ['+1%', 'market share in South America, the largest regional gain in 10 years'], ['19%', 'LATAM market share'], ['−30%', 'in agency costs']],
         chips: ['Marketing integrado', 'Contenido', 'Gestión de agencias'], chips_en: ['Integrated marketing', 'Content', 'Agency management'],
         videos: [
           { id: '3WPd5LJGRUg', list: 'PLDQzHPNYeF3pRpPwWPZLfoBPjrMV-Gf6i', label: 'Pulsar Aventura en dos ruedas · Perú', label_en: 'Pulsar Aventura en dos ruedas · Peru' },
@@ -2243,8 +2246,8 @@
           org: 'Bajaj Auto Limited (Fortune 500, +100 países)', org_en: 'Bajaj Auto Limited (Fortune 500, 100+ countries)', period: 'oct 2017 – mar 2020', period_en: 'Oct 2017 – Mar 2020',
           desc: 'Estrategia de marca y crecimiento comercial a nivel regional: portafolio, red de distribuidores y agencias. Equipo regional directo de 30 personas y operación conjunta de ~200.',
           desc_en: 'Regional brand and commercial growth strategy: portfolio, distributor network and agencies. Direct regional team of 30 and a joint operation of ~200.',
-          bullets: ['Lideré la entrada de Bajaj a Paraguay desde cero: elegí distribuidor, armé un equipo de 25 personas y abrí 3 tiendas. USD $1M en ventas y 5% de participación el primer año.', 'Campañas integradas en 6 países con USD $6M de presupuesto, incluyendo 2 reality shows digitales con figuras de TV, Rouser ProAm en Argentina y Pulsar Aventura en dos ruedas en Perú: el mayor crecimiento regional de participación en 10 años (19% LATAM).', 'Frameworks y KPIs que conectan alcance, engagement y conversión con revenue.', 'Renegocié 3 contratos regionales de agencias: -30% en costos.'],
-          bullets_en: ["Led Bajaj's entry into Paraguay from scratch: chose the distributor, built a 25-person team and opened 3 stores. USD $1M in sales and 5% share in year one.", 'Integrated campaigns in 6 countries with a USD $6M budget, including 2 original digital reality shows with TV personalities, Rouser ProAm in Argentina and Pulsar Aventura en dos ruedas in Peru: the largest regional share gain in 10 years (19% LATAM).', 'Frameworks and KPIs linking reach, engagement and conversion to revenue.', 'Renegotiated 3 regional agency contracts: -30% in costs.'],
+          bullets: ['Lideré la entrada de Bajaj a Paraguay desde cero: elegí distribuidor, armé un equipo de 25 personas y abrí 3 tiendas. USD $1M en ventas y 5% de participación el primer año.', 'Campañas integradas en 6 países con USD $6M de presupuesto, incluyendo 2 reality shows digitales con figuras de TV, Rouser ProAm en Argentina y Pulsar Aventura en dos ruedas en Perú: el mayor crecimiento regional de participación en 10 años (+1% en Sudamérica, 19% LATAM).', 'Frameworks y KPIs que conectan alcance, engagement y conversión con revenue.', 'Renegocié 3 contratos regionales de agencias: -30% en costos.'],
+          bullets_en: ["Led Bajaj's entry into Paraguay from scratch: chose the distributor, built a 25-person team and opened 3 stores. USD $1M in sales and 5% share in year one.", 'Integrated campaigns in 6 countries with a USD $6M budget, including 2 original digital reality shows with TV personalities, Rouser ProAm in Argentina and Pulsar Aventura en dos ruedas in Peru: the largest regional share gain in 10 years (+1% in South America, 19% LATAM).', 'Frameworks and KPIs linking reach, engagement and conversion to revenue.', 'Renegotiated 3 regional agency contracts: -30% in costs.'],
           big: '6', cap: 'países con campañas integradas', cap_en: 'countries with integrated campaigns' },
         { id: 'boostbrands', lane: 'work2', start: 2020.2, end: 2026.8, label: 'BoostBrands · Fundador y CEO', label_en: 'BoostBrands · Founder & CEO',
           title: 'Fundador y CEO', title_en: 'Founder & CEO', org: 'BoostBrands SpA · Santiago', period: 'mar 2020 – presente', period_en: 'Mar 2020 – present',
@@ -2299,7 +2302,7 @@
         { cat: 'innovacion', big: 'Mejor CX', big_en: 'Best CX', text: 'Reconocida por Bajaj HQ India como la tienda con mejor experiencia de cliente de LATAM.', text_en: 'Recognized by Bajaj HQ India as the store with the best customer experience in LATAM.', where: 'Bajaj Motochile' },
         { cat: 'liderazgo', big: '33 personas', big_en: '33 people', text: 'Equipo de ventas y marketing, más 3 agencias.', text_en: 'Sales and marketing team, plus 3 agencies.', where: 'Bajaj Motochile' },
         { cat: 'crecimiento', case: 3, big: 'USD $1M', text: 'Y 5% de participación el primer año, entrando a Paraguay desde cero.', text_en: 'And 5% share in year one, entering Paraguay from scratch.', where: 'Bajaj Auto' },
-        { cat: 'crecimiento', case: 4, big: '19% LATAM', text: 'El mayor crecimiento regional de participación en 10 años.', text_en: 'The largest regional share gain in 10 years.', where: 'Bajaj Auto' },
+        { cat: 'crecimiento', case: 4, big: '19% LATAM', text: 'Participación en LATAM, tras crecer +1% en Sudamérica: el mayor alza regional en 10 años.', text_en: 'LATAM market share, after growing +1% in South America: the largest regional gain in 10 years.', where: 'Bajaj Auto' },
         { cat: 'innovacion', case: 4, big: '2 reality shows', text: 'Digitales y originales con figuras de TV: Rouser ProAm en Argentina y Pulsar Aventura en dos ruedas en Perú.', text_en: 'Original digital shows with TV personalities: Rouser ProAm in Argentina and Pulsar Aventura en dos ruedas in Peru.', where: 'Bajaj Auto' },
         { cat: 'finanzas', case: 4, big: '-30%', text: 'En costos de agencias al renegociar 3 contratos regionales.', text_en: 'In agency costs by renegotiating 3 regional contracts.', where: 'Bajaj Auto' },
         { cat: 'liderazgo', big: '~200', text: 'Personas en la operación regional, con 30 a cargo directo.', text_en: 'People in the regional operation, with 30 direct reports.', where: 'Bajaj Auto' },
