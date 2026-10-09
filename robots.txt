@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cristian-marino.vercel.app/sitemap.xml
+Sitemap: https://www.cristian-marino.com/sitemap.xml
