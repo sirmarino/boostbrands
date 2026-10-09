@@ -574,10 +574,15 @@
       background: radial-gradient(90% 55% at 50% 0%, rgba(232, 85, 28, .2), transparent 70%), linear-gradient(165deg, #1d2d50, #0f182c);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), 0 24px 44px -26px rgba(10, 16, 32, .7); }
     /* Map / Videos switch in a case's visual column, and the map of South America (success story 05) */
-    .vis-tabs { flex: none; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 3px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); }
+    .vis-tabs { flex: none; display: grid; grid-template-columns: repeat(var(--n, 2), minmax(0, 1fr)); gap: 4px; padding: 3px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); }
     .vis-tabs button { min-height: 44px; border: 0; border-radius: 999px; background: none; font: 600 .9rem var(--font-body); color: var(--muted); cursor: pointer; }
     .vis-tabs button[aria-pressed="true"] { background: var(--navy); color: var(--on-navy); box-shadow: 0 8px 18px -12px rgba(20, 33, 61, .8); }
     .vis-pane { flex: 1; display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+    .p-pics { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 10px; }
+    .p-pics figure { display: grid; gap: 4px; }
+    .p-zoom.pic { width: 100%; aspect-ratio: 4 / 3; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 20px 40px -26px rgba(20, 33, 61, .55); }
+    .p-pics figcaption { font: 500 .85rem/1.35 var(--font-body); color: var(--muted); }
+    @media (prefers-reduced-motion: no-preference) { .p-zoom.pic img { transition: transform .4s ease; } .p-zoom.pic:hover img { transform: scale(1.03); } }
     .p-map { gap: 10px; }
     .p-map svg { display: block; width: 100%; height: auto; max-height: 340px; overflow: visible; }
     .m-mute { fill: rgba(255, 255, 255, .07); stroke: rgba(255, 255, 255, .16); stroke-width: .6; stroke-linejoin: round; }
@@ -1633,6 +1638,12 @@
         stats_en: [['USD $6M', 'regional budget'], ['19%', 'segment market share in South America, up from 18%: the largest regional gain in 10 years'], ['−30%', 'in agency costs']],
         chips: ['Marketing integrado', 'Contenido', 'Gestión de agencias'], chips_en: ['Integrated marketing', 'Content', 'Agency management'],
         map: { title: 'Países donde hice mi gestión', title_en: 'Countries I managed', countries: ['CO', 'EC', 'PE', 'BO', 'PY', 'CL', 'AR'] },
+        photos: [
+          { src: 'fotos/bajaj-hq.jpg', alt: 'Cristian Marino en la casa matriz de Bajaj Auto, India', alt_en: 'Cristian Marino at Bajaj Auto headquarters, India',
+            cap: 'Casa matriz de Bajaj Auto, India', cap_en: 'Bajaj Auto headquarters, India', pos: '50% 42%' },
+          { src: 'fotos/bajaj-chakan.jpg', alt: 'Cristian Marino en la planta de Bajaj en Chakan, Pune, India', alt_en: 'Cristian Marino at the Bajaj plant in Chakan, Pune, India',
+            cap: 'Planta de Bajaj en Chakan, Pune (India)', cap_en: 'Bajaj plant in Chakan, Pune (India)', pos: '50% 40%' },
+        ],
         videos: [
           { id: '3WPd5LJGRUg', list: 'PLDQzHPNYeF3pRpPwWPZLfoBPjrMV-Gf6i', label: 'Pulsar Aventura en dos ruedas · Perú', label_en: 'Pulsar Aventura en dos ruedas · Peru' },
           { id: 'K4kNNuP8Z4k', list: 'PLpP2m8fmUUotaXHzy287rd6iYhd8aavNa', label: 'Rouser ProAm · Argentina' },
@@ -1735,6 +1746,8 @@
           <div class="yt-cap"><span>${esc(L(v, 'label'))}</span><a href="${esc(ytUrl(v))}" target="_blank" rel="noopener">YouTube ↗</a></div>
         </div>`).join('')}</div><div class="p-tag">Video</div>`;
     }
+    /* Real photos of a case, each opening in the photo dialog */
+    const photosBlock = (photos, L, t) => `<div class="p-pics">${photos.map(ph => `<figure>${zoomImg(ph, L, t, 'pic')}<figcaption>${esc(L(ph, 'cap'))}</figcaption></figure>`).join('')}</div>`;
     /* Map of the countries a case covered: a .dg stage (so it reveals like the diagrams) with the countries lighting up
        north to south; hovering or tapping a country lights it and its label. */
     function mapBlock(map, L, t) {
@@ -1793,9 +1806,13 @@
         const num = String(i + 1).padStart(2, '0');
         const d = document.createElement('details');
         d.className = 'proj'; d.name = 'proyectos'; d.open = i === openProject;
-        const visual = p.map && p.videos ? `<div class="vis-tabs" role="group" aria-label="${t('Ver', 'Show')}">`
-            + `<button type="button" data-pane="map" aria-pressed="true">${t('Mapa', 'Map')}</button><button type="button" data-pane="videos" aria-pressed="false">Videos</button></div>`
-            + `<div class="vis-pane" data-pane="map">${mapBlock(p.map, L, t)}</div><div class="vis-pane" data-pane="videos" hidden>${videoBlock(p.videos, L, t, p.photo)}</div>`
+        /* A case with a map or photos gets Mapa / Fotos / Videos buttons over its visual column, first pane open */
+        const panes = [p.map && ['map', t('Mapa', 'Map'), mapBlock(p.map, L, t)], p.photos && ['photos', t('Fotos', 'Photos'), photosBlock(p.photos, L, t)],
+          (p.map || p.photos) && p.videos && ['videos', 'Videos', videoBlock(p.videos, L, t, p.photo)]].filter(Boolean);
+        const visual = panes.length > 1 ? `<div class="vis-tabs" role="group" aria-label="${t('Ver', 'Show')}" style="--n:${panes.length}">`
+            + panes.map(([k, name], j) => `<button type="button" data-pane="${k}" aria-pressed="${!j}">${name}</button>`).join('') + '</div>'
+            + panes.map(([k, , html], j) => `<div class="vis-pane" data-pane="${k}"${j ? ' hidden' : ''}>${html}</div>`).join('')
+          : panes.length ? panes[0][2]
           : p.videos ? videoBlock(p.videos, L, t, p.photo) : p.clip
           ? `<figure class="p-clip${p.clip.photo ? ' with-photo' : ''}">${p.clip.photo ? `<img class="p-clip-photo" src="${esc(p.clip.photo)}" alt="${esc(L(p.clip, 'photo_alt'))}" loading="lazy">` : ''}<video controls playsinline preload="none" poster="${esc(p.clip.poster)}" aria-label="${esc(L(p.clip, 'label'))}"><source src="${esc(p.clip.src)}" type="video/mp4"></video><figcaption>${esc(L(p.clip, 'label'))}</figcaption></figure><div class="p-tag">Video</div>`
           : projPhotos.has(i)
