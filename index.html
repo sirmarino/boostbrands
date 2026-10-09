@@ -812,9 +812,9 @@
       #cv .wall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       #cv .mark { flex-direction: column; align-items: flex-start; gap: 10px; }
     }
-    /* Phones: the sales story stays open (hero, "¿Te ocurre?", success stories, contact) and the sections about
-       Cristian fold to their title and a one-line summary (.fold-head, added by JS, which also marks what hides with
-       data-fold); services fold after their intro, which stays as the summary (.fold-keep). One opens at a time.
+    /* Phones: the hero, "¿Te ocurre?" and contact stay open; the sections about Cristian fold to their title and a
+       one-line summary (.fold-head, added by JS, which also marks what hides with data-fold), and services and success
+       stories fold after their intro, which stays as the summary (.fold-keep). One opens at a time.
        "¿Te ocurre?" shows three situations and a button for the rest. */
     .fold-head, .pains-more { display: none; }
     @media (max-width: 760px) {
@@ -824,6 +824,11 @@
       .fold.open .fold-head { margin-bottom: 22px; }
       .fold-sum { color: var(--muted); font-size: .95rem; line-height: 1.45; }
       .fold-keep { margin-bottom: 16px; cursor: pointer; }
+      .projects-head .fold-keep { margin-bottom: 0; }
+      .projects-head .fold-head, .fold.open .projects-head .fold-head { flex-basis: 100%; margin: -8px 0 0; }
+      .fold:not(.open) .projects-head { margin-bottom: 0; }
+      .on-navy .fold-btn { background: rgba(255, 255, 255, .06); border-color: var(--navy-line); color: var(--on-navy); }
+      .on-navy .fold-btn svg { color: var(--accent-on-navy); }
       .fold-btn { flex: none; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px 0 16px; border-radius: 999px; border: 1px solid var(--border);
         background: var(--surface); font: 600 .9rem var(--font-body); color: var(--text); cursor: pointer; box-shadow: 0 10px 22px -18px rgba(20, 33, 61, .5); }
       .fold-btn svg { flex: none; color: var(--accent-text); }
@@ -832,7 +837,7 @@
       .fold.open .fold-btn svg { transform: rotate(180deg); }
       section.fold:not(.open) { padding-block: 30px; }
       .fold:not(.open) [data-fold] { display: none !important; }
-      .fold:not(.open) h2:not(:has(+ .fold-keep)) { margin-bottom: 6px; }
+      .fold[data-sum-es]:not(.open) h2 { margin-bottom: 6px; }
       section.fold :is(.kicker, h2) { cursor: pointer; }
     }
     @media (max-width: 760px) and (prefers-reduced-motion: no-preference) { .fold-btn svg { transition: transform .25s; } }
@@ -1165,8 +1170,8 @@
     <div class="wrap">
       <span class="kicker">BoostBrands</span>
       <h2><span data-l="es">Qué hago <em>hoy</em></span><span data-l="en">What I do <em>today</em></span></h2>
-      <p class="intro" data-l="es">BoostBrands es una consultora de marketing comercial B2B/B2C para empresas chilenas, con dos unidades de negocio: consultoría y representación retail.</p>
-      <p class="intro" data-l="en">BoostBrands is a B2B/B2C commercial marketing consultancy for Chilean companies, with two business units: consulting and retail representation.</p>
+      <p class="intro fold-keep" data-l="es">BoostBrands es una consultora de marketing comercial B2B/B2C para empresas chilenas, con dos unidades de negocio: consultoría y representación retail.</p>
+      <p class="intro fold-keep" data-l="en">BoostBrands is a B2B/B2C commercial marketing consultancy for Chilean companies, with two business units: consulting and retail representation.</p>
       <div class="cards">
         <div class="card glass">
           <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
@@ -1256,15 +1261,15 @@
     </div>
   </section>
 
-  <section id="proyectos" class="on-navy">
+  <section id="proyectos" class="on-navy fold">
     <div class="wide">
       <div class="projects-head">
         <div>
           <span class="kicker"><span data-l="es">Lo que puedo hacer por tu empresa</span><span data-l="en">What I can do for your business</span></span>
           <h2><span data-l="es">Casos de <em>éxito</em></span><span data-l="en">Success <em>stories</em></span></h2>
         </div>
-        <p data-l="es">Proyectos reales de mi trayectoria, con sus cifras. Toca uno para abrirlo.</p>
-        <p data-l="en">Real projects from my career, with their numbers. Tap one to open it.</p>
+        <p class="fold-keep" data-l="es">Proyectos reales de mi trayectoria, con sus cifras. Toca uno para abrirlo.</p>
+        <p class="fold-keep" data-l="en">Real projects from my career, with their numbers. Tap one to open it.</p>
       </div>
       <div class="projects" id="projects"></div>
     </div>
@@ -2021,6 +2026,7 @@
     /* "Ver caso": open that success story and bring it into view. */
     function openCase(i) {
       const d = $('projects').querySelectorAll('details.proj')[i]; if (!d) return;
+      openFoldFor(d);   // phones: unfold the success stories first
       d.open = true;
       requestAnimationFrame(() => requestAnimationFrame(() => {
         d.scrollIntoView({ behavior: calm() ? 'auto' : 'smooth', block: 'start' });
@@ -2652,9 +2658,8 @@
     const folds = [...document.querySelectorAll('section.fold')];
     folds.forEach(sec => {
       const h2 = sec.querySelector('h2');
-      /* A section without a summary (services) keeps its intro visible as one, with the button below it */
-      const keep = sec.dataset.sumEs ? [] : [...h2.parentElement.querySelectorAll(':scope > .intro')];
-      keep.forEach(p => p.classList.add('fold-keep'));
+      /* Services and success stories keep their intro (.fold-keep) visible as the summary, with the button below it */
+      const keep = [...sec.querySelectorAll('.fold-keep')];
       /* Hide everything beside the path from the title up to the section, except the kicker */
       for (let n = h2; n !== sec; n = n.parentElement)
         [...n.parentElement.children].forEach(c => { if (c !== n && !c.classList.contains('kicker') && !keep.includes(c)) c.dataset.fold = ''; });
