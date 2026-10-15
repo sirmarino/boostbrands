@@ -2705,6 +2705,35 @@
     if (location.hash) { const tgt = document.getElementById(location.hash.slice(1)); if (openFoldFor(tgt)) requestAnimationFrame(() => tgt.scrollIntoView()); }
 
     setLang(lang);
+
+    /* Visits: Vercel Web Analytics (counts once it is enabled in the Vercel project) and an instant alert on Cristian's
+       phone (api/visita.js) when someone opens the site or taps a booking, WhatsApp or email button. Production hosts
+       only, once per visit and button, never for bots; opening the site once with ?yo silences that device (his own). */
+    (() => {
+      if (!/^(www\.)?cristian-marino\.(com|vercel\.app)$/.test(location.hostname)) return;
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+      const va = document.createElement('script'); va.defer = true; va.src = '/_vercel/insights/script.js'; document.head.append(va);
+      const store = (s, k, v) => { try { return v === undefined ? s.getItem(k) : s.setItem(k, v); } catch (e) { return null; } };
+      if (/[?&]yo(=|&|$)/.test(location.search)) { store(localStorage, 'no-avisar', '1'); history.replaceState(null, '', location.pathname + location.hash); }
+      if (store(localStorage, 'no-avisar') || navigator.webdriver || /bot|crawl|spider|slurp|preview|headless|lighthouse/i.test(navigator.userAgent)) return;
+      const ua = navigator.userAgent;
+      const dev = /iPhone/.test(ua) ? 'iPhone' : /iPad/.test(ua) || (/Mac/.test(ua) && navigator.maxTouchPoints > 1) ? 'iPad'
+        : /Android/.test(ua) ? (/Mobile/.test(ua) ? 'Android' : 'tablet Android') : /Mac/.test(ua) ? 'Mac' : /Windows/.test(ua) ? 'Windows' : '';
+      let ref = '';
+      try { const r = new URL(document.referrer); if (!/cristian-marino/.test(r.hostname)) ref = r.hostname; } catch (e) {}
+      const utm = new URLSearchParams(location.search).get('utm_source') || '';
+      const send = t => {
+        if (store(sessionStorage, 'avisado-' + t)) return;
+        store(sessionStorage, 'avisado-' + t, '1');
+        const body = JSON.stringify({ t, ref, utm, dev, lang: document.documentElement.lang });
+        if (!(navigator.sendBeacon && navigator.sendBeacon('/api/visita', body))) fetch('/api/visita', { method: 'POST', body, keepalive: true }).catch(() => {});
+      };
+      send('visita');
+      document.addEventListener('click', e => {
+        const a = e.target.closest('[data-agenda], [data-whatsapp], [data-email]');
+        if (a) send(a.hasAttribute('data-agenda') ? 'agenda' : a.hasAttribute('data-whatsapp') ? 'whatsapp' : 'email');
+      }, true);
+    })();
   </script>
 </body>
 </html>

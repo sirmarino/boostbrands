@@ -58,6 +58,11 @@ There is no build step, package manager, framework or test suite. Each page is s
 - CSS for the section is scoped under `#cv` (class names like `.bar`, `.detail`, `.win` come from the old page); gallery sizes are `sz-tall`/`sz-wide` because `.wide` is a layout class elsewhere on the page.
 - The home page says "empresa", never "PYME", and that applies to the CV data too.
 
+## Visit alerts and analytics
+
+- Cristian asked to be told when someone visits. At the end of index.html's script (production hosts only: www.cristian-marino.com, cristian-marino.com, cristian-marino.vercel.app) the page loads Vercel Web Analytics (`/_vercel/insights/script.js`; it only counts once Web Analytics is enabled in the Vercel project) and posts to `api/visita.js` once per visit (sessionStorage) and once per tap on a `[data-agenda]`, `[data-whatsapp]` or `[data-email]` button. Bots, headless browsers (so local tests never alert) and devices that opened the site once with `?yo` (localStorage `no-avisar`, Cristian's own) send nothing.
+- `api/visita.js` (a Vercel Node function, CommonJS) turns that into a push on his phone through ntfy.sh: title "Nueva visita a tu web" or "Alguien tocó «Agenda» / WhatsApp / tu email", and a line with city and country (Vercel IP headers; no IP is kept or sent), device, where they came from (referrer or `utm_source`) and the language. It only answers POSTs from the site's own origins, caps alerts at 40 per 10 minutes, and does nothing without the `NTFY_TOPIC` environment variable (production; the topic his ntfy app subscribes to, kept out of the repo).
+
 ## Publishing
 
 - `main` is the production branch: Vercel (project `cristian-marino`) publishes every push to `main` to www.cristian-marino.com on its own, and any other branch gets a preview URL. Work on a branch, check it, then bring `main` up to it (fast-forward) to publish. If a publish goes wrong, Vercel's Instant Rollback on the project's deployments page restores the previous version.
