@@ -1,0 +1,23 @@
+{
+  "name": "boostbrands",
+  "version": "1.0.0",
+  "description": "Cristian Marino - BoostBrands website with Vercel Speed Insights",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"No tests specified\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sirmarino/boostbrands.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sirmarino/boostbrands/issues"
+  },
+  "homepage": "https://github.com/sirmarino/boostbrands#readme",
+  "dependencies": {
+    "@vercel/speed-insights": "^2.1.0"
+  }
+}
